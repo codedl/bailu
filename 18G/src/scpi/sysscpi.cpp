@@ -685,7 +685,6 @@ int tSysScpi::setFrequencyOfSpan(double value)
 	//  }
 
 	double temp = setSpanOfMeasure(value);
-//	printf("set span %f\r\n",value);
 	sysData.span.prvSpan = sysData.span.nowSpan;
 	double minFreq = MINFREQ + sysData.freq.offset;
 	double maxFreq = MAXFREQ + sysData.freq.offset;
@@ -970,7 +969,6 @@ int tSysScpi::setAmptOfRefLevel(double value)
 	}
 
 	sysData.ampt.refLevel = tempValue;
- // printf("1 set ref %f\r\n",sysData.ampt.refLevel);
 	double refLeveldBmValue = getRefLeveldBmValue();
 
 	autoAmptAndReflevel();
@@ -1129,7 +1127,6 @@ int tSysScpi::setAmptOfRefLevel(double value)
 //
 //	sysErrValue = 0;
 
-//	printf("2 set ref %f\r\n", refLeveldBmValue);
 	sysData.ampt.refLevel = refLeveldBmValue;
 
 	if(sysData.ampt.attIf < 0)
@@ -1145,7 +1142,6 @@ int tSysScpi::setAmptOfRefLevel(double value)
 	sysData.ampt.att = sysData.ampt.attRf;
 
 	controlRf();
- // printf("ampt ref level %f, if value %f, soft value %f\r\n",sysData.ampt.refLevel, sysData.ampt.attIf,sysData.ampt.ifSoftValue);
 
 	return __SCPI_SUCCESS;
 }
@@ -1482,7 +1478,6 @@ int tSysScpi::setAmptOfAtt(double value)
 	}
 
 //	sysData.ampt.refLevel = tempValue;
-//  printf("1 set ref %f\r\n",sysData.ampt.refLevel);
 	double refLeveldBmValue = getRefLeveldBmValue();
 
 	autoAmptAndReflevel();
@@ -1517,7 +1512,6 @@ int tSysScpi::setAmptOfAtt(double value)
 
 	}
 
-//	printf("2 set ref %f\r\n",refLeveldBmValue);
 	sysData.ampt.refLevel = refLeveldBmValue;
 	sysData.ampt.attRf = attValue;
 
@@ -1531,7 +1525,6 @@ int tSysScpi::setAmptOfAtt(double value)
 
 	sysData.ampt.att = sysData.ampt.attRf;
 	controlRf();
-	// printf("ampt ref level %f,if value %f,soft value %f\r\n",sysData.ampt.refLevel,sysData.ampt.ifValue,sysData.ampt.ifSoftValue);
 
 	return __SCPI_SUCCESS;
 }
@@ -3243,7 +3236,6 @@ int tSysScpi::setSweepOfMode(int value)
 	bool val = !sysData.sweep.sweepSingle;
 	//controlRf();
 	feDownload(230, val);
-//	printf("set sweep mode %d\r\n",val);
 
 	return __SCPI_SUCCESS;
 }
@@ -9962,7 +9954,6 @@ int tSysScpi::presetSystem(void)
 ////  if (ifHandleTQ > 0)
 ////  {
 ////	ioctl(ifDev, addr, value);
-////	printf("tqifdown %x , value %x\r\n",addr, value);
 ////  }
 //}
 
@@ -11793,7 +11784,6 @@ void tSysScpi::modifyBandIndex(void)
 	unsigned int band5_start_index = rfData.N_L + rfData.N_HL + rfData.N_HH1 + rfData.N_HH2;
 	unsigned int band6_start_index = rfData.N_L + rfData.N_HL + rfData.N_HH1 + rfData.N_HH2 + rfData.N_HH3;
 	unsigned int band7_start_index = band6_start_index + rfData.N_HH4;
-//	printf("l %d, hl %d, hh1 %d, hh2 %d, hh3 %d, hh4 %d\r\n",rfData.N_L,rfData.N_HL,rfData.N_HH1,rfData.N_HH2,rfData.N_HH3,rfData.N_HH4);
 	for (i = 0; i < sysData.sweep.sweepPoints; i++)
 	{
 //		if (i < band2_start_index)
@@ -11881,7 +11871,6 @@ char tSysScpi::getZcAttVal(void)
 		rfAttDown = 1;
 
 	temp = (ifAttDown << 2 | rfAttDown) & 0x0f;
-	printf("zc ATT Down %x, ifAtt %f, rfAtt %f\r\n", temp, sysData.ampt.attIf, sysData.ampt.attRf);
 
 	return temp;
 
@@ -11908,7 +11897,6 @@ void tSysScpi::controlRf(void)
 	setHighbandAtt(sysData.ampt.attRf);    //高波段衰减器
 	rfPreamptDown(sysData.ampt.isPreamptOn); //前置放大选择
 
-//	printf("att if %f, att rf %f\r\n",sysData.ampt.attIf, sysData.ampt.attRf);
 
 	updateBandParam();         //本振参数计算
 
@@ -11916,7 +11904,6 @@ void tSysScpi::controlRf(void)
 
 	setFTWOfDDS();             //DDS下发
 
-//  printf("ref %f, attIf %f, attRf %f, softIf %f\r\n", sysData.ampt.refLevel, sysData.ampt.attIf, sysData.ampt.attRf, sysData.ampt.ifSoftValue);
 	if(!sysData.span.isZeroSpan)
 	{
 		feDownload(0xfff8, 0);     //一本初始化
@@ -11961,7 +11948,6 @@ void tSysScpi::controlRf(void)
 
 	freqScanStart();          //扫描开始
 
-	printf("rbw %f, att if %f, att rf %f\r\n", sysData.bw.rbw, sysData.ampt.attIf, sysData.ampt.attRf);
 
 }
 
@@ -12168,7 +12154,6 @@ void tSysScpi::bwAutoCouple(void)
 	if (sysData.bw.rbwAuto && sysData.span.span != 0)
 	{
 		sysData.bw.rbw = getRecentBw(sysData.span.span / k);
-		printf("rbw auto %f\r\n", sysData.bw.rbw);
 	}
 
 }
@@ -12518,7 +12503,6 @@ void tSysScpi::controlIf(void)
 		vbwCvc = getVbwFactor(sysData.bw.vbw);
 	}
 
-	//  printf("vbwCvc = 0x%04x\n",vbwCvc);
 
 	//  unsigned long vbwCvc = RAMCVC[getVbwIndex()];
 	//  ifDownload(0x08, RAMCVC[getVbwIndex()]);
@@ -12724,7 +12708,6 @@ void tSysScpi::controlIf(void)
 		rfDownload(0xf9, (trigDown << 4) | (0 << 3)); //外部触发控制
 	}
 	//  rfDownload(0x54, (0x01 << 4) | (isZeroSpan << 3) |(sysData.demod.demodOn << 2) | (ifDown >> 3));
-	//  printf("ifdown %x, %x\n",ifDown,(sysData.trig.trigDown << 4) | (isZeroSpan << 3) |(sysData.demod.demodOn << 2) | (ifDown >> 3));
 	//解调音量
 	ifDownload(0x1e, (unsigned char) (sysData.demod.sound * 2.55));
 }
@@ -12732,13 +12715,11 @@ void tSysScpi::controlIf(void)
 //中频检波控制
 void tSysScpi::controlIfDetector(void)
 {
-//	printf("control if detector \r\n");
 	//fft reset
 	feDownload(15, 1);
 	usleep(1);
 	feDownload(15, 0);
 
-//	printf("fft real N %lu, sweeptime %f, sampletime %f\r\n", sysData.fscan.fftRealN, sysData.sweep.sweepTime, sysData.fscan.sampleTime_ZeroSpan);
 	char detMode = 0;
 	int interpRate = 0, shiftRate = 0;
 	if(sysData.fscan.fftRealN < 400)
@@ -12760,7 +12741,6 @@ void tSysScpi::controlIfDetector(void)
 
 	//FFT 检波方式
 	feDownload(27, detMode);
-//	printf("detMode %d\n",detMode);
 
 	if(sysData.fscan.fftRealN < 400)
 	{
@@ -12804,7 +12784,6 @@ void tSysScpi::controlIfDetector(void)
 //	if(sysData.span.isZeroSpan)
 //		sysData.detector.length = ceil(sysData.fscan.fftRealN / 1600.0);
 	sysData.detector.length = ceil(sysData.detector.realLength / 1600.0);
-//	printf("fft real n %d, det length %d, interpRate %d, real length %d\r\n",sysData.fscan.fftRealN, sysData.detector.length,interpRate,sysData.detector.realLength);
 
 	if(sysData.detector.length == 0)
 		return;
@@ -12826,13 +12805,11 @@ void tSysScpi::controlIfDetector(void)
 		sysData.detector.ldata = ceil(sysData.detector.realLength * 1.0 / sysData.detector.length);
 	}
 	feDownload(30, sysData.detector.ldata);
-//	printf("ldata %d\n",sysData.detector.ldata);
 
 	//均值检波和均方根值检波 常规量化数据
 	unsigned int DaverData = round((pow(2, 32) - 1) * 1.0 / sysData.detector.length);
 	feDownload(31, (DaverData >> 16) & 0xffff);
 	feDownload(32, DaverData & 0xffff);
-//	printf("dData %x\r\n",DaverData);
 
 	//均值检波和均方根值检波 尾数量化数据
 	unsigned int IaverData = 0;
@@ -12843,8 +12820,6 @@ void tSysScpi::controlIfDetector(void)
 
 	feDownload(33, (IaverData >> 16) & 0xffff);
 	feDownload(34, IaverData & 0xffff);
-//	printf("iaver data %x\n",IaverData);
-//	printf("controlif detector\n");
 }
 
 //关闭源发生器
@@ -14338,7 +14313,6 @@ void tSysScpi::reCalculateZcParams(void)
 
 		//时间赋值
 		sysData.zc.swt = swt;
-		// printf("zc swt %f ,totalswt %f, sweep time %f\r\n",sysData.zc.swt,totalSwt,sysData.sweep.sweepTime);
 		//sysData.sweep.sweepTime = totalSwt;
 	}
 }
@@ -16762,7 +16736,6 @@ unsigned char tSysScpi::getZcIfdown(double value)
 	{
 		trigDown = 1;
 	}
-//	printf("%x\n",ifDown | (preamptOn << 2) | (1 << 3) | (trigDown << 4));
 	return (ifDown | (preamptOn << 2) | (1 << 3) | (trigDown << 4));
 }
 
@@ -16778,10 +16751,8 @@ bool tSysScpi::directGatherControl(void)
 			ifDown = getZcIfdown(sysData.ampt.ifValue);
 
 			rfDownload(0xf9, ifDown);
-			//  printf("ref =  %f, if = %f, att = %f, ifdown = 0x%02x\n",sysData.ampt.refLevel,sysData.ampt.ifValue,sysData.ampt.att,ifDown);
 			//地址：0x012<<2，说明：波段及衰减控制，其中衰减控制与变频通道复用
 			rfDownload(0xfd, (15 - (int) (sysData.ampt.att / 3)) | (1 << 4) | (0 << 6));
-			//	  printf("ref = %f, if = %f, att = %f,IFDOWN 0X%02X , ifDown = 0x%02x, AttDown = 0x%02x\r\n",
 			//			  sysData.ampt.refLevel,
 			//			  sysData.ampt.ifValue,
 			//			  sysData.ampt.att,
@@ -16806,7 +16777,6 @@ bool tSysScpi::directGatherControl(void)
 			reCalculateZcParams();
 		} else
 		{
-			//printf("enter bp mode\n");
 			rfDownload(0xf9, 0x00);
 			rfDownload(0xfd, 0x6c);
 			//ioctl(rfHandle, 0xf9, 0x00);  // 0x012<<2
@@ -19396,7 +19366,6 @@ int tSysScpi::signalOutputAmptIsvalid(bool isCom, double value)
 
 void tSysScpi::setFrontendAtt(double rfAtt, double ifAtt)
 {
-	printf("setFRont att %f, %f \r\n",rfAtt, ifAtt);
 	feDownload(207, 0);         //本振送数开关
 	setLowbandAtt(rfAtt);
 	setHighbandAtt(rfAtt);
@@ -19504,7 +19473,6 @@ void tSysScpi::setCalibrateParamOfRfAttenuation(void)
 	{
 		setAmptOfRefLevel(0);
 	}
-//	printf("ref %f\r\n",sysData.ampt.refLevel);
 	controlRf();
 }
 
@@ -19609,7 +19577,6 @@ void tSysScpi::setZcCalibrateDistributeIF(double value)
 		ifDown = getZcIfdown(value);
 
 		rfDownload(0xf9, ifDown);
-		//printf("ifdown %d, %x\r\n",ifDown,ifDown | (preamptOn << 2) | (1 << 3));
 	}
 }
 
@@ -19716,7 +19683,6 @@ void tSysScpi::setZcCalibrateDistributeFrequencyRespond(int freqIndex, double re
 	}
 
 //	if(ref == 0 && att == 9)
-//	printf("ref = %f, att = %f, span = %f, rbw = %f\r\n",sysData.ampt.refLevel,sysData.ampt.att,sysData.span.span,sysData.bw.rbw);
 	controlRf();
 }
 
@@ -20044,7 +20010,6 @@ double tSysScpi::getErrorOfIFofLowfreqofPre(void)
 	{
 		errValue = sysData.zcPreamplifierCalData.if30 + sysData.userCalData.if30dB;
 	}
-	//  printf("ifValue=%f, ifZs=%d, errValue=%f\n",sysData.ampt.ifValue,ifZS,errValue);
 	return errValue + sysErrValue;
 }
 
@@ -20121,7 +20086,6 @@ double tSysScpi::getErrorOfIFofLowfreq(void)
 	{
 		errValue = sysData.zcCalData.if30 + sysData.userCalData.if30dB;
 	}
-	//printf("ifvalue = %f, err = %f\r\n",sysData.ampt.ifValue,errValue);
 	return errValue + sysErrValue;
 }
 
@@ -20138,7 +20102,6 @@ double tSysScpi::getErrorOfIF(void)
 		ifValue = MINATT;
 
 	errValue = sysData.factoryCalData.attIf[ifValue];
-//	printf("if att [%d] error %f\r\n", ifValue, errValue);
 	return errValue * -1 ;
 }
 
@@ -20845,7 +20808,6 @@ double tSysScpi::getErrorOfFreqResp(int index)
 				x1 = 321;
 				x2 = 372;
 			}
-		//	printf("freq %f\r\n",freq);
 			for(int j = x1; j < x2; j++)
 			{
 				if((freq >= FREQRESPHZ[j]) && (freq <= FREQRESPHZ[j + 1]))
@@ -21216,7 +21178,6 @@ bool tSysScpi::getAmResult(void)
 			sysData.options.am_freq = qAbs(rIndex - lIndex) / 2.0 * IFFS / sysData.options.cicValue / DEMODFFTSIZE;
 
 			/*
-			 printf("-----------------\n");
 			 firDemod(sysData.options.mData, sysData.options.mDataFir, DEMODFFTSIZE, DEMODFIRN, DEMODFIRH);
 
 			 double avgValue = 0;
@@ -21248,8 +21209,6 @@ bool tSysScpi::getAmResult(void)
 			 {
 			 mod_rate += 1.0 / ((tz[i] - tz[i-1]) * (j - 1));
 			 }
-			 printf("j = %d, avg = %f, %f, %f, %f\n", j, avgValue, sysData.options.mData[0], sysData.options.mDataFir[0], mod_rate);
-			 printf("-----------------\n");
 			 */
 		} else
 		{
@@ -21284,7 +21243,6 @@ bool tSysScpi::getAmResult(void)
 		{
 			tempValueOfdepth = 0;
 		}
-//    printf("max %f, min %f, tempDep %f \r\n",maxValue,minValue,tempValueOfdepth);
 
 		//当调制率大于等于10kHz时候，调制深度进行补偿
 		if (sysData.options.am_freq >= 10e3)
@@ -22511,7 +22469,6 @@ int tSysScpi::setFrontendRefVolt(QString value)
 int tSysScpi::getPremptData(int val)
 {
 	double freq = sysData.freq.start;
-	printf(">>> freq  %f\r\n",freq);
 	char band = 1, channel = 0x03, temp = 0, premptOn = 0, band_low = 0;
 	if(freq <= FREQ_START_HH_BAND1)
 		band = 0x01;
@@ -22549,7 +22506,6 @@ int tSysScpi::rfPreamptDown(int value)
 	int temp = getPremptData(sysData.ampt.isPreamptOn);
 
 	feDownload(0xfff4, temp);
-	printf("preampt set %x\r\n",temp);
 	return __SCPI_SUCCESS;
 }
 
@@ -22577,7 +22533,6 @@ int tSysScpi::setFrontEndIfAtt(double value)
 //	sysData.fe.ifAtt = value;
 	sysData.ampt.attIf = value;
 	char attDownValue = calIfAttValueOfFrontend(sysData.ampt.attIf);
-//	printf("ifatt = %f, attdown %x\r\n",sysData.fe.ifAtt, attDownValue);
 	feDownload(0xfff5, attDownValue);
 
 	return __SCPI_SUCCESS;
@@ -22704,7 +22659,6 @@ int tSysScpi::setFrontEndFreq(double value)
 	cmd = 0;
 	temp4 = (cmd << 31) | ((addr & 0x3f) << 25) | (( f & ~(1 << 24)) << 1);
 //	temp = (( f & ~(1 << 24)) << 8) | ((addr & 0x1f) << 3);
-//printf("%08X\r\n",temp);
 
 	feDownload(0xfff1, temp4);  //REG4 下发
 
@@ -23224,7 +23178,6 @@ int tSysScpi::factoryCalibrate(int comCal)
 		{
 			saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("connect to server failed"), getTheTranslatorString("disconnect to server"));
 	//		outputToScreen(getTheTranslatorString("disconnect to server"), progress, 1);
-	//		printf("connect to server failed\r\n");
 			sprintf(tempChar, "connect to server failed");
 			returnScpiResult(QString(tempChar));
 			sleep(2);
@@ -23242,7 +23195,6 @@ int tSysScpi::factoryCalibrate(int comCal)
 	{
 		saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("factory calibrate failed"), getTheTranslatorString("signal generator is off line"));
 	//	outputToScreen(getTheTranslatorString("signal generator is off line"), progress, 1);
-	//	printf("signal generator is off line\r\n");
 		sprintf(tempChar, "signal generator is off line");
 		returnScpiResult(QString(tempChar));
 		sleep(2);
@@ -23254,14 +23206,12 @@ int tSysScpi::factoryCalibrate(int comCal)
 
 	//5 check power meter
 	progress = 6;
-//	printf("5\r\n");
 	//	outputToScreen(getTheTranslatorString("power meter checking") + "......", progress, 0);
 	usleep(1000);
 	if(!connectToPowerMeter())
 	{
 		saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("factory calibrate failed"), getTheTranslatorString("power meter is off line"));
 	//	outputToScreen(getTheTranslatorString("power meter is off line"), progress, 1);
-	//	printf("power meter not connected...\r\n");
 		sprintf(tempChar, "power meter not connected...");
 		returnScpiResult(QString(tempChar));
 		sleep(2);
@@ -23289,13 +23239,11 @@ int tSysScpi::factoryCalibrate(int comCal)
 	setCalibrateParamOfAbsoluteAmplitude();
 	progress = 10;
 //	outputToScreen(getTheTranslatorString("amplitude calibrating") + "......", progress, 0);
-//	printf("7\r\n");
 
 	if (signalOutputFreqIsvalid(isCom, 1e9) == __SCPI_FAILED || signalOutputAmptIsvalid(isCom, -4) == __SCPI_FAILED || getCalibrateRunParam() == __SCPI_FAILED || setPowerMeterFreq(1e9) == __SCPI_FAILED)
 	{
 		saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("factory calibrate failed"), getTheTranslatorString("amplitude calibrate failed"));
 	//	outputToScreen(getTheTranslatorString("amplitude calibrate failed"), progress, 1);
-	//	printf("amplitude calibrate failed\r\n");
 		sprintf(tempChar, "amplitude calibrate failed");
 		returnScpiResult(QString(tempChar));
 		sleep(2);
@@ -23310,14 +23258,11 @@ int tSysScpi::factoryCalibrate(int comCal)
 		sleep(2);
 		return exitCalibrate();
 	}
-//	printf("maxValue %f, powermeter ampt %f\r\n",calRunData.maxValue, sysData.measure.powerMeter.ampt);
 	sysData.factoryCalData.absoluteAmptValue = calRunData.maxValue - sysData.measure.powerMeter.ampt;
-	printf("max %f, ampt value %f\r\n",calRunData.maxValue, sysData.measure.powerMeter.ampt);
 	saveFactoryCalibrationData();
 	saveUserCalibrationData();
 
 	// 8 if attenuation
-//	printf("8\r\n");
 	progress = 20;
 	setCalibrateParamOfIfAttenuation();
 	setFrontendAtt(10, 20);
@@ -23342,7 +23287,6 @@ int tSysScpi::factoryCalibrate(int comCal)
 	getCalibrateRunParam();
 	getDataFromPowerMeter();
 	double ifVal_20 = calRunData.maxValue - sysData.measure.powerMeter.ampt;
-//	printf("maxVal: %f, power ampt %f, attIf[20] %f\r\n",calRunData.maxValue, sysData.measure.powerMeter.ampt,sysData.factoryCalData.attIf[20]);
 
 	for(int i = 0; i < 32; i++)
 	{
@@ -23356,7 +23300,6 @@ int tSysScpi::factoryCalibrate(int comCal)
 		{
 			saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("factory calibrate failed"), getTheTranslatorString("if attenuation calibrate failed"));
 //			outputToScreen(getTheTranslatorString("if attenuation calibrate failed"), progress, 1);
-//			printf("if att calibrate failed at %d\r\n",i);
 			sprintf(tempChar, "if att calibrate failed at %d", i);
 			returnScpiResult(QString(tempChar));
 			sleep(2);
@@ -23365,7 +23308,6 @@ int tSysScpi::factoryCalibrate(int comCal)
 
 		//sysData.factoryCalData.attIf[i] = calRunData.maxValue - sysData.measure.powerMeter.ampt - ifVal_20 + (i - 20);
 		sysData.factoryCalData.attIf[i] = calRunData.maxValue - sysData.measure.powerMeter.ampt - ifVal_20;
-	//	printf("attIf[%d]: %f, maxVal %f, usb  %f \r\n",i, sysData.factoryCalData.attIf[i], calRunData.maxValue, sysData.measure.powerMeter.ampt);
 		usleep(1000);
 	}
 
@@ -23383,7 +23325,6 @@ int tSysScpi::factoryCalibrate(int comCal)
 */
 	progress = 30;
 	sendSerialData(isCom, ":FREQ 1e9;:POW -4;");
-	printf("10\r\n");
 
 	// 8 freq resp
 	progress = 35;
@@ -23442,14 +23383,12 @@ int tSysScpi::factoryCalibrate(int comCal)
 			cmd = ":FREQ ";
 			cmd += QString(floatToString(FREQRESPHZ[j], 0, 0, tempChar)).trimmed();
 			sendSerialData(isCom, cmd);
-		//	printf("calibrate freq %llu, rf att %d\r\n", FREQRESPHZ[j], attRf);
 		//	sprintf(tempChar, "calibrate freq %s, rf att %d",getFreqAndUnitString(FREQRESPHZ[j], 0, tempChar), attRf);
 		//	returnScpiResult(QString(tempChar));
 			if(setPowerMeterFreq(FREQRESPHZ[j]) == __SCPI_FAILED)
 			{
 				saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("factory calibrate failed"), getTheTranslatorString("rf att calibrate failed")+ "," + "power meter freq set faild at" + QString(getFreqAndUnitString(FREQRESPHZ[j], 0, tempChar)).trimmed());
 	//			outputToScreen(getTheTranslatorString("rf att calibrate failed"), progress, 1);
-		//		printf("set usb freq %llu failed\r\n", FREQRESPHZ[j]);
 				sleep(2);
 				return exitCalibrate();
 			}
@@ -23458,11 +23397,9 @@ int tSysScpi::factoryCalibrate(int comCal)
 			usleep(1000);
 			if(getCalibrateRunParam() == __SCPI_FAILED)
 			{
-			//	printf("get calibrate param failed at %llu\r\n",FREQRESPHZ[j]);
 				sprintf(tempChar, "calibrate freq %s, rf att %f", getFreqAndUnitString(FREQRESPHZ[j], 0, tempChar), attRf);
 	//			returnScpiResult(QString(tempChar));
 				sleep(2);
-				printf("get cal run param failed at freq %llu, rf att %f\r\n", FREQRESPHZ[j], attRf);
 				return exitCalibrate();
 			}
 
@@ -23472,19 +23409,16 @@ int tSysScpi::factoryCalibrate(int comCal)
 		//		outputToScreen(getTheTranslatorString("rf att calibrate failed"), progress, 1);
 		//		sprintf(tempChar, "get power meter freq %s", getFreqAndUnitString(FREQRESPHZ[j], 0, tempChar));
 		//		returnScpiResult(QString(tempChar));
-		//		printf("get usb power meter failed at freq %llu, rf att %f\r\n", FREQRESPHZ[j], attRf);
 				sleep(2);
 				return exitCalibrate();
 			}
 			sysData.factoryCalData.freqResp[i][j] = calRunData.maxValue - sysData.measure.powerMeter.ampt;
-	//		printf("freq %llu, rf att %f, usb powermeter %f, resp %f\r\n", FREQRESPHZ[j], attRf, sysData.measure.powerMeter.ampt, calRunData.maxValue);
 			//usleep(1000 * 100);
 			out << "freq resp " << i <<"_" << j << " :" << sysData.factoryCalData.freqResp[i][j] << "\r\n";
 		}
 	}
 #endif
 	saveFactoryCalibrationData();
-//	printf("factory calibrate success\r\n");
 	sprintf(tempChar, "factory calibrate success, cal time %d ms", t.elapsed());
 	returnScpiResult(QString(tempChar));
 	saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("factory calibrate successed"), "");
@@ -25187,7 +25121,6 @@ void tSocketThread::run()
   }
   curfds = 1;
 
- // printf("epollserver startup,port %d, max connection is %d, backlog is %d\r\n", listenport, MAXTCPCLIENTS, listenq);
 
   for (;;) {
       /* 等待有事件发生 */
@@ -25211,10 +25144,7 @@ void tSocketThread::run()
               }
 
               sprintf(buf, "accept form %s:%d, connfd %d\r\n", inet_ntoa(cliaddr.sin_addr), cliaddr.sin_port,connfd);
-          //    printf("%d:%s", ++acceptCount, buf);
-					//		printf("cur fs %d\r\n",curfds);
               if (curfds > MAXTCPCLIENTS) {
-             //     printf("%d connect , too many connection, more than %d, close fd %d\r\n", curfds, MAXTCPCLIENTS, clientfd[0]);
                   close(clientfd[0]);
                   epoll_ctl(kdpfd, EPOLL_CTL_DEL, clientfd[0],&ev);
                   for(int i = 0; i < MAXTCPCLIENTS - 1; ++i)
@@ -25239,22 +25169,18 @@ void tSocketThread::run()
                   return;
               }
 
-        //      printf("client %d, fd %d\r\n",curfds, connfd);
 //              for(int i = 0; i < MAXTCPCLIENTS; i++)
 //              {
-//              	printf("****** %d\r\n",clientfd[i]);
 //              }
               sysData.scpiData.interface = sitLan;
 							sysData.scpiData.stateR = true;
 							sysData.scpiData.stateL = false;
 
               curfds++;
-       //       printf("%d accept form %s:%d\r\n",curfds, inet_ntoa(cliaddr.sin_addr), cliaddr.sin_port);
               continue;
           }
 
           int ret = read(events[n].data.fd, sockBuf, sizeof sockBuf);//读取客户端socket流
-     //     printf("event fd %d, connfd %d\r\n",events[n].data.fd, connfd);
           if (ret == 0) {
               close(events[n].data.fd);
               epoll_ctl(kdpfd, EPOLL_CTL_DEL, events[n].data.fd,&ev);
@@ -25279,14 +25205,12 @@ void tSocketThread::run()
 								sysData.scpiData.stateL = true;
 								sysData.scpiData.interface = sitNone;
               }
-          //    printf("client close the connection %d\r\n",events[n].data.fd);
           } else if (ret < 0) {
               perror("read error");
               close(events[n].data.fd);
           } else {
           	/* 处理socket数据*/
           	memset(&sockBuf[ret], '\0', 1);
-        //  	printf("send mesg fd %d\r\n",events[n].data.fd);
           	emit clientSocketDataArrive(events[n].data.fd, ret);
           }
       }
@@ -25340,7 +25264,6 @@ void tSysScpi::updateScanParam(void)
 			}
 		}
 
-		printf(">>>>>f_step %f, dbuc %f, %f\r\n",f_step,rfData.DBUC_FREQ, ceil(rfData.DBUC_FREQ * 1.0 / 25e3));
 
 		if(sysData.freq.stop <= 20e6)
 			sysData.fscan.step = f_step;
@@ -25350,7 +25273,6 @@ void tSysScpi::updateScanParam(void)
 		if(sysData.fscan.step == 0)
 			sysData.fscan.step=1 * 400e6 / pow(2, 24);//prevent sysData.fscan.step=0 
 
-		printf("dbuc %f, cic %d, step %f, start %f, stop %f\r\n",rfData.DBUC_FREQ, sysData.fscan.cic, sysData.fscan.step, sysData.freq.start, sysData.freq.stop);
 
 	} else
 	{
@@ -25361,7 +25283,6 @@ void tSysScpi::updateScanParam(void)
 		sysData.fscan.fftIndex= 7-index;
 		sysData.fscan.cic = fftBandList[index].cic;
 		sysData.fscan.step =  fftBandList[index].fstep;
-		printf("fft %lu, cic %d\n", sysData.fscan.fft, sysData.fscan.cic);
 	}
 
 	if(sysData.span.isZeroSpan)
@@ -25369,10 +25290,8 @@ void tSysScpi::updateScanParam(void)
 		int index = getRecentSweepRbwIndex(sysData.bw.rbw);
 		sysData.fscan.cic = sweepDataList[index].cic;
 		sysData.fscan.sampleTime_ZeroSpan = sweepDataList[index].sampleTime;
-//		printf("zero span cic %d\r\n",sysData.fscan.cic);
 	}
 
-//	printf("fscan mode %d, rbw %f\r\n",sysData.fscan.mode,sysData.bw.rbw);
 
 }
 
@@ -25390,7 +25309,6 @@ void tSysScpi::cicDown(void)
 	shift = ceil(5.0 * log10(double(sysData.fscan.cic)) / log10(2));
 	//cic shift
 	feDownload(11, shift);
-//	printf("shift = %d\r\n", shift);
 
 	//cic enable
 	feDownload(9, 1);
@@ -25417,7 +25335,6 @@ int tSysScpi::setBwOfRbw(double value)
 	}
 
 	sysData.bw.rbw = tempValue;
-	printf("rbw %f\r\n", sysData.bw.rbw);
 	updateScanParam();
 	controlRf();
 	return __SCPI_SUCCESS;
@@ -25462,7 +25379,6 @@ void tSysScpi::vbwDown(void)
 {
 	unsigned int vbwCvc = 0;
 	vbwCvc = getVbwFactor(sysData.bw.vbw);
-//	printf("vbwCvc %x\r\n",vbwCvc);
 	// 测试用
 	vbwCvc = 0x7fff;
 	feDownload(26, vbwCvc);
@@ -25489,13 +25405,11 @@ void tSysScpi::vbwDown(void)
 //			sysData.fscan.step = rfData.DBUC_FREQ / ceil(rfData.DBUC_FREQ / 50000);
 //		}
 //
-//		printf("dbuc %f, step %f, start %f, stop %f\r\n",rfData.DBUC_FREQ, sysData.fscan.step, sysData.freq.start, sysData.freq.stop);
 //
 //	} else
 //	{
 //		sysData.fscan.mode = fsFFT;
 //	}
-//	printf("fscan mode %d\r\n",sysData.fscan.mode);
 //}
 
 //计算扫描时间 // 扫描时间耦合
@@ -25528,12 +25442,10 @@ void tSysScpi::calSweepTimeOfAuto(void)
 	{
 		sysData.sweep.sweepTime = 1e3;
 	}
-//		printf("sweepTime %f, NL %f, HL %f, HH %f, HH4 %f\r\n",sysData.sweep.minAutoSweepTime, sweepTime_NL, sweepTime_HL, sweepTime_HH, sweepTime_HH4);
 //		sysData.fscan.Quant_stepHoldTime = (int) (sysData.fscan.holdTime * 102.4);
 //		sysData.fscan.Quant_ffHoldTime = (int) (sysData.fscan.ffHoldTime * 25.6);
 //		sysData.fscan.Quant_ofHoldTime = (int) (sysData.fscan.ofHoldTime * 25.6);
 
-//	printf("samplehold %f, ffHold %f, ofHold %f\r\n",sysData.fscan.holdTime, sysData.fscan.ffHoldTime, sysData.fscan.ofHoldTime);
 
 }
 
@@ -25559,7 +25471,6 @@ void tSysScpi::sweepTimeDown(void)
 	feDownload(251, (Quant_ofHoldTime >> 16) & 0xff);
 	feDownload(252, Quant_ofHoldTime & 0xffff);
 
-//	printf("hold time ff %d, of %d\r\n",sysData.fscan.Quant_ffHoldTime,sysData.fscan.Quant_ofHoldTime);
 }
 
 
@@ -25644,7 +25555,6 @@ void tSysScpi::updateBandParam(void)
 	double freq_hh1 = FREQ_START_HH_BAND1, freq_hh2 = FREQ_START_HH_BAND2, freq_hh3 = FREQ_START_HH_BAND3, freq_hh4 = FREQ_START_HH_BAND4;
 
 	bool hband1 = false, hband2 = false, hband3 = false, hband4 = false;
-//	printf("start %f, stop %f , step %f \r\n",sysData.freq.start, sysData.freq.stop, sysData.fscan.step);
 
 	/*获取参数*/
 	if(sysData.fscan.mode == fsFFT)
@@ -25653,33 +25563,27 @@ void tSysScpi::updateBandParam(void)
 		f_stop = sysData.freq.stop;
 		f_step = sysData.fscan.step;
 		f_dbuc = f_step;
-//		printf("fft mode start %f, stop %f, step %f\r\n",f_start, f_stop, f_step);
 	} else
 	{
 		f_step = sysData.fscan.step;
 		f_dbuc = rfData.DBUC_FREQ;
 		f_start = sysData.freq.start;
 		f_stop = sysData.freq.stop;
-//		printf("scan freq mode start %f, stop %f, step %f, dbuc %f\r\n",f_start, f_stop, f_step, f_dbuc);
 	}
 
-	printf("start %f, stop %f\r\n",sysData.freq.start, sysData.freq.stop);
 	/*计算*/
 	if(sysData.freq.start <= 20e6 && sysData.freq.stop <= 20e6)//短波全频段
 	{
-		printf("**** band mark 1*****\r\n");
 		rfData.SWEEP_BAND_INDEX = 1;
 
 		if(sysData.fscan.mode == fsFFT)
 		{
 			rfData.FTW_Start = (unsigned int)((f_start + f_step / 2) * pow(2, 32) / 102.4e6);
 			rfData.N_L = ceil((f_stop - f_start) / f_step);
-		//	printf("$$$$$$$ fft mode  N_L %d, stop %f, start %f, step %f\r\n",rfData.N_L, f_stop, f_start);
 		}	else
 		{
 			rfData.FTW_Start = (unsigned int)(f_start * pow(2, 32) / 102.4e6);
 			rfData.N_L = ceil((f_stop - f_start) / f_step) + 1;
-		//	printf("$$$$$$$sweep mode  N_L %d, stop %f, start %f, step %f\r\n",rfData.N_L, f_stop, f_start);
 		}
 		rfData.FTW_Step = (unsigned int)(f_step * pow(2, 32) / 102.4e6);
 		rfData.N_HL_START_INT = 0;
@@ -25701,7 +25605,6 @@ void tSysScpi::updateBandParam(void)
 	} 
 	else if(sysData.freq.start < 20e6 - f_dbuc / 2 && sysData.freq.stop <= freq_hh1)//低波段
 	{
-		printf("**** band mark 2*****\r\n");
 		rfData.SWEEP_BAND_INDEX = 3;
 
 		if(sysData.fscan.mode == fsFFT)
@@ -25757,7 +25660,6 @@ void tSysScpi::updateBandParam(void)
 		rfData.N_HH4_STOP_FRAC = 0;
 	} else if(sysData.freq.start < 20e6 - f_dbuc / 2 && sysData.freq.stop > freq_hh1 && sysData.freq.stop <= freq_hh4)
 	{
-		printf("**** band mark 3*****\r\n");
 		rfData.SWEEP_BAND_INDEX = 7;
 
 		if(sysData.fscan.mode == fsFFT)
@@ -25853,7 +25755,6 @@ void tSysScpi::updateBandParam(void)
 
 	} else if(sysData.freq.start < 20e6 - f_dbuc / 2 && sysData.freq.stop > freq_hh4 && sysData.freq.stop <= MAXFREQ)
 	{
-		printf("**** band mark 4*****\r\n");
 		rfData.SWEEP_BAND_INDEX = 0xf;
 		if(sysData.fscan.mode == fsFFT)
 		{
@@ -25917,7 +25818,6 @@ void tSysScpi::updateBandParam(void)
 
 	} else if(sysData.freq.start >= 20e6 - f_dbuc / 2 && sysData.freq.start < freq_hh1 - f_dbuc / 2 && sysData.freq.stop <= freq_hh1)
 	{
-		printf("**** band mark 5*****\r\n");
 		rfData.SWEEP_BAND_INDEX = 2;
 		rfData.N_L = 0;
 		rfData.FTW_Start = 0x5e000000; //(unsigned int)(27.4e6 / 102.4e6 * pow(2, 32));
@@ -25957,7 +25857,6 @@ void tSysScpi::updateBandParam(void)
 		rfData.N_HL_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_stop / (4 * 2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
 	} else if(sysData.freq.start >= 20e6 - f_dbuc / 2 && sysData.freq.start < freq_hh1 - f_dbuc / 2 && sysData.freq.stop > freq_hh1 && sysData.freq.stop <= freq_hh4)
 	{
-		printf("**** band mark 6*****\r\n");
 		rfData.SWEEP_BAND_INDEX = 6;
 		rfData.N_L = 0;
 		rfData.FTW_Start = 0x5e000000; //(unsigned int)(27.4e6 / 102.4e6 * pow(2, 32));
@@ -26063,7 +25962,6 @@ void tSysScpi::updateBandParam(void)
 
 	} else if(sysData.freq.start >= 20e6 - f_dbuc / 2 && sysData.freq.start < freq_hh1 - f_dbuc / 2 && sysData.freq.stop > freq_hh4 && sysData.freq.stop <= MAXFREQ)
 	{
-		printf("**** band mark 7*****\r\n");
 		rfData.SWEEP_BAND_INDEX = 0xe;
 		rfData.N_L = 0;
 		rfData.FTW_Start = 0x5e000000; //(unsigned int)(27.4e6 / 102.4e6 * pow(2, 32));
@@ -26137,7 +26035,6 @@ void tSysScpi::updateBandParam(void)
 	}
 	else if(sysData.freq.start >= freq_hh1 - f_dbuc / 2 && sysData.freq.start <= freq_hh4 - f_dbuc / 2 && sysData.freq.stop <= freq_hh4)
 	{
-		printf("**** band mark 8*****\r\n");
 		rfData.SWEEP_BAND_INDEX = 4;
 		rfData.N_L = 0;
 		rfData.FTW_Start = 0x5e000000;//(unsigned int)(27.4e6 / 102.4e6 * pow(2, 32));
@@ -26220,7 +26117,6 @@ void tSysScpi::updateBandParam(void)
 	}
 	else if(sysData.freq.start >= freq_hh1 - f_dbuc / 2 && sysData.freq.start <= freq_hh4 - f_dbuc / 2 && sysData.freq.stop > freq_hh4 && sysData.freq.stop <= MAXFREQ)
 	{
-		printf("**** band mark 9*****\r\n");
 		rfData.SWEEP_BAND_INDEX = 0xc;
 		rfData.N_L = 0;
 		rfData.FTW_Start = 0x5e000000;//(unsigned int)(27.4e6 / 102.4e6 * pow(2, 32));
@@ -26290,7 +26186,6 @@ void tSysScpi::updateBandParam(void)
 		rfData.N_HH4_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hh4lo_stop / (4 * 2 * 50e6) - rfData.N_HH4_STOP_INT) + 0.5);
 	} else
 	{
-		printf("**** band mark 10*****\r\n");
 		rfData.SWEEP_BAND_INDEX = 8;
 		rfData.N_L = 0;
 		rfData.FTW_Start = 0x5e000000;//(unsigned int)(27.4e6 / 102.4e6 * pow(2, 32));
@@ -26338,9 +26233,6 @@ void tSysScpi::updateBandParam(void)
 	if(rfData.N_HH4 > 0) hband4 = true;
 	rfData.HIGH_BAND_INDEX = hband4 << 3 | hband3 << 2 | hband2 << 1 | hband1;
 
-	printf("FTW_Start 0x%x, FTW_Step 0x%x, N_L %d, N_HL %d, N_HH %d, N_QSTEP 0x%x,N_HL_START_INT 0x%x, N_HL_START_FRAC 0x%x, N_HH_START_INT 0x%x, N_HH_START_FRAC 0x%x, N_HH1 %d, N_HH2 %d, N_HH3 %d, N_HH4 %d, HIGH_BAND_INDEX %x\r\n",rfData.FTW_Start, rfData.FTW_Step, rfData.N_L, rfData.N_HL, rfData.N_HH, rfData.N_QSTEP,rfData.N_HL_START_INT, rfData.N_HL_START_FRAC, rfData.N_HH_START_INT, rfData.N_HH_START_FRAC, rfData.N_HH1, rfData.N_HH2, rfData.N_HH3, rfData.N_HH4, rfData.HIGH_BAND_INDEX);
-//	printf("N_HH_STOP_INT %x, N_HH_STOP_FRAC %x \r\n", rfData.N_HH_STOP_INT, rfData.N_HH_STOP_FRAC);
-//	printf("N_HH4_STOP_INT %x, N_HH4_STOP_FRAC %x \r\n", rfData.N_HH4_STOP_INT, rfData.N_HH4_STOP_FRAC);
 }
 
 //第一本振下发
@@ -26402,14 +26294,12 @@ void tSysScpi::downLo1(void)
 inline void tSysScpi::setSweepBandIndex(void)
 {
 	feDownload(231, rfData.SWEEP_BAND_INDEX);
-//	printf("sweep band index %d\r\n",rfData.SWEEP_BAND_INDEX);
 }
 
 //高波段指示下发
 inline void tSysScpi::setHighBandIndex(void)
 {
 	feDownload(232,rfData.HIGH_BAND_INDEX);
-//	printf("high band index %d\r\n",rfData.HIGH_BAND_INDEX);
 }
 
 /*控制参数下发*/
@@ -26424,7 +26314,6 @@ void tSysScpi::setFTWOfDDS(void)
 	feDownload(220, (rfData.N_L >> 16) & 0xffff);			  // 短波段 步进次数高16位
 	feDownload(233, rfData.N_L & 0xffff);								// 短波段 步进次数低16位
 	feDownload(6, 0);
-//	printf("********** N_L %d, start %f, stop %f, rbw %f\r\n", rfData.N_L, sysData.freq.start, sysData.freq.stop, sysData.bw.rbw);
 }
 
 //本振初次步进使能
@@ -26443,13 +26332,11 @@ inline void tSysScpi::setScanEnable(bool value)
 //fft控制
 void tSysScpi::fftControl(void)
 {
-//	printf("fft control\n");
 
 //	updateScanParam(sysData.bw.rbw);
 //	updateBandParam();
 
 	sysData.fscan.fftFrame = rfData.N_L + rfData.N_HL + rfData.N_HH + rfData.N_HH4;
-//	printf("L %d, HL %d, HH %d, HH4 %d\r\n",rfData.N_L, rfData.N_HL, rfData.N_HH, rfData.N_HH4);
 	if(sysData.fscan.mode == fsSweep)
 	{
 		if(rfData.DBUC_FREQ < 250e3)
@@ -26462,7 +26349,6 @@ void tSysScpi::fftControl(void)
 	}	else
 	{
 		sysData.fscan.fftRealN = (unsigned int)(((sysData.fscan.fftFrame - 1) + ((sysData.freq.stop - (sysData.fscan.fftFrame - 1) * sysData.fscan.step - sysData.freq.start) * 1.0 / sysData.fscan.step)) * (sysData.fscan.fft / 1.28) + 0.5);
-//	  printf("start %f, stop %f, fram %d, step %f,fft %u, ffram %u, real N %u\n",sysData.freq.start, sysData.freq.stop, sysData.fscan.fftFrame, sysData.fscan.step, sysData.fscan.fft, sysData.fscan.fftFrame, sysData.fscan.fftRealN);
 		sysData.fscan.fftIdealN = (unsigned int)(sysData.fscan.fftFrame * sysData.fscan.fft / 1.28);
 	}
 
@@ -26480,7 +26366,6 @@ void tSysScpi::fftControl(void)
 
 	//fft长度
 	feDownload(13, sysData.fscan.fftIndex & 0x07);
-//	printf("fft val %x\n",sysData.fscan.fftLength);
 
 	//初始配置有效控制使能
 	feDownload(14, 1);
@@ -26570,7 +26455,6 @@ int tSysScpi::setPowerMeterFreq(double value)
 //	cmd = "SENS:FREQ " + ((QString)getPMFreqAndUnitString(value, 0, tempChar)).trimmed();
 	length = cmd.size();
 	memcpy(sendString, cmd.toStdString().c_str(), length);
-//	printf("send: %s  length %d\n",sendString, length);
 	write(tmcHandle, sendString, length);
 	usleep(100);
 
@@ -26608,14 +26492,12 @@ int tSysScpi::getDataFromPowerMeter(void)
 
 		memset(usbDataTempR, 0, sizeof(usbDataTempR));
 	  read(tmcHandle, usbDataTempR, sizeof(usbDataTempR));
-	//  printf("buf: %s\n", usbDataTempR);
 	  bool ok = false;
 	  temp = QString(usbDataTempR).toDouble(&ok);
 	  if(ok)
 	  {
 	  	val[count] = temp;
 	  	count++;
-	  //	printf("ampt: %f\n",temp);
 	  	usleep(1000);
 	  } else
 	  {
@@ -26637,7 +26519,6 @@ int tSysScpi::getDataFromPowerMeter(void)
 	sysData.measure.powerMeter.ampt = (temp - maxVal - minVal) / 3.0;
 
 //	sysData.measure.powerMeter.ampt = temp;
-	printf("get power meter %f\r\n",sysData.measure.powerMeter.ampt);
 	return __SCPI_SUCCESS;
 }
 

@@ -8,22 +8,17 @@ void sigio(int);
 mainForm::mainForm(QWidget* parent) :
 	QWidget(parent = 0)
 {
-	//  printf("%d, %d\n", sizeof(double), sizeof(float));
 	//
 	//  QTime t;
 	//  t.restart();
 	//  for (int i = 1; i < 65535; i++) Log10(i);
-	//  printf("Own.Log10 = %d ms\n", t.elapsed());
 	//  t.restart();
 	//  for (int i = 1; i < 65535; i++) log10(i);
-	//  printf("Math.log10 = %d ms\n", t.elapsed());
 	//
 	//  t.restart();
 	//  for (int i = 1; i < 2048; i++) Log10(i);
-	//  printf("Own.Log10 = %d ms\n", t.elapsed());
 	//  t.restart();
 	//  for (int i = 1; i < 2048; i++) log10(i);
-	//  printf("Math.log10 = %d ms\n", t.elapsed());
 
 	//窗口配置
 	setWindowFlags(Qt::FramelessWindowHint);
@@ -1801,7 +1796,6 @@ void mainForm::drawVector(QPainter* painter, QPixmap* pixmap, QRect rc)
 	{
 		canvasMaxValue = sysData.ampt.refLevel;
 		canvasMinValue = 0;
-		//printf("max %f , min %f \n ",canvasMaxValue,canvasMinValue);
 	}
 
 	unsigned int swePoints = sysData.sweep.sweepPoints;
@@ -4191,7 +4185,6 @@ void mainForm::drawCanvas(void)
 		lcdRefreshTimes = elapsedTime;
 	}
 
-	//printf("elapsed time = %d\n", t.elapsed());
 }
 
 //绘制帮助区(10ms)
@@ -6945,7 +6938,6 @@ bool mainForm::keyIsEnable(int value)
 
 void mainForm::customEvent(QEvent* e)
 {
-//	  printf("------customEvent\n");
 	if (e == NULL)
 	{
 		//return;
@@ -6979,7 +6971,6 @@ void mainForm::readIntData(void)
 	x++;
 	if(x >= 1)
 	{
-	//	printf("read data \r\n");
 		int i = 0;
 		{
 		//  QTime t;
@@ -6997,10 +6988,8 @@ void mainForm::readIntData(void)
 				//读取数据
 				read(ramHandle, &ifDataBuf[i], 4);
 
-			//	printf("%d\r\n",fftdataBuf[i]);
 			}
 			mutexIF.unlock();
-			//printf("read data time %d ms\r\n",t.elapsed());
 			//intFlag = 1;
 		}
 		x = 0;

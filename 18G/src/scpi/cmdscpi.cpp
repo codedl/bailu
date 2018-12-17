@@ -407,7 +407,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 				case SCPI_CMD_AMPT_PREAMPT_GET:
 					exeResult = __SCPI_RETURN;
 					returnString = boolToString(sysData.ampt.isPreamptOn);
-					printf("power gain auto %s\r\n",returnString.toStdString().c_str());
 					break;
 
 				case SCPI_CMD_AMPT_SCALEDIV_SET:
@@ -821,7 +820,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 								returnString += tempChar;
 								returnString += ",";
 							}
-					//		printf("%f, %f, %f, %f, %f, %f, %f, %f\r\n",sysData.trace[tempIndex].value[398],sysData.trace[tempIndex].value[399],sysData.trace[tempIndex].value[400],sysData.trace[tempIndex].value[401],sysData.trace[tempIndex].value[402],sysData.trace[tempIndex].value[403],sysData.trace[tempIndex].value[404],sysData.trace[tempIndex].value[405]);
 
 							scpiFloatToLen8String(sysData.trace[tempIndex].value[swppoint - 1], tempChar);
 							returnString += tempChar;
@@ -2551,25 +2549,21 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 							QTextStream dataOut(&myfile);
 							for(int i = 0; i < RAMDATASIZE; i++)
 								dataOut << ifDataBuf[i] << ",";
-							printf("save data end\n");
 						}
 					}
 					break;
 			  case SCPI_CMD_UDP_REMOTE_IP_SET:
-			  	//printf("%x\n",result.value.toUInt());
 			  	setUdpIP(result.value.trimmed());
 			  	exeResult = __SCPI_RETURN;
 			  	break;
 			  case SCPI_CMD_UDP_REMOTE_IP_GET:
 			  	exeResult = __SCPI_RETURN;
 			  //	loadDeviceSetting();
-			  //	printf("ip %x\n",sysData.system.io.lan.udpRemoteIP );
 			  //	returnString = uintToString(sysData.system.io.lan.udpRemoteIP);
 			  //	returnString = QString(sysData.system.io.lan.udpRemoteIP);
 			  	break;
 			  case SCPI_CMD_UDP_REMOTE_PORT_SET:
 			  	exeResult = __SCPI_RETURN;
-			  //	printf("set remote port\n");
 			  	setUdpPort(result.value.trimmed());
 			  	break;
 			  case SCPI_CMD_UDP_REMOTE_PORT_GET:
@@ -2577,9 +2571,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 			  	{
 			  //	 short port = 0;
 			  //	 read(edmaHandle,&port,2);
-			  //	 printf("port %d\n",port);
 			  //	  loadDeviceSetting();
-			  //	  printf("port = %d\n",sysData.system.io.lan.udpRemotePort);
 			  //	  returnString = intToString(sysData.system.io.lan.udpRemotePort);
 			  	}
 			  	break;
@@ -2601,7 +2593,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 				case SCPI_CMD_POWERMETER_FREQ_SET:
 					if(connectToPowerMeter() == false)
 					{
-						printf("connect power meter error\n");
 					}
 					exeResult = setPowerMeterFreq(result.value.trimmed());
 					break;
@@ -2627,7 +2618,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 		{
 			case __SCPI_RETURN:
 				returnScpiResult(returnString);
-				//printf("retrun %s\n",);
 				break;
 			case __SCPI_FAILED:
 				returnScpiResult((QString) SCPICMDERROR);
@@ -2662,7 +2652,6 @@ void tSysScpi::returnScpiResult(QString value)
 				//if (client_sockfd != 0)
 				{
 					//          sendLength = clientSockets[i].socket->write(sendString.toStdString().c_str());
-		//			printf("send: %s, socket %d\r\n",sendString.toStdString().c_str(),curSocket);
 					send(curSocket, (void *) sendString.toStdString().c_str(), dataLength, 0);
 				}
 

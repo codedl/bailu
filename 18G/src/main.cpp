@@ -71,11 +71,8 @@ int main(int argc, char ** argv)
   QObject::connect(&net, SIGNAL(clientSocketDataArrive(int, int)), mf.sysScpi, SLOT(clientSocketDataArrive(int, int)));
   net.start();
 
-  //print message
-  if (__DEBUG)
-  {
-    printf("main codes over, program start successed\n");
-  }
+
+  printf("main codes over, program start successed\n");
 
   //program loop
   return a.exec();

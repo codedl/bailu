@@ -72,7 +72,6 @@ void minorThread::run()
 //				QTextStream dataOut(&myfile);
 //				for(int i = 0; i < 800; i++)
 //					dataOut << ifDataBuf[i] << ",";
-//				printf("save data end\n");
 //			}
 //			intFlag = 0;
 //		}
@@ -295,7 +294,6 @@ void dataThread::run()
 					sysData.temperature = tempValue;
 					val = 0;
 					wdCount = 0;
-					//	printf("temp %.3f\r\n", sysData.temperature);
 				}
 			}
 		}
@@ -711,7 +709,6 @@ void fftThread::run()
 			{
 				for (int i = 0; i < sysData.zc.segTotal; i++)
 				{
-					// printf("exec seg %d / %d, ddc = %f, cf: %f ~ %f......\n", i, sysData.zc.segTotal, sysData.zc.segs[i].ddcCenter, sysData.zc.cf1, sysData.zc.cf2);
 
 					//空闲时间复位
 					idleZcTime.restart();
@@ -768,7 +765,6 @@ void fftThread::run()
 					 QFile file("/home/sky/iq.c");
 					 if (!file.exists("/home/sky/iq.c") && file.open(QIODevice::ReadWrite))
 					 {
-					 printf("zc mode, iq data saving......\n");
 					 QTextStream out(&file);
 					 for (int k = 0; k < 2048; k++)
 					 out << sysData.zc.IQData[k * 2 + 0] << "," << sysData.zc.IQData[k * 2 + 1] << ",";
@@ -953,7 +949,6 @@ void fftThread::run()
 
 				mutexFFT.lock();
 
-		//		printf("center freq %f \r\n",sysData.fft.nowCenterFreq);
 
 				//频率控制
 				if ((unsigned long long) sysData.fft.prvCenterFreq != (unsigned long long) sysData.fft.nowCenterFreq)
@@ -1029,7 +1024,6 @@ void fftThread::run()
 //						 QTextStream out(&file);
 //						 for (int k = 0; k < 2048; k++)
 //							 out << sysData.fft.fiData[k] << "," << sysData.fft.fqData[k] << ",";
-//						 printf("save iq data \r\n");
 //					 }
 
 

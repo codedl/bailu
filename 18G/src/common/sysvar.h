@@ -16,7 +16,7 @@
 #define VER_TAG						   0 					//0 beta   1 release
 
 
-#define __DEBUG           1          //Debug开关
+#define __DEBUG           0          //Debug开关
 #define _DEBUG            0          //Debug开关
 #define DEBUG             0          //Debug开关
 #define __SWEEPPONTDEBUG  0          //扫描点数测试开关

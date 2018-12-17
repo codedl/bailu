@@ -30,7 +30,6 @@ void tSysScpi::getDataFromIF(void)
 			double freqValue = 0;
 
 			read(ifHandle, buf, sizeof buf);
-			//printf("%x\r\n",buf[0]);
 			if (rfData.Start_Band >= 0 && rfData.Start_Band <= 2)
 			{
 				freqValue = sysData.freq.center + 21.4e6 - ((buf[0] & 0x3ffffff) * sysData.markerFctn.freqCountBw);
@@ -133,7 +132,6 @@ void tSysScpi::getDataFromIF(void)
 			}
 		}
 
-	//	printf("%lu\r\n",dataBuf[300]);
 		//当扫描点数增大时，将原最后一个扫描点的数据赋值给新增加的点
 		if (isFillData)
 		{
@@ -179,7 +177,6 @@ void tSysScpi::getDataFromIF(void)
 						bcValue += sysData.ampt.LMPValue;
 					}
 
-				//	printf("att %f, if %f, rbw %f \r\n",attbcValue, ifbcValue, rbwbcValue);
 				} else
 				{
 					//bc att
@@ -202,7 +199,6 @@ void tSysScpi::getDataFromIF(void)
 						bcValue += sysData.ampt.LMPValue;
 					}
 
-//					printf("att %f, if %f, rbw %f, ",attbcValue, ifbcValue, rbwbcValue);
 				}
 			}
 		} else
@@ -364,7 +360,6 @@ void tSysScpi::getDataFromIF(void)
 					tempValue += getErrorOfLowFreqResp(i);
 				}
 //				if(i == 300)
-//					printf("resp %f\r\n",getErrorOfLowFreqResp(i));
 			} else
 			{
 				if (sysData.ampt.isPreamptOn)
@@ -386,7 +381,6 @@ void tSysScpi::getDataFromIF(void)
 				tempValue = getRefLevelValue(tempValue);
 			}
 //			if(i == 399 || i == 400 || i == 401)
-//				printf("[%d]: %f\r\n",i, tempValue);
 #endif
 			//迹线平均数据计算
 			if (sysData.bw.bwAverageOn && sysData.bw.bwAverageFlag > 0 && sysData.bw.bwAverageFlag <= sysData.bw.bwAverage)
@@ -422,9 +416,6 @@ void tSysScpi::getDataFromIF(void)
 			}
 		}
 
-//		 printf("ifsoft %f, rf %f, if %f, refoffset %f, bcVal %f\r\n",sysData.ampt.ifSoftValue , sysData.ampt.attRf , sysData.ampt.attIf , sysData.ampt.refOffset , bcValue);
-//		printf("%f, %f, %f, %f, %f, %f\r\n",sysData.prjValue[398],sysData.prjValue[399],sysData.prjValue[400],sysData.prjValue[401],sysData.prjValue[402],sysData.prjValue[403]);
-//		printf("%f, %f, %f, %f, %f, %f\r\n",sysData.initValue[398],sysData.initValue[399],sysData.initValue[400],sysData.initValue[401],sysData.initValue[402],sysData.initValue[403]);
 		for (int i = 0; i < TRACECOUNT; i++)
 		{
 			switch (sysData.trace[i].state)
