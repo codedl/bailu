@@ -1982,16 +1982,6 @@ int tSysScpi::setBwOfRbwWithArrow(bool up)
 			sysData.bw.rbwAuto = false;
 		}
 
-		if (sysData.bw.vbwAuto)
-		{
-			sysData.bw.vbw = sysData.bw.rbw;
-
-			if ((unsigned long) sysData.bw.rbw == 120e3)
-			{
-				sysData.bw.vbw = 100e3;
-			}
-		}
-
 	} else
 	{
 		int bwIndex = getRbwIndex();
@@ -2102,6 +2092,15 @@ int tSysScpi::setBwOfRbwWithArrow(bool up)
 
 			sysData.bw.rbw = tempValue;
 		}
+	}
+	if (sysData.bw.vbwAuto)
+	{
+			sysData.bw.vbw = sysData.bw.rbw;
+
+			if ((unsigned long) sysData.bw.rbw == 120e3)
+			{
+				sysData.bw.vbw = 100e3;
+			}
 	}
 
 	controlRf();
@@ -3130,58 +3129,23 @@ int tSysScpi::setSweepOfTime(double value)
 
 	double tempValue = value;
 	double delSweepTime, delHoldTime;
-#if 0
-	if (sysData.span.span <= 0) //零扫宽1ms
-	{
-		minValue = 1e6;
-	} else
-	{
-		minValue = 3e6;
-	}
-
-	if (!sysData.freq.typeLine) //对数160ms
-	{
-		minValue = 160 * 1e6;
-	}
-
-	if (sysData.source.isTrackGenNetworkOn) //跟踪源激活时最小100ms
-	{
-		minValue = 100 * 1e6;
-	}
-
-	if (tempValue < minValue)
-	{
-		tempValue = minValue;
-	} else if (tempValue > maxValue)
-	{
-		tempValue = maxValue;
-	}
-
-	if (sysData.sweep.sweepTimeAuto)
-	{
-		sysData.sweep.sweepTimeAuto = false;
-	}
-#endif
 
 	calSweepTimeOfAuto();
+	
+	delSweepTime = tempValue - sysData.sweep.sweepTime;
+	delHoldTime = delSweepTime / sysData.fscan.fftFrame;
 
-	if(tempValue <= sysData.sweep.minAutoSweepTime)
+	if(sysData.fscan.mode == fsFFT)
 	{
-		tempValue = sysData.sweep.minAutoSweepTime;
-	}
-
+		sysData.fscan.ffHoldTime += delHoldTime;
+		sysData.fscan.ofHoldTime += delHoldTime;
+		if(sysData.fscan.ofHoldTime <= 100)
+			sysData.fscan.ofHoldTime = 100;
+	} else
 	{
-		delSweepTime = tempValue - sysData.sweep.minAutoSweepTime;
-		delHoldTime = delSweepTime / sysData.fscan.fftFrame;
-
-		if(sysData.fscan.mode == fsFFT)
-		{
-			sysData.fscan.ffHoldTime += delHoldTime;
-			sysData.fscan.ofHoldTime += delHoldTime;
-		} else
-		{
-			sysData.fscan.holdTime +=  delHoldTime;
-		}
+		sysData.fscan.ofHoldTime +=  delHoldTime;
+		if (sysData.fscan.ofHoldTime <= 0.1)
+			sysData.fscan.ofHoldTime = 0.1;
 	}
 
 	sysData.sweep.sweepTimeAuto = false;
@@ -9705,10 +9669,10 @@ void tSysScpi::presetSystemData(void)
 	sysData.ampt.att = 10;
 
 	//分辨率
-	sysData.bw.rbw = 100e3;
+	sysData.bw.rbw = 5e6;
 	sysData.bw.rbwAuto = true;
 	sysData.bw.rbwStepCont = false;
-	sysData.bw.vbw = 3e6;
+	sysData.bw.vbw = sysData.bw.rbw;
 	sysData.bw.vbwAuto = true;
 	sysData.bw.vbwStepCont = false;
 	sysData.bw.bwAverage = 64;
@@ -11826,13 +11790,13 @@ void tSysScpi::setFreqSweepStatus(void)
 {
 	char rbwSel = 0, sweepMode = 0, workMode = 0;
 
-	if(sysData.bw.rbw >= 1e6)
+	if(sysData.bw.rbw >= 1e6 && sysData.bw.rbw <= 5e6)
 		rbwSel = 0;
-	else if(sysData.bw.rbw >= 100e3)
+	else if(sysData.bw.rbw >= 100e3 && sysData.bw.rbw <= 500e3)
 		rbwSel = 1;
-	else if(sysData.bw.rbw >= 1e3)
+	else if(sysData.bw.rbw >= 1e3 && sysData.bw.rbw <= 50e3)
 		rbwSel = 2;
-	else
+	else if (sysData.bw.rbw >= 10 && sysData.bw.rbw <= 500)
 		rbwSel = 3;
 
 	if(sysData.fscan.mode == fsFFT)
@@ -11899,6 +11863,8 @@ void tSysScpi::controlRf(void)
 
 
 	updateBandParam();         //本振参数计算
+	
+	fftControl();
 
 	sweepTimeDown();            //采样驻留时间
 
@@ -11930,7 +11896,6 @@ void tSysScpi::controlRf(void)
 
 	feDownload(248, getZcAttVal());				  //直采衰减器
 
-	fftControl();
 
 	cicDown();									//CIC滤波器设置
 
@@ -11954,32 +11919,25 @@ void tSysScpi::controlRf(void)
 //获取最近的带宽
 double tSysScpi::getRecentBw(double value)
 {
-	double error = 0;
 	int index = 0;
 
-	//完全匹配
-	for (int i = 0; i < sizeof RAMCIC_HZ / sizeof RAMCIC_HZ[0]; i++)
+	index = sizeof RAMCIC_HZ / sizeof RAMCIC_HZ[0] - 1;
+	if(value > RAMCIC_HZ[0])
+		return (double)RAMCIC_HZ[0]; //max
+	else if (value < RAMCIC_HZ[index])
+		return (double)RAMCIC_HZ[index];//min
+	else
 	{
-		if (RAMCIC_HZ[i] == (unsigned long) value)
+		for(int i=0; i<index; i++)
 		{
-			return RAMCIC_HZ[i];
+			//return a value colse to bigger integer in RAMCIC_HZ[]
+			if (value <= RAMCIC_HZ[i] && value >= RAMCIC_HZ[i+1]) 
+			 return (double)RAMCIC_HZ[i];
 		}
 	}
 
-	//匹配接近
-	index = 0;
-	error = qAbs(value - RAMCIC_HZ[0]);//absolute value
 
-	for (int i = 1; i < sizeof RAMCIC_HZ / sizeof RAMCIC_HZ[0]; i++)
-	{
-		if (qAbs(value - RAMCIC_HZ[i]) < error)
-		{
-			error = qAbs(value - RAMCIC_HZ[i]);
-			index = i;
-		}
-	}
 
-	return RAMCIC_HZ[index];
 }
 
 //获取最近的带宽
@@ -12135,14 +12093,6 @@ void tSysScpi::getModifiedVbw(int arrow)
 //带宽自动耦合
 void tSysScpi::bwAutoCouple(void)
 {
-	//fft
-	//  if (sysData.bw.rbw <= 100 && !sysData.bw.rbwAuto && sysData.span.span > MAXFFTSPAN)
-	// if (sysData.options.isFft10HzOn && sysData.bw.rbw < 10 && sysData.span.span > MAXFFTSPAN)
-	//  {
-	//	sysData.span.span = MAXFFTSPAN;
-	//	sysData.freq.start = sysData.freq.center - sysData.span.span / 2;
-	//	sysData.freq.stop = sysData.freq.center + sysData.span.span / 2;
-	//  }
 
 	double k = 120.0; // factor of span
 	double autoSweepTime = 0;
@@ -12154,6 +12104,15 @@ void tSysScpi::bwAutoCouple(void)
 	if (sysData.bw.rbwAuto && sysData.span.span != 0)
 	{
 		sysData.bw.rbw = getRecentBw(sysData.span.span / k);
+		if (sysData.bw.vbwAuto)
+		{
+			sysData.bw.vbw = sysData.bw.rbw;
+
+			if ((unsigned long) sysData.bw.rbw == 120e3)
+			{
+				sysData.bw.vbw = 100e3;
+			}
+		}
 	}
 
 }
@@ -25232,35 +25191,24 @@ void tSysScpi::updateScanParam(void)
 		sysData.fscan.cic = sweepDataList[index].cic;
 		sysData.fscan.holdTime = sweepDataList[index].holdTime;
 
-		//rfData.DBUC_FREQ = (sysData.freq.stop - sysData.freq.start) / (RAMDATASIZE - 1);
 		rfData.DBUC_FREQ = (sysData.freq.stop - sysData.freq.start) / 800;
 
-//		if(rfData.DBUC_FREQ < sysData.bw.rbw / 4)
-//		{
-//			f_step = rfData.DBUC_FREQ / 4;
-//		} else
-//		{
-//			if(sysData.bw.rbw >= 100e3)
-//			{
-//				f_step = rfData.DBUC_FREQ / ceil(rfData.DBUC_FREQ * 1.0 / 25e3);
-//			}else
-//				f_step = rfData.DBUC_FREQ / ceil(rfData.DBUC_FREQ * 4.0 / sysData.bw.rbw);
-//		}
 
-		if(rfData.DBUC_FREQ < sysData.bw.rbw)
-		{
-			if(rfData.DBUC_FREQ >= 500e3)
-				f_step = 100e3;
-			else
-				f_step = rfData.DBUC_FREQ / 4;
-		} else
+		if(rfData.DBUC_FREQ >= sysData.bw.rbw)
 		{
 			if(sysData.bw.rbw >= 500e3)
+				f_step = 100e3;
+			else
+				f_step = sysData.bw.rbw / 4;
+		} 
+		else
+		{
+			if(rfData.DBUC_FREQ >= 500e3)
 			{
 				f_step = 100e3;
 			} else
 			{
-				f_step = sysData.bw.rbw / 4;
+				f_step = rfData.DBUC_FREQ / 4;
 			}
 		}
 
@@ -25280,7 +25228,7 @@ void tSysScpi::updateScanParam(void)
 
 		int index = getRecentFFTRbwIndex(sysData.bw.rbw);
 		sysData.fscan.fft = fftBandList[index].fft;
-		sysData.fscan.fftIndex= 7-index;
+		sysData.fscan.fftIndex= fftBandList[index].Index;
 		sysData.fscan.cic = fftBandList[index].cic;
 		sysData.fscan.step =  fftBandList[index].fstep;
 	}
@@ -25415,59 +25363,68 @@ void tSysScpi::vbwDown(void)
 //计算扫描时间 // 扫描时间耦合
 void tSysScpi::calSweepTimeOfAuto(void)
 {
-	float sweepTime_NL = 0, sweepTime_HL = 0, sweepTime_HH = 0, sweepTime_HH4 = 0;
+	double sweepTime_NL = 0, sweepTime_HL = 0, sweepTime_HH = 0, sweepTime_HH4 = 0;
+	double Ts = 0;
+	double kr = 0;
+    if(sysData.sweep.sweepTimeAuto == true){
+		if(sysData.fscan.mode == fsFFT)
+		{
+			sysData.fscan.ffHoldTime =  2e3;//us
+			sysData.fscan.ofHoldTime = 0.2e3;//us
+			sweepTime_NL = sysData.fscan.ofHoldTime + rfData.N_L * (102.4 * sysData.fscan.fft / sysData.fscan.cic + 6 / 25.6);
+			sweepTime_HL = sysData.fscan.ffHoldTime + sysData.fscan.ofHoldTime * (rfData.N_HL - 1) + rfData.N_HL * (102.4 * sysData.fscan.fft / sysData.fscan.cic + 78 / 25.6);
+			sweepTime_HH = sysData.fscan.ffHoldTime + sysData.fscan.ofHoldTime * (rfData.N_HH - 1) + rfData.N_HH * (102.4 * sysData.fscan.fft / sysData.fscan.cic + 86 / 25.6);
+			sweepTime_HH4 = sysData.fscan.ffHoldTime + sysData.fscan.ofHoldTime * (rfData.N_HH4 - 1) + rfData.N_HH4 * (102.4 * sysData.fscan.fft / sysData.fscan.cic + 78 / 25.6);
+			Ts = sweepTime_NL + sweepTime_HL + sweepTime_HH + sweepTime_HH4; //us
 
-	if(sysData.fscan.mode == fsFFT)
-	{
-		sysData.fscan.ffHoldTime = 3 * 1e3;//0.3ms
-		sysData.fscan.ofHoldTime = 0.25 * 1e3;
-		sweepTime_NL = sysData.fscan.ofHoldTime + rfData.N_L * (102.4 * sysData.fscan.fft / sysData.fscan.cic + 6 / 25.6);
-		sweepTime_HL = sysData.fscan.ffHoldTime + sysData.fscan.ofHoldTime * (rfData.N_HL - 1) + rfData.N_HL * (102.4 * sysData.fscan.fft / sysData.fscan.cic + 78 / 25.6);
-		sweepTime_HH = sysData.fscan.ffHoldTime + sysData.fscan.ofHoldTime * (rfData.N_HH - 1) + rfData.N_HH * (102.4 * sysData.fscan.fft / sysData.fscan.cic + 86 / 25.6);
-		sweepTime_HH4 = sysData.fscan.ffHoldTime + sysData.fscan.ofHoldTime * (rfData.N_HH4 - 1) + rfData.N_HH4 * (102.4 * sysData.fscan.fft / sysData.fscan.cic + 78 / 25.6);
+		} else
+		{
+			if (sysData.bw.rbw == 5e6)
+				kr = 100;
+			else if (sysData.bw.rbw == 3e6)
+				kr = 92;
+			else if (sysData.bw.rbw == 1e6)
+				kr = 20;
+			else if (sysData.bw.rbw == 0.5e6)
+				kr = 10;
+			else if (sysData.bw.rbw == 0.3e6)
+				kr = 8.5;
+			else if (sysData.bw.rbw == 0.1e6)
+				kr = 3.25;
+			else
+				kr = 1.2069;
 
-	} else
-	{
-		sysData.fscan.ffHoldTime = 3 * 1e3;
-		sysData.fscan.ofHoldTime = 0.2 * 1e3;
-		sweepTime_NL = sysData.fscan.ofHoldTime + rfData.N_L * (sysData.fscan.holdTime + 6 / 25.6);
-		sweepTime_HL = sysData.fscan.ffHoldTime + sysData.fscan.ofHoldTime * (rfData.N_HL - 1) + rfData.N_HL * (sysData.fscan.holdTime + 78 / 25.6);
-		sweepTime_HH = sysData.fscan.ffHoldTime + sysData.fscan.ofHoldTime * (rfData.N_HH - 1) + rfData.N_HH * (sysData.fscan.holdTime + 86 / 25.6);
-		sweepTime_HH4 = sysData.fscan.ffHoldTime + sysData.fscan.ofHoldTime * (rfData.N_HH4 - 1) + rfData.N_HH4 * (sysData.fscan.holdTime + 78 / 25.6);
-	}
-	sysData.sweep.minAutoSweepTime = sweepTime_NL + sweepTime_HL + sweepTime_HH + sweepTime_HH4;
-	sysData.sweep.sweepTime = sysData.sweep.minAutoSweepTime;
-
+			if ( sysData.bw.vbw >= sysData.bw.rbw)
+				Ts = kr * sysData.span.span / (sysData.bw.rbw * sysData.bw.rbw) * 1e3;//ms
+			else
+				Ts = kr * sysData.span.span / (sysData.bw.rbw * sysData.bw.vbw) * 1e3;//ms
+			if (Ts <= 1)
+				Ts = 1; //Ts(min)=1ms
+				
+			sysData.fscan.ffHoldTime = 2 * 1e3;
+			sysData.fscan.ofHoldTime = Ts / sysData.fscan.fftFrame * 1e3; //us
+		}
+		sysData.sweep.sweepTime = Ts;
+    }
 	if(sysData.span.isZeroSpan)
 	{
 		sysData.sweep.sweepTime = 1e3;
 	}
-//		sysData.fscan.Quant_stepHoldTime = (int) (sysData.fscan.holdTime * 102.4);
-//		sysData.fscan.Quant_ffHoldTime = (int) (sysData.fscan.ffHoldTime * 25.6);
-//		sysData.fscan.Quant_ofHoldTime = (int) (sysData.fscan.ofHoldTime * 25.6);
 
 
 }
 
 void tSysScpi::sweepTimeDown(void)
 {
-	unsigned int Quant_ffHoldTime, Quant_ofHoldTime, Quant_sampleHoldTime;
+	unsigned int Quant_ffHoldTime, Quant_ofHoldTime;
 
 	calSweepTimeOfAuto();
 
-	Quant_sampleHoldTime = (unsigned int) (sysData.fscan.holdTime * 102.4);
-	Quant_ffHoldTime = (unsigned int) (sysData.fscan.ffHoldTime * 25.6);
-	Quant_ofHoldTime = (unsigned int) (sysData.fscan.ofHoldTime * 25.6);
-	if(sysData.fscan.mode == fsSweep)
-	{
-		feDownload(41, (Quant_sampleHoldTime >> 16) & 0xff);  //高8位
-		feDownload(42, Quant_sampleHoldTime & 0xffff);        //低16位
-	}
+	Quant_ffHoldTime = (unsigned int) (sysData.fscan.ffHoldTime * 50);
+	Quant_ofHoldTime = (unsigned int) (sysData.fscan.ofHoldTime * 50);
 
-	Quant_ffHoldTime = 3 * 1000 * 50; 	//调试用
 	feDownload(249, (Quant_ffHoldTime >> 16) & 0xff);
 	feDownload(250, Quant_ffHoldTime & 0xffff);
-	Quant_ofHoldTime = 0.1 * 1000 * 50; 	//调试用
 	feDownload(251, (Quant_ofHoldTime >> 16) & 0xff);
 	feDownload(252, Quant_ofHoldTime & 0xffff);
 
@@ -25486,11 +25443,11 @@ int tSysScpi::getRecentSweepRbwIndex(double value)
 	{
 		if (tempValue < sweepDataList[0].rbw)
 		{
-			resultIndex = 0;
+			resultIndex = 0;//min
 		} else if (tempValue > sweepDataList[count - 1].rbw)
 		{
-			resultIndex = count - 1;
-		} /*ensure sweepDataList[0].rbw < tempValue < sweepDataList[count - 1].rbw*/
+			resultIndex = count - 1;//max
+		} 
 		else
 		{
 			for (int i = 0; i < count - 1; i++)
