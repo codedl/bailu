@@ -136,7 +136,7 @@ all: Makefile $(TARGET)
 
 $(TARGET):  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
-
+	cp src_v2 /mnt/hgfs/work/tftp
 Makefile: src_v2.pro  /usr/local/Trolltech/Qt-4.8.1/mkspecs/qws/linux-arm-g++/qmake.conf /usr/local/Trolltech/Qt-4.8.1/mkspecs/common/unix.conf \
 		/usr/local/Trolltech/Qt-4.8.1/mkspecs/common/linux.conf \
 		/usr/local/Trolltech/Qt-4.8.1/mkspecs/common/gcc-base.conf \

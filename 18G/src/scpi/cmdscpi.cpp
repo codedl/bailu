@@ -563,6 +563,8 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 
 					//sweep
 				case SCPI_CMD_SWEEP_TIME_SET:
+					__pile();
+					printf("SCPI_CMD_SWEEP_TIME_SET:%s\n",result.value.toUpper().trimmed().toStdString().c_str());
 					exeResult = setSweepOfTime(result.value.toUpper().trimmed());
 					//reDrawMenuFrame();
 					break;

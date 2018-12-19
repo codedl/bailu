@@ -3025,6 +3025,7 @@ void mainForm::handleUnitKey(int funcCode, QString value)
 		case KEY_FUNC_SOURCE_TRACKGEN_NETWORK_SWEEPTIME_S:
 			if (isOk)
 			{
+			__pile();
 				sysScpi->setSweepOfTime(value.toDouble() * 1e9);
 			}
 			break;
@@ -3032,6 +3033,7 @@ void mainForm::handleUnitKey(int funcCode, QString value)
 		case KEY_FUNC_SOURCE_TRACKGEN_NETWORK_SWEEPTIME_MS:
 			if (isOk)
 			{
+			__pile();
 				sysScpi->setSweepOfTime(value.toDouble() * 1e6);
 			}
 			break;
@@ -3039,6 +3041,7 @@ void mainForm::handleUnitKey(int funcCode, QString value)
 		case KEY_FUNC_SOURCE_TRACKGEN_NETWORK_SWEEPTIME_US:
 			if (isOk)
 			{
+			__pile();
 				sysScpi->setSweepOfTime(value.toDouble() * 1e3);
 			}
 			break;
@@ -3046,6 +3049,7 @@ void mainForm::handleUnitKey(int funcCode, QString value)
 		case KEY_FUNC_SOURCE_TRACKGEN_NETWORK_SWEEPTIME_NS:
 			if (isOk)
 			{
+			__pile();
 				sysScpi->setSweepOfTime(value.toDouble());
 			}
 			break;

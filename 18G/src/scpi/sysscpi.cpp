@@ -642,47 +642,6 @@ int tSysScpi::setFrequencyOfReference(int value)
 //设置扫宽
 int tSysScpi::setFrequencyOfSpan(double value)
 {
-	//fft
-	//  if (isRequireFFTMeas() && !sysData.bw.rbwAuto && sysData.span.span > MAXFFTSPAN)
-	//  if (sysData.bw.rbw <= 100 && !sysData.bw.rbwAuto && sysData.span.span > MAXFFTSPAN)
-	//  {
-	// 	sysData.span.prvSpan = sysData.span.nowSpan;
-	//    sysData.span.span = MAXFFTSPAN;
-	//
-	//    if ((sysData.freq.center - sysData.span.span / 2) <= MINFREQ)
-	//    {
-	//      sysData.freq.start = MINFREQ;
-	//      sysData.freq.stop = sysData.freq.start + sysData.span.span;
-	//      sysData.freq.center = sysData.freq.start + sysData.span.span / 2;
-	//    } else if ((sysData.freq.center + sysData.span.span / 2) >= MAXFREQ)
-	//    {
-	//  	  sysData.freq.stop = MAXFREQ;
-	//  	  sysData.freq.start = sysData.freq.stop - sysData.span.span;
-	//  	  sysData.freq.center = sysData.freq.start + sysData.span.span / 2;
-	//    } else
-	//    {
-	//  	  sysData.freq.start = sysData.freq.center - sysData.span.span / 2;
-	//  	  sysData.freq.stop = sysData.freq.center + sysData.span.span / 2;
-	//    }
-	//
-	//  	sysData.freq.isShowCenter = true;
-	//
-	//  	if (sysData.freq.cfStepAuto)
-	//  	{
-	//   	  sysData.freq.cfStep = (sysData.freq.stop - sysData.freq.start) / 10;
-	//      if (sysData.freq.cfStep < MINCFSTEP)	sysData.freq.cfStep = MINCFSTEP;
-	//
-	//      if(sysData.span.span == 0)
-	//      {
-	//    	sysData.freq.cfStep = 1e3;
-	//      }
-	//    }
-	//
-	//    sysData.span.nowSpan= sysData.span.span;
-	//    controlRf();
-	//
-	//    return __SCPI_SUCCESS;
-	//  }
 
 	double temp = setSpanOfMeasure(value);
 	sysData.span.prvSpan = sysData.span.nowSpan;
@@ -3126,8 +3085,8 @@ int tSysScpi::setSweepOfTimeAuto(QString value)
 //设置扫描时间
 int tSysScpi::setSweepOfTime(double value)
 {
-
-	double tempValue = value;
+	double tempValue = value * 1e-3; // to us
+	__var(tempValue);
 	double delSweepTime, delHoldTime;
 
 	calSweepTimeOfAuto();
@@ -3147,8 +3106,10 @@ int tSysScpi::setSweepOfTime(double value)
 		if (sysData.fscan.ofHoldTime <= 0.1)
 			sysData.fscan.ofHoldTime = 0.1;
 	}
-
-	sysData.sweep.sweepTimeAuto = false;
+	if (sysData.sweep.sweepTimeAuto == true)
+		sysData.sweep.sweepTimeAuto = false;
+	if (tempValue < 1e3)
+		tempValue = 1e3;
 	sysData.sweep.sweepTime = tempValue;
 	controlRf();
 
@@ -11863,9 +11824,10 @@ void tSysScpi::controlRf(void)
 
 
 	updateBandParam();         //本振参数计算
+
 	
 	fftControl();
-
+	
 	sweepTimeDown();            //采样驻留时间
 
 	setFTWOfDDS();             //DDS下发
@@ -12095,11 +12057,6 @@ void tSysScpi::bwAutoCouple(void)
 {
 
 	double k = 120.0; // factor of span
-	double autoSweepTime = 0;
-	double minSweepTime = 0;
-	double manVbwTime = 0;
-	double tempValue = 0;
-	double tempValueOfNetwork = 0;
 
 	if (sysData.bw.rbwAuto && sysData.span.span != 0)
 	{
@@ -16266,7 +16223,6 @@ double tSysScpi::zoomInData(double value, int step)
 {
 	int bits10 = 0;
 	double data = value;
-
 	while (true)
 	{
 		if ((data / 10) >= 1)
@@ -16292,7 +16248,6 @@ double tSysScpi::zoomInData(double value, int step)
 	{
 		data = 1;
 	}
-
 	return (int) (data) * (pow(10, bits10));
 }
 
@@ -18135,7 +18090,6 @@ double tSysScpi::getTimeValue(QString value, bool* ok)
 				break;
 			}
 		}
-
 	return tempValue;
 }
 
@@ -19337,7 +19291,6 @@ void tSysScpi::setCalibrateParamOfAbsoluteAmplitude(void)
 	setFrequencyOfCenter(1e9);
 	setFrequencyOfSpan(1e6);
 	setSweepOfTimeAuto(1);
-	//  setSweepOfTime(150 * 1e6);
 	setBwOfRbwAuto(0);
 //	setBwOfVbwAuto(0);
 	setBwOfRbw(10e3);
@@ -19366,7 +19319,6 @@ void tSysScpi::setZcCalibrateParamOfAbsoluteAmplitude(void)
 	setFrequencyOfCenter(5e6);
 	setFrequencyOfSpan(100e3); //200e3
 	setSweepOfTimeAuto(1);
-	// setSweepOfTime(200 * 1e6);
 	setBwOfRbwAuto(0);
 	setBwOfVbwAuto(0);
 	setBwOfRbw(10e3);
@@ -19391,7 +19343,6 @@ void tSysScpi::setCalibrateParamOfIfAttenuation(void)
 	setFrequencyOfCenter(1e9);
 	setFrequencyOfSpan(1e6);
 //	setSweepOfTimeAuto(0);
-//	setSweepOfTime(150 * 1e6);
 	setBwOfRbwAuto(0);
 //	setBwOfVbwAuto(0);
 	setBwOfRbw(10e3);
@@ -19416,7 +19367,6 @@ void tSysScpi::setCalibrateParamOfRfAttenuation(void)
 	setFrequencyOfCenter(1e9);
 	setFrequencyOfSpan(1e6);
 //	setSweepOfTimeAuto(0);
-//	setSweepOfTime(150 * 1e6);
 	setBwOfRbwAuto(0);
 //	setBwOfVbwAuto(0);
 	setBwOfRbw(10e3);
@@ -19459,7 +19409,6 @@ void tSysScpi::setZcCalibrateParamOfIF(void)
 	setFrequencyOfCenter(5e6);
 	setFrequencyOfSpan(1e6); //200e3
 	setSweepOfTimeAuto(1);
-	//setSweepOfTime(200 * 1e6);
 	setBwOfRbwAuto(0);
 	setBwOfVbwAuto(0);
 	setBwOfRbw(10e3);
@@ -25398,13 +25347,14 @@ void tSysScpi::calSweepTimeOfAuto(void)
 				Ts = kr * sysData.span.span / (sysData.bw.rbw * sysData.bw.rbw) * 1e3;//ms
 			else
 				Ts = kr * sysData.span.span / (sysData.bw.rbw * sysData.bw.vbw) * 1e3;//ms
-			if (Ts <= 1)
-				Ts = 1; //Ts(min)=1ms
 				
 			sysData.fscan.ffHoldTime = 2 * 1e3;
 			sysData.fscan.ofHoldTime = Ts / sysData.fscan.fftFrame * 1e3; //us
+			if (Ts <= 1e3)
+				Ts = 1e3;
 		}
 		sysData.sweep.sweepTime = Ts;
+		__var(sysData.sweep.sweepTime);
     }
 	if(sysData.span.isZeroSpan)
 	{
