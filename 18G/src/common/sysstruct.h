@@ -1355,7 +1355,7 @@ struct spanDef
 {
   double prvSpan;
   double nowSpan;
-  double span;
+  double span;//stopfre - startfre
   bool isZeroSpan;
 };
 
@@ -1416,11 +1416,11 @@ struct emcDef
 //分辨率结构定义
 struct bwDef
 {
-  double rbw;//分辨率带宽
-  bool rbwAuto;
+  double rbw;//resolution brand width
+  bool rbwAuto;//if true ,value of  rbw  in RAMCIC_HZ
   bool rbwStepCont;
-  double vbw;
-  bool vbwAuto;
+  double vbw;//video brand width
+  bool vbwAuto;//if true ,value of vbw relative to rbw
   bool vbwStepCont;
   int bwAverage;
   int bwAverageFlag;

@@ -2011,7 +2011,7 @@ int tSysScpi::setBwOfRbwWithArrow(bool up)
 						tempValue = RAMCIC_HZ[bwIndex - 1];
 					} else
 					{
-						tempValue = tempValue = RAMCIC_HZ[0];
+					    tempValue = RAMCIC_HZ[0];
 					}
 				} else
 				{
@@ -3086,7 +3086,6 @@ int tSysScpi::setSweepOfTimeAuto(QString value)
 int tSysScpi::setSweepOfTime(double value)
 {
 	double tempValue = value * 1e-3; // to us
-	__var(tempValue);
 	double delSweepTime, delHoldTime;
 
 	calSweepTimeOfAuto();
@@ -11881,21 +11880,23 @@ void tSysScpi::controlRf(void)
 //获取最近的带宽
 double tSysScpi::getRecentBw(double value)
 {
-	int index = 0;
+	int index = 0,i;
 
-	index = sizeof RAMCIC_HZ / sizeof RAMCIC_HZ[0] - 1;
+	index = sizeof RAMCIC_HZ / sizeof RAMCIC_HZ[0]-1;
 	if(value > RAMCIC_HZ[0])
 		return (double)RAMCIC_HZ[0]; //max
 	else if (value < RAMCIC_HZ[index])
 		return (double)RAMCIC_HZ[index];//min
 	else
 	{
-		for(int i=0; i<index; i++)
+		for (i=0; i<index; i++)
 		{
-			//return a value colse to bigger integer in RAMCIC_HZ[]
-			if (value <= RAMCIC_HZ[i] && value >= RAMCIC_HZ[i+1]) 
+	  //return a value colse to bigger integer in RAMCIC_HZ or a value equal to element in RAMCIC_HZ
+			if ((value < RAMCIC_HZ[i] && value > RAMCIC_HZ[i+1]) || value == RAMCIC_HZ[i]) 
 			 return (double)RAMCIC_HZ[i];
 		}
+		if (value == RAMCIC_HZ[i])
+			 return (double)RAMCIC_HZ[i];
 	}
 
 
@@ -25215,7 +25216,6 @@ void tSysScpi::cicDown(void)
 
 int tSysScpi::setBwOfRbw(double value)
 {
-
 	setBwOfRbwAuto(0);
 
 	double tempValue = value;
@@ -25230,8 +25230,18 @@ int tSysScpi::setBwOfRbw(double value)
 	{
 		tempValue = getRecentBw(tempValue);
 	}
+	
 
 	sysData.bw.rbw = tempValue;
+	if (sysData.bw.vbwAuto)
+	{
+		sysData.bw.vbw = sysData.bw.rbw;
+	
+		if ((unsigned long) sysData.bw.rbw == 120e3)
+		{
+			sysData.bw.vbw = 100e3;
+		}
+	}
 	updateScanParam();
 	controlRf();
 	return __SCPI_SUCCESS;
@@ -25354,7 +25364,6 @@ void tSysScpi::calSweepTimeOfAuto(void)
 				Ts = 1e3;
 		}
 		sysData.sweep.sweepTime = Ts;
-		__var(sysData.sweep.sweepTime);
     }
 	if(sysData.span.isZeroSpan)
 	{
