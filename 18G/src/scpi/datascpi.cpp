@@ -3,6 +3,7 @@
 //获取中频数据
 void tSysScpi::getDataFromIF(void)
 {
+
 	if (sysData.freq.lineZero)
 	{
 		return;
@@ -39,12 +40,14 @@ void tSysScpi::getDataFromIF(void)
 			}
 
 			sysData.markerFctn.freqCountValue = freqValue;
+			printf("sysData.markerFctn.freqCountValue......\n");
 		}
 
 		if (sysData.markerFctn.isFreqCountOn)
 		{
 			for (int i = 0; i < TRACECOUNT; i++)
 			{
+				printf("memcoy tempTraceData sysData.trace[i].value......\n");
 				memcpy(sysData.trace[i].value, tempTraceData[i], sizeof(double) * sysData.sweep.sweepPoints);
 			}
 
@@ -126,8 +129,17 @@ void tSysScpi::getDataFromIF(void)
 			{
 				if (!devControling)
 				{
-//				//读取数据
+				//读取数据
 					read(ramHandle, dataBuf, sizeof dataBuf);
+					if(sysData.isFactoryCalibrating)
+					{
+					FILE * fp = fopen("initdata.c","w");
+					for (int i = 0; i < dataBufSize; i++)
+					{
+						fprintf(fp, "%d=>%d\n",i,dataBuf[i]);
+					}
+					fclose(fp);
+					}
 				}
 			}
 		}
@@ -135,6 +147,7 @@ void tSysScpi::getDataFromIF(void)
 		//当扫描点数增大时，将原最后一个扫描点的数据赋值给新增加的点
 		if (isFillData)
 		{
+			printf("sweepPrevPoints is %d, dataBufSize is %d\n",sweepPrevPoints,dataBufSize);
 			for (int i = sweepPrevPoints; i < dataBufSize; i++)
 			{
 				dataBuf[i] = dataBuf[sweepPrevPoints - 1];
@@ -142,6 +155,7 @@ void tSysScpi::getDataFromIF(void)
 
 			//memset(&dataBuf[sysData.sweep.sweepPrevPoints], dataBuf[sysData.sweep.sweepPrevPoints - 1], sizeof dataBuf[0] * (dataBufSize - sysData.sweep.sweepPrevPoints));
 			isFillData = false;
+			printf("sweeppoints adding......\n");
 		}
 
 		if (sysData.freq.isLowChannel)
@@ -240,6 +254,7 @@ void tSysScpi::getDataFromIF(void)
 					{
 						bcValue += sysData.ampt.LMPValue;
 					}
+					
 				} else
 				{
 					//bc att
@@ -294,6 +309,7 @@ void tSysScpi::getDataFromIF(void)
 						 (unsigned long long) sysData.freq.start == (unsigned long long) sysData.source.trackNetworkStandard.startFreq &&
 						 (unsigned long long) sysData.freq.stop	== (unsigned long long) sysData.source.trackNetworkStandard.stopFreq;
 
+		double maxvalue = 0;
 		for (int i = 0; i < dataBufSize; i++)
 		{
 			//Pass-Fail data
@@ -331,24 +347,26 @@ void tSysScpi::getDataFromIF(void)
 				if (sysData.ampt.isPreamptOn)
 				{
 					//tempValue = -40.0 + sysData.initValue[i];
-					tempValue = -40.0 + sysData.initValue[i] - sysData.zcPreamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf - sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
+					tempValue = -40.0 + sysData.initValue[i] - sysData.zcPreamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
 				} else
 				{
 					//tempValue = -20.0 + sysData.initValue[i];
-					tempValue = -20.0 + sysData.initValue[i] - sysData.zcCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf - sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
+					tempValue = -20.0 + sysData.initValue[i] - sysData.zcCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
 				}
 			} else
 			{
 				if (sysData.ampt.isPreamptOn)
 				{
 					//tempValue = -24.0 + sysData.initValue[i]; 
-					tempValue = -24.0 + sysData.initValue[i] - sysData.preamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf - sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
+					tempValue = -24.0 + sysData.initValue[i] - sysData.preamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
 				} else
 				{
 					//tempValue = -4.0 + sysData.initValue[i];
-					tempValue = -4.0 + sysData.initValue[i] - sysData.factoryCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf - sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
+					tempValue = -4.0 + sysData.initValue[i] - sysData.factoryCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
 				}
 			}
+			if (sysData.initValue[i] > maxvalue)
+				maxvalue = sysData.initValue[i];
 #if 1
 			if (sysData.freq.isLowChannel)
 			{
@@ -415,7 +433,8 @@ void tSysScpi::getDataFromIF(void)
 				sysData.prjValue[i] = tempValue;
 			}
 		}
-
+		//__var(maxvalue);
+		
 		for (int i = 0; i < TRACECOUNT; i++)
 		{
 			switch (sysData.trace[i].state)

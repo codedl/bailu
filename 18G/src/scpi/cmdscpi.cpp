@@ -562,13 +562,14 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					break;
 
 					//sweep
-				case SCPI_CMD_SWEEP_TIME_SET:
+				case SCPI_CMD_SWEEP_TIME_SET:// get ns of sysData.sweep.sweepTime 
 					exeResult = setSweepOfTime(result.value.toUpper().trimmed());
 					//reDrawMenuFrame();
 					break;
-				case SCPI_CMD_SWEEP_TIME_GET:
+				case SCPI_CMD_SWEEP_TIME_GET:// make sysData.sweep.sweepTime to ms
 					exeResult = __SCPI_RETURN;
 					returnString = QString(floatToStringDot3(sysData.sweep.sweepTime * 1e-3, tempChar)).trimmed();
+					printf("sweepTime to PC:%fus\n",sysData.sweep.sweepTime);
 					break;
 				case SCPI_CMD_SWEEP_TIME_AUTO_SET:
 					exeResult = setSweepOfTimeAuto(result.value.toUpper().trimmed());
@@ -2633,6 +2634,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 //·µ»ØSCPI½á¹û
 void tSysScpi::returnScpiResult(QString value)
 {
+	//printf("%s\n",value.toStdString().c_str());
 	if (value.isNull() || value.isEmpty())
 	{
 		return;

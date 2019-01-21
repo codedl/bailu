@@ -67,7 +67,7 @@ int firVerHandle;
 int keyHandle;
 int ifHandle;
 int rfHandle;
-int comHandle;
+int comHandle;//serial port
 int srcHandle;
 int tmptHandle;
 int fftHandle;
@@ -81,7 +81,7 @@ int iqHandle;
 int feHandle;
 int ifDev;
 int ramHandle;
-int tmcHandle;
+int tmcHandle;//power meter
 
 bool isFFtnd;                    //ÅĞ¶ÏFFTÊÇ·ñ½áÊø
 

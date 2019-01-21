@@ -40,11 +40,11 @@
 #define SCPI_CMD_STANDARD_CLEAR                     0x1015
 
 //自定义指令
-#define SCPI_CMD_UPDATE_BEGIN                        0xF000
-#define SCPI_CMD_UPDATE_FILE                         0xF001
-#define SCPI_CMD_UPDATE_END                          0xF002
-#define SCPI_CMD_UPDATE_CANCEL                       0xF003
-#define SCPI_CMD_UPDATE_CRC                          0xF004
+#define SCPI_CMD_UPDATE_BEGIN                       0xF000
+#define SCPI_CMD_UPDATE_FILE                        0xF001
+#define SCPI_CMD_UPDATE_END                         0xF002
+#define SCPI_CMD_UPDATE_CANCEL                      0xF003
+#define SCPI_CMD_UPDATE_CRC                         0xF004
 
 //扩展指令
 #define SCPI_CMD_FREQ_CENTER_SET                    0x1100
@@ -61,8 +61,8 @@
 #define SCPI_CMD_FREQ_OFFSET_GET                    0x110B
 #define SCPI_CMD_FREQ_REFERENCE_SET                 0x110C
 #define SCPI_CMD_FREQ_REFERENCE_GET                 0x110D
-#define SCPI_CMD_FREQ_SCALETYPE_SET									0x110E
-#define SCPI_CMD_FREQ_SCALETYPE_GET									0x110F
+#define SCPI_CMD_FREQ_SCALETYPE_SET					0x110E
+#define SCPI_CMD_FREQ_SCALETYPE_GET					0x110F
 
 #define SCPI_CMD_SPAN_SET                           0x1200
 #define SCPI_CMD_SPAN_GET                           0x1201
@@ -278,7 +278,7 @@
 #define SCPI_CMD_MEMORY_COPY_TRACE                  0x220E
 #define SCPI_CMD_MEMORY_COPY_SCREEN_ALL             0x220F
 #define SCPI_CMD_MEMORY_COPY_SCREEN                 0x2210
-#define SCPI_CMD_MEMORY_LOAD_STATE									0x2211
+#define SCPI_CMD_MEMORY_LOAD_STATE					0x2211
 
 #define SCPI_CMD_SOURCE_TRACKGEN_STATE_SET          0x2300
 #define SCPI_CMD_SOURCE_TRACKGEN_STATE_GET          0x2301
@@ -364,37 +364,37 @@
 #define SCPI_CMD_DEVICE_ONOFF_GET                   0xD002
 
 //触发
-#define SCPI_CMD_TRIG_MODE_SET                               0xE000
-#define SCPI_CMD_TRIG_MODE_GET                               0xE001
-#define SCPI_CMD_TRIG_MODE_VIDEO_POWER_SET                   0xE003
-#define SCPI_CMD_TRIG_MODE_VIDEO_POWER_GET                   0xE004
+#define SCPI_CMD_TRIG_MODE_SET                      0xE000
+#define SCPI_CMD_TRIG_MODE_GET                      0xE001
+#define SCPI_CMD_TRIG_MODE_VIDEO_POWER_SET          0xE003
+#define SCPI_CMD_TRIG_MODE_VIDEO_POWER_GET          0xE004
 //test
-#define SCPI_CMD_TEST                              0xE005
+#define SCPI_CMD_TEST                               0xE005
 
-#define	SCPI_CMD_FRONTEND_FREQ        						0x4000
-#define	SCPI_CMD_FRONTEND_PREAMPT_ON  						0x4001
-#define	SCPI_CMD_FRONTEND_PE43704     						0x4002
-#define	SCPI_CMD_FRONTEND_HMC1018     						0x4003
-#define SCPI_CMD_FRONTEND_IF_ATT      						0x4004
+#define	SCPI_CMD_FRONTEND_FREQ        				0x4000
+#define	SCPI_CMD_FRONTEND_PREAMPT_ON  				0x4001
+#define	SCPI_CMD_FRONTEND_PE43704     				0x4002
+#define	SCPI_CMD_FRONTEND_HMC1018     				0x4003
+#define SCPI_CMD_FRONTEND_IF_ATT      				0x4004
 #define	SCPI_CMD_FRONTEND_AD5320                  	0x4005
 #define SCPI_CMD_FRONTEND_REFSEL                  	0x4006
 #define SCPI_CMD_GPMC_SET						  	0x4007
 #define SCPI_CMD_GPMC_CLR						  	0x4008
-#define SCPI_CMD_FRONTEND_HMC704				0x4009
+#define SCPI_CMD_FRONTEND_HMC704				    0x4009
 #define SCPI_CMD_READ_TEST							0x400a
-#define SCPI_CMD_FRONTDET								0x400b
+#define SCPI_CMD_FRONTDET							0x400b
 #define SCPI_CMD_DATA_START							0x400c
 #define SCPI_CMD_DATA_SAVE							0x400d
 #define SCPI_CMD_WRITE_TEST							0x400e
-#define SCPI_CMD_UDP_REMOTE_IP_SET			0x4100
-#define SCPI_CMD_UDP_REMOTE_IP_GET			0x4101
-#define SCPI_CMD_UDP_REMOTE_PORT_SET		0x4102
-#define SCPI_CMD_UDP_REMOTE_PORT_GET		0x4103
-#define SCPI_CMD_FRONTEND_TEST          0x4104
+#define SCPI_CMD_UDP_REMOTE_IP_SET			        0x4100
+#define SCPI_CMD_UDP_REMOTE_IP_GET			        0x4101
+#define SCPI_CMD_UDP_REMOTE_PORT_SET		        0x4102
+#define SCPI_CMD_UDP_REMOTE_PORT_GET		        0x4103
+#define SCPI_CMD_FRONTEND_TEST                      0x4104
 
-#define SCPI_CMD_POWERMETER_FREQ_SET	 	0x4200
-#define SCPI_CMD_POWERMETER_FREQ_GET		0x4201
-#define SCPI_CMD_POWERMETER_AMPT_GET		0x4202
+#define SCPI_CMD_POWERMETER_FREQ_SET	 	        0x4200
+#define SCPI_CMD_POWERMETER_FREQ_GET		        0x4201
+#define SCPI_CMD_POWERMETER_AMPT_GET		        0x4202
 
   //检索返回值结构定义
 struct resultDef

@@ -54,7 +54,7 @@
 #include <sys/epoll.h> /* epoll function */
 #include <fcntl.h>     /* nonblocking */
 #include <signal.h>
-
+#include <cstring>
 struct evaluateDataDef
 {
   bool isEvaluate;

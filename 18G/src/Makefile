@@ -7,7 +7,10 @@
 #############################################################################
 
 ####### Compiler, tools and options
-
+HOSTIP				=192.168.1.11
+SSHIP					=192.168.1.6
+SSHUSER				=root
+SSHPATH				=/home/sky
 CC            = arm-embedsky-linux-gnueabi-gcc
 CXX           = arm-embedsky-linux-gnueabi-g++
 DEFINES       = -DQT_NO_DEBUG -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_SHARED
@@ -43,6 +46,7 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
+
 SOURCES       = main.cpp \
 		common/sysfunc.cpp \
 		common/sysvar.cpp \
@@ -62,26 +66,7 @@ SOURCES       = main.cpp \
 		moc_sysmenu.cpp \
 		moc_basescpi.cpp \
 		moc_sysscpi.cpp
-OBJECTS       = main.o \
-		sysfunc.o \
-		sysvar.o \
-		drawmenu.o \
-		execmenu.o \
-		mainform.o \
-		mainthread.o \
-		basemenu.o \
-		sysmenu.o \
-		basescpi.o \
-		cmdscpi.o \
-		datascpi.o \
-		filescpi.o \
-		sysscpi.o \
-		moc_mainform.o \
-		moc_mainthread.o \
-		moc_basemenu.o \
-		moc_sysmenu.o \
-		moc_basescpi.o \
-		moc_sysscpi.o
+OBJECTS       =$(patsubst %.cpp, %.o, $(SOURCES)) 
 DIST          = /usr/local/Trolltech/Qt-4.8.1/mkspecs/common/unix.conf \
 		/usr/local/Trolltech/Qt-4.8.1/mkspecs/common/linux.conf \
 		/usr/local/Trolltech/Qt-4.8.1/mkspecs/common/gcc-base.conf \
@@ -135,8 +120,12 @@ first: all
 all: Makefile $(TARGET)
 
 $(TARGET):  $(OBJECTS)  
-	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
-	cp src_v2 /mnt/hgfs/work/tftp
+	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS) 
+	cp src_v2 /mnt/hgfs/work/tftp  
+	ifconfig eth0 $(HOSTIP)
+scp:
+	ifconfig eth0 $(HOSTIP);
+	scp src_v2 $(SSHUSER)@$(SSHIP):$(SSHPATH)
 Makefile: src_v2.pro  /usr/local/Trolltech/Qt-4.8.1/mkspecs/qws/linux-arm-g++/qmake.conf /usr/local/Trolltech/Qt-4.8.1/mkspecs/common/unix.conf \
 		/usr/local/Trolltech/Qt-4.8.1/mkspecs/common/linux.conf \
 		/usr/local/Trolltech/Qt-4.8.1/mkspecs/common/gcc-base.conf \

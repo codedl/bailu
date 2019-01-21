@@ -263,8 +263,8 @@ void dataThread::run()
 	while (true)
 	{
 		delay.tv_sec = 0;
-		//delay.tv_usec = 120 * 1000;
-		delay.tv_usec = 400 * 1000;
+		//delay.tv_usec = 400 * 1000;//120 : start
+		delay.tv_usec = 120 * 1000;
 		select(0, NULL, NULL, NULL, &delay);
 
 		//if system is calibrating
@@ -1251,6 +1251,7 @@ void fftThread::run()
 //获取中频数据
 void dataThread::getDataFromIF(void)
 {
+
 	if (sysData.disc.isDiscOn)
 	{
 		sysScpi->getDataFromUsbDisc();
@@ -1258,6 +1259,7 @@ void dataThread::getDataFromIF(void)
 	{
 		//sysScpi->getDataFromDemod();
 		sysScpi->getDataFromIF();
+		
 	} else
 	{
 		sysScpi->getDataFromIF();

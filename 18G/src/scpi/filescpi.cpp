@@ -702,6 +702,8 @@ void tSysScpi::saveLogOfFactoryCalibrate(QString datetime, QString result, QStri
 	log += reason;
 
 	saveSystemLog(log);
+	printf("%s!\n",reason.trimmed().toStdString().c_str());
+	usleep(1000);
 }
 
 //载入出厂校准日志

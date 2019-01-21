@@ -214,12 +214,34 @@ void getLocalDateTime(char* result)
 {
   char temp[32];
 
-  time_t t = time(NULL);
-  tm* tp = localtime(&t);
+  time_t t = time(NULL);//get time
+  tm* tp = localtime(&t);//to  local format
 
   sprintf(temp, "%04d-%02d-%02d %02d:%02d:%02d", tp->tm_year + 1900, tp->tm_mon + 1, tp->tm_mday, tp->tm_hour, tp->tm_min, tp->tm_sec);
   strcpy(result, temp);
 }
+
+char * strdel(char *a, char *b)
+{
+  if(a == NULL || b == NULL)
+  	return a;
+  char *q = a;
+  char *p = NULL;
+  while(*(q+strlen(b)-1))
+  {
+      p = q;
+      for(;*q == *b && *b; q++,b++);
+      if(!*b)
+      {
+        *p = '\0';
+        return a;
+      }
+      q++;
+  }
+
+  return a;
+}
+
 
 //获取本地日期时间
 void getLocalDateTimeConvert(char* result)

@@ -20,6 +20,8 @@
 #include "sysvar.h"
 #include "messages.h"
 
+extern char * strdel(char *a, char *b);// delete b from a if b in a
+
 extern double Log10(double value);                                         //求对数
 extern char* getDateTimeFileName(char* result);                            //获取日期时间文件名称
 extern void getLocalDate(char* result);                                    //获取本地日期

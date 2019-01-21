@@ -18,8 +18,8 @@
 #define SERIALNO        "00000000000000"     //序列号
 #define DEVICETYPE      "SA2180"             //设备型号
 
-#define SOCKETSERVERIP		  "192.168.1.138"  //服务器IP地址
-#define SOCKETSEVERPORT      5025             //服务器端口   5025
+#define SOCKETSERVERIP		  "192.168.1.138"  //ip address of signal generator(20G)
+#define SOCKETSEVERPORT       5025            //port of signal generator
 
 #define SOCKETSERVERIP_ZC	  "192.168.1.137"   //直采校准服务器IP地址
 #define SOCKETSEVERPORT_ZC   80               //直采校准服务器端口  优利德:4162
@@ -49,7 +49,7 @@
 
 
 
-#define FREQ_START_HH_BAND1   8e9
+#define FREQ_START_HH_BAND1      8e9
 #define FREQ_START_HH_BAND2		11e9
 #define FREQ_START_HH_BAND3		14e9
 #define FREQ_START_HH_BAND4		16e9
@@ -1040,27 +1040,27 @@ struct fscanDef
   unsigned int cic;
   unsigned int fft;				//fft点数
   int mode;           //模式  （FFT 和扫频）
-  double ffHoldTime;
-  double ofHoldTime;
+  double ffHoldTime;//FPGA need us to unit
+  double ofHoldTime;//FPGA need us to unit
   double holdTime;     //采样驻留世间
   double sampleTime_ZeroSpan;  //零扫宽 单个采集时间
-  unsigned char fftIndex; //ADDR_13
+  unsigned char Index; //index of rbw to ADDR_13
 };
 
 //fft模式数据定义
 struct fftDataDef
 {
-  double rbw;               //分辨率
+  double rbw;               //resolution  brand width
   unsigned int cic;         //抽取率
   unsigned int fft;					//FFT点数
   unsigned int length;			//有效长度
   double fstep;						//本振步进长度
-  unsigned char Index;
+  unsigned char Index;         //index of rbw to ADDR_13
 };
 
 static struct fftDataDef fftBandList[] =
 {
-	//rbw            cic             fft             length	     fstep        RBW送数
+	//rbw            cic             fft             length	     fstep      RBW送数
 	  {10,     1250,     8192,		6400,		32e3,    7},  //  7
 	  {30,     500,      8192,      6400,		80e3,    5},  //  5
 	  {50,     250,      8192,      6400,		160e3,   4},  //  4
@@ -1076,24 +1076,25 @@ struct sweepDataDef
 	 double rbw;            //分辨率
 	 unsigned int cic;      //抽取率
 	 double holdTime;       //采集最小驻留时间
-	 double sampleTime;			//单个采集时间
+	 double sampleTime;			//单个采集时间	 
+	 unsigned char Index;		  //index of rbw to ADDR_13
 };
 
 static struct sweepDataDef sweepDataList[] =
 {
-   // rbw		 cic                holdTime              sampleTime
-	{1e3,		1000,		19.53125,       9.765625},
-	{3e3,		333,		6.50407,		3.251953125},
-	{5e3,		200,		3.90625,		1.953125},
-	{10e3,	    100,		3.90625,		0.9765625},
-	{30e3,	    33,			3.90625,		0.322265625},
-	{50e3,	    20,			3.90625, 		0.1953125},
-	{100e3,	    20,			3.90625,		0.1953125},
-	{300e3,	    7,			3.90625,		0.068359375},
-	{500e3,	    4,			3.90625,		0.0390635},
-	{1e6,		20,			3.90625,		0.1953125},
-	{3e6,		7,			3.90625,		0.068359375},
-	{5e6,		4,			3.90625,		0.0390625},
+   // rbw		 cic                holdTime              sampleTime	    RBW送数
+	{1e3,		1000,		19.53125,       9.765625,		15},
+	{3e3,		333,		6.50407,		3.251953125,	13},
+	{5e3,		200,		3.90625,		1.953125,		12},
+	{10e3,	    100,		3.90625,		0.9765625,		11},
+	{30e3,	    33,			3.90625,		0.322265625,	9},
+	{50e3,	    20,			3.90625, 		0.1953125,		8},
+	{100e3,	    20,			3.90625,		0.1953125,		7},
+	{300e3,	    7,			3.90625,		0.068359375,	5},
+	{500e3,	    4,			3.90625,		0.0390635,		4},
+	{1e6,		20,			3.90625,		0.1953125,		3},
+	{3e6,		7,			3.90625,		0.068359375,	1},
+	{5e6,		4,			3.90625,		0.0390625,		0},
 };
 
 //射频参数结构
@@ -1356,7 +1357,7 @@ struct spanDef
   double prvSpan;
   double nowSpan;
   double span;//stopfre - startfre
-  bool isZeroSpan;
+  bool isZeroSpan;//value of span is zero
 };
 
 //幅度结构定义
@@ -1433,8 +1434,8 @@ struct sweepDef
 {
   double sweepDelay;
   double minAutoSweepTime; //耦合状态最小扫描时间 us
-  double sweepTime;  //us
-  bool sweepTimeAuto;
+  double sweepTime;  //us to FPGA; ms to PC; ns from PC
+  bool sweepTimeAuto;//flag of set sweepTime  auto or man
   unsigned int sweepPoints;
   bool sweepSingle;
 };
@@ -1620,9 +1621,9 @@ struct comDef
 //系统I/O结构定义
 struct ioDef
 {
-  lanDef lan;
-  gpibDef gpib;
-  comDef com;
+  lanDef lan;//ethernet
+  gpibDef gpib;//used rarely
+  comDef com;//serial port
 };
 
 //日期时间定义
@@ -1665,7 +1666,7 @@ struct systemDef
   int backLight;
   bool isServiceUnlock;                       //系统服务是否开启
 
-  ioDef io;
+  ioDef io;//commication io port
   dateTimeDef datetime;
   powerOnPresetDef powerOnPreset;
 
@@ -1746,7 +1747,7 @@ struct zcCalDataDef
 
 	double attBase;                               //基准
 	double att0;                                  //衰减
-	double att9;                                 //衰减
+	double att9;                                  //衰减
 	double att21;                                 //衰减
 	double att30;                                 //衰减
 	double att39;                                 //衰减
