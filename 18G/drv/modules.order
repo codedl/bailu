@@ -1,0 +1,4 @@
+kernel//mnt/hgfs/work/18G/drv/bl_tq3358_gpmc.ko
+kernel//mnt/hgfs/work/18G/drv/bl_tq3358_ram.ko
+kernel//mnt/hgfs/work/18G/drv/bl_tq3358_gpio.ko
+kernel//mnt/hgfs/work/18G/drv/bl_tq3358_frontend.ko
