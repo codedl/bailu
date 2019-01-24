@@ -304,10 +304,12 @@ void dataThread::run()
 			usleep(1000 * 100);
 			return;
 		}
-
+	if (!sysData.span.isZeroSpan)
+	{
 		mutexAmpt.lock();
 		getDataFromIF();
 		mutexAmpt.unlock();
+	}
 	}
 }
 

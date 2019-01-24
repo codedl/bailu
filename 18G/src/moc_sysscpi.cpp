@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'sysscpi.h'
 **
-** Created: Fri Jan 18 15:29:01 2019
+** Created: Thu Jan 24 11:58:42 2019
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

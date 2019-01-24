@@ -62,6 +62,7 @@ class mainForm : public QWidget
     mainForm(QWidget* parent = 0);                                //构造函数
     tSysScpi* sysScpi;                                             //SCPI
 
+
     void drawHelp(QPainter* painter, QPixmap* pixmap, QRect rc);
     void drawSystemLog(QPainter* painter, QPixmap* pixmap, QRect rc);
     void drawSystemInfo(QPainter* painter, QPixmap* pixmap, QRect rc);
@@ -97,6 +98,7 @@ class mainForm : public QWidget
     QSocketNotifier* comNotifier;                                 //串口消息
     QSocketNotifier* usbNotifier;                                 //USB从口消息
     QSocketNotifier* gpibNotifier;                                //GPIB消息
+	QSocketNotifier* ramNotifier;
 
     void customEvent(QEvent* e);
     int evaIndex;
@@ -232,6 +234,7 @@ class mainForm : public QWidget
     virtual void resetUsbSlaveInterface();                        //复位USB从口
     virtual void showAlaramMessages(QString title, QString msg);  //绘制告警信息
     virtual void refreshMenuFrame(unsigned long mainCode, unsigned long subCode);  //刷新菜单面板
+    virtual void getDataFromIF(void);       //获取中频数据
 };
 
 #endif

@@ -964,8 +964,8 @@ enum systemMode {smCalibrate, smSpectrum, smZoom, smTimeSpec, smAcpr, smObw, smF
 //迹线状态定义(刷新、最大保持、最小保持、查看、 清空)
 enum traceState {tsClearWrite, tsMaxHold, tsMinHold, tsView, tsBlank};
 
-//检波方式定义(自动、常态、负峰、取样 、正峰、)
-enum detectorMode {dmAuto, dmNormal, dmNegPeak, dmSample, dmPosPeak, dmTransient, dmQuasiPeak , dmAverage, dmRMS};
+//检波方式定义(自动、正峰、负峰、取样、均值、均有效值)
+enum detectorMode {dmAuto, dmPosPeak, dmNegPeak, dmSample, dmAverage, dmAvevalid, dmNormal, dmTransient, dmQuasiPeak, dmRMS};
 
 //频标状态定义
 enum markerState {msClose, msNormal, msDelta};
@@ -1045,6 +1045,7 @@ struct fscanDef
   double holdTime;     //采样驻留世间
   double sampleTime_ZeroSpan;  //零扫宽 单个采集时间
   unsigned char Index; //index of rbw to ADDR_13
+  double ZeroSpan_dataspeed;//speed of single data ,unit M
 };
 
 //fft模式数据定义
@@ -1078,23 +1079,24 @@ struct sweepDataDef
 	 double holdTime;       //采集最小驻留时间
 	 double sampleTime;			//单个采集时间	 
 	 unsigned char Index;		  //index of rbw to ADDR_13
+	 double dataspeed;		//speed of single data,unit M
 };
 
 static struct sweepDataDef sweepDataList[] =
 {
-   // rbw		 cic                holdTime              sampleTime	    RBW送数
-	{1e3,		1000,		19.53125,       9.765625,		15},
-	{3e3,		333,		6.50407,		3.251953125,	13},
-	{5e3,		200,		3.90625,		1.953125,		12},
-	{10e3,	    100,		3.90625,		0.9765625,		11},
-	{30e3,	    33,			3.90625,		0.322265625,	9},
-	{50e3,	    20,			3.90625, 		0.1953125,		8},
-	{100e3,	    20,			3.90625,		0.1953125,		7},
-	{300e3,	    7,			3.90625,		0.068359375,	5},
-	{500e3,	    4,			3.90625,		0.0390635,		4},
-	{1e6,		20,			3.90625,		0.1953125,		3},
-	{3e6,		7,			3.90625,		0.068359375,	1},
-	{5e6,		4,			3.90625,		0.0390625,		0},
+   // rbw		 cic                holdTime              sampleTime	    Index              dataspeed
+	{1e3,		1000,		19.53125,       9.765625,		15,			0.1024},
+	{3e3,		333,		6.50407,		3.251953125,	13,			0.3075},
+	{5e3,		200,		3.90625,		1.953125,		12,			0.512},
+	{10e3,	    100,		3.90625,		0.9765625,		11,			1.024},
+	{30e3,	    33,			3.90625,		0.322265625,	9,			3.10303},
+	{50e3,	    20,			3.90625, 		0.1953125,		8,			5.12},
+	{100e3,	    20,			3.90625,		0.1953125,		7,			5.12},
+	{300e3,	    7,			3.90625,		0.068359375,	5,			14.629},
+	{500e3,	    4,			3.90625,		0.0390635,		4,			25.6},
+	{1e6,		20,			3.90625,		0.1953125,		3,			5.12},
+	{3e6,		7,			3.90625,		0.068359375,	1,			14.629},
+	{5e6,		4,			3.90625,		0.0390625,		0,			25.6},
 };
 
 //射频参数结构

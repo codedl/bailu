@@ -21,7 +21,7 @@ typedef unsigned int  uint;
 #define VER_TAG						   0 					//0 beta   1 release
 
 #define __var(var)			std::cout << "@@" << __func__ << "$$" << #var << "=" << var << std::endl
-								
+extern FILE *calfp ;								
 #define __pile()            printf("!!%s;@@%s;##%d\n",__FILE__,__func__,__LINE__)
 
   

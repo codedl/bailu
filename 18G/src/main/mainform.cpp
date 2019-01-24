@@ -4754,39 +4754,24 @@ void mainForm::loadSystemDriver(void)
 
 	if (ramHandle >= 0)
 	{
+	    //ramNotifier = new QSocketNotifier(ramHandle, QSocketNotifier::Read, this);
+        //connect(ramNotifier, SIGNAL(activated(int)), this, SLOT(getDataFromIF()));
 		if (__DEBUG)
 		{
 			printf("%s\n", "load ram driver successed");
 		}
-#if 0
+#if 1
 		//监听系统文件操作，将操作转换为QT事件进入系统的消息队列，并调用预先设置的事件接受函数，处理事件。
-		/*1、启动信号驱动机制
-		 signal(SIGIO, input_handler);
-		 将SIGIO信号同input_handler函数关联起来， 一旦产生SIGIO信号,就会执行input_handler，
-		 */
+		/*change signal handle function */
 		signal(SIGIO, sigio);
 
-		/* 2、
-		 fcntl(STDIN_FILENO, F_SETOWN, getpid());
-		 STDIN_FILENO是打开的设备文件描述符,
-		 F_SETOWN用来决定操作是干什么的,
-		 getpid()是个系统调用，功能是返回当前进程的进程号
-		 整个函数的功能是STDIN_FILENO设置这个设备文件的拥有者为当前进程。
-		 */
+		/* set file(dev) owner to progress */
 		fcntl(ramHandle, F_SETOWN, ::getpid());
 
-		/*3、
-		 得到打开文件描述符的状态
-		 oflags = fcntl(STDIN_FILENO, F_GETFL);
-		 */
+		/*get file flags */
 		int flag = fcntl(ramHandle, F_GETFL);
 
-		/*4、
-		 fcntl(STDIN_FILENO, F_SETFL, oflags | FASYNC);
-		 设置文件描述符的状态为oflags | FASYNC属性,
-		 一旦文件描述符被设置成具有FASYNC属性的状态，也就是将设备文件切换到异步操作模式。
-		 这时系统就会自动调用驱动程序的fasync方法。
-		 */
+		/* add FASYNC to file flag */
 		fcntl(ramHandle, F_SETFL, flag | FASYNC); //异步
 		//fcntl(rmHandle,F_SETFL,flag);   //同步
 #endif
@@ -4798,6 +4783,12 @@ void mainForm::loadSystemDriver(void)
 		}
 	}
 }
+
+void mainForm::getDataFromIF(void)
+{
+	sysScpi->getDataFromIF();
+}
+
 
 //输出信息
 void mainForm::outputMessage(QString msg)
@@ -6956,42 +6947,52 @@ void mainForm::customEvent(QEvent* e)
 
 void sigio(int x)
 {
-	if (eventObject != NULL)
+	tSysScpi* sysScpi;
+
+	if (eventObject != NULL && sysData.span.isZeroSpan)
 	{
 		//postEvent 实现将自定义的消息发送到队列，且new QEvent(CustomEvent_Login)只能动态分配
 		//只要实现父类中的event()或customEvent()函数就可以 实现   消息队列将信息抛出来 的功能
-		QCoreApplication::sendEvent(eventObject, fftEvent);
+			//QCoreApplication::sendEvent(eventObject, fftEvent);
+			sysScpi->getDataFromIF();
 	}
 }
 
 void mainForm::readIntData(void)
 {
 //	return;
+	if (sysData.span.isZeroSpan)
+		sysScpi->getDataFromIF();
+#if 0
 	static int x = 0;
 	x++;
 	if(x >= 1)
 	{
-		int i = 0;
-		{
+		//__pile();
+		//int i = 0;
 		//  QTime t;
 		//  t.restart();
 		  mutexIF.lock();
-			for( i = 0; i < RAMDATASIZE; i++)
-			{
+			//for( i = 0; i < RAMDATASIZE; i++)
+			//{
 				// 地址  :37
-				ramDownload(37, i + 1);
+				//ramDownload(37, i + 1);
 
 				//时钟 :38
-				ramDownload(38, 1);
-				ramDownload(38, 0);
+				//ramDownload(38, 1);
+				//ramDownload(38, 0);
 
 				//读取数据
-				read(ramHandle, &ifDataBuf[i], 4);
-
-			}
+				//read(ramHandle, ifDataBuf, sizeof ifDataBuf);
+				//for (i = 0; i < RAMDATASIZE; i++)
+					//fprintf(calfp,"%d,%d\n",i+1, ifDataBuf[i]);
+		
+				sysScpi->getDataFromIF();
+				
+			//}
 			mutexIF.unlock();
 			//intFlag = 1;
-		}
 		x = 0;
 	}
+#endif
 }

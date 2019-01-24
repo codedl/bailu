@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainform.h'
 **
-** Created: Fri Jan 18 15:28:57 2019
+** Created: Thu Jan 24 11:58:37 2019
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_mainForm[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -44,6 +44,7 @@ static const uint qt_meta_data_mainForm[] = {
      157,    9,    9,    9, 0x08,
      192,  182,    9,    9, 0x08,
      245,  228,    9,    9, 0x08,
+     275,    9,    9,    9, 0x08,
 
        0        // eod
 };
@@ -56,6 +57,7 @@ static const char qt_meta_stringdata_mainForm[] = {
     "resetUsbSlaveInterface()\0title,msg\0"
     "showAlaramMessages(QString,QString)\0"
     "mainCode,subCode\0refreshMenuFrame(ulong,ulong)\0"
+    "getDataFromIF()\0"
 };
 
 void mainForm::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -77,6 +79,7 @@ void mainForm::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 10: _t->resetUsbSlaveInterface(); break;
         case 11: _t->showAlaramMessages((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 12: _t->refreshMenuFrame((*reinterpret_cast< ulong(*)>(_a[1])),(*reinterpret_cast< ulong(*)>(_a[2]))); break;
+        case 13: _t->getDataFromIF(); break;
         default: ;
         }
     }
@@ -114,9 +117,9 @@ int mainForm::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }

@@ -40,14 +40,12 @@ void tSysScpi::getDataFromIF(void)
 			}
 
 			sysData.markerFctn.freqCountValue = freqValue;
-			printf("sysData.markerFctn.freqCountValue......\n");
 		}
 
 		if (sysData.markerFctn.isFreqCountOn)
 		{
 			for (int i = 0; i < TRACECOUNT; i++)
 			{
-				printf("memcoy tempTraceData sysData.trace[i].value......\n");
 				memcpy(sysData.trace[i].value, tempTraceData[i], sizeof(double) * sysData.sweep.sweepPoints);
 			}
 
@@ -130,16 +128,10 @@ void tSysScpi::getDataFromIF(void)
 				if (!devControling)
 				{
 				//读取数据
-					read(ramHandle, dataBuf, sizeof dataBuf);
-					if(sysData.isFactoryCalibrating)
-					{
-					FILE * fp = fopen("initdata.c","w");
-					for (int i = 0; i < dataBufSize; i++)
-					{
-						fprintf(fp, "%d=>%d\n",i,dataBuf[i]);
-					}
-					fclose(fp);
-					}
+					//if(sysData.span.isZeroSpan)
+						//memcpy(dataBuf, ifDataBuf, sizeof ifDataBuf);
+					//else
+						read(ramHandle, dataBuf, sizeof dataBuf);					
 				}
 			}
 		}
@@ -147,7 +139,6 @@ void tSysScpi::getDataFromIF(void)
 		//当扫描点数增大时，将原最后一个扫描点的数据赋值给新增加的点
 		if (isFillData)
 		{
-			printf("sweepPrevPoints is %d, dataBufSize is %d\n",sweepPrevPoints,dataBufSize);
 			for (int i = sweepPrevPoints; i < dataBufSize; i++)
 			{
 				dataBuf[i] = dataBuf[sweepPrevPoints - 1];
@@ -155,7 +146,6 @@ void tSysScpi::getDataFromIF(void)
 
 			//memset(&dataBuf[sysData.sweep.sweepPrevPoints], dataBuf[sysData.sweep.sweepPrevPoints - 1], sizeof dataBuf[0] * (dataBufSize - sysData.sweep.sweepPrevPoints));
 			isFillData = false;
-			printf("sweeppoints adding......\n");
 		}
 
 		if (sysData.freq.isLowChannel)
@@ -433,7 +423,6 @@ void tSysScpi::getDataFromIF(void)
 				sysData.prjValue[i] = tempValue;
 			}
 		}
-		//__var(maxvalue);
 		
 		for (int i = 0; i < TRACECOUNT; i++)
 		{

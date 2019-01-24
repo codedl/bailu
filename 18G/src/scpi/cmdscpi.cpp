@@ -569,7 +569,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 				case SCPI_CMD_SWEEP_TIME_GET:// make sysData.sweep.sweepTime to ms
 					exeResult = __SCPI_RETURN;
 					returnString = QString(floatToStringDot3(sysData.sweep.sweepTime * 1e-3, tempChar)).trimmed();
-					printf("sweepTime to PC:%fus\n",sysData.sweep.sweepTime);
 					break;
 				case SCPI_CMD_SWEEP_TIME_AUTO_SET:
 					exeResult = setSweepOfTimeAuto(result.value.toUpper().trimmed());
@@ -956,6 +955,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					//detector
 				case SCPI_CMD_DETECTOR_SET:
 					exeResult = setDetector(result.value.toUpper().trimmed());
+					printf("setDetector:%s\n",result.value.toStdString().c_str());
 					//reDrawMenuFrame();
 					break;
 				case SCPI_CMD_DETECTOR_GET:
@@ -2614,7 +2614,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					exeResult = __SCPI_UNSUPPORT;
 					break;
 			}
-
 		switch (exeResult)
 		{
 			case __SCPI_RETURN:
@@ -2625,6 +2624,8 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 				break;
 			case __SCPI_UNSUPPORT:
 				returnScpiResult((QString) SCPICMDUNSUPPORT);
+				break;
+			default:
 				break;
 		}
 		reDrawMenuFrame();

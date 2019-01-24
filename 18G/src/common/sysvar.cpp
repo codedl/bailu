@@ -83,6 +83,8 @@ int ifDev;
 int ramHandle;
 int tmcHandle;//power meter
 
+FILE *calfp ;
+
 bool isFFtnd;                    //ÅÐ¶ÏFFTÊÇ·ñ½áÊø
 
 bool devControling = false;
