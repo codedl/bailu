@@ -111,7 +111,7 @@ static long bl_ram_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 				zerospan = true;
 			else
 				zerospan = false;
-			printk("zerospan is %d\n",zerospan);
+			//printk("zerospan is %d\n",zerospan);
 			break;
 	  default:
 		  iowrite16(arg, remapBuf + cmd * 2);wmb();
