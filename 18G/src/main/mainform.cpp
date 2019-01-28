@@ -6948,13 +6948,14 @@ void mainForm::customEvent(QEvent* e)
 void sigio(int x)
 {
 	tSysScpi* sysScpi;
-
-	if (eventObject != NULL && sysData.span.isZeroSpan)
+	if (eventObject != NULL && sysData.span.isZeroSpan == true)
 	{
 		//postEvent 实现将自定义的消息发送到队列，且new QEvent(CustomEvent_Login)只能动态分配
 		//只要实现父类中的event()或customEvent()函数就可以 实现   消息队列将信息抛出来 的功能
-			//QCoreApplication::sendEvent(eventObject, fftEvent);
-			sysScpi->getDataFromIF();
+			QCoreApplication::sendEvent(eventObject, fftEvent);
+			//printf("SIGIO processing...\n");
+			//sysScpi->getDataFromIF();
+			//printf("SIGIO processed\n");
 	}
 }
 

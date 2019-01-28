@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'sysmenu.h'
 **
-** Created: Thu Jan 24 11:58:40 2019
+** Created: Mon Jan 28 11:51:07 2019
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

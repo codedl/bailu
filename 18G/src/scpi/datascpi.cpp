@@ -3,7 +3,6 @@
 //获取中频数据
 void tSysScpi::getDataFromIF(void)
 {
-
 	if (sysData.freq.lineZero)
 	{
 		return;
@@ -128,9 +127,6 @@ void tSysScpi::getDataFromIF(void)
 				if (!devControling)
 				{
 				//读取数据
-					//if(sysData.span.isZeroSpan)
-						//memcpy(dataBuf, ifDataBuf, sizeof ifDataBuf);
-					//else
 						read(ramHandle, dataBuf, sizeof dataBuf);					
 				}
 			}

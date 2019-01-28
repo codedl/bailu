@@ -16230,7 +16230,6 @@ void tSysScpi::zeroSpanHandle(void)
 		sysData.span.isZeroSpan = false;
 	}
 	ioctl(ramHandle, 0xff, sysData.span.isZeroSpan);
-
 }
 
 //数据放大(1, step, 5, 10步进)

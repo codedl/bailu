@@ -233,7 +233,8 @@ char * strdel(char *a, char *b)
       for(;*q == *b && *b; q++,b++);
       if(!*b)
       {
-        *p = '\0';
+        //*p = '\0';
+        strcpy(p,q);
         return a;
       }
       q++;
