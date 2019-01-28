@@ -34,25 +34,20 @@
 #include <asm/irq.h>
 #include <linux/interrupt.h>
 
-struct bl_tq3358_ram{
-	char * name;
-	unsigned int baseaddr;
-	unsigned int memsize;
-	volatile u8 * remapbuf;
-	struct fasync_struct *fasync_queue;
-	unsigned char ev_press;
-	bool zerospan;
-	spinlock_t lock;
-};
-struct bl_tq3358_ram dev;
-
 #define DEVICE_NAME "BL_TQ3358_RAM"
 
 #define RF_BASEADDR  0x02000000     //RF base addr
 #define RF_SIZE      0xFFF        //RF addr size
 
+static volatile u8 * remapBuf;
+
 #define GPIO_TO_PIN(bank, gpio) (32 * (bank) + (gpio))
 
+
+//首先是定义一个结构体，其实这个结构体存放的是一个列表，这个列表保存的是一系列设备文件，SIGIO信号就发送到这些设备上
+static struct fasync_struct *fasync_queue;
+static int ev_press = 0;                       //中断触发
+static bool zerospan;
 static DECLARE_WAIT_QUEUE_HEAD(fpga_waitq);    //中断延时
 
 //定义中断所用的结构体
@@ -90,17 +85,16 @@ static gpio_desc fpga_dev_data[] =
 
 #define RAMBUFSIZE  1601//801
 
+static unsigned int hVal, lVal;
 static unsigned int ramData[RAMBUFSIZE];
 //static unsigned int ramData;
 
 
 static irqreturn_t irq_interrupt(int irq, void *dev_id)
 {
-	dev.ev_press = 1;
-	wake_up_interruptible(&fpga_waitq);//wake up wait queue 
-	 if (dev.fasync_queue && dev.zerospan == true)		 
+	 if (fasync_queue && zerospan == true)		
 	 {
-		 kill_fasync(&dev.fasync_queue, SIGIO, POLL_IN);//when zerospan send SIGIO signal
+		 kill_fasync(&fasync_queue, SIGIO, POLL_IN); // send SIGIO
 	 }
 
 	return IRQ_RETVAL(IRQ_HANDLED);
@@ -108,17 +102,19 @@ static irqreturn_t irq_interrupt(int irq, void *dev_id)
 
 static long bl_ram_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
+//  printd("%s: cmd = %x, arg = %x\n",__FUNCTION__,cmd,arg);
 
   switch(cmd)
   {
   	  case 0xff:
-	  	if (arg)
-			dev.zerospan = true;//set span is zero
-		else
-			dev.zerospan = false;
-		break;
+	  		if (arg)
+				zerospan = true;
+			else
+				zerospan = false;
+			printk("zerospan is %d\n",zerospan);
+			break;
 	  default:
-		  iowrite16(arg, dev.remapbuf + cmd * 2);wmb();
+		  iowrite16(arg, remapBuf + cmd * 2);wmb();
 	  break;
   }
   return 0;
@@ -130,7 +126,7 @@ static int my_fasync(int fd, struct file *file, int on)
   int retval;
 
   //将该设备登记到fasync_queue队列中去
-  retval = fasync_helper(fd,file,on,&dev.fasync_queue);
+  retval = fasync_helper(fd,file,on,&fasync_queue);
 //  printk("rm:%d\n",retval);
 
   if(retval < 0)
@@ -170,12 +166,12 @@ static unsigned int bl_ram_poll( struct file *file, struct poll_table_struct *wa
 {
   unsigned int mask = 0;
 
-  poll_wait(file, &fpga_waitq, wait);
-  if (dev.ev_press)
-  {
-	dev.ev_press = 0;
-	mask |= POLLIN | POLLRDNORM;
-  }
+//  poll_wait(file, &fpga_waitq, wait);
+//  if (ev_press)
+//  {
+//	ev_press = 0;
+//	mask |= POLLIN | POLLRDNORM;
+//  }
 
   return mask;
 }
@@ -183,23 +179,21 @@ static unsigned int bl_ram_poll( struct file *file, struct poll_table_struct *wa
 static int bl_ram_read(struct file *filp, char __user *buff, size_t count, loff_t *offp)
 {
 	int i = 0;
-	unsigned int hVal, lVal;
 
 	if(count > sizeof(ramData))
 		count = sizeof(ramData);
-	spin_lock(&dev.lock);
+
 	for(i = 0; i < RAMBUFSIZE; i++)
 	{
-		iowrite16(i + 1, dev.remapbuf+ 37 * 2);wmb();
-		iowrite16(1, dev.remapbuf + 38 * 2);wmb();
-		iowrite16(0, dev.remapbuf + 38 * 2);wmb();
-		hVal = ioread16(dev.remapbuf + 35 * 2);rmb();    //高8位
-		lVal = ioread16(dev.remapbuf + 36 * 2);rmb();    //低16位
+		iowrite16(i + 1, remapBuf + 37 * 2);wmb();
+		iowrite16(1, remapBuf + 38 * 2);wmb();
+		iowrite16(0, remapBuf + 38 * 2);wmb();
+		hVal = ioread16(remapBuf + 35 * 2);rmb();    //高8位
+		lVal = ioread16(remapBuf + 36 * 2);rmb();    //低16位
 
 		ramData[i] = ((hVal & 0xff) << 16) + (lVal & 0xffff);
 	}
 	copy_to_user(buff, &ramData[0], count);
-	spin_unlock(&dev.lock);
  // printk("count %d\n",count);
   return 0;
 }
@@ -225,7 +219,7 @@ static int __init ram_init(void)
 {
   int i;
   int ret;
-  dev.zerospan = false;
+  zerospan = false;
   ret = misc_register(&misc);
 
   if (ret != 0)
@@ -233,11 +227,8 @@ static int __init ram_init(void)
 	printk("ram register unsuccessfully!\n");
 	return -1;
   }
-  dev.baseaddr = RF_BASEADDR;
-  dev.memsize  = RF_SIZE;
-  dev.remapbuf = ioremap(dev.baseaddr, dev.memsize);
-  spin_lock_init(&dev.lock);
-  dev.ev_press = 0;
+
+  remapBuf = ioremap(RF_BASEADDR, RF_SIZE);
 
   for (i = 0; i < sizeof fpga_irqs / sizeof fpga_irqs[0]; i++)
   {
@@ -265,7 +256,7 @@ static void __exit ram_exit(void)
 	  disable_irq(gpio_to_irq(fpga_irqs[i].pin));
 	  free_irq(gpio_to_irq(fpga_irqs[i].pin), (void *)&fpga_irqs[i]);
   }
-  iounmap(dev.remapbuf);
+  iounmap(remapBuf);
   printk(DEVICE_NAME " exit \n");
 }
 

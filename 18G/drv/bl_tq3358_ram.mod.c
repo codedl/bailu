@@ -19,7 +19,6 @@ __used
 __attribute__((section("__versions"))) = {
 	{ 0x372d36bb, "module_layout" },
 	{ 0x4bc1a69e, "kill_fasync" },
-	{ 0xb9e52429, "__wake_up" },
 	{ 0xd6b8e852, "request_threaded_irq" },
 	{ 0x40a6f522, "__arm_ioremap" },
 	{ 0x297aefda, "misc_register" },
@@ -39,4 +38,4 @@ __attribute__((section(".modinfo"))) =
 "depends=";
 
 
-MODULE_INFO(srcversion, "4BE71DDD2A9C8DA5C5C770F");
+MODULE_INFO(srcversion, "0D107C323A25F4415A52571");
