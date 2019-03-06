@@ -127,7 +127,7 @@ void tSysScpi::getDataFromIF(void)
 				if (!devControling)
 				{
 				//读取数据
-						read(ramHandle, dataBuf, sizeof dataBuf);					
+					read(ramHandle, dataBuf, sizeof dataBuf);					
 				}
 			}
 		}
@@ -180,10 +180,10 @@ void tSysScpi::getDataFromIF(void)
 				} else
 				{
 					//bc att
-					double attbcValue = getErrorOfAttenuationofLowfreq();
+					//double attbcValue = getErrorOfAttenuationofLowfreq();
 
 					//bc if
-					double ifbcValue = getErrorOfIFofLowfreq();
+					//double ifbcValue = getErrorOfIFofLowfreq();
 
 					//bc rbw
 					double rbwbcValue = getErrorOfRbwofLowfreq();
@@ -191,7 +191,8 @@ void tSysScpi::getDataFromIF(void)
 					//bc temperature
 					double tempbcValue = getErrorOfTemperature();
 
-					bcValue += attbcValue + ifbcValue + rbwbcValue + tempbcValue;
+					//bcValue += attbcValue + rbwbcValue + tempbcValue;
+					bcValue += rbwbcValue + tempbcValue;
 
 					//LMP_C
 					if (sysData.isImpedanceTransformation)
@@ -295,7 +296,8 @@ void tSysScpi::getDataFromIF(void)
 						 (unsigned long long) sysData.freq.start == (unsigned long long) sysData.source.trackNetworkStandard.startFreq &&
 						 (unsigned long long) sysData.freq.stop	== (unsigned long long) sysData.source.trackNetworkStandard.stopFreq;
 
-		double maxvalue = 0;
+		double maxvalue,ifvalue = 0, rfvalue = 0;
+		maxvalue = sysData.initValue[0];
 		for (int i = 0; i < dataBufSize; i++)
 		{
 			//Pass-Fail data
@@ -333,27 +335,50 @@ void tSysScpi::getDataFromIF(void)
 				if (sysData.ampt.isPreamptOn)
 				{
 					//tempValue = -40.0 + sysData.initValue[i];
-					tempValue = -40.0 + sysData.initValue[i] - sysData.zcPreamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
+					if(valuechanged)
+					{
+						printf("sysData.zcPreamplifierCalData.absoluteAmptValue!\n");
+						__var(sysData.ampt.dsattRf);
+						__var(sysData.ampt.dsattIf);
+					}
+					valuechanged = 0;
+
+					tempValue = -40.0 + sysData.initValue[i] - sysData.zcPreamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.dsattRf + sysData.ampt.dsattIf + sysData.ampt.refOffset + bcValue;
 				} else
 				{
 					//tempValue = -20.0 + sysData.initValue[i];
-					tempValue = -20.0 + sysData.initValue[i] - sysData.zcCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
+					tempValue = -20.0 + sysData.initValue[i] - sysData.zcCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.dsattRf + sysData.ampt.dsattIf + sysData.ampt.refOffset + bcValue;
+					if(valuechanged){
+						printf("sysData.zcCalData.absoluteAmptValue!\n");
+						__var(sysData.ampt.dsattRf);
+						__var(sysData.ampt.dsattIf);						
+					}
+					valuechanged = 0;
 				}
 			} else
 			{
 				if (sysData.ampt.isPreamptOn)
 				{
+					if(valuechanged)
+						printf("sysData.preamplifierCalData.absoluteAmptValue!\n");
+					valuechanged = 0;
 					//tempValue = -24.0 + sysData.initValue[i]; 
 					tempValue = -24.0 + sysData.initValue[i] - sysData.preamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
 				} else
 				{
+					if(valuechanged)
+						printf("sysData.factoryCalData.absoluteAmptValue!\n");
+					valuechanged = 0;
 					//tempValue = -4.0 + sysData.initValue[i];
 					tempValue = -4.0 + sysData.initValue[i] - sysData.factoryCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
 				}
 			}
 			if (sysData.initValue[i] > maxvalue)
+			{
 				maxvalue = sysData.initValue[i];
-#if 1
+				ifvalue = bcValue;
+				rfvalue = getErrorOfFreqResp(i);
+			}
 			if (sysData.freq.isLowChannel)
 			{
 				if (sysData.ampt.isPreamptOn)
@@ -385,7 +410,6 @@ void tSysScpi::getDataFromIF(void)
 				tempValue = getRefLevelValue(tempValue);
 			}
 //			if(i == 399 || i == 400 || i == 401)
-#endif
 			//迹线平均数据计算
 			if (sysData.bw.bwAverageOn && sysData.bw.bwAverageFlag > 0 && sysData.bw.bwAverageFlag <= sysData.bw.bwAverage)
 			{
@@ -419,7 +443,12 @@ void tSysScpi::getDataFromIF(void)
 				sysData.prjValue[i] = tempValue;
 			}
 		}
-		
+		if(valuechanged)
+		{
+			valuechanged = 0;
+			//__var(ifvalue);
+			//__var(rfvalue);
+		}
 		for (int i = 0; i < TRACECOUNT; i++)
 		{
 			switch (sysData.trace[i].state)

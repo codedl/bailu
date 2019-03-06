@@ -49,7 +49,7 @@ class dataThread : public QThread
 {
   Q_OBJECT
   public:
-    virtual void run();             //线程函数
+    virtual void run();             //线程函数// get if data and demod data period
 
     tSysScpi* sysScpi;
   private:

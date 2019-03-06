@@ -4652,10 +4652,10 @@ void mainForm::loadSystemDriver(void)
 
 	if (tmptHandle >= 0)
 	{
-		if (__DEBUG)
-		{
+		//if (__DEBUG)
+		//{
 			printf("%s\n", "load temperature driver successed");
-		}
+		//}
 		ioctl(tmptHandle, 0xf2, 0);//温度传感器初始化
 	} else
 	{

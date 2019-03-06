@@ -645,6 +645,7 @@ class tSysScpi : public tBaseScpi
     void clearUserCalibrateData(void);                                   //清除用户校准
 
     int factoryCalibrate(int comCal);                                    //出厂校准
+	int freqCalibrate(double freq);								//单点校准
     int PreamplifierCalibrate(int comCal);                               //前置放大校准
     int userCalibrate(void);                                             //用户校准
     int ZCCalibrate(int comCal);                                         //直采通道校准

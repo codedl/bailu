@@ -38,6 +38,7 @@
 #define SCPI_CMD_STANDARD_CAL_20KHZ_SET             0x1013
 #define SCPI_CMD_STANDARD_CAL_20KHZ_GET             0x1014
 #define SCPI_CMD_STANDARD_CLEAR                     0x1015
+#define SCPI_CMD_STANDARD_ZCCAL                     0x1016
 
 //自定义指令
 #define SCPI_CMD_UPDATE_BEGIN                       0xF000
@@ -395,7 +396,7 @@
 #define SCPI_CMD_POWERMETER_FREQ_SET	 	        0x4200
 #define SCPI_CMD_POWERMETER_FREQ_GET		        0x4201
 #define SCPI_CMD_POWERMETER_AMPT_GET		        0x4202
-
+#define SCPI_CMD_CALAFREQ							0x4203
   //检索返回值结构定义
 struct resultDef
 {
@@ -452,6 +453,7 @@ static struct _SCPI_keyboardCmd test[] = {
   {"",						    									  0x00000000},\
   //CAL
   {":FACTCAL",													 	  SCPI_CMD_STANDARD_CAL},\
+  {":ZCCAL",														  SCPI_CMD_STANDARD_ZCCAL},\
   {":FACTPRECAL",													  SCPI_CMD_STANDARD_PRECAL},\
   //FREQ
   {":[SENSe]:FREQuency:CENTer",	       								  SCPI_CMD_FREQ_CENTER_SET},\
@@ -903,6 +905,7 @@ static struct _SCPI_keyboardCmd test[] = {
   {":USBPOWERmeter:FREQ",																SCPI_CMD_POWERMETER_FREQ_SET},
   {":USBPOWERmeter:FREQ?",																SCPI_CMD_POWERMETER_FREQ_GET},
   {":USBPOWERmeter:AMPT?",																SCPI_CMD_POWERMETER_AMPT_GET},
+  {":CALAFREQ:FREQ",																	SCPI_CMD_CALAFREQ			},
 };
 
 //解析数组

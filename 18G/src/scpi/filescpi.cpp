@@ -313,7 +313,7 @@ void tSysScpi::getZcCalibrationData(void)
 		{
 			sysData.zcCalData.absoluteAmptValue = setting.value("absoluteAmptValue", 0).toDouble();
 			sysData.zcCalData.temperature = setting.value("temperature", 0).toDouble();
-
+#if 0
 			sysData.zcCalData.att9 = setting.value("att9", 0).toDouble();
 			sysData.zcCalData.att0 = setting.value("att0", 0).toDouble();
 			sysData.zcCalData.att21 = setting.value("att21", 0).toDouble();
@@ -324,18 +324,13 @@ void tSysScpi::getZcCalibrationData(void)
 			sysData.zcCalData.if10 = setting.value("if10", 0).toDouble();
 			sysData.zcCalData.if20 = setting.value("if20", 0).toDouble();
 			sysData.zcCalData.if30 = setting.value("if30", 0).toDouble();
-
+#endif
 			for (int i = 0; i < sizeof BWRESP_ZC / sizeof BWRESP_ZC[0]; i++)
 			{
 				sysData.zcCalData.rbw[i] = setting.value("rbw" + QString(intToString(i, tempChar)).trimmed(), 0).toDouble();
 			}
 
-			//      for (int i = 0; i < sizeof BWRESP_FFT / sizeof BWRESP_FFT[0]; i++)
-			//      {
-			//   	    sysData.zcCalData.rbw_fft[i] = setting.value("rbw_fft" + QString(intToString(i, tempChar)).trimmed(), 0).toDouble();
-			//      }
-
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 16; i++)
 			{
 				for (int j = 0; j < sizeof FREQRESPHZ_ZC / sizeof FREQRESPHZ_ZC[0]; j++)
 				{
@@ -500,18 +495,17 @@ void tSysScpi::saveZcFactoryCalibrationData(void)
 	setting.setValue("isCaled", sysData.zcCalData.isCaled);
 	setting.setValue("absoluteAmptValue", sysData.zcCalData.absoluteAmptValue);
 	setting.setValue("temperature", sysData.zcCalData.temperature);
-
-	setting.setValue("att9", sysData.zcCalData.att9);
+#if 0
 	setting.setValue("att0", sysData.zcCalData.att0);
-	setting.setValue("att21", sysData.zcCalData.att21);
-	setting.setValue("att30", sysData.zcCalData.att30);
-	setting.setValue("att39", sysData.zcCalData.att39);
+	setting.setValue("att10", sysData.zcCalData.att21);
+	setting.setValue("att20", sysData.zcCalData.att30);
+	setting.setValue("att30", sysData.zcCalData.att39);
 
 	setting.setValue("if0", sysData.zcCalData.if0);
 	setting.setValue("if10", sysData.zcCalData.if10);
 	setting.setValue("if20", sysData.zcCalData.if20);
 	setting.setValue("if30", sysData.zcCalData.if30);
-
+#endif 
 	for (int i = 0; i < sizeof BWRESP_ZC / sizeof BWRESP_ZC[0]; i++)
 	{
 		setting.setValue("rbw" + QString(intToString(i, tempChar)).trimmed(), sysData.zcCalData.rbw[i]);
@@ -523,7 +517,7 @@ void tSysScpi::saveZcFactoryCalibrationData(void)
 	//  }
 
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		for (int j = 0; j < sizeof FREQRESPHZ_ZC / sizeof FREQRESPHZ_ZC[0]; j++)
 		{

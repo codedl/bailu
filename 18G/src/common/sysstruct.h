@@ -21,8 +21,8 @@
 #define SOCKETSERVERIP		  "192.168.1.138"  //ip address of signal generator(20G)
 #define SOCKETSEVERPORT       5025            //port of signal generator
 
-#define SOCKETSERVERIP_ZC	  "192.168.1.137"   //直采校准服务器IP地址
-#define SOCKETSEVERPORT_ZC   80               //直采校准服务器端口  优利德:4162
+#define SOCKETSERVERIP_ZC	  "192.168.1.7"   //直采校准服务器IP地址
+#define SOCKETSEVERPORT_ZC   4060               //直采校准服务器端口  优利德:4162
 
 #define PASSWORD        203093                //系统服务口令
 #define MINMACADDR      6785451               //最小MAC地址
@@ -37,7 +37,7 @@
 #define MINFREQ         9e3                 //最小频率
 #define MAXFREQ         (18e9 + MINFREQ)      //最大频率
 #define ZCMINFREQ       1                     //直采最小频率
-#define ZCMAXFREQ       10e6                  //直采最大频率
+#define ZCMAXFREQ       20e6                  //直采最大频率
 #define ZCMAXSPAN       (ZCMAXFREQ - ZCMINFREQ)//直采最大扫宽
 //#define MAXZCFREQ       12e6                  //最大直采频率
 #define MINFREQOFFSET   -MAXFREQ              //最小频率偏置
@@ -305,17 +305,14 @@ static unsigned long FREQRESPHZ_ZC[]={
 };
 */
 static unsigned long FREQRESPHZ_ZC[]={
-								//0   1   2     3    4      5    6     7     8
-								1e3, 3e3, 5e3, 7e3, 10e3, 30e3, 50e3, 70e3, 90e3,\
-		                        //9     10      11     12    13     14     15     16     17     18     19     20      21    22     23      24     25    26
-		                        100e3, 150e3, 200e3, 250e3, 300e3, 350e3, 400e3, 450e3, 500e3, 550e3, 600e3, 650e3, 700e3, 750e3, 800e3, 850e3, 900e3, 950e3,\
-                               //27     28      29       30      31      32      33     34      35      36       37     38     39      40     41      42
-		                        1e6,  1.25e6,  1.5e6,  1.75e6,  2e6,  2.25e6,  2.5e6,  2.75e6,  3e6,  3.25e6,  3.5e6,  3.75e6, 4e6,  4.25e6, 4.5e6, 4.75e6,\
-		                       //43     44     45      46    47     48      49     50    51     52     53     54     55     56     57     58    59      60     61     62     63
-		                        5e6, 5.25e6, 5.5e6, 5.75e6, 6e6, 6.25e6, 6.5e6, 6.75e6, 7e6, 7.25e6, 7.5e6, 7.75e6, 8e6, 8.25e6, 8.5e6, 8.75e6, 9e6, 9.25e6, 9.5e6, 9.75e6, 10e6
+							1e3, 2e3, 5e3, 10e3, 50e3, 250e3, 500e3, 1e6, 1.5e6, 2e6, 2.5e6,\
+							3e6, 3.5e6, 4e6, 4.5e6, 5e6, 5.5e6, 6e6, 6.5e6, 7e6, 7.5e6, 8e6,\
+						    8.5e6, 9e6, 9.5e6, 10e6, 10.5e6, 11e6, 11.5e6, 12e6, 12.5e6, 13e6,\
+						    13.5e6, 14e6, 14.5e6, 15e6, 15.5e6, 16e6, 16.5e6, 17e6, 17.5e6, 18e6,\
+						    18.5e6, 19e6, 19.5e6, 20e6, 20.5e6, 21e6,
 };
 
-#define FREQRESPCOUNT_ZC   64       // FREQRESPHZ_ZC元素个数
+#define FREQRESPCOUNT_ZC   48       // FREQRESPHZ_ZC元素个数
 
 static unsigned long long FREQRESPHZ[] = {
 							20e6, 50e6, 100e6, 150e6, 200e6, 250e6, 300e6, 350e6, 400e6, 450e6, 500e6, 550e6, 600e6, 650e6, 700e6, 750e6, 800e6, 850e6, 900e6, 950e6,    //0~19
@@ -1350,7 +1347,7 @@ struct freqDef
   bool typeLine;
   bool isShowCenter;
   bool lineZero;
-  bool isLowChannel;
+  bool isLowChannel;//director sample mode
 };
 
 //扫宽结构定义
@@ -1378,6 +1375,8 @@ struct amptDef
   double attRf;   //射频衰减器
   double attRf_Auto;//
   double attIf;   //中频衰减器
+  double dsattRf; //director sample rf
+  double dsattIf; //director sample if
 
   double scaleDiv;
   bool scaleLine;
@@ -1764,7 +1763,7 @@ struct zcCalDataDef
 //	double rbw900;                                 //900Hz分辨率
 	double rbw[13];                               //分辨率
 	double rbw_fft[13];                           //fft分辨率
-	double freqResp[5][FREQRESPCOUNT_ZC];         //频响
+	double freqResp[16][FREQRESPCOUNT_ZC];         //频响
 };
 
 //SCPI通信数据结构定义
@@ -1823,7 +1822,7 @@ struct optionDef
   double am_sinad;        //AM信呐比
   double am_thd;          //AM失真度
   double am_time_us;      //AM时间
-  bool am_cfgchanged;     //AM配置改变
+  bool am_cfgchanged;     //AM配置改变//value set when am or fm func
 
   double fm_carrierfreq;  //FM载波频率
   double fm_carrierPower; //FM载波功率

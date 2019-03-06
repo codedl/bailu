@@ -130,6 +130,8 @@ int tSysScpi::setFrequencyOfCenter(double value)
 	} else if (sysData.freq.isLowChannel)
 	{
 		maxFreq = ZCMAXFREQ + sysData.freq.offset;
+		if (sysData.isZcCalibrating)
+			maxFreq = 21e6 + sysData.freq.offset;//ZCMAXFREQ = 21e6 when in cal
 	} else
 	{
 		maxFreq = MAXFREQ + sysData.freq.offset;
@@ -270,6 +272,8 @@ int tSysScpi::setFrequencyOfStart(double value)
 	} else if (sysData.freq.isLowChannel)
 	{
 		maxFreq = ZCMAXFREQ + sysData.freq.offset;
+		if (sysData.isZcCalibrating)
+			maxFreq = 21e6 + sysData.freq.offset;//ZCMAXFREQ = 21e6 when in cal
 	} else
 	{
 		maxFreq = MAXFREQ + sysData.freq.offset;
@@ -388,6 +392,8 @@ int tSysScpi::setFrequencyOfStop(double value)
 	} else if (sysData.freq.isLowChannel)
 	{
 		maxFreq = ZCMAXFREQ + sysData.freq.offset;
+		if (sysData.isZcCalibrating)
+			maxFreq = 21e6 + sysData.freq.offset;//ZCMAXFREQ = 21e6 when in cal		
 	} else
 	{
 		maxFreq = MAXFREQ + sysData.freq.offset;
@@ -652,6 +658,8 @@ int tSysScpi::setFrequencyOfSpan(double value)
 	{
 		minFreq = ZCMINFREQ;
 		maxFreq = ZCMAXFREQ;
+		if (sysData.isZcCalibrating)
+			maxFreq = 21e6;//ZCMAXFREQ = 21e6 when in cal		
 		maxSpan = ZCMAXFREQ - ZCMINFREQ;
 	}
 
@@ -827,6 +835,8 @@ int tSysScpi::setFrequencyOfLowChannel(int value)
 	{
 		sysData.freq.start = ZCMINFREQ + sysData.freq.offset;
 		sysData.freq.stop = ZCMAXFREQ + sysData.freq.offset;
+		if (sysData.isZcCalibrating)
+			sysData.freq.stop = 21e6 + sysData.freq.offset;//ZCMAXFREQ = 21e6 when in cal
 		sysData.span.span = sysData.freq.stop - sysData.freq.start;
 		sysData.freq.center = sysData.freq.start + sysData.span.span / 2.0;
 		sysData.freq.cfStep = ZCMAXSPAN / 10;
@@ -1099,6 +1109,10 @@ int tSysScpi::setAmptOfRefLevel(double value)
 	sysData.ampt.att = sysData.ampt.attRf;
 
 	controlRf();
+	//connectToPowerMeter();
+	//setPowerMeterFreq(sysData.freq.center);
+	//getDataFromPowerMeter();
+	//valuechanged = 1;
 
 	return __SCPI_SUCCESS;
 }
@@ -1482,6 +1496,11 @@ int tSysScpi::setAmptOfAtt(double value)
 
 	sysData.ampt.att = sysData.ampt.attRf;
 	controlRf();
+	//connectToPowerMeter();
+	//setPowerMeterFreq(sysData.freq.center);
+	//getDataFromPowerMeter();
+	__var(sysData.ampt.attRf);
+	__var(sysData.ampt.attIf);
 
 	return __SCPI_SUCCESS;
 }
@@ -8717,7 +8736,7 @@ int tSysScpi::setDemodOfAmState(int value)
 {
 	if ((sysData.options.amOn && value == 1) || (!sysData.options.amOn && value == 0))
 	{
-		return 0;
+		return 0;//make sure value seted differ from cur state
 	}
 
 	if (value == 1 && !sysData.options.amOn)
@@ -8734,7 +8753,7 @@ int tSysScpi::setDemodOfAmState(int value)
 	{
 		if (sysData.options.isDemodOn && sysData.options.fmOn)
 		{
-			setDemodOfFmState(0);
+			setDemodOfFmState(0);//am or fm on once
 		}
 
 		setFrequencyOfSpan(0);
@@ -11782,22 +11801,46 @@ char tSysScpi::getZcAttVal(void)
 	char ifAttDown = 0, rfAttDown = 0, temp = 0;
 
 	if(sysData.ampt.attIf <= 0)
+	{
 		ifAttDown = 0;
+		sysData.ampt.dsattIf = 0;
+	}
 	else if(sysData.ampt.attIf <= 10)
+	{
 		ifAttDown = 2;
+		sysData.ampt.dsattIf = 10;
+	}
 	else if(sysData.ampt.attIf <= 20)
+	{
 		ifAttDown = 3;
+		sysData.ampt.dsattIf = 20;
+	}
 	else if(sysData.ampt.attIf <= 31)
+	{
 		ifAttDown = 1;
+		sysData.ampt.dsattIf = 30;
+	}
 
 	if(sysData.ampt.attRf <= 0)
+	{
 		rfAttDown = 0;
+		sysData.ampt.dsattRf = 0;
+	}
 	else if(sysData.ampt.attRf <= 10)
+	{
 		rfAttDown = 2;
+		sysData.ampt.dsattRf = 10;
+	}
 	else if(sysData.ampt.attRf <= 20)
+	{
 		rfAttDown = 3;
+		sysData.ampt.dsattRf = 20;
+	}
 	else if(sysData.ampt.attRf <= 31)
+	{
 		rfAttDown = 1;
+		sysData.ampt.dsattRf = 30;
+	}
 
 	temp = (ifAttDown << 2 | rfAttDown) & 0x0f;
 
@@ -11878,6 +11921,8 @@ void tSysScpi::controlRf(void)
 	setSweepOfMode(sysData.sweep.sweepSingle);  //扫描模式选择
 
 	freqScanStart();          //扫描开始
+	//__var(sysData.ampt.attIf);
+	//__var(sysData.ampt.attRf);
 
 }
 
@@ -16125,7 +16170,6 @@ int tSysScpi::exitCalibrate(void)
 	sysData.mode = smSpectrum;
 	sysData.canvasNums = 1;
 
-	fclose(calfp);
 
 	return __SCPI_FAILED;
 }
@@ -16419,7 +16463,6 @@ int tSysScpi::getRbwIndex(void)
 				break;
 			}
 		}
-
 		return result;
 	}
 
@@ -16937,7 +16980,7 @@ bool tSysScpi::demodControl(void)
 
 	sysData.sweep.sweepTimeAuto = false;
 	sysData.sweep.sweepSingle = true;
-	sysData.sweep.sweepTime = DEMODSIZE * 1e9 / (30e6 / sysData.options.cicValue);
+	sysData.sweep.sweepTime = DEMODSIZE * 1e9 / (30e6 / sysData.options.cicValue);//unit ns
 	sysData.span.span = 0;
 	sysData.freq.start = sysData.freq.stop = sysData.options.am_carrierfreq;
 
@@ -19310,7 +19353,6 @@ void tSysScpi::setFrontendAtt(double rfAtt, double ifAtt)
 	feDownload(207, 1);         //本振送数开关
 	__var(rfAtt);
 	__var(ifAtt);
-	printf("preamption is 0x%x\n",getPremptData(sysData.ampt.isPreamptOn));
 	
 }
 
@@ -19345,12 +19387,12 @@ void tSysScpi::setCalibrateParamOfAbsoluteAmplitude(void)
 //设置直采模式绝对幅度定标校准参数
 void tSysScpi::setZcCalibrateParamOfAbsoluteAmplitude(void)
 {
-	setFrequencyOfCenter(5e6);
+	setFrequencyOfCenter(10e6);
 	setFrequencyOfSpan(100e3); //200e3
 	setSweepOfTimeAuto(1);
 	setBwOfRbwAuto(0);
 	setBwOfVbwAuto(0);
-	setBwOfRbw(10e3);
+	setBwOfRbw(1e3);
 	setBwOfVbw(3e3);
 	setDetector(dmPosPeak);
 	setAmptOfAttAuto(1);
@@ -19362,7 +19404,7 @@ void tSysScpi::setZcCalibrateParamOfAbsoluteAmplitude(void)
 	{
 		setAmptOfRefLevel(0);
 	}
-
+	
 	controlRf();
 }
 
@@ -19745,16 +19787,17 @@ int tSysScpi::getCalibrateRunParam(void)
 		}
 		
 		printf("\n");
-		if (qAbs(maxIndex1 - maxIndex2) <= 20 && qAbs(maxValue1 - maxValue2) <= 1.0 && qAbs(maxValue1 - minValue1) >= 20.0 && qAbs(maxValue2 - minValue2) >= 20.0)
+		if (qAbs(maxIndex1 - maxIndex2) <= 20 && qAbs(maxValue1 - maxValue2) <= 3.0 && qAbs(maxValue1 - minValue1) >= 20.0 && qAbs(maxValue2 - minValue2) >= 20.0)
 		{
 			calRunData.maxIndex = (maxIndex1 + maxIndex2) / 2;
 			calRunData.minIndex = (minIndex1 + minIndex2) / 2;
 			calRunData.maxValue = (maxValue1 + maxValue2) / 2;
 			calRunData.minValue = (minValue1 + minValue2) / 2;
 			__var(calRunData.maxIndex);
-			__var(calRunData.minIndex);
+			//__var(calRunData.minIndex);
 			__var(calRunData.maxValue);
-			__var(calRunData.minValue);
+			//__var(calRunData.minValue);
+			printf("cal data get succeed!\n");
 
 			return __SCPI_SUCCESS;
 		}
@@ -19767,10 +19810,6 @@ int tSysScpi::getCalibrateRunParam(void)
 	__var(maxIndex2);
 	__var(minIndex1);
 	__var(minIndex2);
-	__var(calRunData.maxIndex);
-	__var(calRunData.minIndex);
-	__var(calRunData.maxValue);
-	__var(calRunData.minValue);
 	printf("cal data get failed!\n");
 	
 	return __SCPI_FAILED;
@@ -19819,7 +19858,6 @@ int tSysScpi::getSystemTemperature(double* value)
 	for (int i = 0; i < 3; i++)
 	{
 		tempValue = sysData.temperature;
-
 		if (tempValue > MINTEMPERATURE && tempValue < MAXTEMPERATURE)
 		{
 			*value = tempValue;
@@ -20445,32 +20483,31 @@ double tSysScpi::getErrorOfLowFreqRespofPre(int index)
 		}
 
 		tableIndex2 = tableIndex1 + 1;
+		
+		tIndex1 = 0;
+		tIndex2 = FREQRESPCOUNT_ZC - 1;
 
+		for (int j = tIndex1; j <= tIndex2; j++)
 		{
-			tIndex1 = 0;
-			tIndex2 = FREQRESPCOUNT_ZC - 1;
-
-			for (int j = tIndex1; j <= tIndex2; j++)
+			if ((freq >= FREQRESPHZ_ZC[j]) && (freq <= FREQRESPHZ_ZC[j + 1]))
 			{
-				if ((freq >= FREQRESPHZ_ZC[j]) && (freq <= FREQRESPHZ_ZC[j + 1]))
-				{
-					index1 = j;
-					index2 = j + 1;
-					break;
-				}
+				index1 = j;
+				index2 = j + 1;
+				break;
 			}
-			bc_freq_value = (freq - FREQRESPHZ_ZC[index1]) / (FREQRESPHZ_ZC[index2] - FREQRESPHZ_ZC[index1] + 1e-9);
-			bd_att_percent = (sysData.ampt.att - att1) / (att2 - att1);
-			bd_x1 = sysData.zcPreamplifierCalData.freqResp[tableIndex1][index1];
-			bd_y1 = sysData.zcPreamplifierCalData.freqResp[tableIndex1][index2];
-			bd_x2 = sysData.zcPreamplifierCalData.freqResp[tableIndex2][index1];
-			bd_y2 = sysData.zcPreamplifierCalData.freqResp[tableIndex2][index2];
-			bd_x = bd_x1 + (bd_x2 - bd_x1) * bd_att_percent;
-			bd_y = bd_y1 + (bd_y2 - bd_y1) * bd_att_percent;
-			bc_value = bd_x + (bd_y - bd_x) * bc_freq_value;
-
-			errValue = bc_value;
 		}
+		bc_freq_value = (freq - FREQRESPHZ_ZC[index1]) / (FREQRESPHZ_ZC[index2] - FREQRESPHZ_ZC[index1] + 1e-9);
+		bd_att_percent = (sysData.ampt.att - att1) / (att2 - att1);
+		bd_x1 = sysData.zcPreamplifierCalData.freqResp[tableIndex1][index1];
+		bd_y1 = sysData.zcPreamplifierCalData.freqResp[tableIndex1][index2];
+		bd_x2 = sysData.zcPreamplifierCalData.freqResp[tableIndex2][index1];
+		bd_y2 = sysData.zcPreamplifierCalData.freqResp[tableIndex2][index2];
+		bd_x = bd_x1 + (bd_x2 - bd_x1) * bd_att_percent;
+		bd_y = bd_y1 + (bd_y2 - bd_y1) * bd_att_percent;
+		bc_value = bd_x + (bd_y - bd_x) * bc_freq_value;
+
+		errValue = bc_value;
+		
 
 	}
 
@@ -20488,11 +20525,10 @@ double tSysScpi::getErrorOfLowFreqResp(int index)
 		int index2 = 0;
 		int tIndex1 = 0;
 		int tIndex2 = 0;
-		int tableIndex1 = 0;
-		int tableIndex2 = 0;
+		int tableIndex = 0;
 		double bc_freq_value = 0;
-		double att1 = 0;
-		double att2 = 0;
+		double attrf = 0;
+		double attif = 0;
 		double bd_att_percent = 0;
 		double bd_x = 0;
 		double bd_x1 = 0;
@@ -20513,71 +20549,120 @@ double tSysScpi::getErrorOfLowFreqResp(int index)
 		//    double P005_2 = 0;
 		double freq = sysData.freq.start + index * sysData.span.span / (sysData.sweep.sweepPoints - 1) - sysData.freq.offset;
 
-		if (sysData.ampt.att >= 0 && sysData.ampt.att < 9)
+		//
+		if (sysData.ampt.attRf < 10 && sysData.ampt.attIf < 10)
 		{
-			att1 = 0;
-			att2 = 9;
-			tableIndex1 = 0;
-		} else if (sysData.ampt.att >= 9 && sysData.ampt.att < 21)
+			attrf = 0;
+			attif = 0;
+			tableIndex = 10;
+		} else if (sysData.ampt.attRf < 10 && sysData.ampt.attIf < 20)
 		{
-			att1 = 9;
-			att2 = 21;
-			tableIndex1 = 1;
-		} else if (sysData.ampt.att >= 21 && sysData.ampt.att < 30)
+			attrf = 0;
+			attif = 10;
+			tableIndex = 6;
+		} else if (sysData.ampt.attRf < 10 && sysData.ampt.attIf < 30)
 		{
-			att1 = 21;
-			att2 = 30;
-			tableIndex1 = 2;
-		} else if (sysData.ampt.att >= 30 && sysData.ampt.att <= 39)
+			attrf = 0;
+			attif = 20;
+			tableIndex = 2;
+		} else if (sysData.ampt.attRf < 10 && sysData.ampt.attIf >= 30)
 		{
-			att1 = 30;
-			att2 = 39;
-			tableIndex1 = 3;
-		} else if (sysData.ampt.att > 39 && sysData.ampt.att <= 45)
+			attrf = 0;
+			attif = 30;
+			tableIndex = 14;
+		} else if (sysData.ampt.attRf < 20 && sysData.ampt.attIf < 10)
 		{
-			att1 = 39;
-			att2 = 45;
-			tableIndex1 = 4;
+			attrf = 10;
+			attif = 0;
+			tableIndex = 9;
+		} else if (sysData.ampt.attRf < 20 && sysData.ampt.attIf < 20)
+		{
+			attrf = 10;
+			attif = 10;
+			tableIndex = 5;
+		} else if (sysData.ampt.attRf < 20 && sysData.ampt.attIf < 30)
+		{
+			attrf = 10;
+			attif = 20;
+			tableIndex = 1;
+		} else if (sysData.ampt.attRf < 20 && sysData.ampt.attIf >= 30)
+		{
+			attrf = 10;
+			attif = 30;
+			tableIndex = 13;
+		} else if (sysData.ampt.attRf < 30 && sysData.ampt.attIf < 10)
+		{
+			attrf = 20;
+			attif = 0;
+			tableIndex = 11;
+		} else if (sysData.ampt.attRf < 30 && sysData.ampt.attIf < 20)
+		{
+			attrf = 20;
+			attif = 10;
+			tableIndex = 7;
+		} else if (sysData.ampt.attRf < 30 && sysData.ampt.attIf < 30)
+		{
+			attrf = 20;
+			attif = 20;
+			tableIndex = 3;
+		} else if (sysData.ampt.attRf < 30 && sysData.ampt.attIf >= 30)
+		{
+			attrf = 20;
+			attif = 30;
+			tableIndex = 15;
+		} else if (sysData.ampt.attRf >= 30 && sysData.ampt.attIf < 10)
+		{
+			attrf = 30;
+			attif = 0;
+			tableIndex = 12;
+		} else if (sysData.ampt.attRf >= 30 && sysData.ampt.attIf < 20)
+		{
+			attrf = 30;
+			attif = 10;
+			tableIndex = 8;
+		} else if (sysData.ampt.attRf >= 30 && sysData.ampt.attIf < 30)
+		{
+			attrf = 30;
+			attif = 20;
+			tableIndex = 4;
+		}else if (sysData.ampt.attRf >= 30 && sysData.ampt.attIf >= 30)
+		{
+			attrf = 30;
+			attif = 30;
+			tableIndex = 15;
 		}
+		
+		tIndex1 = 0;
+		tIndex2 = FREQRESPCOUNT_ZC - 1;
 
-		tableIndex2 = tableIndex1 + 1;
-
+		for (int j = tIndex1; j <= tIndex2; j++)
 		{
-			tIndex1 = 0;
-			tIndex2 = FREQRESPCOUNT_ZC - 1;
-
-			for (int j = tIndex1; j <= tIndex2; j++)
+			if ((freq >= FREQRESPHZ_ZC[j]) && (freq <= FREQRESPHZ_ZC[j + 1]))
 			{
-				if ((freq >= FREQRESPHZ_ZC[j]) && (freq <= FREQRESPHZ_ZC[j + 1]))
-				{
-					index1 = j;
-					index2 = j + 1;
-					break;
-				}
+				index1 = j;
+				index2 = j + 1;
+				break;
 			}
-			bc_freq_value = (freq - FREQRESPHZ_ZC[index1]) / (FREQRESPHZ_ZC[index2] - FREQRESPHZ_ZC[index1] + 1e-9);
-			bd_att_percent = (sysData.ampt.att - att1) / (att2 - att1);
-			bd_x1 = sysData.zcCalData.freqResp[tableIndex1][index1];
-			bd_y1 = sysData.zcCalData.freqResp[tableIndex1][index2];
-			bd_x2 = sysData.zcCalData.freqResp[tableIndex2][index1];
-			bd_y2 = sysData.zcCalData.freqResp[tableIndex2][index2];
-			bd_x = bd_x1 + (bd_x2 - bd_x1) * bd_att_percent;
-			bd_y = bd_y1 + (bd_y2 - bd_y1) * bd_att_percent;
-			bc_value = bd_x + (bd_y - bd_x) * bc_freq_value;
-
-			errValue = bc_value;
 		}
+		bc_freq_value = (freq - FREQRESPHZ_ZC[index1]) / (FREQRESPHZ_ZC[index2] - FREQRESPHZ_ZC[index1] + 1e-9);
+		bd_x1 = sysData.zcCalData.freqResp[tableIndex][index1];
+		bd_x2 = sysData.zcCalData.freqResp[tableIndex][index1];
+		bd_x = bd_x1 + (bd_x2 - bd_x1) * bc_freq_value;
+		bc_value = bd_x;
+
+		errValue = bc_value;
+	
 
 	}
 
-	return errValue;
+	return -1*errValue;
 }
 
 //获取频响误差
 double tSysScpi::getErrorOfFreqResp(int index)
 {
 	int sBand = 0; //start band
-	int eBand = 0; //stop band
+	int eBand = 0; //end band
 	double errValue = 0;
 
 	if (!sysData.isFactoryCalibrating)
@@ -20619,7 +20704,6 @@ double tSysScpi::getErrorOfFreqResp(int index)
 		double P004_2 = 0;
 		double P005_2 = 0;
 		double freq = sysData.freq.start + index * sysData.span.span / (sysData.sweep.sweepPoints - 1) - sysData.freq.offset;
-
 //		if (sysData.ampt.att >= 0 && sysData.ampt.att < 9)
 //		{
 //			att1 = 0;
@@ -20664,7 +20748,6 @@ double tSysScpi::getErrorOfFreqResp(int index)
 		}
 
 		tableIndex2 = tableIndex1 + 1;
-
 //		if (bdc == 0)
 //		{
 //			switch (sBand)
@@ -20776,7 +20859,6 @@ double tSysScpi::getErrorOfFreqResp(int index)
 					break;
 				}
 			}
-
 			bc_freq_value = (freq - FREQRESPHZ[index1]) / (FREQRESPHZ[index2] - FREQRESPHZ[index1] + 1e-9);
 			bd_att_percent = (sysData.ampt.attRf - att1) / (att2 - att1);
 			bd_x1 = sysData.factoryCalData.freqResp[tableIndex1][index1];
@@ -23088,8 +23170,7 @@ int tSysScpi::PreamplifierCalibrate(int comCal)
 int tSysScpi::factoryCalibrate(int comCal)
 {
 	bool isCom = (comCal >= 1);
-	double attif = sysData.ampt.attIf;
-	double attrf = sysData.ampt.attRf;
+
 	if (sysData.isFactoryCalibrating)
 	{
 		return __SCPI_FAILED;
@@ -23112,8 +23193,6 @@ int tSysScpi::factoryCalibrate(int comCal)
 	presetSystemData();
 	controlRf();
 	sysData.isFactoryCalibrating = true;
-	if (!(calfp= fopen("data.c","w")))
-		printf("open data.c of saving cal data failed!\n");
 	sysData.mode = smCalibrate;
 	sysData.canvasNums = 1;
 	resetFactoryCalibrationData();
@@ -23220,7 +23299,6 @@ int tSysScpi::factoryCalibrate(int comCal)
 	saveFactoryCalibrationData();
 	saveUserCalibrationData();
 	printf("absoluteAmptValue cal success!\n");
-#if 1
 
 	// 8 if attenuation
 	progress = 20;
@@ -23250,7 +23328,11 @@ int tSysScpi::factoryCalibrate(int comCal)
 	getCalibrateRunParam();
 	getDataFromPowerMeter();
 	double ifVal_20 = calRunData.maxValue - sysData.measure.powerMeter.ampt;
-		
+	//double ifVal_20 = sysData.measure.powerMeter.ampt;
+#if 1	
+	printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+	printf("if attenuation calibrate starting...!\n");
+	sleep(3);
 	for(int i = 0; i < 32; i++)
 	{
 	//	outputToScreen(getTheTranslatorString("if attenuation calibrating") + "......", progress + i * 10 / 30, 0);
@@ -23268,15 +23350,18 @@ int tSysScpi::factoryCalibrate(int comCal)
 			sleep(2);
 			return exitCalibrate();
 		}
-		for (int j = 0; j < sysData.sweep.sweepPoints; j++)
-			fprintf(calfp,"%d,%f\n",j+1,sysData.trace[0].value[j]);
 
 		//sysData.factoryCalData.attIf[i] = calRunData.maxValue - sysData.measure.powerMeter.ampt - ifVal_20 + (i - 20);
 		sysData.factoryCalData.attIf[i] = calRunData.maxValue - sysData.measure.powerMeter.ampt - ifVal_20;
+		//sysData.factoryCalData.attIf[i] = calRunData.maxValue - sysData.measure.powerMeter.ampt;
+
+		if(i == 20)
+			sysData.factoryCalData.attIf[i] = 0;
 		usleep(1000);
 	}
 	printf("if attenuation calibrate success!\n");
 	saveFactoryCalibrationData();
+#endif
 	/*
 	// 10 rbw
 	progress = 30;
@@ -23312,7 +23397,12 @@ int tSysScpi::factoryCalibrate(int comCal)
 	QFile file("/home/sky/factory.txt");
 	file.open(QIODevice::ReadWrite | QIODevice::Append);
 	QTextStream out(&file);
-
+	
+#if 1
+	printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+	printf("rf attenuation calibrate starting...!\n");
+	sleep(3);
+	FILE * fp = fopen("caldata.c","w");
 	for(int i = 0; i < 4; i++)
 	{
 		switch(i)
@@ -23358,15 +23448,18 @@ int tSysScpi::factoryCalibrate(int comCal)
 			}
 
 			setCalibrateDistributeFrequencyRespond(j, 0, attRf, attIf);
-			usleep(1000);
+			usleep(5000);
 			if(getCalibrateRunParam() == __SCPI_FAILED)
 			{
 				sprintf(tempChar, "calibrate freq %s, rf att %f", getFreqAndUnitString(FREQRESPHZ[j], 0, tempChar), attRf);
 	//			returnScpiResult(QString(tempChar));
 				sleep(2);
-				return exitCalibrate();
+				printf("\ncalibrate freq is %d,attRf is %f,power is %d\n",\
+												FREQRESPHZ[j],attRf,power);
+				fprintf(fp,"calibrate freq is %f,attRf is %f,power is %d\n",\
+												FREQRESPHZ[j],attRf,power);
+				//return exitCalibrate();
 			}
-
 			if (getDataFromPowerMeter() == __SCPI_FAILED)
 			{
 				saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("factory calibrate failed"), getTheTranslatorString("rf att calibrate failed") + QString(getFreqAndUnitString(FREQRESPHZ[j], 0, tempChar)).trimmed());
@@ -23380,22 +23473,145 @@ int tSysScpi::factoryCalibrate(int comCal)
 			//usleep(1000 * 100);
 			out << "freq resp " << i <<"_" << j << " :" << sysData.factoryCalData.freqResp[i][j] << "\r\n";
 		}
+		sleep(3);
+		printf("\n attrf=%f,power=%d calibrate succeed!\n\n",attRf,power);
 
 	}
+	
+	fclose(fp);
+#endif
 	saveFactoryCalibrationData();
 	sprintf(tempChar, "factory calibrate success, cal time %d ms", t.elapsed());
 	returnScpiResult(QString(tempChar));
 	saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("factory calibrate successed"), "");
 //	outputToScreen(getTheTranslatorString("factory calibrate successed"), progress, 0);
-#endif
 	sysData.isFactoryCalibrating = false;
 //	sysData.options.isFft10HzOn = prvFftState;
 	sysData.mode = smSpectrum;
 	sysData.canvasNums = 1;
-	fclose(calfp);
 
 	return __SCPI_SUCCESS;
 }
+
+
+
+//单频点校准
+int tSysScpi::freqCalibrate(double freq)
+{
+	int index, freqRespCount =  sizeof FREQRESPHZ / sizeof FREQRESPHZ[0];
+	if(freq < FREQRESPHZ[0] || freq > FREQRESPHZ[freqRespCount-1])
+		return __SCPI_FAILED;
+
+	QString cmd = "";
+	char tempChar[128] = { };
+	QString datetime = "";
+
+	sysData.system.io.lan.hostPort = SOCKETSEVERPORT;
+	if (connecToServerSocket() == __SCPI_FAILED)
+	{
+		return __SCPI_FAILED;
+	}
+	printf("signal generator connected!\n");
+	sendSerialData(false, "*RST");
+	usleep(1000 * 3000);
+
+	if (signalIsOnline(false) == __SCPI_FAILED)
+	{
+		return __SCPI_FAILED;
+	}
+	printf("signal generator online!\n");
+
+	sendSerialData(false, ":OUTP:MOD OFF;:OUTP ON;");
+
+	usleep(1000);
+	if(!connectToPowerMeter())
+	{
+		return __SCPI_FAILED;
+	}
+	printf("power sensor connected!\n");
+	
+	double sysTemperature = 0;
+	sysData.factoryCalData.temperature = sysTemperature;
+	setCalibrateParamOfAbsoluteAmplitude();
+	setCalibrateParamOfIfAttenuation();
+	
+	int  power = 0;
+	double attRf = 0, attIf = 20;
+	int freqRespSum = 4 * freqRespCount;
+
+	QFile file("/home/sky/factory.txt");
+	file.open(QIODevice::ReadWrite | QIODevice::Append);
+	QTextStream out(&file);
+
+	for(int j = 0; j < freqRespCount; j++)
+	{
+		if(FREQRESPHZ[j] == freq)
+		{
+			index = j;
+			break;
+		}
+	}
+	for(int i = 0; i < 4; i++)
+	{
+		switch(i)
+		{
+			case 0:
+				attRf = 0;
+				power = -14;
+				break;
+			case 1:
+				attRf = 10;
+				power = -4;
+				break;
+			case 2:
+				attRf = 20;
+				power = 6;
+				break;
+			case 3:
+				attRf = 30;
+				power = 16;
+				break;
+		}
+		cmd = ":POW " + QString(intToString(power, tempChar)).trimmed();
+		sendSerialData(false, cmd);
+		cmd = ":FREQ ";
+		cmd += QString(floatToString(FREQRESPHZ[index], 0, 0, tempChar)).trimmed();
+		sendSerialData(false, cmd);
+
+		setFrontendAtt(attRf, attIf);
+		
+		if(getCalibrateRunParam() == __SCPI_FAILED)
+		{
+			sleep(2);
+			return __SCPI_FAILED;
+		}
+		
+		setCalibrateDistributeFrequencyRespond(index, 0, attRf, attIf);
+		usleep(5000);
+		
+		if (getDataFromPowerMeter() == __SCPI_FAILED)
+		{
+			sleep(2);
+			return __SCPI_FAILED;
+		}
+		sysData.factoryCalData.freqResp[i][index] = calRunData.maxValue - sysData.measure.powerMeter.ampt;
+		out << "freq resp " << i <<"_" << index << " :" << sysData.factoryCalData.freqResp[i][index] << "\r\n";
+
+		printf("\n freq=%f,attrf=%f,power=%d calibrate succeed!\n\n",freq,attRf,power);
+
+	}
+	
+	saveFactoryCalibrationData();
+	returnScpiResult(QString(tempChar));
+	sysData.canvasNums = 1;
+
+	return __SCPI_SUCCESS;
+}
+
+
+
+
+
 
 //直采通道前置放大校准
 int tSysScpi::ZCPreamplifierCalibrate(int comCal)
@@ -23835,7 +24051,8 @@ int tSysScpi::ZCCalibrate(int comCal)
 
 	if (!sysData.options.directChannelOptionOn)
 	{
-		return __SCPI_FAILED;
+		printf("sysData.options.directChannelOptionOn\n");
+		//return __SCPI_FAILED;
 	}
 
 	if (isCom && comHandle <= 0)
@@ -23864,7 +24081,7 @@ int tSysScpi::ZCCalibrate(int comCal)
 
 	//1、help info
 	progress = 0;
-	outputToScreen(getTheTranslatorString("Low Freq calibrating") + "......", progress, 0);
+	//outputToScreen(getTheTranslatorString("Low Freq calibrating") + "......", progress, 0);
 
 	//2、connect to server
 	if (!isCom)
@@ -23875,26 +24092,27 @@ int tSysScpi::ZCCalibrate(int comCal)
 		if (connecToServerSocket() == __SCPI_FAILED)
 		{
 			saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("connect to server failed"), getTheTranslatorString("disconnect to server"));
-			outputToScreen(getTheTranslatorString("disconnect to server"), progress, 1);
+			//outputToScreen(getTheTranslatorString("disconnect to server"), progress, 1);
 			sleep(2);
 			return exitCalibrate();
 		}
 	}
+	printf("signal generator connected!\n");
 
 	//3、check signal generator
 	progress = 5;
-	outputToScreen(getTheTranslatorString("signal generator checking") + "......", progress, 0);
+	//outputToScreen(getTheTranslatorString("signal generator checking") + "......", progress, 0);
 	sendSerialData(isCom, "*RST");
 	usleep(1000 * 3000);
 
 	if (signalIsOnline(isCom) == __SCPI_FAILED)
 	{
 		saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("ZC calibrate failed"), getTheTranslatorString("signal generator is off line"));
-		outputToScreen(getTheTranslatorString("signal generator is off line"), progress, 1);
+		//outputToScreen(getTheTranslatorString("signal generator is off line"), progress, 1);
 		sleep(2);
 		return exitCalibrate();
 	}
-
+	printf("signal generator online!\n");
 	sendSerialData(isCom, ":SYST:MODO OFF");
 	sendSerialData(isCom, ":SYST:RFO ON");
 
@@ -23902,13 +24120,14 @@ int tSysScpi::ZCCalibrate(int comCal)
 	double sysTemperature = 0;
 	progress = 8;
 
-	if (getSystemTemperature(&sysTemperature) == __SCPI_FAILED)
-	{
-		saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("Low Freq calibrate failed"), getTheTranslatorString("can not get device temperature"));
-		outputToScreen(getTheTranslatorString("can not get device temperature"), progress, 1);
-		sleep(2);
-		return exitCalibrate();
-	}
+	//if (getSystemTemperature(&sysTemperature) == __SCPI_FAILED)
+	//{
+	//	saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("Low Freq calibrate failed"), getTheTranslatorString("can not get device temperature"));
+		//outputToScreen(getTheTranslatorString("can not get device temperature"), progress, 1);
+	//	sleep(2);
+	//	printf("getSystemTemperature failed!\n");
+		//return exitCalibrate();
+	//}
 
 	//6、reset zc calibration data
 	resetZcCalibrationData();
@@ -23916,31 +24135,193 @@ int tSysScpi::ZCCalibrate(int comCal)
 	sysData.zcCalData.temperature = sysTemperature;
 
 	//7、amplitude
+	printf("absoluteAmptValue cal......\n");
 	setZcCalibrateParamOfAbsoluteAmplitude();
+	setFrontendAtt(10, 20);
 	progress = 10;
-	outputToScreen(getTheTranslatorString("amplitude calibrating") + "......", progress, 0);
+	usleep(3000);
+	//outputToScreen(getTheTranslatorString("amplitude calibrating") + "......", progress, 0);
 
-	if (signalOutputFreqIsvalid(isCom, 5e6) == __SCPI_FAILED || signalOutputAmptIsvalid(isCom, -20) == __SCPI_FAILED || getCalibrateRunParam() == __SCPI_FAILED)
+	if (signalOutputFreqIsvalid(isCom, 10e6) == __SCPI_FAILED || signalOutputAmptIsvalid(isCom, -15) == __SCPI_FAILED || getCalibrateRunParam() == __SCPI_FAILED)
 	{
 		saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("Low Freq calibrate failed"), getTheTranslatorString("amplitude calibrate failed"));
-		outputToScreen(getTheTranslatorString("amplitude calibrate failed"), progress, 1);
+		//outputToScreen(getTheTranslatorString("amplitude calibrate failed"), progress, 1);
 		sleep(2);
 		return exitCalibrate();
 	}
 
-	sysData.zcCalData.absoluteAmptValue = calRunData.maxValue + 20.0;
+	sysData.zcCalData.absoluteAmptValue = calRunData.maxValue + 15.0;
 	saveZcFactoryCalibrationData();
 	saveUserCalibrationData();
-
+	printf("absoluteAmptValue cal succeed!\n");
+#if 1	
+	sleep(3);
 	//8、attenuation
 	progress = 15;
 	setZcCalibrateParamOfAbsoluteAmplitude();
-	outputToScreen(getTheTranslatorString("attenuation calibrating") + "......", progress, 0);
+	setFrontendAtt(10, 20);
+	//outputToScreen(getTheTranslatorString("attenuation calibrating") + "......", progress, 0);
+	
+	QString cmd = "";
+	cmd = ":FREQ 10e6";
+	sendSerialData(isCom, cmd);
+	cmd = ":POW " + QString(intToString(-25, tempChar)).trimmed();
+	sendSerialData(isCom, cmd);
 
+	getCalibrateRunParam();
+	double base = calRunData.maxValue;
+
+	int  power = 0;
+	double attRf = 0, attIf = 0;
+	int freqRespCount = sizeof FREQRESPHZ_ZC / sizeof FREQRESPHZ_ZC[0];
+	FILE* fp = fopen("zcdata.c","w");
+	printf("ds freq res cal......");
+	sleep(3);
+	for(int i = 0; i < 16; i++)
+	{
+		switch (i)
+		{
+			case 0:
+				attRf = 10;
+				attIf = 20;
+				power = -15;
+				break;
+			case 1:
+				attRf = 0;
+				attIf = 20;
+				power = -25;
+				break;
+			case 2:
+				attRf = 20;
+				attIf = 20;
+				power = -5;
+				break;		
+			case 3:
+				attRf = 30;
+				attIf = 20;
+				power = 5;
+				break;
+			case 4: 
+				attRf = 10;
+				attIf = 10;
+				power = -25;
+				break;	
+			case 5: 
+				attRf = 0;
+				attIf = 10;
+				power = -35;
+				break;	
+			case 6: 
+				attRf = 20;
+				attIf = 10;
+				power = -15;
+				break;	
+			case 7: 
+				attRf = 30;
+				attIf = 10;
+				power = -5;
+				break;	
+			case 8: 
+				attRf = 10;
+				attIf = 0;
+				power = -35;
+				break;	
+			case 9: 
+				attRf = 0;
+				attIf = 0;
+				power = -45;
+				break;	
+			case 10: 
+				attRf = 20;
+				attIf = 0;
+				power = -25;
+				break;		
+			case 11: 
+				attRf = 30;
+				attIf = 0;
+				power = -15;
+				break;		
+			case 12: 
+				attRf = 10;
+				attIf = 30;
+				power = -5;
+				break;
+			case 13: 
+				attRf = 0;
+				attIf = 30;
+				power = -15;
+				break;		
+			case 14: 
+				attRf = 20;
+				attIf = 30;
+				power = 5;
+				break;		
+			case 15: 
+				attRf = 30;
+				attIf = 30;
+				power = 15;
+				break;					
+
+		}
+		setFrontendAtt(attRf, attIf);
+
+		cmd = ":POW " + QString(intToString(power, tempChar)).trimmed();
+		sendSerialData(isCom, cmd);
+		usleep(1000);
+		
+		for(int j = 0; j < freqRespCount; j++)
+		{
+			cmd = ":FREQ ";
+			cmd += QString(floatToString(FREQRESPHZ_ZC[j], 0, 0, tempChar)).trimmed();
+			sendSerialData(isCom, cmd);
+			usleep(1000);
+
+			// set ds param
+			if(j < 5)
+			{
+				setFrequencyOfCenter(50e3);
+			} else
+			{
+				setFrequencyOfCenter(FREQRESPHZ_ZC[j]);
+			}
+			setFrequencyOfSpan(100e3);
+			setBwOfRbw(1e3);
+			controlRf();
+			usleep(5000);
+			
+			if(getCalibrateRunParam() == __SCPI_FAILED)
+			{
+				fprintf(fp,"attRf=%f,attIf=%f,power=%d,freq=%d failed\n",\
+							attRf, attIf, power,FREQRESPHZ_ZC[j]);
+				printf("*********getCalibrateRunParam failed!\n");
+			}
+	
+			sysData.zcCalData.freqResp[i][j] = calRunData.maxValue -power;
+		}
+		printf("\nattRf=%f,attIf=%f,power=%d:ds freq res cal succeed!\n",attRf, attIf, power);
+		sleep(3);
+
+	}
+	saveZcFactoryCalibrationData();
+	fclose(fp);
+#endif 
+	progress = 100;
+
+	if (!isCom)
+	{
+		disConnectFromServerSocket();
+	}
+
+	saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("Low Freq calibrate successed"), "");
+	//outputToScreen(getTheTranslatorString("Low Freq calibrate successed"), progress, 0);
+	sysData.isZcCalibrating = false;
+	sysData.mode = smSpectrum;
+	sysData.canvasNums = 1;	
+#if 0
 	//8.1、att9
 	progress = 16;
-//	signalOutputAmptIsvalid(isCom, -20);
-	setCalibrateDistributeAtt(0, 0, 9);
+	//	signalOutputAmptIsvalid(isCom, -20);
+	//setCalibrateDistributeAtt(0, 0, 9);
 	outputToScreen(getTheTranslatorString("attenuation(9dB) calibrating") + "......", progress, 0);
 
 	if (getCalibrateRunParam() == __SCPI_FAILED)
@@ -24247,6 +24628,7 @@ int tSysScpi::ZCCalibrate(int comCal)
 	//  sysData.options.isFft10HzOn = prvFftState;
 	sysData.mode = smSpectrum;
 	sysData.canvasNums = 1;
+#endif
 
 	return __SCPI_SUCCESS;
 }
@@ -25563,7 +25945,8 @@ void tSysScpi::updateBandParam(void)
 	}
 
 	/*计算*/
-	if(sysData.freq.start <= 20e6 && sysData.freq.stop <= 20e6)//短波全频段
+	sysData.freq.isLowChannel = false; //director sample mode
+	if(sysData.freq.start <= 20e6 && sysData.freq.stop <= 20e6)//director sample
 	{
 		rfData.SWEEP_BAND_INDEX = 1;
 
@@ -25592,6 +25975,7 @@ void tSysScpi::updateBandParam(void)
 		rfData.N_HH4_START_FRAC = 0;
 		rfData.N_HH4_STOP_INT = 0;
 		rfData.N_HH4_STOP_FRAC = 0;
+		sysData.freq.isLowChannel = true;//set director sample mode
 
 	} 
 	else if(sysData.freq.start < 20e6 - f_dbuc / 2 && sysData.freq.stop <= freq_hh1)//低波段
@@ -26516,10 +26900,12 @@ int tSysScpi::getDataFromPowerMeter(void)
 //连接usb功率计
 bool tSysScpi::connectToPowerMeter(void)
 {
-	tmcHandle = open("/dev/usbtmc0", O_RDWR | O_NONBLOCK);
+	if(!tmcHandle)
+		tmcHandle = open("/dev/usbtmc0", O_RDWR | O_NONBLOCK);		
 
 	if(tmcHandle > 0)
 	{
+		printf("open USB powermeter succeed!\n");
 		write(tmcHandle, "SYST:PRES DEF;CAL:ZERO:TYPE INT;CAL;", 512);
 
 		return true;

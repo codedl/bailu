@@ -223,7 +223,14 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 						presetSystem();
 					}
 					break;
-
+				case SCPI_CMD_STANDARD_ZCCAL:
+					exeResult = __SCPI_RETURN;
+					printf("SCPI_CMD_STANDARD_ZCCAL!\n");
+					if (ZCCalibrate(result.value.toInt()) == __SCPI_SUCCESS)
+					{
+						presetSystem();
+					}					
+					break;
 				case SCPI_CMD_STANDARD_PRECAL:
 					exeResult = __SCPI_RETURN;
 					if (PreamplifierCalibrate(result.value.toInt()) == __SCPI_SUCCESS)
@@ -272,6 +279,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					//freq command
 				case SCPI_CMD_FREQ_CENTER_SET:
 					exeResult = setFrequencyOfCenter(result.value.trimmed());
+					valuechanged = 1;
 					//reDrawMenuFrame();
 					break;
 				case SCPI_CMD_FREQ_CENTER_GET:
@@ -2596,6 +2604,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					{
 					}
 					exeResult = setPowerMeterFreq(result.value.trimmed());
+					getDataFromPowerMeter();
 					break;
 				case SCPI_CMD_POWERMETER_FREQ_GET:
 					break;
@@ -2609,7 +2618,9 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 						exeResult = __SCPI_FAILED;
 					}
 					break;
-				//other
+				case SCPI_CMD_CALAFREQ:
+					printf("SCPI_CMD_CALAFREQ:%s\n",result.value.trimmed().toStdString().c_str());
+					break;
 				default:
 					exeResult = __SCPI_UNSUPPORT;
 					break;

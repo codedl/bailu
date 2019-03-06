@@ -41,11 +41,11 @@ void mainThread::run()
 void minorThread::run()
 {
 	struct timeval delay;
+	delay.tv_sec = 0;
+	delay.tv_usec = 500 * 1000;
 
 	while (true)
 	{
-		delay.tv_sec = 0;
-		delay.tv_usec = 500 * 1000;
 		select(0, NULL, NULL, NULL, &delay);
 
 		//if system is calibrating
@@ -57,8 +57,8 @@ void minorThread::run()
 		//refresh screen
 		emit drawTop();
 		//	emit drawInput();
-		delay.tv_sec = 0;
-		delay.tv_usec = 500 * 1000;
+		//delay.tv_sec = 0;
+		//delay.tv_usec = 500 * 1000;
 		select(0, NULL, NULL, NULL, &delay);
 
 		emit drawState();
@@ -260,11 +260,16 @@ void dataThread::run()
 	unsigned char buf1[1] = { 0x00 };
 	unsigned char buf2[1] = { 0x54 };
 
+	//delay.tv_sec = 0;
+	//delay.tv_usec = 400 * 1000;//120 : start
+	//delay.tv_usec = 120 * 1000;
+
 	while (true)
 	{
 		delay.tv_sec = 0;
 		//delay.tv_usec = 400 * 1000;//120 : start
 		delay.tv_usec = 120 * 1000;
+
 		select(0, NULL, NULL, NULL, &delay);
 
 		//if system is calibrating
@@ -276,14 +281,14 @@ void dataThread::run()
 		//get system temperature
 		if (tmptHandle >= 0)
 		{
-
 			read(tmptHandle, wdData, sizeof(wdData));
 
 			if (wdData[0] & 0x80)
 				tempValue = (((wdData[0] << 8) | wdData[1]) - 65536) * 0.0078125;
 			else
 				tempValue = ((wdData[0] << 8) | wdData[1]) * 0.0078125;
-
+			
+			
 			if (tempValue != 0)
 			{
 				wdCount++;

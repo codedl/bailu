@@ -7,8 +7,6 @@
 
 int main(int argc, char ** argv)
 {
-	if (!(calfp= fopen("data.c","w")))
-		printf("open data.c of saving cal data failed!\n");
 
   //program create
   QApplication a( argc, argv );

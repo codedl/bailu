@@ -83,8 +83,6 @@ int ifDev;
 int ramHandle;
 int tmcHandle;//power meter
 
-FILE *calfp ;
-
 bool isFFtnd;                    //ÅÐ¶ÏFFTÊÇ·ñ½áÊø
 
 bool devControling = false;
@@ -95,4 +93,6 @@ char sockBuf[SOCKETBUF_SIZE] = {0x0};
 int curSocket = 0;
 int intFlag = 0;
 unsigned long ifDataBuf[RAMDATASIZE];
+
+int valuechanged;
 
