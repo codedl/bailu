@@ -14,8 +14,8 @@
 #include <asm/io.h>
 #include <linux/gpio.h>
 #include <linux/miscdevice.h>
-#include "bl_tq3358_gpio.h"
-#include "bl_tq3358_gpio_emi.h"
+//#include "bl_tq3358_gpio.h"
+//#include "bl_tq3358_gpio_emi.h"
 
 #define DEVICE_NAME "BL_TQ3358_SPI"
 
@@ -55,7 +55,7 @@ typedef struct __GPIO_DESC
   const char *desc;
 } gpio_desc;
 
-static gpio_desc fpga_dev_data[] =
+static gpio_desc adt7310_data[] =
 {
   {GPIO_TO_PIN(2, 0),  "fpga-program"},   /* program */
 };
@@ -67,17 +67,17 @@ static int fpga_gpio_init(void)
 	int ret = 0;
 
 	//fpga gpio init
-	for (i = 0; i < sizeof(fpga_dev_data) / sizeof(fpga_dev_data[0]); i++)
+	for (i = 0; i < sizeof(adt7310_data) / sizeof(adt7310_data[0]); i++)
 	{
-		ret = gpio_request(fpga_dev_data[i].gpio, fpga_dev_data[i].desc);
+		ret = gpio_request(adt7310_data[i].gpio, adt7310_data[i].desc);
 		if(ret < 0)
 		{
-		  printk("failed to request GPIO %d{%s}, error %d\n", fpga_dev_data[i].gpio, fpga_dev_data[i].desc, ret);
+		  printk("failed to request GPIO %d{%s}, error %d\n", adt7310_data[i].gpio, adt7310_data[i].desc, ret);
 		  return ret;
 		}
 
-		gpio_direction_output(fpga_dev_data[i].gpio, OUTPUT_LOW);
-		gpio_set_value(fpga_dev_data[i].gpio, OUTPUT_LOW);
+		gpio_direction_output(adt7310_data[i].gpio, OUTPUT_LOW);
+		gpio_set_value(adt7310_data[i].gpio, OUTPUT_LOW);
 	}
 	return 0;
 }
@@ -91,9 +91,9 @@ static int loadBitFile(enum bitFileType value)
 	printd("load bit file\n");
 	//reset fpga program pin
 	mdelay(1);
-	gpio_set_value(fpga_dev_data[0].gpio, OUTPUT_LOW);
+	gpio_set_value(adt7310_data[0].gpio, OUTPUT_LOW);
 	mdelay(1);
-	gpio_set_value(fpga_dev_data[0].gpio, OUTPUT_HIGH);
+	gpio_set_value(adt7310_data[0].gpio, OUTPUT_HIGH);
 	mdelay(1);
 
 	switch(value)
@@ -267,9 +267,9 @@ static void __exit spi_exit(void)
 
 	int i = 0;
 
-	for (i = 0 ; i < sizeof(fpga_dev_data) / sizeof(fpga_dev_data[0]); i++)
+	for (i = 0 ; i < sizeof(adt7310_data) / sizeof(adt7310_data[0]); i++)
 	{
-		gpio_free(fpga_dev_data[i].gpio);
+		gpio_free(adt7310_data[i].gpio);
 	}
 
     misc_deregister(&misc);

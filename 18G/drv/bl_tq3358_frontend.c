@@ -851,7 +851,7 @@ static void init_adf4360()
 //   input_ADF4360(0x404002); mdelay(1); // N rigster*/
   input_ADF4360(0x300065); mdelay(2); // R rigster
 //  input_ADF4360(0x0ff108); mdelay(2);// con rigster
-  input_ADF4360(0x0ff048); mdelay(2);
+  input_ADF4360(0x0ff128); mdelay(2);
   input_ADF4360(0x404002); mdelay(1); // N rigster*/
 }
 
