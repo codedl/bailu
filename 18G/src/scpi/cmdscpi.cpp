@@ -279,7 +279,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					//freq command
 				case SCPI_CMD_FREQ_CENTER_SET:
 					exeResult = setFrequencyOfCenter(result.value.trimmed());
-					valuechanged = 1;
+					//valuechanged = 1;
 					//reDrawMenuFrame();
 					break;
 				case SCPI_CMD_FREQ_CENTER_GET:

@@ -679,7 +679,7 @@ int tSysScpi::setFrequencyOfSpan(double value)
 //		temp = minSpan;
 //	}
 
-	temp = temp;
+	//temp = temp;
 	sysData.span.span = temp;
 
 	if ((sysData.freq.center - sysData.span.span / 2) <= minFreq)
@@ -6803,7 +6803,7 @@ int tSysScpi::setSystemServiceOptionFFT10Hz(QString value)
 //设置系统解调选件
 int tSysScpi::setSystemServiceOptionDemod(int value)
 {
-	sysData.options.isDemodOn = value == 1;
+	sysData.options.isDemodOn = value == 1;//save state of demod
 	saveDeviceConfig();
 
 	return __SCPI_SUCCESS;
@@ -8279,7 +8279,7 @@ int tSysScpi::setSourceSignalGenOutputPowerWithRpg(int value)
 int tSysScpi::setDemodOfSoundState(int value)
 {
 	sysData.demod.demodOn = value == 1;
-	//  controlRf();
+	printf("demod on\n");
 	if (sysData.demod.demodOn)
 	{
 		setDemodOfMode(sysData.demod.mode);
@@ -8371,20 +8371,20 @@ int tSysScpi::setDemodOfMode(int value)
 		return __SCPI_FAILED;
 	}
 
-	if (tempValue == 0 || tempValue == 1)
-	{
-		tempFTWOfDdc = (8.66 / 30.0) * 4294967296.0;
-	} else
-	{
-		tempFTWOfDdc = (8.6 / 30.0) * 4294967296.0;
-	}
+	//if (tempValue == 0 || tempValue == 1)
+	//{
+	//	tempFTWOfDdc = (8.66 / 30.0) * 4294967296.0;
+	//} else
+	//{
+	//	tempFTWOfDdc = (8.6 / 30.0) * 4294967296.0;
+	//}
 
 	//DDC NCO 下发控制字
-	FTWOfDdc = (unsigned long long) tempFTWOfDdc;
-	FTWOfDdchh = (FTWOfDdc >> 24) & 0xff;
-	FTWOfDdchl = (FTWOfDdc >> 16) & 0xff;
-	FTWOfDdclh = (FTWOfDdc >> 8) & 0xff;
-	FTWOfDdcll = (FTWOfDdc) & 0xff;
+	//FTWOfDdc = (unsigned long long) tempFTWOfDdc;
+	//FTWOfDdchh = (FTWOfDdc >> 24) & 0xff;
+	//FTWOfDdchl = (FTWOfDdc >> 16) & 0xff;
+	//FTWOfDdclh = (FTWOfDdc >> 8) & 0xff;
+	//FTWOfDdcll = (FTWOfDdc) & 0xff;
 
 	sysData.ampt.isPreamptOn = true;
 	sysData.ampt.preamtOn = 0x01;
@@ -8424,20 +8424,24 @@ int tSysScpi::setDemodOfMode(int value)
 	}
 
 	//DDC NCO 下发控制字
-	ifDownload(0xfa, FTWOfDdchh);
-	ifDownload(0xfa, FTWOfDdchl);
-	ifDownload(0xfa, FTWOfDdclh);
-	ifDownload(0xfa, FTWOfDdcll);
-	ifDownload(0xf9, 0x00); //空操纵
+	//ifDownload(0xfa, FTWOfDdchh);
+	//ifDownload(0xfa, FTWOfDdchl);
+	//ifDownload(0xfa, FTWOfDdclh);
+	//ifDownload(0xfa, FTWOfDdcll);
+	//ifDownload(0xf9, 0x00); //空操纵
 
 	//CIC、增益下发
 	controlRf();
 
 	//ADDR(29)解调模式下发
-	ifDownload(0x1d, numberOfMode & 0x03);
+	feDownload(50, numberOfMode&0x02);
 
 	//ADD(30)音量下发
-	ifDownload(0x1e, (unsigned char) (sysData.demod.sound * 2.55));
+	//ifDownload(0x1e, (unsigned char) (sysData.demod.sound * 2.55));
+	feDownload(51, sysData.demod.sound);//set vol
+	feDownload(52, 1);
+	usleep(10);
+	feDownload(52, 0);//enable by high to low
 
 	sysData.demod.mode = demodMode(tempValue);
 
@@ -8451,7 +8455,7 @@ int tSysScpi::setDemodOfMode(QString value)
 	{
 		return __SCPI_FAILED;
 	}
-
+	printf("demod mode is %s\n",value.toStdString().c_str());
 	if (value == "FMW")
 	{
 		return setDemodOfMode(dmFMW);
@@ -8490,9 +8494,12 @@ int tSysScpi::setDemodOfSound(double value)
 
 	if (sysData.demod.demodOn)
 	{
-		ifDownload(0x1e, (unsigned char) (sysData.demod.sound * 2.55));
-		//controlRf();
+		feDownload(51, sysData.demod.sound);//set vol
+		feDownload(52, 1);
+		usleep(10);
+		feDownload(52, 0);//enable by high to low
 	}
+	__var(sysData.demod.sound);
 
 	return __SCPI_SUCCESS;
 }
@@ -8588,6 +8595,8 @@ int tSysScpi::setDemodOfTheFrequency(int index, double freq)
 	sysData.sweep.sweepSingle = false;
 	sysData.sweep.sweepTimeAuto = true;
 	sysData.freq.isShowCenter = true;
+	controlRf();
+	__var(freq);
 
 	if (index == 0)
 	{
@@ -8736,12 +8745,12 @@ int tSysScpi::setDemodOfAmState(int value)
 {
 	if ((sysData.options.amOn && value == 1) || (!sysData.options.amOn && value == 0))
 	{
-		return 0;//make sure value seted differ from cur state
+		return 0;//make sure value  differ from cur state
 	}
 
 	if (value == 1 && !sysData.options.amOn)
 	{
-		sysData.ampt.refLevel = -10;
+		sysData.ampt.refLevel = -10;//set reflevel
 		sysData.ampt.att = 0;
 		controlRf();
 		checkMultiDisplay(mdtAM);
@@ -8753,11 +8762,11 @@ int tSysScpi::setDemodOfAmState(int value)
 	{
 		if (sysData.options.isDemodOn && sysData.options.fmOn)
 		{
-			setDemodOfFmState(0);//am or fm on once
+			setDemodOfFmState(0);//close fm as am or fm on once
 		}
 
 		setFrequencyOfSpan(0);
-		demodControl();
+		//demodControl();
 		sysData.mode = smAM;
 		sysData.canvasNums = 2;
 	} else
@@ -16959,6 +16968,7 @@ bool tSysScpi::demodControlIF(void)
 //解调控制
 bool tSysScpi::demodControl(void)
 {
+	//open demod and set am or fm on
 	if ((!sysData.options.isDemodOn) || (!sysData.options.amOn && !sysData.options.fmOn))
 	{
 		return false;
@@ -16978,7 +16988,7 @@ bool tSysScpi::demodControl(void)
 		sysData.options.fm_time_us = 1.0 * (DEMODSIZE + 4) * 1e6 / (sysData.options.fm_ifbw);
 	}
 
-	sysData.sweep.sweepTimeAuto = false;
+	sysData.sweep.sweepTimeAuto = false;//sweepTime by cal not couple
 	sysData.sweep.sweepSingle = true;
 	sysData.sweep.sweepTime = DEMODSIZE * 1e9 / (30e6 / sysData.options.cicValue);//unit ns
 	sysData.span.span = 0;
@@ -22518,11 +22528,11 @@ int tSysScpi::getPremptData(int val)
 	if(freq > FREQ_START_HH_BAND1 && freq <= FREQ_START_HH_BAND2)
 		channel = 0;
 	else if(freq > FREQ_START_HH_BAND2 && freq <= FREQ_START_HH_BAND3)
-		channel = 3;
-	else if(freq > FREQ_START_HH_BAND3 && freq <= FREQ_START_HH_BAND4)
 		channel = 1;
-	else if(freq > FREQ_START_HH_BAND4 && freq <= MAXFREQ)
+	else if(freq > FREQ_START_HH_BAND3 && freq <= FREQ_START_HH_BAND4)
 		channel = 2;
+	else if(freq > FREQ_START_HH_BAND4 && freq <= MAXFREQ)
+		channel = 3;
 
 	if(sysData.ampt.isPreamptOn)
 		premptOn = 2;

@@ -41,11 +41,13 @@ void mainThread::run()
 void minorThread::run()
 {
 	struct timeval delay;
-	delay.tv_sec = 0;
-	delay.tv_usec = 500 * 1000;
+	//delay.tv_sec = 0;
+	//delay.tv_usec = 500 * 1000;
 
 	while (true)
 	{
+		delay.tv_sec = 0;
+		delay.tv_usec = 500 * 1000;
 		select(0, NULL, NULL, NULL, &delay);
 
 		//if system is calibrating

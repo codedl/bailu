@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainthread.h'
 **
-** Created: Wed Mar 6 09:53:57 2019
+** Created: Fri Mar 8 16:08:25 2019
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

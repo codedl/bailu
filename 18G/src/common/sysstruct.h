@@ -114,8 +114,8 @@
 #define MINBACKLIGHT    0                     //最小背光
 #define MAXBACKLIGHT    100                   //最大背光
 
-#define MINSOUND        0                     //最小音量
-#define MAXSOUND        100                   //最大音量
+#define MINSOUND        0                      //最小音量
+#define MAXSOUND        0xFF                   //最大音量
 
 #define MINTEMPERATURE  0.1                   //最小温度
 #define MAXTEMPERATURE  90                    //最大温度
@@ -1356,7 +1356,7 @@ struct spanDef
   double prvSpan;
   double nowSpan;
   double span;//stopfre - startfre
-  bool isZeroSpan;//value of span is zero
+  bool isZeroSpan;//value of span is zero,flag of zerospan
 };
 
 //幅度结构定义
