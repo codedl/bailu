@@ -15,7 +15,7 @@ void tSysScpi::getDataFromIF(void)
 	double passFailFreq = 0;
 	double passFailStartFreq = 0;
 	double passFailStopFreq = 0;
-
+	double step = sysData.span.span / sysData.sweep.sweepPoints;
 	if (sysData.measure.passFail.winSweepOn)
 	{
 		passFailStartFreq = sysData.measure.passFail.winFreqStart;
@@ -330,30 +330,17 @@ void tSysScpi::getDataFromIF(void)
 				sysData.initValue[i] -= 70;
 			}
 
-			if (sysData.freq.isLowChannel)
+			if (sysData.freq.start + i * step < ZCMAXFREQ)//director sample compensation
 			{
 				if (sysData.ampt.isPreamptOn)
 				{
 					//tempValue = -40.0 + sysData.initValue[i];
-					if(valuechanged)
-					{
-						printf("sysData.zcPreamplifierCalData.absoluteAmptValue!\n");
-						__var(sysData.ampt.dsattRf);
-						__var(sysData.ampt.dsattIf);
-					}
-					valuechanged = 0;
-
 					tempValue = -40.0 + sysData.initValue[i] - sysData.zcPreamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.dsattRf + sysData.ampt.dsattIf + sysData.ampt.refOffset + bcValue;
 				} else
 				{
 					//tempValue = -20.0 + sysData.initValue[i];
 					tempValue = -20.0 + sysData.initValue[i] - sysData.zcCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.dsattRf + sysData.ampt.dsattIf + sysData.ampt.refOffset + bcValue;
-					if(valuechanged){
-						printf("sysData.zcCalData.absoluteAmptValue!\n");
-						__var(sysData.ampt.dsattRf);
-						__var(sysData.ampt.dsattIf);						
-					}
-					valuechanged = 0;
+
 				}
 			} else
 			{
@@ -379,7 +366,7 @@ void tSysScpi::getDataFromIF(void)
 				ifvalue = bcValue;
 				rfvalue = getErrorOfFreqResp(i);
 			}
-			if (sysData.freq.isLowChannel)
+			if (sysData.freq.start + i * step < ZCMAXFREQ)//director sample compensation
 			{
 				if (sysData.ampt.isPreamptOn)
 				{
@@ -446,8 +433,6 @@ void tSysScpi::getDataFromIF(void)
 		if(valuechanged)
 		{
 			valuechanged = 0;
-			//__var(ifvalue);
-			//__var(rfvalue);
 		}
 		for (int i = 0; i < TRACECOUNT; i++)
 		{

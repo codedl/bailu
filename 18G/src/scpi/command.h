@@ -397,6 +397,7 @@
 #define SCPI_CMD_POWERMETER_FREQ_GET		        0x4201
 #define SCPI_CMD_POWERMETER_AMPT_GET		        0x4202
 #define SCPI_CMD_CALAFREQ							0x4203
+#define SCPI_CMD_CLEAR								0x4204
   //检索返回值结构定义
 struct resultDef
 {
@@ -902,10 +903,11 @@ static struct _SCPI_keyboardCmd test[] = {
   {":UDP:REMOte:PORT?",																SCPI_CMD_UDP_REMOTE_PORT_GET},
 
   //usb Power meter
-  {":USBPOWERmeter:FREQ",																SCPI_CMD_POWERMETER_FREQ_SET},
-  {":USBPOWERmeter:FREQ?",																SCPI_CMD_POWERMETER_FREQ_GET},
-  {":USBPOWERmeter:AMPT?",																SCPI_CMD_POWERMETER_AMPT_GET},
-  {":CALAFREQ:FREQ",																	SCPI_CMD_CALAFREQ			},
+  {":USBPOWERmeter:FREQ",									SCPI_CMD_POWERMETER_FREQ_SET},
+  {":USBPOWERmeter:FREQ?",									SCPI_CMD_POWERMETER_FREQ_GET},
+  {":USBPOWERmeter:AMPT?",									SCPI_CMD_POWERMETER_AMPT_GET},
+  {":CALAFREQ:FREQ",										SCPI_CMD_CALAFREQ			},
+  {":CLEAR",												SCPI_CMD_CLEAR			},
 };
 
 //解析数组

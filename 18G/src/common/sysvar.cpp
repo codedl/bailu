@@ -69,7 +69,7 @@ int ifHandle;
 int rfHandle;
 int comHandle;//serial port
 int srcHandle;
-int tmptHandle;
+int tmptHandle;//temperature
 int fftHandle;
 int usbHandle;
 int gpibHandle;
@@ -95,4 +95,3 @@ int intFlag = 0;
 unsigned long ifDataBuf[RAMDATASIZE];
 
 int valuechanged;
-

@@ -2621,6 +2621,10 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 				case SCPI_CMD_CALAFREQ:
 					printf("SCPI_CMD_CALAFREQ:%s\n",result.value.trimmed().toStdString().c_str());
 					break;
+				case SCPI_CMD_CLEAR:
+					system("mv /home/sky/setting.ini /home/sky/factory.txt /home/sky/file");
+					printf("SCPI_CMD_CLEAR,mv succeed!\n");
+					break;					
 				default:
 					exeResult = __SCPI_UNSUPPORT;
 					break;

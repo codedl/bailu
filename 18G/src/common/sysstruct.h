@@ -49,10 +49,10 @@
 
 
 
-#define FREQ_START_HH_BAND1      8e9
-#define FREQ_START_HH_BAND2		11e9
-#define FREQ_START_HH_BAND3		14e9
-#define FREQ_START_HH_BAND4		16e9
+#define FREQ_START_HH_BAND1     7.5e9//8e9
+#define FREQ_START_HH_BAND2		11e9//11e9
+#define FREQ_START_HH_BAND3		13.6e9//14e9
+#define FREQ_START_HH_BAND4		16e9//16e9
 
 #define RFFREQOFFSET    0 //  15e-3           //频率偏移
 
@@ -1199,17 +1199,16 @@ struct rfDataDef
 
   unsigned char enable;
 
-  int SWEEP_BAND_INDEX;		//波段指示
   unsigned int FTW_Start;
   unsigned int FTW_Step;
-  int N_L;
+  int N_L;//短波段步进的次数
   int N_H;			  		//
-  int N_HL;           		//第一本振低波段步进次数
+  int N_HL;           		//低波段步进次数
   unsigned int N_HL_START_INT;
   unsigned int N_HL_START_FRAC;
   unsigned int N_HL_STOP_INT;
   unsigned int N_HL_STOP_FRAC;
-  int N_HH;           		//第一本振高波段步进次数
+  int N_HH;           		//高波段本振步进次数
   unsigned int N_HH_START_INT;
   unsigned int N_HH_START_FRAC;
   unsigned int N_HH_STOP_INT;
@@ -1226,8 +1225,11 @@ struct rfDataDef
   int N_HH1;				//第一本振高波段第一分段步进次数
   int N_HH2;				//第一本振高波段第二分段步进次数
   int N_HH3;				//第一本振高波段第三分段步进次数
-  int N_HH4;				//第一本振高波段第四分段步进次数
+  int N_HH4;				//第一本振高波段第四分段步进次数  
+  int SWEEP_BAND_INDEX;		//波段指示
   int HIGH_BAND_INDEX;		//高波段指示
+// 8e9~11e9  11e9~13e9    13e9~16e9
+//   3b001          3b010           3b100
   double DBUC_FREQ;    //大BUC频率
 };
 
@@ -1347,7 +1349,7 @@ struct freqDef
   bool typeLine;
   bool isShowCenter;
   bool lineZero;
-  bool isLowChannel;//director sample mode
+  bool isLowChannel;//director sample mode,stop freq < 20e6
 };
 
 //扫宽结构定义
@@ -1362,8 +1364,8 @@ struct spanDef
 //幅度结构定义
 struct amptDef
 {
-  double refLevelMin;
-  double refLevelMax;
+  double refLevelMin;//-110
+  double refLevelMax;//20
   double refLevel;
   double LMPValue;
 

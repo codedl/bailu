@@ -295,7 +295,7 @@ void dataThread::run()
 			{
 				wdCount++;
 				val += tempValue;
-				if (wdCount > 50)
+				if (wdCount > 10)
 				{
 					tempValue = val / wdCount;
 					sysData.temperature = tempValue;
@@ -408,7 +408,7 @@ void fftThread::run()
 					if (!amSuccess && amFailFlag == 0)
 					{
 						sysData.options.am_ifbw = IFFS * 1.0 / cic;
-						sysScpi->demodControl();
+						sysScpi->demodControl();//no need now
 						sysData.options.am_cfgchanged = false;
 					}
 
@@ -421,6 +421,7 @@ void fftThread::run()
 					usleep((unsigned long) (swt * 1000));
 					ioctl(demodHandle, 0xf1, 0);
 					mutexDemod.lock();
+					//driver to read by contorl doc
 					read(demodHandle, sysData.options.iqData, sizeof sysData.options.iqData);
 					mutexDemod.unlock();
 
