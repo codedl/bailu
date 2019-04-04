@@ -295,7 +295,7 @@ void dataThread::run()
 			{
 				wdCount++;
 				val += tempValue;
-				if (wdCount > 10)
+				if (wdCount > 50)
 				{
 					tempValue = val / wdCount;
 					sysData.temperature = tempValue;

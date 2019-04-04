@@ -361,6 +361,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					//span command
 				case SCPI_CMD_SPAN_SET:
 					exeResult = setFrequencyOfSpan(result.value.trimmed());
+					printf("span set %s\n",result.value.trimmed().toStdString().c_str());
 					//reDrawMenuFrame();
 					break;
 				case SCPI_CMD_SPAN_GET:
@@ -369,6 +370,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					//returnString = QString(floatToString(sysData.fscan.stopFreq - sysData.fscan.startFreq, 0, 0, tempChar)).trimmed();
 					break;
 				case SCPI_CMD_SPAN_FULL:
+					printf("MAXSPAN=%f\n",MAXSPAN);
 					exeResult = setFrequencyOfSpan(MAXSPAN);
 					//reDrawMenuFrame();
 					break;
@@ -392,6 +394,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					break;
 				case SCPI_CMD_AMPT_ATT_SET:
 					//printf("set att %s\r\n",result.value.toStdString());
+					printf("att is %s\n",result.value.toUpper().trimmed().toStdString().c_str());
 					exeResult = setAmptOfAtt(result.value.toUpper().trimmed());
 					//reDrawMenuFrame();
 					break;
@@ -588,6 +591,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					break;
 				case SCPI_CMD_SWEEP_MODE_SET:
 					exeResult = setSweepOfMode(result.value.toUpper().trimmed());
+					printf("result.value:%s\n",result.value.toStdString().c_str());
 					//reDrawMenuFrame();
 					break;
 				case SCPI_CMD_SWEEP_MODE_GET:
@@ -962,8 +966,8 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 
 					//detector
 				case SCPI_CMD_DETECTOR_SET:
-					exeResult = setDetector(result.value.toUpper().trimmed());
 					printf("setDetector:%s\n",result.value.toStdString().c_str());
+					exeResult = setDetector(result.value.toUpper().trimmed());
 					//reDrawMenuFrame();
 					break;
 				case SCPI_CMD_DETECTOR_GET:

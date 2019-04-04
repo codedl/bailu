@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'basescpi.h'
 **
-** Created: Mon Mar 25 08:38:45 2019
+** Created: Thu Apr 4 09:11:20 2019
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

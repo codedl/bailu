@@ -217,7 +217,7 @@ void tSysScpi::getDataFromIF(void)
 				if (sysData.ampt.isPreamptOn)
 				{
 					//bc att
-					double attbcValue = getErrorOfAttenuationofPre();
+					//double attbcValue = getErrorOfAttenuationofPre();
 
 					//bc if
 					double ifbcValue = getErrorOfIFofPre();
@@ -234,7 +234,7 @@ void tSysScpi::getDataFromIF(void)
 					//bc temperature
 					double tempbcValue = getErrorOfTemperature();
 
-					bcValue += attbcValue + ifbcValue + rbwbcValue + tempbcValue;
+					bcValue +=  ifbcValue + rbwbcValue + tempbcValue;
 
 					//LMP_C
 					if (sysData.isImpedanceTransformation)
@@ -330,7 +330,7 @@ void tSysScpi::getDataFromIF(void)
 				sysData.initValue[i] -= 70;
 			}
 
-			if (sysData.freq.start + i * step < ZCMAXFREQ)//director sample compensation
+			if (sysData.freq.isLowChannel)//director sample compensation
 			{
 				if (sysData.ampt.isPreamptOn)
 				{
@@ -366,7 +366,7 @@ void tSysScpi::getDataFromIF(void)
 				ifvalue = bcValue;
 				rfvalue = getErrorOfFreqResp(i);
 			}
-			if (sysData.freq.start + i * step < ZCMAXFREQ)//director sample compensation
+			if (sysData.freq.isLowChannel)//director sample compensation
 			{
 				if (sysData.ampt.isPreamptOn)
 				{
@@ -429,6 +429,7 @@ void tSysScpi::getDataFromIF(void)
 			{
 				sysData.prjValue[i] = tempValue;
 			}
+			//sysData.prjValue[i] -= 100;
 		}
 		if(valuechanged)
 		{
