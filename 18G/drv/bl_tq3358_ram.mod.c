@@ -18,7 +18,6 @@ static const struct modversion_info ____versions[]
 __used
 __attribute__((section("__versions"))) = {
 	{ 0x372d36bb, "module_layout" },
-	{ 0x4bc1a69e, "kill_fasync" },
 	{ 0xd6b8e852, "request_threaded_irq" },
 	{ 0x40a6f522, "__arm_ioremap" },
 	{ 0x297aefda, "misc_register" },
@@ -38,4 +37,4 @@ __attribute__((section(".modinfo"))) =
 "depends=";
 
 
-MODULE_INFO(srcversion, "2FF497D2CEEE7E51DDC3726");
+MODULE_INFO(srcversion, "8B20B80509C4A78B22EA3DB");

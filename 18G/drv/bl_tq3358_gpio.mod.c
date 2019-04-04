@@ -18,6 +18,15 @@ static const struct modversion_info ____versions[]
 __used
 __attribute__((section("__versions"))) = {
 	{ 0x372d36bb, "module_layout" },
+	{ 0x67c2fa54, "__copy_to_user" },
+	{ 0xf9a482f9, "msleep" },
+	{ 0x885dde13, "spi_sync" },
+	{ 0xfa2a45e, "__memzero" },
+	{ 0x5f754e5a, "memset" },
+	{ 0x701e8042, "device_unregister" },
+	{ 0x2d213583, "spi_setup" },
+	{ 0x74b31f1b, "spi_new_device" },
+	{ 0xe7106dd, "spi_busnum_to_master" },
 	{ 0x432fd7f6, "__gpio_set_value" },
 	{ 0xa8f59416, "gpio_direction_output" },
 	{ 0x47229b5c, "gpio_request" },
@@ -33,4 +42,4 @@ __attribute__((section(".modinfo"))) =
 "depends=";
 
 
-MODULE_INFO(srcversion, "9AB2C8B447CF3377DE4880D");
+MODULE_INFO(srcversion, "95E2E32DED7F3321A49B012");

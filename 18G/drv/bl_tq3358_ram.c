@@ -46,7 +46,7 @@ static volatile u8 * remapBuf;
 
 //首先是定义一个结构体，其实这个结构体存放的是一个列表，这个列表保存的是一系列设备文件，SIGIO信号就发送到这些设备上
 static struct fasync_struct *fasync_queue;
-static int ev_press = 0;                       //中断触发
+//static int ev_press = 0;                       //中断触发
 static bool zerospan;
 static DECLARE_WAIT_QUEUE_HEAD(fpga_waitq);    //中断延时
 
@@ -71,10 +71,10 @@ typedef struct __GPIO_DESC
   const char *desc;
 } gpio_desc;
 
-static gpio_desc fpga_dev_data[] =
-{
-  {GPIO_TO_PIN(0, 19), "fpga-intr"},
-};
+//static gpio_desc fpga_dev_data[] =
+//{
+//  {GPIO_TO_PIN(0, 19), "fpga-intr"},
+//};
 
 #define __DEBUG 0
 #ifdef __DEBUG
@@ -141,7 +141,7 @@ static int bl_ram_open(struct inode *inode, struct file *file)
   int retval;
 
   /*..processing..*/
-  retval = my_fasync(inode, file, 1);
+  retval = my_fasync((int)inode, file, 1);
   if(retval < 0)
   {
 	printd("KERNEL:fasync_helper apply error!\n");
@@ -193,8 +193,9 @@ static int bl_ram_read(struct file *filp, char __user *buff, size_t count, loff_
 
 		ramData[i] = ((hVal & 0xff) << 16) + (lVal & 0xffff);
 	}
-	copy_to_user(buff, &ramData[0], count);
- // printk("count %d\n",count);
+	i = copy_to_user(buff, &ramData[0], count);
+	if(i < 0)
+		printk("data get failed!\n");
   return 0;
 }
 
@@ -247,9 +248,9 @@ static int __init ram_init(void)
 
 static void __exit ram_exit(void)
 {
-  misc_deregister(&misc);
-
   int i = 0;
+
+  misc_deregister(&misc);
 
   for (i = 0; i < sizeof(fpga_irqs) / sizeof(fpga_irqs[0]); i++)
   {

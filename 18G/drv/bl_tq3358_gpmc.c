@@ -239,43 +239,6 @@ static void gpmc_config(void)
 //  iounmap(gpmc_syscfg);
 }
 
-static void gpmc_test(void)
-{
-	void __iomem *   device_address1 =ioremap(DEVICE_ADDRESS_1,256*4);
-	void __iomem *   device_address2 =ioremap(DEVICE_ADDRESS_2,256*4);
-	void __iomem *   device_address3 =ioremap(DEVICE_ADDRESS_3,4);
-	void __iomem *   device_address4 =ioremap(DEVICE_ADDRESS_4,4);
-
-	int val,i=0,j=10,Read_data;
-
-/*
-	while(i<30)
-	{
-		iowrite16(j,device_address2+i);
-		j++;
-		i=i+2;
-	}
-	i=0;
-	while(i<30)
-	{
-	Read_data=ioread16(device_address2+i);
-
-	printk("Read_data=%x\r\n ",Read_data);
-*/
-/* 	iowrite16(0xaaaa,device_address1);	 */
-/* 	iowrite16(0xaaaa,device_address2);
-	iowrite16(0xaaaa,device_address3);
-	iowrite16(0xaaaa,device_address4);	 */
-//	i=i+2;
-/* 	j++; */
-//	}
-
-//	iowrite16(0xc0c0,device_address2+i);   //backlight 0-8bit
-
-//	Read_data=ioread16(device_address2+i);
-
-//	printk("Read_data=%x\r\n ",Read_data);
-}
 
 static int __init dev_init(void)
 {
@@ -292,7 +255,6 @@ static int __init dev_init(void)
 
   pinmux_config();
   gpmc_config();
-//  gpmc_test();
 
   return ret;
 }

@@ -30,9 +30,10 @@
 volatile u8 * remapBuf;
 
 //static struct resource * region_resource;
-static unsigned char val_74hc595;
 static int val_1018;
 //RF_ADRS(0)
+#if 0
+
 static int PA = 0xFF;
 #define SDIO_SET(offset)   			do{ iowrite16((PA=PA|0x01), remapBuf + offset); wmb(); } while (0)
 #define SDIO_CLR(offset)   			do{ iowrite16((PA=PA&0xFE), remapBuf + offset); wmb(); } while (0)
@@ -82,7 +83,7 @@ static int PC = 0xFF;
 
 #define DDS_RST_SET(offset)   		do{ iowrite16((PC=PC|0x08), remapBuf + offset); wmb(); } while (0)
 #define DDS_RST_CLR(offset)   		do{ iowrite16((PC=PC&0xF7), remapBuf + offset); wmb(); } while (0)
-
+#endif
 /*
 
  static int PB = 0xFFFF;
@@ -112,17 +113,17 @@ static int PC = 0xFF;
 #define HBAND_ATT_EN_OFFSET       	238
 #define LBAND_ATT_EN_OFFSET       	239
 #define IF_ATT_EN_OFFSET          	240
-#define HC595_EN_OFFSET			  			241
+#define HC595_EN_OFFSET			  	241
 #define HC595_SDIO_OFFSET         	242
 #define HC595_SCLK_OFFSET         	243
 
 #define HMC704_SDIO_OFFSET     		208
-#define HMC704_SCLK_OFFSET     		204
-#define HMC704_EN_OFFSET       		205
+#define HMC704_SCLK_OFFSET     		204//clk of first osc
+#define HMC704_EN_OFFSET       		205//data enable of first osc
 
 #define HMC764_SDIO_OFFSET     		208
-#define HMC764_SCLK_OFFSET     		203
-#define HMC764_EN_OFFSET       		206
+#define HMC764_SCLK_OFFSET     		203//clk of second osc
+#define HMC764_EN_OFFSET       		206//data enable of second osc
 
 #define DDS_CHANNEL_OFFSET        207
 
@@ -182,10 +183,10 @@ static int PC = 0xFF;
 
 #define GPIO_TO_PIN(bank, gpio) (32 * (bank) + (gpio))
 
+#if 0
 static void input_AD9912(u8 cmd, u32 data1, u32 data2)
 {
 	int i;
-	u8 reg = 0;
 	u32 c = 0, d;
 	printd("%s 0x%x data1 0x%x data2 0x%x\n",__FUNCTION__,cmd,data1,data2);
 	SCLK_CLR(RF_ADRS0_OFFSET);
@@ -273,7 +274,6 @@ static void input_AD9912(u8 cmd, u32 data1, u32 data2)
 static void input_AD9910(u8 cmd, u32 data1, u32 data2)
 {
 	int i;
-	u8 reg = 0;
 	u32 c = 0, d;
 	printd("input_AD9910 0x%x data1 0x%x data2 0x%x\n",cmd,data1,data2);
 	SCLK_CLR(RF_ADRS0_OFFSET);
@@ -414,6 +414,7 @@ static void input_AD8402(u8 cmd, u8 data)
 	ndelay(5);
 
 }
+#endif
 
 static void input_AD5320(u32 data)
 {
@@ -562,6 +563,7 @@ static void setRefSelect(u8 value)
 
  }
  */
+ #if 0
 static void wloref_con(u8 adr, u8 cmd)
 {
 
@@ -589,6 +591,7 @@ static void rf_adrs2(u8 data)
 	printd("rf_adrs2 0x%x\n",data);
 	iowrite16(data, remapBuf + RF_ADRS2_OFFSET); wmb();
 }
+#endif
 
 
 static void input_hmc704(u32 data)
@@ -782,6 +785,7 @@ static void input_hmc1018(u8 data)
 
 }
 
+#if 0
 static void init_AD5320(void)
 {
 	input_AD5320(0x07FF);
@@ -807,6 +811,8 @@ static void init_AD9910(void)
 	input_AD9910(0x0E, 0x08B50000, 0x22222222);
 	input_AD9910(0x02, 0x1f3fc000, 0);
 }
+
+#endif
 
 static void init_hmc704(void)
 {
@@ -834,17 +840,17 @@ static void init_hmc704(void)
 //	input_hmc704(0xd9999920); //REG4
 }
 
-static void init_lowband_att()
+static void init_lowband_att(void)
 {
 	input_pe43704(0x0000);
 }
 
-static void init_highband_att()
+static void init_highband_att(void)
 {
 	input_hmc1018(0x1f);
 }
 
-static void init_adf4360()
+static void init_adf4360(void)
 {
 //   input_ADF4360(0x300015); mdelay(2); // R rigster
 //   input_ADF4360(0x4ff188); mdelay(2);// con rigster
@@ -869,7 +875,6 @@ static ssize_t bl_fe_write(struct file *filp, const char __user *buff, size_t co
 
 static long bl_fe_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
-	static int val1, val2, temp;
 	printd("ioctl cmd = %x, arg = 0x%08x\r\n", cmd, arg);
 
 	switch (cmd)
