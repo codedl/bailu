@@ -361,7 +361,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					//span command
 				case SCPI_CMD_SPAN_SET:
 					exeResult = setFrequencyOfSpan(result.value.trimmed());
-					printf("span set %s\n",result.value.trimmed().toStdString().c_str());
 					//reDrawMenuFrame();
 					break;
 				case SCPI_CMD_SPAN_GET:
@@ -370,7 +369,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					//returnString = QString(floatToString(sysData.fscan.stopFreq - sysData.fscan.startFreq, 0, 0, tempChar)).trimmed();
 					break;
 				case SCPI_CMD_SPAN_FULL:
-					printf("MAXSPAN=%f\n",MAXSPAN);
 					exeResult = setFrequencyOfSpan(MAXSPAN);
 					//reDrawMenuFrame();
 					break;
@@ -591,7 +589,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					break;
 				case SCPI_CMD_SWEEP_MODE_SET:
 					exeResult = setSweepOfMode(result.value.toUpper().trimmed());
-					printf("result.value:%s\n",result.value.toStdString().c_str());
 					//reDrawMenuFrame();
 					break;
 				case SCPI_CMD_SWEEP_MODE_GET:
@@ -2628,7 +2625,24 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 				case SCPI_CMD_CLEAR:
 					system("mv /home/sky/setting.ini /home/sky/factory.txt /home/sky/file");
 					printf("SCPI_CMD_CLEAR,mv succeed!\n");
-					break;					
+					break;	
+				case SCPI_CMD_TEMP:
+					{
+						char wdData[2] = {0, };
+						double temp = 0;
+						exeResult = __SCPI_RETURN;
+						while(temp == 0)
+						{
+							read(tmptHandle, wdData, sizeof(wdData));
+							usleep(1000);
+							if (wdData[0] & 0x80)
+								temp = (((wdData[0] << 8) | wdData[1]) - 65536) * 0.0078125;
+							else
+								temp = ((wdData[0] << 8) | wdData[1]) * 0.0078125;
+						}
+						returnString = QString(floatToStringDot3(temp, tempChar)).trimmed();
+					}
+					break;
 				default:
 					exeResult = __SCPI_UNSUPPORT;
 					break;

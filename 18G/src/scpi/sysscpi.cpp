@@ -672,9 +672,7 @@ int tSysScpi::setFrequencyOfReference(int value)
 //设置扫宽
 int tSysScpi::setFrequencyOfSpan(double value)
 {
-	__var(value);
 	double temp = setSpanOfMeasure(value);
-	__var(temp);
 	sysData.span.prvSpan = sysData.span.nowSpan;
 	double minFreq = MINFREQ + sysData.freq.offset;
 	double maxFreq = MAXFREQ + sysData.freq.offset;
@@ -780,7 +778,6 @@ int tSysScpi::setFrequencyOfSpan(QString value)
 
 	if (isOk)
 	{
-		__var(tempValue);
 		return setFrequencyOfSpan(tempValue);
 	} else
 	{
@@ -12084,8 +12081,6 @@ double tSysScpi::getAmptMaxMinLimit(void)
 	}
 	sysData.ampt.refLevelMin = minValue;
 	sysData.ampt.refLevelMax = maxValue;
-	__var(sysData.ampt.refLevelMin);
-	__var(sysData.ampt.refLevelMax);
 }
 
 //获取功率上下限
@@ -16187,6 +16182,10 @@ void tSysScpi::zeroSpanHandle(void)
 		sysData.span.isZeroSpan = false;
 	}
 	ioctl(ramHandle, 0xff, sysData.span.isZeroSpan);
+	if(sysData.span.isZeroSpan)
+		ioctl(ramHandle, 0xfe, true);
+	else
+		ioctl(ramHandle, 0xfe, false);
 }
 
 //数据放大(1, step, 5, 10步进)
@@ -18723,7 +18722,6 @@ double tSysScpi::setSpanOfMeasure(double value)
 			if (tempValue < sysData.measureSetup.channelWidth)
 			{
 				tempValue = sysData.measureSetup.channelWidth;
-				__var(tempValue);
 			}
 		} else if (sysData.measure.isAcprOn)
 		{
@@ -18732,7 +18730,6 @@ double tSysScpi::setSpanOfMeasure(double value)
 			if (tempValue < minValue)
 			{
 				tempValue = minValue;
-				__var(tempValue);
 			}
 		}
 	}
@@ -25402,7 +25399,7 @@ void tSocketThread::run()
       /* 等待有事件发生 */
       nfds = epoll_wait(kdpfd, events, curfds, -1);
       if (nfds == -1)
-      {
+      { 
           perror("epoll_wait");
           continue;
       }

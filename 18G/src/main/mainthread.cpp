@@ -270,10 +270,11 @@ void dataThread::run()
 	{
 		delay.tv_sec = 0;
 		//delay.tv_usec = 400 * 1000;//120 : start
-		delay.tv_usec = 120 * 1000;
+		//delay.tv_usec = 120 * 1000;
+		delay.tv_usec = 120 * 1000;//120 : start
 
 		select(0, NULL, NULL, NULL, &delay);
-
+		
 		//if system is calibrating
 		if (sysData.isPreamplifierCalibrating || sysData.isZcPreamplifierCalibrating || sysData.isZcCalibrating || sysData.isFactoryCalibrating || sysLocked)
 		{
@@ -311,12 +312,15 @@ void dataThread::run()
 			usleep(1000 * 100);
 			return;
 		}
+	//零扫宽响应中断读数，非零扫宽时主动读数
 	if (!sysData.span.isZeroSpan)
 	{
 		mutexAmpt.lock();
 		getDataFromIF();
 		mutexAmpt.unlock();
 	}
+	else
+		ioctl(ramHandle, 0xfe, true);//零扫宽读数标志
 	}
 }
 
