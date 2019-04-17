@@ -392,7 +392,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					break;
 				case SCPI_CMD_AMPT_ATT_SET:
 					//printf("set att %s\r\n",result.value.toStdString());
-					printf("att is %s\n",result.value.toUpper().trimmed().toStdString().c_str());
 					exeResult = setAmptOfAtt(result.value.toUpper().trimmed());
 					//reDrawMenuFrame();
 					break;
@@ -2503,6 +2502,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					exeResult = __SCPI_RETURN;
 					returnString = "OK";
 					setFrontendRefSelect(result.value.trimmed());
+					printf("result.value is %s\n",result.value.trimmed().toStdString().c_str());
 					break;
 				case SCPI_CMD_FRONTEND_HMC704:
 					exeResult = __SCPI_RETURN;

@@ -271,7 +271,7 @@ void dataThread::run()
 		delay.tv_sec = 0;
 		//delay.tv_usec = 400 * 1000;//120 : start
 		//delay.tv_usec = 120 * 1000;
-		delay.tv_usec = 120 * 1000;//120 : start
+		delay.tv_usec = 400 * 1000;//120 : start
 
 		select(0, NULL, NULL, NULL, &delay);
 		

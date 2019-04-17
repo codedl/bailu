@@ -1345,7 +1345,7 @@ struct freqDef
   double cfStep;
   bool cfStepAuto;
   double offset;
-  bool refInternal;
+  bool refInternal;//inter ref if true
   bool typeLine;
   bool isShowCenter;
   bool lineZero;

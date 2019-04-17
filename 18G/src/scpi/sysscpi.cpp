@@ -1330,10 +1330,9 @@ int tSysScpi::setAmptOfAtt(double value)
 					sysData.ampt.attIf = 0;
 				}	
 				
+			}
 				if(sysData.ampt.refLevel > (sysData.ampt.attRf - 10))
 					sysData.ampt.refLevel = sysData.ampt.attRf - 10;
-				
-			}
 				
 		}
 	}
@@ -11782,13 +11781,14 @@ void tSysScpi::controlRf(void)
 	feDownload(0xfff8, 0);     //一本初始化
 	//	feDownload(0xfff9, 0);     //二本初始化
 
-	feDownload(207, 1);       //本振送数开关
 
 	downLo1();                  //本振下发
 
 	setSweepBandIndex();        //扫描波段指示
 
 	setHighBandIndex();         //高波段指示
+
+	feDownload(207, 1);       //本振送数开关
 
 	//data to FPGA
 	feDownload(234, calHighbandAttValueOfFrontend(sysData.ampt.attRf));     //高波段衰减值
@@ -11804,7 +11804,7 @@ void tSysScpi::controlRf(void)
 		setFrontEndFreq(sysData.freq.center);
 	}
 
-	feDownload(248, getZcAttVal());				  //直采衰减器
+		feDownload(248, getZcAttVal());				  //直采衰减器
 
 
 	cicDown();									//CIC滤波器设置
@@ -19335,11 +19335,10 @@ void tSysScpi::setCalibrateParamOfIfAttenuation(void)
 
 	if (sysData.ampt.isPreamptOn)
 	{
-		sysData.preamplifierCalData.isCaled = true;
+		printf("\t\t\tsysData.ampt.isPreamptOn is %d\n",sysData.ampt.isPreamptOn);
 		setAmptOfRefLevel(-20);
 	} else
 	{
-		sysData.factoryCalData.isCaled = true;
 		setAmptOfRefLevel(0);
 	}
 	controlRf();
@@ -23108,8 +23107,7 @@ int tSysScpi::factoryCalibrate(int comCal)
 	presetSystemData();
 	controlRf();
 	sysData.isFactoryCalibrating = true;
-	sysData.preamplifierCalData.isCaled = false;
-	sysData.factoryCalData.isCaled = false;
+
 	sysData.mode = smCalibrate;
 	sysData.canvasNums = 1;
 	resetFactoryCalibrationData();
@@ -23410,6 +23408,11 @@ int tSysScpi::factoryCalibrate(int comCal)
 	saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("factory calibrate successed"), "");
 //	outputToScreen(getTheTranslatorString("factory calibrate successed"), progress, 0);
 	sysData.isFactoryCalibrating = false;
+	if(sysData.ampt.isPreamptOn)
+		sysData.preamplifierCalData.isCaled = false;
+	else
+		sysData.factoryCalData.isCaled = false;
+
 //	sysData.options.isFft10HzOn = prvFftState;
 	sysData.mode = smSpectrum;
 	sysData.canvasNums = 1;
