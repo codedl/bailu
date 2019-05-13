@@ -783,9 +783,9 @@ static void init_hmc835(void)
 	input_hmc835(0x00000000); //0¼Ä´æÆ÷
 	input_hmc835(0x00000208); //1¼Ä´æÆ÷
 	input_hmc835(0x00000210); //2¼Ä´æÆ÷
-	//input_hmc835(0x00003C18); //3¼Ä´æÆ÷ (7.5G)
+	input_hmc835(0x00003C18); //3¼Ä´æÆ÷ (3G)
 
-	input_hmc835(0x00004218); //3¼Ä´æÆ÷ (7.5G)
+	//input_hmc835(0x00004218); //3¼Ä´æÆ÷ (7.5G)
 
 	
 	input_hmc835(0x00000020); //4¼Ä´æÆ÷
@@ -850,9 +850,7 @@ static void init_hmc822(void)
 	//1368M
 	//input_hmc822(0x06000036); //REG3
 	//input_hmc822(0x08B851EC); //REG4
-
-	//input_hmc822(0x06000020); //REG3
-	//input_hmc822(0x09666666); //REG4	
+	
 }
 
 
