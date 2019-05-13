@@ -1,1 +1,0 @@
-cmd_/mnt/hgfs/work/18G/drv/bl_tq3358_frontend.ko := arm-linux-ld -EL -r  -T /root/newnand/kernel_newnand/scripts/module-common.lds --build-id  -o /mnt/hgfs/work/18G/drv/bl_tq3358_frontend.ko /mnt/hgfs/work/18G/drv/bl_tq3358_frontend.o /mnt/hgfs/work/18G/drv/bl_tq3358_frontend.mod.o
