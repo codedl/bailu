@@ -461,7 +461,7 @@ static void input_74HC595(u8 data)
 
 	//Ğ´ÈëÊı¾İ
 	ndelay(10);
-	d = data;
+	d = data & 0x7f;
 	for (i = 0; i < 8; i++)
 	{
 		if (d & 0x80)
