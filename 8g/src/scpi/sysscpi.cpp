@@ -22595,7 +22595,11 @@ int tSysScpi::setFrontEndFreq(double value)
 
 	double LO1 = 0;
 	if(sysData.fe.freq >= 20e6 && sysData.fe.freq <= FREQ_START_HH_BAND1)
+	{
 		LO1 = sysData.fe.freq + L_lo1;
+		printf("LO1 is %f\n",LO1);
+		
+	}
 	else if(sysData.fe.freq > FREQ_START_HH_BAND1 && sysData.fe.freq <= FREQ_START_HH_BAND4)
 	{
 		LO1 = sysData.fe.freq + H_lo1;

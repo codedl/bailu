@@ -119,9 +119,10 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET):  $(OBJECTS)  
+$(TARGET):  $(OBJECTS)
+	@make clean 
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS) 
-	cp src_8g /mnt/hgfs/work/tftp  
+	@cp src_8g /mnt/hgfs/work/tftp  
 	ifconfig eth0 $(HOSTIP)
 scp:
 	ifconfig eth0 $(HOSTIP);

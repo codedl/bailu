@@ -58,7 +58,7 @@
 
 #define pow2_24   16777216
 #define pow2_32   4294967296
-#define L_lo1     4.07e9
+#define L_lo1     4.53e9
 #define H_lo1     1.53e9
 
 #define RFFREQOFFSET    0 //  15e-3             //ÆµÂÊÆ«ÒÆ
