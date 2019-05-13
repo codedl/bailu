@@ -103,6 +103,9 @@ int tSysScpi::setFrequencyOfCenter(double value)
 	double tempValue = value;
 	double minFreq = 0;
 	double maxFreq = 0;
+	
+	if(tempValue > ZCMAXFREQ)
+		sysData.freq.isLowChannel = false;
 
 	if (sysData.source.isTrackGenOn)
 	{
@@ -178,6 +181,11 @@ int tSysScpi::setFrequencyOfCenter(double value)
 		}
 	}
 
+	if(sysData.freq.stop < ZCMAXFREQ)
+		sysData.freq.isLowChannel = true;
+	else
+		sysData.freq.isLowChannel = false;
+	
 	sysData.span.nowSpan = sysData.span.span;
 	zeroSpanHandle();
 	controlRf();
@@ -241,6 +249,9 @@ int tSysScpi::setFrequencyOfStart(double value)
 	double tempValue = value;
 	double minFreq = 0;
 	double maxFreq = 0;
+	
+	if(tempValue > ZCMAXFREQ)
+		sysData.freq.isLowChannel = false;
 
 	//  if (sysData.source.isTrackGenNetworkOn)
 	//  {
@@ -310,6 +321,11 @@ int tSysScpi::setFrequencyOfStart(double value)
 			sysData.freq.cfStep = 1e3;
 		}
 	}
+	
+	if(sysData.freq.stop < ZCMAXFREQ)
+		sysData.freq.isLowChannel = true;
+	else
+		sysData.freq.isLowChannel = false;
 
 	sysData.span.nowSpan = sysData.span.span;
 	zeroSpanHandle();
@@ -365,6 +381,9 @@ int tSysScpi::setFrequencyOfStop(double value)
 	double tempValue = value;
 	double minFreq = 0;
 	double maxFreq = 0;
+	
+	if(tempValue > ZCMAXFREQ)
+		sysData.freq.isLowChannel = false;
 
 	if (sysData.source.isTrackGenOn)
 	{
@@ -430,6 +449,11 @@ int tSysScpi::setFrequencyOfStop(double value)
 			sysData.freq.cfStep = 1e3;
 		}
 	}
+	
+	if(sysData.freq.stop < ZCMAXFREQ)
+		sysData.freq.isLowChannel = true;
+	else
+		sysData.freq.isLowChannel = false;
 
 	sysData.span.nowSpan = sysData.span.span;
 	zeroSpanHandle();
@@ -641,7 +665,7 @@ int tSysScpi::setFrequencyOfReference(int value)
 {
 	sysData.freq.refInternal = value == 1;
 	controlRf();
-
+	
 	return __SCPI_SUCCESS;
 }
 
@@ -654,6 +678,10 @@ int tSysScpi::setFrequencyOfSpan(double value)
 	double maxFreq = MAXFREQ + sysData.freq.offset;
 	double minSpan = MINSPAN;
 	double maxSpan = MAXSPAN;
+
+	if((sysData.freq.start + temp) > ZCMAXFREQ)
+		sysData.freq.isLowChannel = false;
+		
 	if (sysData.freq.isLowChannel)
 	{
 		minFreq = ZCMINFREQ;
@@ -728,10 +756,14 @@ int tSysScpi::setFrequencyOfSpan(double value)
 			sysData.freq.cfStep = 1e3;
 		}
 	}
-
+	if(sysData.freq.stop < ZCMAXFREQ)
+		sysData.freq.isLowChannel = true;
+	else
+		sysData.freq.isLowChannel = false;
 	sysData.span.nowSpan = sysData.span.span;
 	zeroSpanHandle();
 	controlRf();
+	
 	return __SCPI_SUCCESS;
 }
 
@@ -943,7 +975,7 @@ int tSysScpi::setAmptOfRefLevel(double value)
 	if(sysData.ampt.attAuto)
 	{
 		sysData.ampt.attRf = sysData.ampt.attRf_Auto;
-	} else
+	} else//rf att and if att not couple according to doc of cal
 	{
 		if(!sysData.ampt.isPreamptOn)
 		{
@@ -954,7 +986,15 @@ int tSysScpi::setAmptOfRefLevel(double value)
 
 			if(refLeveldBmValue > -10)
 			{
-
+				//大于或等于衰减器自动设置且不小于10dB
+				if(sysData.ampt.attRf_Auto <= 10 && sysData.ampt.attRf <= 10)
+					sysData.ampt.attRf = 10;
+				else if(sysData.ampt.attRf_Auto > 10 && sysData.ampt.attRf < sysData.ampt.attRf_Auto)
+					sysData.ampt.attRf = sysData.ampt.attRf_Auto;
+				//参考电平max=ATR-10
+				if(refLeveldBmValue >= (sysData.ampt.attRf - 10))
+					refLeveldBmValue = sysData.ampt.attRf - 10;
+				
 				if(refLeveldBmValue > -10 && refLeveldBmValue <= 0)
 					sysData.ampt.attIf = 30 - (int)qAbs(refLeveldBmValue) - sysData.ampt.attRf;
 				else if(refLeveldBmValue > 0)
@@ -962,8 +1002,10 @@ int tSysScpi::setAmptOfRefLevel(double value)
 
 			} else
 			{
+				if(sysData.ampt.attRf <= 0)
+					sysData.ampt.attRf = 0;
 				sysData.ampt.attIf = 30 - sysData.ampt.attRf - (int)qAbs(refLeveldBmValue);
-				if(sysData.ampt.attIf < 0)
+				if(sysData.ampt.attIf <= 0)
 				{
 					sysData.ampt.ifSoftValue = qAbs(sysData.ampt.attIf);
 					sysData.ampt.attIf = 0;
@@ -975,124 +1017,32 @@ int tSysScpi::setAmptOfRefLevel(double value)
 		} else
 		{
 			double maxValue = sysData.ampt.attRf - 30;
+			if(refLeveldBmValue > -30)
+			{
+				//大于或等于衰减器自动设置且不小于10dB
+				if(sysData.ampt.attRf_Auto <= 10 && sysData.ampt.attRf <= 10)
+					sysData.ampt.attRf = 10;
+				else if(sysData.ampt.attRf_Auto > 10 && sysData.ampt.attRf < sysData.ampt.attRf_Auto)
+					sysData.ampt.attRf = sysData.ampt.attRf_Auto;
 
-			if(refLeveldBmValue > maxValue)
-				refLeveldBmValue = maxValue;
-
-			sysData.ampt.attIf = 50 - sysData.ampt.attRf - (int)qAbs(refLeveldBmValue);
+				
+					
+				if(refLeveldBmValue >= maxValue)
+					refLeveldBmValue = maxValue;
+				sysData.ampt.attIf = 50 - sysData.ampt.attRf - (int)qAbs(refLeveldBmValue);
+			}else
+			{
+				if(sysData.ampt.attRf < 0)
+					sysData.ampt.attRf = 0;
+				sysData.ampt.attIf = 50 - sysData.ampt.attRf - (int)qAbs(refLeveldBmValue);
+				if(sysData.ampt.attIf <= 0)
+				{
+					sysData.ampt.attIf = 0;
+					sysData.ampt.ifSoftValue = qAbs(sysData.ampt.attIf);
+				}
+			}
 		}
 	}
-
-//	int attValue = 9;
-//
-//	if (sysData.ampt.isPreamptOn)
-//	{
-//		if (sysData.ampt.attAuto)
-//		{
-//			if (refLeveldBmValue < -20)
-//			{
-//				sysData.ampt.att = attValue;
-//				sysData.ampt.ifValue = (int) sysData.ampt.att - (int) refLeveldBmValue - 20;
-//			} else
-//			{
-//				temp = 30 + refLeveldBmValue;
-//
-//				if (qAbs(temp / 3 - (int) (temp / 3)) >= 0.5)
-//				{
-//					sysData.ampt.att = (int) (temp / 3) * 3 + 3;
-//				} else
-//				{
-//					sysData.ampt.att = (int) (temp / 3) * 3;
-//				}
-//			}
-//		} else
-//		{
-//			if (refLeveldBmValue > (sysData.ampt.att - 29))
-//			{
-//				refLeveldBmValue = sysData.ampt.att - 29;
-//				sysData.ampt.ifValue = 10;
-//			}
-//			if (refLeveldBmValue > -20)
-//			{
-//				sysData.ampt.ifValue = sysData.ampt.att - refLeveldBmValue - 20;
-//			} else if ((refLeveldBmValue > -29) && (refLeveldBmValue <= -20))
-//			{
-//				sysData.ampt.ifValue = (int) (qAbs(refLeveldBmValue)) + sysData.ampt.att - 20;
-//			} else if (refLeveldBmValue <= -29)
-//			{
-//				sysData.ampt.ifValue = sysData.ampt.att + (int) (qAbs(refLeveldBmValue)) - 20;
-//			}
-//		}
-//		sysData.ampt.refLevel = getRefLevelValue(refLeveldBmValue + sysData.ampt.refOffset);
-//	} else
-//	{
-//		if (sysData.ampt.attAuto)
-//		{
-//			if (refLeveldBmValue < 0)
-//			{
-//				sysData.ampt.att = attValue;
-//				sysData.ampt.ifValue = (int) sysData.ampt.att - (int) refLeveldBmValue;
-//			} else
-//			{
-//				if ((refLeveldBmValue / 3) - (int) (refLeveldBmValue / 3) < 0.16)
-//				{
-//					sysData.ampt.att = ((int) (refLeveldBmValue / 3)) * 3 + 9;
-//					sysData.ampt.ifValue = (int) sysData.ampt.att - (int) refLeveldBmValue;
-//				} else
-//				{
-//					sysData.ampt.att = ((int) (refLeveldBmValue / 3)) * 3 + 12;
-//
-//					if (refLeveldBmValue / 3 - (int) (refLeveldBmValue / 3) >= 0.5)
-//					{
-//						sysData.ampt.ifValue = (int) sysData.ampt.att - (int) refLeveldBmValue;
-//					} else if (refLeveldBmValue / 3 - ((int) (refLeveldBmValue / 3)) < 0.5)
-//					{
-//						sysData.ampt.ifValue = (int) sysData.ampt.att - (int) refLeveldBmValue;
-//					}
-//				}
-//			}
-//		} else
-//		{
-//			if (refLeveldBmValue > (sysData.ampt.att - 9))
-//			{
-//				refLeveldBmValue = sysData.ampt.att - 9;
-//				sysData.ampt.ifValue = 10;
-//			}
-//			if (refLeveldBmValue > 0)
-//			{
-//				sysData.ampt.ifValue = sysData.ampt.att - refLeveldBmValue;
-//			} else if ((refLeveldBmValue > -9) && (refLeveldBmValue <= 0))
-//			{
-//				sysData.ampt.ifValue = (int) (qAbs(refLeveldBmValue)) + sysData.ampt.att;
-//			} else if (refLeveldBmValue <= -9)
-//			{
-//				sysData.ampt.ifValue = sysData.ampt.att + (int) (qAbs(refLeveldBmValue));
-//			}
-//		}
-//
-//		sysData.ampt.refLevel = getRefLevelValue(refLeveldBmValue + sysData.ampt.refOffset);
-//	}
-//	//直采压缩改进
-//	double directIfSoftValue = 0;
-//	//if (isDirectGatherMode() && !isCalibrating())
-//		if (isDirectGatherMode())
-//	{
-//		if (sysData.ampt.ifValue >= 10)
-//			sysData.ampt.ifValue -= 10;
-//		else
-//			sysData.ampt.ifValue = 0;
-//
-//		if (sysData.ampt.ifValue > MAXIF)
-//		{
-//			directIfSoftValue += 10;
-//		}
-//	}
-//
-//	setAtt1AndAtt2();
-//	getIfSoftValue();
-//	sysData.ampt.ifSoftValue += directIfSoftValue;
-//
-//	sysErrValue = 0;
 
 	sysData.ampt.refLevel = refLeveldBmValue;
 
@@ -1109,10 +1059,6 @@ int tSysScpi::setAmptOfRefLevel(double value)
 	sysData.ampt.att = sysData.ampt.attRf;
 
 	controlRf();
-	//connectToPowerMeter();
-	//setPowerMeterFreq(sysData.freq.center);
-	//getDataFromPowerMeter();
-	//valuechanged = 1;
 
 	return __SCPI_SUCCESS;
 }
@@ -1267,176 +1213,9 @@ int tSysScpi::setAmptOfAttAuto(QString value)
 //设置衰减
 int tSysScpi::setAmptOfAtt(double value)
 {
-//	int attValue = (int) value;
-//	int tempatt = 0;
-//	double refLeveldBmValue = getRefLeveldBmValue();
-//	double tempValue = value;
-//	double directIfSoftValue = 0;
-//
-//	if (sysData.ampt.attAuto)
-//	{
-//		sysData.ampt.attAuto = false;
-//	}
-//
-//	if ((tempValue / 3 - (int) (tempValue / 3)) < 0.3)
-//	{
-//		attValue = (int) tempValue;
-//	} else if ((tempValue / 3 - (int) (tempValue / 3)) < 0.5)
-//	{
-//		attValue = (int) tempValue - 1;
-//	} else
-//	{
-//		attValue = (int) tempValue + 1;
-//	}
-//
-//	if (attValue < MINATT)
-//	{
-//		attValue = MINATT;
-//	} else if (attValue > MAXATT)
-//	{
-//		attValue = MAXATT;
-//	}
-//
-//	if (sysData.system.isInternalSignalOn && attValue > 9)
-//	{
-//		attValue = 9;
-//	}
-//
-//	if (sysData.ampt.isPreamptOn)
-//	{
-//		sysData.ampt.att = attValue;
-//
-//		if (refLeveldBmValue > -29)
-//		{
-//			if (refLeveldBmValue <= -20)
-//			{
-//				attValue = 9;
-//			} else if (refLeveldBmValue > -20)
-//			{
-//				tempatt = (int) ((30 + (int) (refLeveldBmValue)) / 3) * 3;
-//				if ((tempatt / 3) - (int) (tempatt / 3) < 0.16)
-//				{
-//					attValue = ((int) (tempatt / 3)) * 3;
-//				} else
-//				{
-//					attValue = ((int) (tempatt / 3)) * 3 + 3;
-//				}
-//			}
-//
-//			if (sysData.ampt.att < attValue)
-//			{
-//				sysData.ampt.att = attValue;
-//			}
-//
-//			if (sysData.ampt.att < 9)
-//			{
-//				sysData.ampt.att = 9;
-//			}
-//
-//			if ((refLeveldBmValue > -30) && (refLeveldBmValue <= -20))
-//			{
-//				sysData.ampt.ifValue = (int) (qAbs(refLeveldBmValue)) + sysData.ampt.att - 20;
-//			} else if (refLeveldBmValue > -20)
-//			{
-//				sysData.ampt.ifValue = sysData.ampt.att - refLeveldBmValue - 20;
-//			}
-//		} else if (refLeveldBmValue <= -30)
-//		{
-//			if (sysData.ampt.att < 0)
-//			{
-//				sysData.ampt.att = 0;
-//			}
-//
-//			sysData.ampt.ifValue = sysData.ampt.att + (int) (qAbs(refLeveldBmValue)) - 20;
-//		}
-//		//直采压缩改进
-////		if (isDirectGatherMode() && !isCalibrating())
-//		if (isDirectGatherMode())
-//		{
-//			if (sysData.ampt.ifValue >= 10)
-//				sysData.ampt.ifValue -= 10;
-//			else
-//				sysData.ampt.ifValue = 0;
-//
-//			if (sysData.ampt.ifValue > MAXIF)
-//			{
-//				directIfSoftValue += 10;
-//			}
-//		}
-//
-//		setAtt1AndAtt2();
-//		getIfSoftValue();
-//	} else
-//	{
-//		sysData.ampt.att = attValue;
-//
-//		if (refLeveldBmValue > -10)
-//		{
-//			if (refLeveldBmValue <= 0)
-//			{
-//				attValue = 9;
-//			} else if (refLeveldBmValue > 0)
-//			{
-//				if (refLeveldBmValue / 3 - (int) (refLeveldBmValue / 3) < 0.16)
-//				{
-//					attValue = (int) (refLeveldBmValue / 3) * 3 + 9;
-//				} else
-//				{
-//					attValue = (int) (refLeveldBmValue / 3) * 3 + 12;
-//				}
-//			}
-//
-//			if (sysData.ampt.att < attValue)
-//			{
-//				sysData.ampt.att = attValue;
-//			}
-//
-//			if (sysData.ampt.att < 9)
-//			{
-//				sysData.ampt.att = 9;
-//			}
-//
-//			if ((refLeveldBmValue > -10) && (refLeveldBmValue <= 0))
-//			{
-//				sysData.ampt.ifValue = (int) (qAbs(refLeveldBmValue)) + sysData.ampt.att;
-//			} else if (refLeveldBmValue > 0)
-//			{
-//				sysData.ampt.ifValue = sysData.ampt.att - refLeveldBmValue;
-//			}
-//		} else if (refLeveldBmValue <= -9)
-//		{
-//			if (sysData.ampt.att < 0)
-//			{
-//				sysData.ampt.att = 0;
-//			}
-//			sysData.ampt.ifValue = sysData.ampt.att + (int) (qAbs(refLeveldBmValue));
-//		}
-//
-//		//直采压缩改进
-////		//if (isDirectGatherMode() && !isCalibrating())
-//		if (isDirectGatherMode())
-//		{
-//			if (sysData.ampt.ifValue >= 10)
-//				sysData.ampt.ifValue -= 10;
-//			else
-//				sysData.ampt.ifValue = 0;
-//
-//			if (sysData.ampt.ifValue > MAXIF)
-//			{
-//				directIfSoftValue += 10;
-//			}
-//		}
-//
-//		setAtt1AndAtt2();
-//		getIfSoftValue();
-//	}
-//
-//	sysData.ampt.ifSoftValue += directIfSoftValue;
-//	sysErrValue = 0;
-
+#if 0
 
 	getAmptMaxMinLimit();
-
 	int attValue = (int) value;
 	double temp = 0;
 
@@ -1450,35 +1229,34 @@ int tSysScpi::setAmptOfAtt(double value)
 
 //	sysData.ampt.refLevel = tempValue;
 	double refLeveldBmValue = getRefLeveldBmValue();
+	__var(refLeveldBmValue);
 
 	autoAmptAndReflevel();
 
+	double minValue = refLeveldBmValue;
+
+	if(attValue < minValue)
+		attValue = minValue;
+
+	if(refLeveldBmValue > -10)
+	{	
+		__var(sysData.ampt.attRf_Auto);
+		if(attValue <= sysData.ampt.attRf_Auto)
+			attValue = sysData.ampt.attRf_Auto;
+
+		if(refLeveldBmValue > -10 && refLeveldBmValue <= 0)
+			sysData.ampt.attIf = 30 - (int)qAbs(refLeveldBmValue) - attValue;
+
+		if(refLeveldBmValue > 0)
+			sysData.ampt.attIf = 30 - attValue + (int)qAbs(refLeveldBmValue);
+
+	} else
 	{
-		double minValue = refLeveldBmValue + 10;
-
-		if(attValue < minValue)
-			attValue = minValue;
-
-		if(refLeveldBmValue > -10)
+		sysData.ampt.attIf = 30 - attValue - (int)qAbs(refLeveldBmValue);
+		if(sysData.ampt.attIf < 0)
 		{
-			if(attValue <= sysData.ampt.attRf_Auto)
-				attValue = sysData.ampt.attRf_Auto;
-
-			if(refLeveldBmValue > -10 && refLeveldBmValue <= 0)
-				sysData.ampt.attIf = 30 - (int)qAbs(refLeveldBmValue) - attValue;
-
-			if(refLeveldBmValue > 0)
-				sysData.ampt.attIf = 30 - attValue + (int)qAbs(refLeveldBmValue);
-
-		} else
-		{
-			sysData.ampt.attIf = 30 - attValue - (int)qAbs(refLeveldBmValue);
-			if(sysData.ampt.attIf < 0)
-			{
-				sysData.ampt.ifSoftValue = qAbs(sysData.ampt.attIf);
-				sysData.ampt.attIf = 0;
-			}
-
+			sysData.ampt.ifSoftValue = qAbs(sysData.ampt.attIf);
+			sysData.ampt.attIf = 0;
 		}
 
 	}
@@ -1495,12 +1273,124 @@ int tSysScpi::setAmptOfAtt(double value)
 		sysData.ampt.attRf = MAXATT;
 
 	sysData.ampt.att = sysData.ampt.attRf;
-	controlRf();
-	//connectToPowerMeter();
-	//setPowerMeterFreq(sysData.freq.center);
-	//getDataFromPowerMeter();
-	__var(sysData.ampt.attRf);
-	__var(sysData.ampt.attIf);
+
+#endif
+	int attValue = (int) value;
+	if (attValue < MINATT)
+	{
+		attValue = MINATT;
+	} else if (attValue > MAXATT)
+	{
+		attValue = MAXATT;
+	}
+	sysData.ampt.attRf = attValue;
+	
+	if(!sysData.ampt.isPreamptOn)//前放关
+	{
+		if(sysData.ampt.attAuto)//自耦和
+		{
+			if(sysData.ampt.refLevel <= 0)//参考电平
+			{
+				if(sysData.ampt.attRf <= 10)
+					sysData.ampt.attRf = 10;
+				sysData.ampt.attIf = 20 - (int)qAbs(sysData.ampt.refLevel);
+				sysData.ampt.ifSoftValue = qAbs(sysData.ampt.attIf - (int)sysData.ampt.attIf);
+			}
+			else
+			{
+				sysData.ampt.attIf = 20;
+				sysData.ampt.attRf =  (int)sysData.ampt.refLevel + 10;
+			}
+
+		}
+		else//非耦合
+		{
+			if(sysData.ampt.refLevel > -10)
+			{
+				if(sysData.ampt.attRf <= 10)
+					sysData.ampt.attRf = 10;
+
+				if(sysData.ampt.refLevel > (sysData.ampt.attRf - 10))
+					sysData.ampt.refLevel = sysData.ampt.attRf - 10;
+
+				if(sysData.ampt.refLevel > -10 && sysData.ampt.refLevel <= 0)
+					sysData.ampt.attIf = 30 - (int)qAbs(sysData.ampt.refLevel) - sysData.ampt.attRf;
+				else if(sysData.ampt.refLevel > 0)
+					sysData.ampt.attIf = 30 - sysData.ampt.attRf + (int)sysData.ampt.refLevel;
+			}
+			else
+			{
+				if(sysData.ampt.attRf <= 0)
+					sysData.ampt.attRf = 0;		
+				sysData.ampt.attIf = 30 - sysData.ampt.attRf - (int)qAbs(sysData.ampt.refLevel);
+				if(sysData.ampt.attIf <= 0)
+				{
+					sysData.ampt.ifSoftValue = qAbs(sysData.ampt.attIf);
+					sysData.ampt.attIf = 0;
+				}	
+				
+			}
+				if(sysData.ampt.refLevel > (sysData.ampt.attRf - 10))
+					sysData.ampt.refLevel = sysData.ampt.attRf - 10;
+				
+		}
+	}
+	else//前放开
+		{
+			if(sysData.ampt.attAuto)//自耦和
+			{
+				if(sysData.ampt.refLevel <= -20)
+				{
+					if(sysData.ampt.attRf <= 10)
+						sysData.ampt.attRf = 10;
+					sysData.ampt.attIf = 40 - (int)qAbs(sysData.ampt.refLevel);
+				}
+				else
+				{
+					sysData.ampt.attIf = 20;
+					sysData.ampt.attRf = 30 - (int)qAbs(sysData.ampt.refLevel);
+				}
+		
+			}
+			else//非耦合
+			{
+				if(sysData.ampt.refLevel > -30)
+				{
+					if(sysData.ampt.attRf < 10)
+						sysData.ampt.attRf = 10;
+
+					if(sysData.ampt.refLevel > (sysData.ampt.attRf - 30))
+						sysData.ampt.refLevel = sysData.ampt.attRf - 30;
+
+					sysData.ampt.attIf = 50 - (int)qAbs(sysData.ampt.refLevel) - sysData.ampt.attRf;
+				}
+				else
+				{
+					if(sysData.ampt.attRf < 0)
+						sysData.ampt.attRf = 0;
+
+					sysData.ampt.attIf = 50 - sysData.ampt.attRf - (int)qAbs(sysData.ampt.refLevel);
+					if(sysData.ampt.attIf <= 0)
+					{
+						sysData.ampt.attIf = 0;
+						sysData.ampt.ifSoftValue = qAbs(sysData.ampt.attIf);
+					}
+					if(sysData.ampt.refLevel > (sysData.ampt.attRf - 30))
+							sysData.ampt.refLevel = sysData.ampt.attRf - 30;					
+				}
+
+			}
+		}
+
+	if(sysData.ampt.attIf < MINATT)
+		sysData.ampt.attIf = MINATT;
+
+	if(sysData.ampt.attRf < MINATT)
+		sysData.ampt.attRf = MINATT;
+	if(sysData.ampt.attRf > MAXATT)
+		sysData.ampt.attRf = MAXATT;
+
+	sysData.ampt.att = sysData.ampt.attRf;
 
 	return __SCPI_SUCCESS;
 }
@@ -3617,7 +3507,7 @@ int tSysScpi::setTrigMode(int value)
 	sysData.trig.mode = trigMode(temp);
 
 	//set trig mode 
-	//feDownload(46, sysData.trig.mode&0x03);
+	feDownload(46, sysData.trig.mode&0x03);
 	
 	controlRf();
 	return __SCPI_SUCCESS;
@@ -3811,8 +3701,8 @@ int tSysScpi::setVideoTrigPower(double value)
 	double trigPower = getdBmValue(sysData.trig.power);
 
 	//set video trig level 	
-	//feDownload(47, );
-	//feDownload(48, );
+	//feDownload(47, (sysData.trig.power << 16)&0xff);
+	//feDownload(48, sysData.trig.power * 0xffff);
 
 	calculateVideoTrigPowerDown(trigPower);
 	return __SCPI_SUCCESS;
@@ -11804,6 +11694,7 @@ void tSysScpi::setFreqSweepStatus(void)
 
 	feDownload(40, (rbwSel | (sweepMode << 2) | (workMode << 3)));
 }
+
 /*衰减器的控制参数下发*/
 char tSysScpi::getZcAttVal(void)
 {
@@ -11865,7 +11756,7 @@ void tSysScpi::controlRf(void)
 	setScanEnable(false);    //停止扫描
 
 	feDownload(100, 1);
-	feDownload(100, 0);		//系统复位
+	feDownload(100, 0);		//系统复位,addr_100 1 to 0
 
 	updateScanParam(); //扫描参数计算
 
@@ -11874,11 +11765,11 @@ void tSysScpi::controlRf(void)
 	feDownload(207, 0);         //本振送数开关
 
 	//serial data 
-	setFrontEndIfAtt(sysData.ampt.attIf);  //中频衰减器
-	setLowbandAtt(sysData.ampt.attRf);     //低波段衰减器
-	setHighbandAtt(sysData.ampt.attRf);    //高波段衰减器
+	//setFrontEndIfAtt(sysData.ampt.attIf);  //中频衰减器
+	//setLowbandAtt(sysData.ampt.attRf);     //低波段衰减器
+	//setHighbandAtt(sysData.ampt.attRf);    //高波段衰减器
+	feDownload(0xfff6,(int)(sysData.ampt.attRf * 4));
 	rfPreamptDown(sysData.ampt.isPreamptOn); //前置放大选择
-
 	updateBandParam();         //本振参数计算
 
 	fftControl();
@@ -11888,27 +11779,23 @@ void tSysScpi::controlRf(void)
 	setFTWOfDDS();             //DDS下发
 
 	feDownload(0xfff8, 0);     //一本初始化
-	//	feDownload(0xfff9, 0);     //二本初始化
-
-	feDownload(207, 1);       //本振送数开关
-
+	//feDownload(0xfff9, 0);     //二本初始化
 	downLo1();                  //本振下发
-
 	setSweepBandIndex();        //扫描波段指示
 
 	setHighBandIndex();         //高波段指示
+	
+	feDownload(207, 1);       //本振送数开关
 
 	//data to FPGA
-	feDownload(234, calHighbandAttValueOfFrontend(sysData.ampt.attRf));     //高波段衰减值
-	feDownload(235, calLowbandAttValueOfFrontend(sysData.ampt.attRf));      //低波段衰减值
+	//feDownload(234, calHighbandAttValueOfFrontend(sysData.ampt.attRf));     //高波段衰减值
+	//feDownload(235, calLowbandAttValueOfFrontend(sysData.ampt.attRf));      //低波段衰减值
 	feDownload(236, calIfAttValueOfFrontend(sysData.ampt.attIf));           //中频段衰减值
-	feDownload(237, getPremptData(sysData.ampt.isPreamptOn));               //前放
-
-
+	feDownload(237, getPremptData(sysData.ampt.isPreamptOn));	//前放
 	
 	if(sysData.span.isZeroSpan)
 	{
-		feDownload(207, 0); 
+		feDownload(207, 0);	
 		setFrontEndFreq(sysData.freq.center);
 	}
 
@@ -11930,8 +11817,6 @@ void tSysScpi::controlRf(void)
 	setSweepOfMode(sysData.sweep.sweepSingle);  //扫描模式选择
 
 	freqScanStart();          //扫描开始
-	//__var(sysData.ampt.attIf);
-	//__var(sysData.ampt.attRf);
 
 }
 
@@ -12713,6 +12598,7 @@ void tSysScpi::controlIfDetector(void)
 			case dmSample:	 detMode = 3;break;
 			case dmAverage:  detMode = 4;break;
 			case dmAvevalid: detMode = 5;break;
+			default: 		 detMode = 0;break;
 		}
 	}
 
@@ -12727,9 +12613,9 @@ void tSysScpi::controlIfDetector(void)
 			interpRate = 1600;
 		else
 			interpRate = floor(1600.0 / (sysData.fscan.fftRealN - 1));
-		shiftRate = ceil(2.0 * log10(interpRate) / log10(2));
-		feDownload(43, interpRate & 0xffff);
-		feDownload(44, shiftRate & 0xffff);
+		shiftRate = ceil(3.0 * log10(interpRate) / log10(2));
+		feDownload(43, interpRate & 0xff);
+		feDownload(44, shiftRate & 0xff);
 		feDownload(45, 1);
 		usleep(1);
 		feDownload(45, 0);
@@ -12789,7 +12675,7 @@ void tSysScpi::controlIfDetector(void)
 	feDownload(30, sysData.detector.ldata);
 
 	//均值检波和均方根值检波 常规量化数据
-	unsigned int DaverData = round((pow(2, 32) - 1) * 1.0 / sysData.detector.length);
+	unsigned int DaverData = round((pow2_32 - 1) * 1.0 / sysData.detector.length);
 	feDownload(31, (DaverData >> 16) & 0xffff);
 	feDownload(32, DaverData & 0xffff);
 
@@ -12798,7 +12684,7 @@ void tSysScpi::controlIfDetector(void)
 	if((sysData.detector.realLength - floor(sysData.detector.realLength / sysData.detector.length) * sysData.detector.length) == 0)
 		IaverData = DaverData;
 	else
-		IaverData = round((pow(2, 32) - 1) * 1.0 / (sysData.detector.realLength - floor(sysData.detector.realLength / sysData.detector.length) * sysData.detector.length));
+		IaverData = round((pow2_32 - 1) * 1.0 / (sysData.detector.realLength - floor(sysData.detector.realLength / sysData.detector.length) * sysData.detector.length));
 
 	feDownload(33, (IaverData >> 16) & 0xffff);
 	feDownload(34, IaverData & 0xffff);
@@ -16283,6 +16169,10 @@ void tSysScpi::zeroSpanHandle(void)
 		sysData.span.isZeroSpan = false;
 	}
 	ioctl(ramHandle, 0xff, sysData.span.isZeroSpan);
+	if(sysData.span.isZeroSpan)
+		ioctl(ramHandle, 0xfe, true);
+	else
+		ioctl(ramHandle, 0xfe, false);
 }
 
 //数据放大(1, step, 5, 10步进)
@@ -19355,8 +19245,8 @@ void tSysScpi::setFrontendAtt(double rfAtt, double ifAtt)
 	setFrontEndIfAtt(ifAtt);
 	rfPreamptDown(sysData.ampt.isPreamptOn);
 	
-	feDownload(234, calHighbandAttValueOfFrontend(rfAtt));  //rf of high band 
-	feDownload(235, calLowbandAttValueOfFrontend(rfAtt));   //rf low band
+	//feDownload(234, calHighbandAttValueOfFrontend(rfAtt));  //rf of high band 
+	//feDownload(235, calLowbandAttValueOfFrontend(rfAtt));   //rf low band
 	feDownload(236, calIfAttValueOfFrontend(ifAtt));   //if 
 	feDownload(237, getPremptData(sysData.ampt.isPreamptOn));
 	
@@ -20838,19 +20728,19 @@ double tSysScpi::getErrorOfFreqResp(int index)
 //		} else
 		{
 			int x1 = 0, x2 = 0;
-			if(freq <= 8e9)
+			if(freq <= FREQ_START_HH_BAND1)
 			{
 				x1 = 0;
 				x2 = 161;
-			} else if(freq <= 10.5e9)
+			} else if(freq <= FREQ_START_HH_BAND2)
 			{
 				x1 = 162;
 				x2 = 214;
-			} else if(freq <= 13e9)
+			} else if(freq <= FREQ_START_HH_BAND3)
 			{
 				x1 = 215;
 				x2 = 267;
-			} else if(freq <= 15.5e9)
+			} else if(freq <= FREQ_START_HH_BAND4)
 			{
 				x1 = 268;
 				x2 = 320;
@@ -22447,10 +22337,10 @@ char tSysScpi::calIfAttValueOfFrontend(double value)
 
 //	sysData.fe.ifAtt = value;
 
-	if(sysData.fe.freq >= 20e6 && sysData.fe.freq <= FREQ_START_HH_BAND1)
-		channel = 0;//20MHz~8GHz
-	else
-		channel = 1;//8GHz~18GHz
+	//if(sysData.fe.freq >= 20e6 && sysData.fe.freq <= FREQ_START_HH_BAND1)
+		//channel = 0;//20MHz~8GHz
+	//else
+		//channel = 1;//8GHz~18GHz
 
 	int att =(int)value;
 	temp = (~att) & 0x1f;
@@ -22519,34 +22409,61 @@ int tSysScpi::setFrontendRefVolt(QString value)
 int tSysScpi::getPremptData(int val)
 {
 	double freq = sysData.freq.start;
-	char band = 1, channel = 0x03, temp = 0, premptOn = 0, band_low = 0;
-	if(freq <= FREQ_START_HH_BAND1)
-		band = 0x01;
+	char band = 1, channel = 0, temp = 0,  band_low = 0, refsel = 0;
+	char premptOn = 0, premptOn_low = 0, premptOn_high = 0;
+	if(sysData.freq.refInternal)
+		refsel = 0;//内参考
 	else
-		band = 0x02;
+		refsel = 1;//外参考
+	
+	if(freq <= 20e6)
+		band_low = 1;//短波通道
+	else
+		band_low = 0;//变频通道
+	if(freq <= FREQ_START_HH_BAND1 && freq > 20e6)
+		band = 1;//变频低波段通道
+	else
+		band = 0;//变频高波段通道
 
 	if(freq > FREQ_START_HH_BAND1 && freq <= FREQ_START_HH_BAND2)
-		channel = 0;
+		channel = 0;//高波段1
 	else if(freq > FREQ_START_HH_BAND2 && freq <= FREQ_START_HH_BAND3)
-		channel = 1;
+		channel = 1;//高波段2
 	else if(freq > FREQ_START_HH_BAND3 && freq <= FREQ_START_HH_BAND4)
-		channel = 2;
+		channel = 2;//高波段3
 	else if(freq > FREQ_START_HH_BAND4 && freq <= MAXFREQ)
-		channel = 3;
+		channel = 3;//高波段4
 
 	if(sysData.ampt.isPreamptOn)
-		premptOn = 2;
+	{
+		premptOn = 0;//前置放大打开
+		premptOn_low = 0;//低波段常规放大器打开
+		premptOn_high = 0;//高波段常规放大器打开
+	}
 	else
+	{
 		premptOn = 1;
+		premptOn_low = 1;
+		premptOn_high = 1;//高波段常规放大器关闭
+	}
+	
+	premptOn = 1;//closed
 
-	if(freq <= 20e6)
-		band_low = 1;
+#if 0	
+	if(freq > FREQ_START_HH_BAND1)
+		premptOn_high = 0;//高波段常规放大器打开
 	else
-		band_low = 0;
+		premptOn_high = 1;//高波段常规放大器关闭
 
-	temp = band_low << 6 | channel << 4 | premptOn << 2 | band;
+	premptOn_high = 0;//高波段常规放大器打开		
+#endif
 
+	temp = refsel << 0 | band_low << 1 | band << 2 | channel << 3 | premptOn << 5 \
+					   | premptOn_low << 6 | premptOn_high << 7;
+
+	//printf("to 237 is %02x\n",temp);
 	return temp;
+
 }
 
 //射频前端前置放大设置
@@ -22671,40 +22588,43 @@ int tSysScpi::setLowbandAtt(QString value)
 int tSysScpi::setFrontEndFreq(double value)
 {
 	if(value < 0)
-		value = 0;
+		value = MINFREQ;
 
 	sysData.fe.freq = value;
 	sysData.freq.start = sysData.fe.freq;
 
 	double LO1 = 0;
 	if(sysData.fe.freq >= 20e6 && sysData.fe.freq <= FREQ_START_HH_BAND1)
-		LO1 = sysData.fe.freq + 10.14e9;
+		LO1 = sysData.fe.freq + L_lo1;
 	else if(sysData.fe.freq > FREQ_START_HH_BAND1 && sysData.fe.freq <= FREQ_START_HH_BAND4)
-		LO1 = sysData.fe.freq + 2.64e9;
+	{
+		LO1 = sysData.fe.freq + H_lo1;
+		printf("LO1 is %f\n",LO1);
+	}
 	else if(sysData.fe.freq > FREQ_START_HH_BAND4 && sysData.fe.freq <= MAXFREQ)
-		LO1 = sysData.fe.freq - 2.64e9;
+		LO1 = sysData.fe.freq - H_lo1;
 
-	unsigned int n = (unsigned int)(LO1 / (4 * 2 * 50 * 1e6));
-	unsigned int f = (unsigned int)((LO1 / (4 * 2 * 50 * 1e6) - n )* pow(2 , 24));
+	unsigned int n = (unsigned int)(LO1 / (2 * 50 * 1e6));
+	unsigned int f = (unsigned int)((LO1 / (2 * 50 * 1e6) - n )* pow2_24);
 
-	feDownload(0xffe1, 0);  //REG6 下发
+	feDownload(0xfff1, 0x0c007a3c);  //REG6 下发
 
 	char addr,cmd;
 	unsigned int temp3 = 0, temp4 = 0;
-  int ret = 0;
+    int ret = 0;
 	addr = 3;
 	cmd = 0;
 	temp3 = (cmd << 31) | ((addr & 0x3f) << 25) | (( n & ~(1 << 24)) << 1);
-//	temp = (( n & ~(1 << 24)) << 8) | ((addr & 0x1f) << 3);
 
 	feDownload(0xfff1, temp3);  //REG3 下发
+	printf("REG3 is 0x%08x\n",temp3);
 	ret = temp3;
 	addr = 4;
 	cmd = 0;
 	temp4 = (cmd << 31) | ((addr & 0x3f) << 25) | (( f & ~(1 << 24)) << 1);
-//	temp = (( f & ~(1 << 24)) << 8) | ((addr & 0x1f) << 3);
 
 	feDownload(0xfff1, temp4);  //REG4 下发
+	printf("REG4 is 0x%08x\n",temp4);
 
 	//前放 高低波段选择
 	rfPreamptDown(sysData.ampt.isPreamptOn);
@@ -23504,7 +23424,6 @@ int tSysScpi::factoryCalibrate(int comCal)
 }
 
 
-
 //单频点校准
 int tSysScpi::freqCalibrate(double freq)
 {
@@ -24130,14 +24049,14 @@ int tSysScpi::ZCCalibrate(int comCal)
 	double sysTemperature = 0;
 	progress = 8;
 
-	//if (getSystemTemperature(&sysTemperature) == __SCPI_FAILED)
-	//{
-	//	saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("Low Freq calibrate failed"), getTheTranslatorString("can not get device temperature"));
+	if (getSystemTemperature(&sysTemperature) == __SCPI_FAILED)
+	{
+		saveLogOfFactoryCalibrate(datetime, getTheTranslatorString("Low Freq calibrate failed"), getTheTranslatorString("can not get device temperature"));
 		//outputToScreen(getTheTranslatorString("can not get device temperature"), progress, 1);
-	//	sleep(2);
-	//	printf("getSystemTemperature failed!\n");
-		//return exitCalibrate();
-	//}
+		sleep(2);
+		printf("getSystemTemperature failed!\n");
+		return exitCalibrate();
+	}
 
 	//6、reset zc calibration data
 	resetZcCalibrationData();
@@ -25617,10 +25536,10 @@ void tSysScpi::updateScanParam(void)
 		if(sysData.freq.stop <= 20e6)
 			sysData.fscan.step = f_step;
 		else
-			sysData.fscan.step = round(pow(2, 24) * f_step / 400e6) * 400e6 / pow(2, 24);/*correct precision*/
+			sysData.fscan.step = round(pow2_24 * f_step / 400e6) * 400e6 / pow(2, 24);/*correct precision*/
 
 		if(sysData.fscan.step == 0)
-			sysData.fscan.step=1 * 400e6 / pow(2, 24);//prevent sysData.fscan.step=0 
+			sysData.fscan.step=1 * 400e6 / pow2_24;//prevent sysData.fscan.step=0 
 
 
 	} else
@@ -25653,7 +25572,7 @@ void tSysScpi::cicDown(void)
 {
 	int shift = 0;
 
-	// cic reset
+	// cic reset, then configure cic
 	feDownload(10, 1);
 	feDownload(10, 0);
 
@@ -25934,11 +25853,11 @@ void tSysScpi::updateBandParam(void)
 	double f_hllo_start = 0, f_hllo_stop = 0; //低波段起始频率对应的本振频率
 	double f_hhlo_start = 0, f_hhlo_stop = 0; //高波段终止频率对应的本振频率
 	double f_hh4lo_start = 0, f_hh4lo_stop = 0;
-	/*8G ; 11G; 14G; 16G*/
+	
 	double freq_hh1 = FREQ_START_HH_BAND1, freq_hh2 = FREQ_START_HH_BAND2, freq_hh3 = FREQ_START_HH_BAND3, freq_hh4 = FREQ_START_HH_BAND4;
 
 	bool hband1 = false, hband2 = false, hband3 = false, hband4 = false;
-
+	
 	/*获取参数*/
 	if(sysData.fscan.mode == fsFFT)
 	{
@@ -25953,23 +25872,22 @@ void tSysScpi::updateBandParam(void)
 		f_start = sysData.freq.start;
 		f_stop = sysData.freq.stop;
 	}
-
 	/*计算*/
-	sysData.freq.isLowChannel = false; //director sample mode
-	if(sysData.freq.start <= 20e6 && sysData.freq.stop <= 20e6)//director sample
+	//1K~30M
+	if(sysData.freq.start <= 30e6 && sysData.freq.stop <= 30e6)
 	{
 		rfData.SWEEP_BAND_INDEX = 1;
 
 		if(sysData.fscan.mode == fsFFT)
 		{
-			rfData.FTW_Start = (unsigned int)((f_start + f_step / 2) * pow(2, 32) / 102.4e6);
+			rfData.FTW_Start = (unsigned int)((f_start + f_step / 2) * pow2_32/ 102.4e6);
 			rfData.N_L = ceil((f_stop - f_start) / f_step);
 		}	else
 		{
-			rfData.FTW_Start = (unsigned int)(f_start * pow(2, 32) / 102.4e6);
+			rfData.FTW_Start = (unsigned int)(f_start * pow2_32 / 102.4e6);
 			rfData.N_L = ceil((f_stop - f_start) / f_step) + 1;
 		}
-		rfData.FTW_Step = (unsigned int)(f_step * pow(2, 32) / 102.4e6);
+		rfData.FTW_Step = (unsigned int)(f_step * pow2_32 / 102.4e6);
 		rfData.N_HL_START_INT = 0;
 		rfData.N_HL_START_FRAC = 0;
 		rfData.N_HH_START_INT = 0;
@@ -25985,25 +25903,25 @@ void tSysScpi::updateBandParam(void)
 		rfData.N_HH4_START_FRAC = 0;
 		rfData.N_HH4_STOP_INT = 0;
 		rfData.N_HH4_STOP_FRAC = 0;
-		sysData.freq.isLowChannel = true;//set director sample mode
 
 	} 
-	else if(sysData.freq.start < 20e6 - f_dbuc / 2 && sysData.freq.stop <= freq_hh1)//低波段
+	//1K~3.3g
+	else if(sysData.freq.start < 10e6 - f_dbuc / 2 && sysData.freq.stop <= freq_hh1)//低波段
 	{
 		rfData.SWEEP_BAND_INDEX = 3;
 
 		if(sysData.fscan.mode == fsFFT)
 		{
 			rfData.N_L = ceil((20e6 - f_start) / f_step);
-			rfData.FTW_Start = (unsigned int)((f_start + f_step / 2) * pow(2, 32) / 102.4e6);
+			rfData.FTW_Start = (unsigned int)((f_start + f_step / 2) * pow2_32 / 102.4e6);
 			rfData.N_HL = ceil((f_stop - rfData.N_L * f_step - f_start) / f_step);
 		} else
 		{
 			rfData.N_L = ceil((20e6 - f_start) / f_step) + 1;
-			rfData.FTW_Start = (unsigned int)(f_start * pow(2, 32) / 102.4e6);
+			rfData.FTW_Start = (unsigned int)(f_start * pow2_32 / 102.4e6);
 			rfData.N_HL = ceil((f_stop - rfData.N_L * f_step - f_start) / f_step) + 1;
 		}
-		rfData.FTW_Step = (unsigned int)(f_step * pow(2, 32) / 102.4e6);
+		rfData.FTW_Step = (unsigned int)(f_step * pow2_32 / 102.4e6);
 
 		if(rfData.N_HL <= 0)
 		{
@@ -26012,23 +25930,24 @@ void tSysScpi::updateBandParam(void)
 			rfData.N_HL_START_FRAC = 0;
 			rfData.N_QSTEP = 0;
 			rfData.SWEEP_BAND_INDEX = 1;
+			rfData.HIGH_BAND_INDEX = 0;
 		} else
 		{
 			if(sysData.fscan.mode == fsFFT)
 			{
-				f_hllo_start = rfData.N_L * f_step + f_start + f_step / 2 + 10.14e9;
-				rfData.N_QSTEP = (unsigned int)(pow(2, 32) * (f_step / (4 * 2 * 50e6)) + 0.5);
+				f_hllo_start = rfData.N_L * f_step + f_start + f_step / 2 + L_lo1;
+				rfData.N_QSTEP = (unsigned int)(pow2_32 * (f_step / (2 * 50e6)) + 0.5);
 			} else
 			{
-				f_hllo_start = rfData.N_L * f_step + f_start + 10.14e9;
-				f_hllo_stop = (rfData.N_L + rfData.N_HL - 1) * f_step + f_start + 10.14e9;
-				rfData.N_QSTEP = (unsigned int)(pow(2, 24) * (f_step / (4 * 2 * 50e6)) + 0.5);
+				f_hllo_start = rfData.N_L * f_step + f_start + L_lo1;
+				f_hllo_stop = (rfData.N_L + rfData.N_HL - 1) * f_step + f_start + L_lo1;
+				rfData.N_QSTEP = (unsigned int)(pow2_24 * (f_step / (2 * 50e6)) + 0.5);
 			}
-			rfData.N_HL_START_INT = floor(f_hllo_start / (4 * 2 * 50e6));
-			rfData.N_HL_START_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_start / (4 * 2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
+			rfData.N_HL_START_INT = floor(f_hllo_start / (2 * 50e6));
+			rfData.N_HL_START_FRAC = (unsigned int)(pow2_32 * (f_hllo_start / (2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
 
-			rfData.N_HL_STOP_INT = (unsigned int)floor(f_hllo_stop / (4 * 2 * 50e6));
-			rfData.N_HL_STOP_FRAC = (unsigned int)round(pow(2, 32) * (f_hllo_stop / (4 * 2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
+			rfData.N_HL_STOP_INT = (unsigned int)floor(f_hllo_stop / (2 * 50e6));
+			rfData.N_HL_STOP_FRAC = (unsigned int)round(pow2_32 * (f_hllo_stop / (2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
 		}
 		rfData.N_HH_START_INT = 0;
 		rfData.N_HH_START_FRAC = 0;
@@ -26043,24 +25962,26 @@ void tSysScpi::updateBandParam(void)
 		rfData.N_HH4_START_FRAC = 0;
 		rfData.N_HH4_STOP_INT = 0;
 		rfData.N_HH4_STOP_FRAC = 0;
-	} else if(sysData.freq.start < 20e6 - f_dbuc / 2 && sysData.freq.stop > freq_hh1 && sysData.freq.stop <= freq_hh4)
+	}
+	//1K~10M 3.3g~6.6g
+	else if(sysData.freq.start < 10e6 - f_dbuc / 2 && sysData.freq.stop > freq_hh1 && sysData.freq.stop <= freq_hh4)
 	{
 		rfData.SWEEP_BAND_INDEX = 7;
 
 		if(sysData.fscan.mode == fsFFT)
 		{
 			rfData.N_L = ceil((20e6 - f_start) / f_step);
-			rfData.FTW_Start = (unsigned int)((f_start + f_step / 2) * pow(2, 32) / 102.4e6);
+			rfData.FTW_Start = (unsigned int)((f_start + f_step / 2) * pow2_32/ 102.4e6);
 			rfData.N_HL = ceil((freq_hh1 - rfData.N_L * f_step - f_start) / f_step);
 			rfData.N_HH = ceil((f_stop - (rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step);
-			rfData.FTW_Step = (unsigned int)(f_step * pow(2, 32) / 102.4e6);
+			rfData.FTW_Step = (unsigned int)(f_step * pow2_32 / 102.4e6);
 		} else
 		{
 			rfData.N_L = ceil((20e6 - f_start) / f_step) + 1;
-			rfData.FTW_Start = (unsigned int)(f_start * pow(2, 32) / 102.4e6);
+			rfData.FTW_Start = (unsigned int)(f_start * pow2_32 / 102.4e6);
 			rfData.N_HL = ceil((freq_hh1 - rfData.N_L * f_step - f_start) / f_step) + 1;
 			rfData.N_HH = ceil((f_stop - (rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step) + 1;
-			rfData.FTW_Step = (unsigned int)(f_step * pow(2, 24) / 102.4e6);
+			rfData.FTW_Step = (unsigned int)(f_step * pow2_24 / 102.4e6);
 		}
 
 		rfData.N_HH4 = 0;
@@ -26072,13 +25993,14 @@ void tSysScpi::updateBandParam(void)
 		if(rfData.N_HH <= 0)
 		{
 			rfData.SWEEP_BAND_INDEX = 3;
+			rfData.HIGH_BAND_INDEX = 0;
 			rfData.N_HH = 0;
 			rfData.N_HH1 = 0;
 			rfData.N_HH2 = 0;
 			rfData.N_HH3 = 0;
 		} else
 		{
-			if(f_stop <= freq_hh2)
+			if(f_stop <= freq_hh2)//3.3g~4.4g
 			{
 				if(sysData.fscan.mode == fsFFT)
 					rfData.N_HH1 = ceil((f_stop - (rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step);
@@ -26086,7 +26008,8 @@ void tSysScpi::updateBandParam(void)
 					rfData.N_HH1 = ceil((f_stop - (rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step) + 1;
 				rfData.N_HH2 = 0;
 				rfData.N_HH3 = 0;
-			} else if(f_stop > freq_hh2 && f_stop <= freq_hh3)
+				rfData.HIGH_BAND_INDEX = 1;
+			} else if(f_stop > freq_hh2 && f_stop <= freq_hh3)//4.4g~5.5g
 			{
 				if(sysData.fscan.mode == fsFFT)
 				{
@@ -26098,7 +26021,10 @@ void tSysScpi::updateBandParam(void)
 					rfData.N_HH2 = ceil((f_stop - (rfData.N_HH1 + rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step) + 1;
 				}
 				rfData.N_HH3 = 0;
-			} else if(f_stop > freq_hh3 && f_stop <= freq_hh4)
+				rfData.HIGH_BAND_INDEX = 3;
+				if(rfData.N_HH2 == 0)
+					rfData.HIGH_BAND_INDEX = 1;
+			} else if(f_stop > freq_hh3 && f_stop <= freq_hh4)//5.5g~6.6g
 			{
 				if(sysData.fscan.mode == fsFFT)
 				{
@@ -26110,44 +26036,50 @@ void tSysScpi::updateBandParam(void)
 					rfData.N_HH2 = ceil((freq_hh3 - (rfData.N_HH1 + rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step) + 1;
 				}
 				rfData.N_HH3 = rfData.N_HH - rfData.N_HH1 - rfData.N_HH2;
+				rfData.HIGH_BAND_INDEX = 7;
+				if(rfData.N_HH3 == 0)
+					rfData.HIGH_BAND_INDEX = 3;
 			}
 		}
 
 		if(sysData.fscan.mode == fsFFT)
 		{
-			f_hllo_start = rfData.N_L * f_step + f_start + f_step / 2 + 10.14e9;
-			f_hhlo_start = (rfData.N_L + rfData.N_HL) * f_step + f_start + f_step / 2 + 2.64e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 32) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hllo_start = rfData.N_L * f_step + f_start + f_step / 2 + L_lo1;
+			f_hhlo_start = (rfData.N_L + rfData.N_HL) * f_step + f_start + f_step / 2 + H_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_32 * (f_step / (2 * 50e6)) + 0.5);
 		} else
 		{
-			f_hllo_start = rfData.N_L * f_step + f_start + 10.14e9;
-			f_hllo_stop = (rfData.N_L + rfData.N_HL - 1) * f_step + f_start + 10.14e9;
+			f_hllo_start = rfData.N_L * f_step + f_start + L_lo1;
+			f_hllo_stop = (rfData.N_L + rfData.N_HL - 1) * f_step + f_start + L_lo1;
 
-			f_hhlo_start = (rfData.N_L + rfData.N_HL) * f_step + f_start + 2.64e9;
-			f_hllo_stop = (rfData.N_L + rfData.N_HL + rfData.N_HH - 1) * f_step + f_start + 2.64e9;
+			f_hhlo_start = (rfData.N_L + rfData.N_HL) * f_step + f_start + H_lo1;
+			f_hllo_stop = (rfData.N_L + rfData.N_HL + rfData.N_HH - 1) * f_step + f_start + H_lo1;
 
-			rfData.N_QSTEP = (unsigned int)(pow(2, 24) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			rfData.N_QSTEP = (unsigned int)(pow2_24 * (f_step / (2 * 50e6)) + 0.5);
 		}
-		rfData.N_HL_START_INT = floor(f_hllo_start / (4 * 2 * 50e6));
-		rfData.N_HL_START_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_start / (4 * 2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
-		rfData.N_HL_STOP_INT = floor(f_hllo_stop / (4 * 2 * 50e6));
-		rfData.N_HL_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_stop / (4 * 2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
+		rfData.N_HL_START_INT = floor(f_hllo_start / (2 * 50e6));
+		rfData.N_HL_START_FRAC = (unsigned int)(pow2_32* (f_hllo_start / (2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
+		rfData.N_HL_STOP_INT = floor(f_hllo_stop / (2 * 50e6));
+		rfData.N_HL_STOP_FRAC = (unsigned int)(pow2_32* (f_hllo_stop / (2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
 
-		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (4 * 2 * 50e6));
-		rfData.N_HH_START_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_start / (4 * 2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
-		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (4 * 2 * 50e6));
-		rfData.N_HH_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_stop / (4 * 2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
+		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (2 * 50e6));
+		rfData.N_HH_START_FRAC = (unsigned int)(pow2_32* (f_hhlo_start / (2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
+		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (2 * 50e6));
+		rfData.N_HH_STOP_FRAC = (unsigned int)(pow2_32 * (f_hhlo_stop / (2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
 
-	} else if(sysData.freq.start < 20e6 - f_dbuc / 2 && sysData.freq.stop > freq_hh4 && sysData.freq.stop <= MAXFREQ)
+	} 
+	//1k~10M + 6.6g~7.5g
+	else if(sysData.freq.start < 10e6 - f_dbuc / 2 && sysData.freq.stop > freq_hh4 && sysData.freq.stop <= MAXFREQ)
 	{
 		rfData.SWEEP_BAND_INDEX = 0xf;
+		rfData.HIGH_BAND_INDEX = 0x07;
 		if(sysData.fscan.mode == fsFFT)
 		{
 			rfData.N_L = ceil((20e6 - f_start) / f_step);
-			rfData.FTW_Start = (unsigned int)((f_start + f_step / 2) * pow(2, 32) / 102.4e6);
+			rfData.FTW_Start = (unsigned int)((f_start + f_step / 2) * pow2_32 / 102.4e6);
 			rfData.N_HL = ceil((freq_hh1 - rfData.N_L * f_step - f_start) / f_step);
 			rfData.N_HH = ceil((freq_hh4 - (rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step);
-			rfData.FTW_Step = (unsigned int)(f_step * pow(2, 32) / 102.4e6);
+			rfData.FTW_Step = (unsigned int)(f_step * pow2_32/ 102.4e6);
 			rfData.N_HH1 = ceil((freq_hh2 - (rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step);
 			rfData.N_HH2 = ceil((freq_hh3 - (rfData.N_HH1 + rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step);
 			rfData.N_HH3 = rfData.N_HH - rfData.N_HH1 - rfData.N_HH2;
@@ -26157,18 +26089,18 @@ void tSysScpi::updateBandParam(void)
 				rfData.SWEEP_BAND_INDEX = 7;
 				rfData.N_HH4 = 0;
 			}
-			f_hllo_start = rfData.N_L * f_step + f_start + f_step / 2 + 10.14e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 32) * (f_step / (4 * 2 * 50e6)) + 0.5);
-			f_hhlo_start = (rfData.N_L + rfData.N_HL) * f_step + f_start + f_step / 2 + 2.64e9;
-			f_hh4lo_start = (rfData.N_L + rfData.N_HL + rfData.N_HH) * f_step + f_start + f_step / 2 - 2.64e9;
+			f_hllo_start = rfData.N_L * f_step + f_start + f_step / 2 + L_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_32 * (f_step / (2 * 50e6)) + 0.5);
+			f_hhlo_start = (rfData.N_L + rfData.N_HL) * f_step + f_start + f_step / 2 + H_lo1;
+			f_hh4lo_start = (rfData.N_L + rfData.N_HL + rfData.N_HH) * f_step + f_start + f_step / 2 - H_lo1;
 
 		} else
 		{
 			rfData.N_L = ceil((20e6 - f_start) / f_step) + 1;
-			rfData.FTW_Start = (unsigned int)(f_start * pow(2, 32) / 102.4e6);
+			rfData.FTW_Start = (unsigned int)(f_start * pow2_32/ 102.4e6);
 			rfData.N_HL = ceil((freq_hh1 - rfData.N_L * f_step - f_start) / f_step) + 1;
 			rfData.N_HH = ceil((freq_hh4 - (rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step) + 1;
-			rfData.FTW_Step = (unsigned int)(f_step * pow(2, 24) / 102.4e6);
+			rfData.FTW_Step = (unsigned int)(f_step * pow2_24 / 102.4e6);
 			rfData.N_HH1 = ceil((freq_hh2 - (rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step) + 1;
 			rfData.N_HH2 = ceil((freq_hh3 - (rfData.N_HH1 + rfData.N_HL + rfData.N_L) * f_step - f_start) / f_step) + 1;
 			rfData.N_HH3 = rfData.N_HH - rfData.N_HH1 - rfData.N_HH2;
@@ -26178,32 +26110,35 @@ void tSysScpi::updateBandParam(void)
 				rfData.SWEEP_BAND_INDEX = 7;
 				rfData.N_HH4 = 0;
 			}
-			f_hllo_start = rfData.N_L * f_step + f_start + 10.14e9;
-			f_hllo_stop = (rfData.N_L + rfData.N_HL - 1) * f_step + f_start + 10.14e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 24) * (f_step / (4 * 2 * 50e6)) + 0.5);
-			f_hhlo_start = (rfData.N_L + rfData.N_HL) * f_step + f_start + 2.64e9;
-			f_hhlo_stop = (rfData.N_L + rfData.N_HL + rfData.N_HH - 1) * f_step + f_start + 2.64e9;
-			f_hh4lo_start = (rfData.N_L + rfData.N_HL + rfData.N_HH) * f_step + f_start - 2.64e9;
-			f_hh4lo_stop = (rfData.N_L + rfData.N_HL + rfData.N_HH + rfData.N_HH4 - 1) * f_step + f_start - 2.64e9;
+			f_hllo_start = rfData.N_L * f_step + f_start + L_lo1;
+			f_hllo_stop = (rfData.N_L + rfData.N_HL - 1) * f_step + f_start + L_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_24 * (f_step / (2 * 50e6)) + 0.5);
+			f_hhlo_start = (rfData.N_L + rfData.N_HL) * f_step + f_start + H_lo1;
+			f_hhlo_stop = (rfData.N_L + rfData.N_HL + rfData.N_HH - 1) * f_step + f_start + H_lo1;
+			f_hh4lo_start = (rfData.N_L + rfData.N_HL + rfData.N_HH) * f_step + f_start - H_lo1;
+			f_hh4lo_stop = (rfData.N_L + rfData.N_HL + rfData.N_HH + rfData.N_HH4 - 1) * f_step + f_start - H_lo1;
 		}
-		rfData.N_HL_START_INT = floor(f_hllo_start / (4 * 2 * 50e6));
-		rfData.N_HL_START_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_start / (4 * 2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
-		rfData.N_HL_STOP_INT = floor(f_hllo_stop / (4 * 2 * 50e6));
-		rfData.N_HL_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_stop / (4 * 2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
+		rfData.N_HL_START_INT = floor(f_hllo_start / (2 * 50e6));
+		rfData.N_HL_START_FRAC = (unsigned int)(pow2_32 * (f_hllo_start / (2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
+		rfData.N_HL_STOP_INT = floor(f_hllo_stop / (2 * 50e6));
+		rfData.N_HL_STOP_FRAC = (unsigned int)(pow2_32 * (f_hllo_stop / (2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
 
-		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (4 * 2 * 50e6));
-		rfData.N_HH_START_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_start / (4 * 2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
-		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (4 * 2 * 50e6));
-		rfData.N_HH_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_stop / (4 * 2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
+		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (2 * 50e6));
+		rfData.N_HH_START_FRAC = (unsigned int)(pow2_32 * (f_hhlo_start / (2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
+		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (2 * 50e6));
+		rfData.N_HH_STOP_FRAC = (unsigned int)(pow2_32 * (f_hhlo_stop / (2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
 
-		rfData.N_HH4_START_INT = (unsigned int)floor(f_hh4lo_start / (4 * 2 * 50e6));
-		rfData.N_HH4_START_FRAC = (unsigned int)(pow(2, 32) * (f_hh4lo_start / (4 * 2 * 50e6) - rfData.N_HH4_START_INT) + 0.5);
-		rfData.N_HH4_STOP_INT = (unsigned int)floor(f_hh4lo_stop / (4 * 2 * 50e6));
-		rfData.N_HH4_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hh4lo_stop / (4 * 2 * 50e6) - rfData.N_HH4_STOP_INT) + 0.5);
+		rfData.N_HH4_START_INT = (unsigned int)floor(f_hh4lo_start / (2 * 50e6));
+		rfData.N_HH4_START_FRAC = (unsigned int)(pow2_32* (f_hh4lo_start / (2 * 50e6) - rfData.N_HH4_START_INT) + 0.5);
+		rfData.N_HH4_STOP_INT = (unsigned int)floor(f_hh4lo_stop / (2 * 50e6));
+		rfData.N_HH4_STOP_FRAC = (unsigned int)(pow2_32 * (f_hh4lo_stop / (2 * 50e6) - rfData.N_HH4_STOP_INT) + 0.5);
 
-	} else if(sysData.freq.start >= 20e6 - f_dbuc / 2 && sysData.freq.start < freq_hh1 - f_dbuc / 2 && sysData.freq.stop <= freq_hh1)
+	}
+	//10M~3.3g
+	else if(sysData.freq.start >= 10e6 - f_dbuc / 2 && sysData.freq.start < freq_hh1 - f_dbuc / 2 && sysData.freq.stop <= freq_hh1)
 	{
 		rfData.SWEEP_BAND_INDEX = 2;
+		rfData.HIGH_BAND_INDEX = 0;
 		rfData.N_L = 0;
 		rfData.FTW_Start = 0x5e000000; //(unsigned int)(27.4e6 / 102.4e6 * pow(2, 32));
 		rfData.FTW_Step = 0;
@@ -26227,22 +26162,25 @@ void tSysScpi::updateBandParam(void)
 		rfData.N_HH4_STOP_FRAC = 0;
 		if(sysData.fscan.mode == fsFFT)
 		{
-			f_hllo_start = f_start + f_step / 2 + 10.14e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 32) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hllo_start = f_start + f_step / 2 + L_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_32 * (f_step / (2 * 50e6)) + 0.5);
 		} else
 		{
-			f_hllo_start = f_start + 10.14e9 -f_step;//-f_step
-			f_hllo_stop = (rfData.N_HL - 1) * f_step + f_start + 10.14e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 24) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hllo_start = f_start + L_lo1 -f_step;//-f_step
+			f_hllo_stop = (rfData.N_HL - 1) * f_step + f_start + L_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_24 * (f_step / (2 * 50e6)) + 0.5);
 		}
-		rfData.N_HL_START_INT = (unsigned int) floor(f_hllo_start / (4 * 2 * 50e6));
-		rfData.N_HL_START_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_start / (4 * 2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
+		rfData.N_HL_START_INT = (unsigned int) floor(f_hllo_start / (2 * 50e6));
+		rfData.N_HL_START_FRAC = (unsigned int)(pow2_32 * (f_hllo_start / (2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
 
-		rfData.N_HL_STOP_INT = (unsigned int) floor(f_hllo_stop / (4 * 2 * 50e6));
-		rfData.N_HL_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_stop / (4 * 2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
-	} else if(sysData.freq.start >= 20e6 - f_dbuc / 2 && sysData.freq.start < freq_hh1 - f_dbuc / 2 && sysData.freq.stop > freq_hh1 && sysData.freq.stop <= freq_hh4)
+		rfData.N_HL_STOP_INT = (unsigned int) floor(f_hllo_stop / (2 * 50e6));
+		rfData.N_HL_STOP_FRAC = (unsigned int)(pow2_32 * (f_hllo_stop / (2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
+	}
+	//10M~6.6g
+	else if(sysData.freq.start >= 10e6 - f_dbuc / 2 && sysData.freq.start < freq_hh1 - f_dbuc / 2 && sysData.freq.stop > freq_hh1 && sysData.freq.stop <= freq_hh4)
 	{
 		rfData.SWEEP_BAND_INDEX = 6;
+		rfData.HIGH_BAND_INDEX = 7;
 		rfData.N_L = 0;
 		rfData.FTW_Start = 0x5e000000; //(unsigned int)(27.4e6 / 102.4e6 * pow(2, 32));
 		rfData.FTW_Step = 0;
@@ -26264,6 +26202,7 @@ void tSysScpi::updateBandParam(void)
 		if(rfData.N_HH <= 0)
 		{
 			rfData.SWEEP_BAND_INDEX = 2;
+			rfData.HIGH_BAND_INDEX = 0;
 			rfData.N_HH = 0;
 			rfData.N_HH1 = 0;
 			rfData.N_HH2 = 0;
@@ -26271,7 +26210,7 @@ void tSysScpi::updateBandParam(void)
 		}
 		else
 		{
-			if(f_stop <= freq_hh2)
+			if(f_stop <= freq_hh2)//3.3g~4.4g
 			{
 				if(sysData.fscan.mode == fsFFT)
 					rfData.N_HH1 = ceil((f_stop - rfData.N_HL * f_step - f_start) / f_step);
@@ -26280,7 +26219,8 @@ void tSysScpi::updateBandParam(void)
 
 				rfData.N_HH2 = 0;
 				rfData.N_HH3 = 0;
-			} else if(f_stop > freq_hh2 && f_stop <= freq_hh3)
+				rfData.HIGH_BAND_INDEX = 1;
+			} else if(f_stop > freq_hh2 && f_stop <= freq_hh3)//4.4g~5.5g
 			{
 				if(sysData.fscan.mode == fsFFT)
 					rfData.N_HH1 = ceil((freq_hh2 - rfData.N_HL * f_step - f_start) / f_step);
@@ -26297,7 +26237,12 @@ void tSysScpi::updateBandParam(void)
 					rfData.N_HH2 = 0;
 
 				rfData.N_HH3 = 0;
-			} else if(f_stop > freq_hh3 && f_stop <= freq_hh4)
+				rfData.HIGH_BAND_INDEX = 3;
+				if(rfData.N_HH2)
+					rfData.HIGH_BAND_INDEX = 1;
+			} 
+			//5.5g~6.6g
+			else if(f_stop > freq_hh3 && f_stop <= freq_hh4)
 			{
 				if(sysData.fscan.mode == fsFFT)
 					rfData.N_HH1 = ceil((freq_hh2 - rfData.N_HL * f_step - f_start) / f_step);
@@ -26317,37 +26262,44 @@ void tSysScpi::updateBandParam(void)
 					rfData.N_HH3 = ceil((f_stop - (rfData.N_HH2 + rfData.N_HH1 + rfData.N_HL) * f_step - f_start) / f_step);
 				else
 					rfData.N_HH3 = ceil((f_stop - (rfData.N_HH2 + rfData.N_HH1 + rfData.N_HL) * f_step - f_start) / f_step) + 1;
-				if(rfData.N_HH3 < 0)
+				rfData.HIGH_BAND_INDEX = 7;
+				if(rfData.N_HH3 <= 0)
+				{
 					rfData.N_HH3 = 0;
+					rfData.HIGH_BAND_INDEX = 3;
+				}
 			}
 		}
 		if(sysData.fscan.mode == fsFFT)
 		{
-			f_hllo_start = f_start + f_step / 2 + 10.14e9;
-			f_hhlo_start = rfData.N_HL * f_step + f_start + f_step / 2 + 2.64e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 32) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hllo_start = f_start + f_step / 2 + L_lo1;
+			f_hhlo_start = rfData.N_HL * f_step + f_start + f_step / 2 + H_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_32 * (f_step / (2 * 50e6)) + 0.5);
 		} else
 		{
-			f_hllo_start = f_start + 10.14e9 -f_step;//-f_step
-			f_hllo_stop = (rfData.N_HL - 1) * f_step + f_start + 10.14e9;
-			f_hhlo_start = rfData.N_HL * f_step + f_start + 2.64e9 -f_step;//-f_step
-			f_hhlo_stop = (rfData.N_HL + rfData.N_HH - 1) * f_step + f_start + 2.64e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 24) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hllo_start = f_start + L_lo1 -f_step;//-f_step
+			f_hllo_stop = (rfData.N_HL - 1) * f_step + f_start + L_lo1;
+			f_hhlo_start = rfData.N_HL * f_step + f_start + H_lo1 -f_step;//-f_step
+			f_hhlo_stop = (rfData.N_HL + rfData.N_HH - 1) * f_step + f_start + H_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_24 * (f_step / (2 * 50e6)) + 0.5);
 		}
 
-		rfData.N_HL_START_INT = (unsigned int)floor(f_hllo_start / (4 * 2 * 50e6));
-		rfData.N_HL_START_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_start / (4 * 2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
-		rfData.N_HL_STOP_INT = (unsigned int)floor(f_hllo_stop / (4 * 2 * 50e6));
-		rfData.N_HL_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_stop / (4 * 2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
+		rfData.N_HL_START_INT = (unsigned int)floor(f_hllo_start / (2 * 50e6));
+		rfData.N_HL_START_FRAC = (unsigned int)(pow2_32 * (f_hllo_start / (2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
+		rfData.N_HL_STOP_INT = (unsigned int)floor(f_hllo_stop / (2 * 50e6));
+		rfData.N_HL_STOP_FRAC = (unsigned int)(pow2_32 * (f_hllo_stop / (2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
 
-		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (4 * 2 * 50e6));
-		rfData.N_HH_START_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_start / (4 * 2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
-		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (4 * 2 * 50e6));
-		rfData.N_HH_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_stop / (4 * 2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
+		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (2 * 50e6));
+		rfData.N_HH_START_FRAC = (unsigned int)(pow2_32 * (f_hhlo_start / (2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
+		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (2 * 50e6));
+		rfData.N_HH_STOP_FRAC = (unsigned int)(pow2_32 * (f_hhlo_stop / (2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
 
-	} else if(sysData.freq.start >= 20e6 - f_dbuc / 2 && sysData.freq.start < freq_hh1 - f_dbuc / 2 && sysData.freq.stop > freq_hh4 && sysData.freq.stop <= MAXFREQ)
+	} 
+	//10M~3.3g + 5.5g~7.5g
+	else if(sysData.freq.start >= 10e6 - f_dbuc / 2 && sysData.freq.start < freq_hh1 - f_dbuc / 2 && sysData.freq.stop > freq_hh4 && sysData.freq.stop <= MAXFREQ)
 	{
 		rfData.SWEEP_BAND_INDEX = 0xe;
+		rfData.HIGH_BAND_INDEX = 0x7;
 		rfData.N_L = 0;
 		rfData.FTW_Start = 0x5e000000; //(unsigned int)(27.4e6 / 102.4e6 * pow(2, 32));
 		rfData.FTW_Step = 0;
@@ -26369,11 +26321,11 @@ void tSysScpi::updateBandParam(void)
 				rfData.N_HH4 = 0;
 			}
 
-			f_hllo_start = f_start + f_step / 2 + 10.14e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 32) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hllo_start = f_start + f_step / 2 + L_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_32 * (f_step / (2 * 50e6)) + 0.5);
 
 			f_hhlo_start = rfData.N_HL * f_step + f_start + f_step / 2 + 2.64e9;
-			f_hh4lo_start = (rfData.N_HL + rfData.N_HH) * f_step + f_start + f_step / 2 - 2.64e9;
+			f_hh4lo_start = (rfData.N_HL + rfData.N_HH) * f_step + f_start + f_step / 2 - H_lo1;
 		} else
 		{
 			rfData.N_HL = ceil((freq_hh1 - f_start) / f_step) + 1;
@@ -26392,32 +26344,33 @@ void tSysScpi::updateBandParam(void)
 				rfData.N_HH4 = 0;
 			}
 
-			f_hllo_start = f_start + 10.14e9;
-			f_hllo_stop = (rfData.N_HL - 1) * f_step + f_start + 10.14e9;
+			f_hllo_start = f_start + L_lo1;
+			f_hllo_stop = (rfData.N_HL - 1) * f_step + f_start + L_lo1;
 
-			rfData.N_QSTEP = (unsigned int)(pow(2, 24) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			rfData.N_QSTEP = (unsigned int)(pow2_24 * (f_step / (2 * 50e6)) + 0.5);
 
-			f_hhlo_start = rfData.N_HL * f_step + f_start + 2.64e9 -f_step;//-f_step
-			f_hhlo_stop = (rfData.N_HL + rfData.N_HH - 1) * f_step + f_start + 2.64e9;
-			f_hh4lo_start = (rfData.N_HL + rfData.N_HH) * f_step + f_start - 2.64e9 -f_step;//-f_step
-			f_hh4lo_stop = (rfData.N_HL + rfData.N_HH + rfData.N_HH4 - 1) * f_step + f_start - 2.64e9;
+			f_hhlo_start = rfData.N_HL * f_step + f_start + H_lo1 -f_step;//-f_step
+			f_hhlo_stop = (rfData.N_HL + rfData.N_HH - 1) * f_step + f_start + H_lo1;
+			f_hh4lo_start = (rfData.N_HL + rfData.N_HH) * f_step + f_start - H_lo1 -f_step;//-f_step
+			f_hh4lo_stop = (rfData.N_HL + rfData.N_HH + rfData.N_HH4 - 1) * f_step + f_start - H_lo1;
 		}
 
-		rfData.N_HL_START_INT = (unsigned int)floor(f_hllo_start / (4 * 2 * 50e6));
-		rfData.N_HL_START_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_start / (4 * 2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
-		rfData.N_HL_STOP_INT = (unsigned int)floor(f_hllo_stop / (4 * 2 * 50e6));
-		rfData.N_HL_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hllo_stop / (4 * 2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
+		rfData.N_HL_START_INT = (unsigned int)floor(f_hllo_start / (2 * 50e6));
+		rfData.N_HL_START_FRAC = (unsigned int)(pow2_32 * (f_hllo_start / (2 * 50e6) - rfData.N_HL_START_INT) + 0.5);
+		rfData.N_HL_STOP_INT = (unsigned int)floor(f_hllo_stop / (2 * 50e6));
+		rfData.N_HL_STOP_FRAC = (unsigned int)(pow2_32 * (f_hllo_stop / (2 * 50e6) - rfData.N_HL_STOP_INT) + 0.5);
 
-		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (4 * 2 * 50e6));
-		rfData.N_HH_START_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_start / (4 * 2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
-		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (4 * 2 * 50e6));
-		rfData.N_HH_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_stop / (4 * 2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
+		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (2 * 50e6));
+		rfData.N_HH_START_FRAC = (unsigned int)(pow2_32 * (f_hhlo_start / (2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
+		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (2 * 50e6));
+		rfData.N_HH_STOP_FRAC = (unsigned int)(pow2_32 * (f_hhlo_stop / (2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
 
-		rfData.N_HH4_START_INT = (unsigned int)floor(f_hh4lo_start / (4 * 2 * 50e6));
-		rfData.N_HH4_START_FRAC = (unsigned int)(pow(2, 32) * (f_hh4lo_start / (4 * 2 * 50e6) - rfData.N_HH4_START_INT) + 0.5);
-		rfData.N_HH4_STOP_INT = (unsigned int)floor(f_hh4lo_stop / (4 * 2 * 50e6));
-		rfData.N_HH4_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hh4lo_stop / (4 * 2 * 50e6) - rfData.N_HH4_STOP_INT) + 0.5);
+		rfData.N_HH4_START_INT = (unsigned int)floor(f_hh4lo_start / (2 * 50e6));
+		rfData.N_HH4_START_FRAC = (unsigned int)(pow2_32 * (f_hh4lo_start / (2 * 50e6) - rfData.N_HH4_START_INT) + 0.5);
+		rfData.N_HH4_STOP_INT = (unsigned int)floor(f_hh4lo_stop / (2 * 50e6));
+		rfData.N_HH4_STOP_FRAC = (unsigned int)(pow2_32 * (f_hh4lo_stop / (2 * 50e6) - rfData.N_HH4_STOP_INT) + 0.5);
 	}
+	//3.3g~6.6g
 	else if(sysData.freq.start >= freq_hh1 - f_dbuc / 2 && sysData.freq.start <= freq_hh4 - f_dbuc / 2 && sysData.freq.stop <= freq_hh4)
 	{
 		rfData.SWEEP_BAND_INDEX = 4;
@@ -26439,7 +26392,7 @@ void tSysScpi::updateBandParam(void)
 		else
 			rfData.N_HH = ceil((f_stop - f_start) / f_step) + 1;
 
-		if(f_stop <= freq_hh2)
+		if(f_stop <= freq_hh2)//3.3g~4.4g
 		{
 			if(sysData.fscan.mode == fsFFT)
 				rfData.N_HH1 = ceil((f_stop - f_start) / f_step);
@@ -26447,7 +26400,8 @@ void tSysScpi::updateBandParam(void)
 				rfData.N_HH1 = ceil((f_stop - f_start) / f_step) + 1;
 			rfData.N_HH2 = 0;
 			rfData.N_HH3 = 0;
-		} else if(f_stop > freq_hh2 && f_stop <= freq_hh3)
+			rfData.HIGH_BAND_INDEX = 1;
+		} else if(f_stop > freq_hh2 && f_stop <= freq_hh3)//4.4g~5.5g
 		{
 			if(sysData.fscan.mode == fsFFT)
 				rfData.N_HH1 = ceil((freq_hh2 - f_start) / f_step);
@@ -26460,7 +26414,12 @@ void tSysScpi::updateBandParam(void)
 			else
 				rfData.N_HH2 = ceil((f_stop - rfData.N_HH1 * f_step - f_start) / f_step) + 1;
 			rfData.N_HH3 = 0;
-		} else if(f_stop > freq_hh3 && f_stop <= freq_hh4)
+			rfData.HIGH_BAND_INDEX = 3;
+			if(rfData.N_HH2 == 0)
+				rfData.HIGH_BAND_INDEX = 1;
+			if(rfData.N_HH1 == 0)
+				rfData.HIGH_BAND_INDEX = 2;
+		} else if(f_stop > freq_hh3 && f_stop <= freq_hh4)//5.5g~6.6g
 		{
 			if(sysData.fscan.mode == fsFFT)
 				rfData.N_HH1 = ceil((freq_hh2 - f_start) / f_step);
@@ -26483,23 +26442,33 @@ void tSysScpi::updateBandParam(void)
 
 			if(rfData.N_HH3 <= 0)
 				rfData.N_HH3 = 0;
+			rfData.HIGH_BAND_INDEX = 7;
+			if(rfData.N_HH1 == 0 && rfData.N_HH2 == 0 && rfData.N_HH3 != 0)
+				rfData.HIGH_BAND_INDEX = 4;
+			else if(rfData.N_HH1 == 0 && rfData.N_HH2 != 0 && rfData.N_HH3 == 0)
+				rfData.HIGH_BAND_INDEX = 2;
+			else if(rfData.N_HH1 == 0 && rfData.N_HH2 != 0 && rfData.N_HH3 != 0)
+				rfData.HIGH_BAND_INDEX = 6;
+			else if(rfData.N_HH1 != 0 && rfData.N_HH2 != 0 && rfData.N_HH3 == 0)
+				rfData.HIGH_BAND_INDEX = 3;
 
 		}
 		if(sysData.fscan.mode == fsFFT)
 		{
-			f_hhlo_start = f_start + f_step / 2 + 2.64e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 32) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hhlo_start = f_start + f_step / 2 + H_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_32 * (f_step / (2 * 50e6)) + 0.5);
 		} else
 		{
-			f_hhlo_start = f_start + 2.64e9 -f_step;//-f_step
-			f_hhlo_stop = (rfData.N_HH - 1) * f_step + f_start + 2.64e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 24) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hhlo_start = f_start + H_lo1 -f_step;//-f_step
+			f_hhlo_stop = (rfData.N_HH - 1) * f_step + f_start + H_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_24 * (f_step / (2 * 50e6)) + 0.5);
 		}
-		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (4 * 2 * 50e6));
-		rfData.N_HH_START_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_start / (4 * 2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
-		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (4 * 2 * 50e6));
-		rfData.N_HH_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_stop / (4 * 2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
+		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (2 * 50e6));
+		rfData.N_HH_START_FRAC = (unsigned int)(pow2_32 * (f_hhlo_start / (2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
+		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (2 * 50e6));
+		rfData.N_HH_STOP_FRAC = (unsigned int)(pow2_32 * (f_hhlo_stop / (2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
 	}
+	//3.3g~7.5g
 	else if(sysData.freq.start >= freq_hh1 - f_dbuc / 2 && sysData.freq.start <= freq_hh4 - f_dbuc / 2 && sysData.freq.stop > freq_hh4 && sysData.freq.stop <= MAXFREQ)
 	{
 		rfData.SWEEP_BAND_INDEX = 0xc;
@@ -26528,11 +26497,18 @@ void tSysScpi::updateBandParam(void)
 			{
 				rfData.N_HH4 = 0;
 				rfData.SWEEP_BAND_INDEX = 4;
+				rfData.HIGH_BAND_INDEX = 4;
+				if(rfData.N_HH1 == 0 && rfData.N_HH2 == 0)
+					rfData.HIGH_BAND_INDEX = 4;
+				else if(rfData.N_HH1 == 0 && rfData.N_HH2 != 0)
+					rfData.HIGH_BAND_INDEX = 6;
+				else if(rfData.N_HH1 != 0 && rfData.N_HH2 != 0)
+					rfData.HIGH_BAND_INDEX = 7;
 			}
 
-			f_hhlo_start = f_start + f_step / 2 + 2.64e9;
-			f_hh4lo_start = rfData.N_HH * f_step + f_start + f_step / 2 - 2.64e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 32) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hhlo_start = f_start + f_step / 2 + H_lo1;
+			f_hh4lo_start = rfData.N_HH * f_step + f_start + f_step / 2 - H_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_32 * (f_step / (2 * 50e6)) + 0.5);
 
 		} else
 		{
@@ -26549,29 +26525,39 @@ void tSysScpi::updateBandParam(void)
 			{
 				rfData.N_HH4 = 0;
 				rfData.SWEEP_BAND_INDEX = 4;
+				rfData.HIGH_BAND_INDEX = 4;
+				if(rfData.N_HH1 == 0 && rfData.N_HH2 == 0)
+					rfData.HIGH_BAND_INDEX = 4;
+				else if(rfData.N_HH1 == 0 && rfData.N_HH2 != 0)
+					rfData.HIGH_BAND_INDEX = 6;
+				else if(rfData.N_HH1 != 0 && rfData.N_HH2 != 0)
+					rfData.HIGH_BAND_INDEX = 7;				
 			}
 
-			f_hhlo_start = f_start + 2.64e9 -f_step;//-f_step
-			f_hhlo_stop = (rfData.N_HH - 1) * f_step + f_start + 2.64e9;
-			f_hh4lo_start = rfData.N_HH * f_step + f_start - 2.64e9 -f_step;//-f_step
-			f_hh4lo_stop = (rfData.N_HH + rfData.N_HH4 - 1) * f_step + f_start - 2.64e9;
+			f_hhlo_start = f_start + H_lo1 -f_step;//-f_step
+			f_hhlo_stop = (rfData.N_HH - 1) * f_step + f_start + H_lo1;
+			f_hh4lo_start = rfData.N_HH * f_step + f_start - H_lo1 -f_step;//-f_step
+			f_hh4lo_stop = (rfData.N_HH + rfData.N_HH4 - 1) * f_step + f_start - H_lo1;
 
-			rfData.N_QSTEP = (unsigned int)(pow(2, 24) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			rfData.N_QSTEP = (unsigned int)(pow2_24 * (f_step / (2 * 50e6)) + 0.5);
 		}
 
 
-		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (4 * 2 * 50e6));
-		rfData.N_HH_START_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_start / (4 * 2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
-		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (4 * 2 * 50e6));
-		rfData.N_HH_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hhlo_stop / (4 * 2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
+		rfData.N_HH_START_INT = (unsigned int)floor(f_hhlo_start / (2 * 50e6));
+		rfData.N_HH_START_FRAC = (unsigned int)(pow2_32 * (f_hhlo_start / (2 * 50e6) - rfData.N_HH_START_INT) + 0.5);
+		rfData.N_HH_STOP_INT = (unsigned int)floor(f_hhlo_stop / (2 * 50e6));
+		rfData.N_HH_STOP_FRAC = (unsigned int)(pow2_32 * (f_hhlo_stop / (2 * 50e6) - rfData.N_HH_STOP_INT) + 0.5);
 
-		rfData.N_HH4_START_INT = (unsigned int)floor(f_hh4lo_start / (4 * 2 * 50e6));
-		rfData.N_HH4_START_FRAC = (unsigned int)(pow(2, 32) * (f_hh4lo_start / (4 * 2 * 50e6) - rfData.N_HH4_START_INT) + 0.5);
-		rfData.N_HH4_STOP_INT = (unsigned int)floor(f_hh4lo_stop / (4 * 2 * 50e6));
-		rfData.N_HH4_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hh4lo_stop / (4 * 2 * 50e6) - rfData.N_HH4_STOP_INT) + 0.5);
-	} else
+		rfData.N_HH4_START_INT = (unsigned int)floor(f_hh4lo_start / (2 * 50e6));
+		rfData.N_HH4_START_FRAC = (unsigned int)(pow2_32 * (f_hh4lo_start / (2 * 50e6) - rfData.N_HH4_START_INT) + 0.5);
+		rfData.N_HH4_STOP_INT = (unsigned int)floor(f_hh4lo_stop / (2 * 50e6));
+		rfData.N_HH4_STOP_FRAC = (unsigned int)(pow2_32 * (f_hh4lo_stop / (2 * 50e6) - rfData.N_HH4_STOP_INT) + 0.5);
+	} 
+	//6.6g~7.5g
+	else
 	{
 		rfData.SWEEP_BAND_INDEX = 8;
+		rfData.HIGH_BAND_INDEX = 0;
 		rfData.N_L = 0;
 		rfData.FTW_Start = 0x5e000000;//(unsigned int)(27.4e6 / 102.4e6 * pow(2, 32));
 		rfData.FTW_Step = 0;
@@ -26595,38 +26581,45 @@ void tSysScpi::updateBandParam(void)
 		if(sysData.fscan.mode == fsFFT)
 		{
 			rfData.N_HH4 = ceil((f_stop - f_start) / f_step);
-			f_hh4lo_start = f_start + f_step / 2 - 2.64e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 32) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hh4lo_start = f_start + f_step / 2 - H_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_32 * (f_step / (2 * 50e6)) + 0.5);
 		}
 		else
 		{
 			rfData.N_HH4 = ceil((f_stop - f_start) / f_step) + 1;
-			f_hh4lo_start = f_start - 2.64e9 -f_step; //-f_step
-			f_hh4lo_stop = (rfData.N_HH4 - 1) * f_step + f_start - 2.64e9;
-			rfData.N_QSTEP = (unsigned int)(pow(2, 24) * (f_step / (4 * 2 * 50e6)) + 0.5);
+			f_hh4lo_start = f_start - H_lo1 -f_step; //-f_step
+			f_hh4lo_stop = (rfData.N_HH4 - 1) * f_step + f_start - H_lo1;
+			rfData.N_QSTEP = (unsigned int)(pow2_24 * (f_step / (2 * 50e6)) + 0.5);
 		}
-		rfData.N_HH4_START_INT = (unsigned int)floor(f_hh4lo_start / (4 * 2 * 50e6));
-		rfData.N_HH4_START_FRAC = (unsigned int)(pow(2, 32) * (f_hh4lo_start / (4 * 2 * 50e6) - rfData.N_HH4_START_INT) + 0.5);
-		rfData.N_HH4_STOP_INT = (unsigned int)floor(f_hh4lo_stop / (4 * 2 * 50e6));
-		rfData.N_HH4_STOP_FRAC = (unsigned int)(pow(2, 32) * (f_hh4lo_stop / (4 * 2 * 50e6) - rfData.N_HH4_STOP_INT) + 0.5);
+		rfData.N_HH4_START_INT = (unsigned int)floor(f_hh4lo_start / (2 * 50e6));
+		rfData.N_HH4_START_FRAC = (unsigned int)(pow2_32 * (f_hh4lo_start / (2 * 50e6) - rfData.N_HH4_START_INT) + 0.5);
+		rfData.N_HH4_STOP_INT = (unsigned int)floor(f_hh4lo_stop / (2 * 50e6));
+		rfData.N_HH4_STOP_FRAC = (unsigned int)(pow2_32 * (f_hh4lo_stop / (2 * 50e6) - rfData.N_HH4_STOP_INT) + 0.5);
 
 	}
-
-	if(rfData.N_HH1 > 0) hband1 = true;
-	if(rfData.N_HH2 > 0) hband2 = true;
-	if(rfData.N_HH3 > 0) hband3 = true;
-	if(rfData.N_HH4 > 0) hband4 = true;
-	rfData.HIGH_BAND_INDEX = hband4 << 3 | hband3 << 2 | hband2 << 1 | hband1;
 
 }
 
 //第一本振下发
 void tSysScpi::downLo1(void)
 {
+	//feDownload(0xfff1, 0x0c007a3c);  //配置本振,下发REG6
+
+						//*****混频低波段参数*****//
 	//混频低波段起始频率
-	feDownload(212, rfData.N_HL_START_INT);
+	feDownload(212, rfData.N_HL_START_INT & 0xffff);
 	feDownload(213, (rfData.N_HL_START_FRAC >> 16) & 0xffff);
 	feDownload(214, rfData.N_HL_START_FRAC & 0xffff);
+
+	//混频低波段终止频率
+	feDownload(253, rfData.N_HL_STOP_INT & 0xffff);
+	feDownload(254, (rfData.N_HL_STOP_FRAC >> 16) & 0xffff);
+	feDownload(255, rfData.N_HL_STOP_FRAC & 0xffff);
+	
+	//第一本振低波段步进次数
+	feDownload(221, (rfData.N_HL >> 16) & 0xff);
+	feDownload(222, rfData.N_HL & 0xffff);
+	
 	//本振步进量
 	if(sysData.fscan.mode == fsFFT)
 	{
@@ -26637,42 +26630,69 @@ void tSysScpi::downLo1(void)
 		feDownload(215, (rfData.N_QSTEP >> 16) & 0xff);
 		feDownload(216, rfData.N_QSTEP & 0xffff);
 	}
+
+
+						//******混频高波段L段参数******//
 	//混频高波段起始频率
-	feDownload(217, rfData.N_HH_START_INT);
+	feDownload(217, rfData.N_HH_START_INT & 0xffff);
 	feDownload(218, (rfData.N_HH_START_FRAC >> 16) & 0xffff);
 	feDownload(219, rfData.N_HH_START_FRAC & 0xffff);
-	//第一本振低波段步进次数
-	feDownload(221, (rfData.N_HL >> 16) & 0xff);
-	feDownload(222, rfData.N_HL & 0xffff);
+
+	//混频高波段L段终止频率
+	feDownload(256, rfData.N_HH_STOP_INT & 0xffff);
+	feDownload(257, (rfData.N_HH_STOP_FRAC >> 16) & 0xffff);
+	feDownload(258, rfData.N_HH_STOP_FRAC & 0xffff);
+	
 	//第一本振高波段步进次数
 	feDownload(223, (rfData.N_HH >> 16) & 0xff);
 	feDownload(224, rfData.N_HH & 0xffff);
+	
 	//第一本振高波段L段次数
 	feDownload(225, (rfData.N_HH1 >> 16) & 0xff);
 	feDownload(226, rfData.N_HH1 & 0xffff);
+
+	//第一本振高波段L段第二段
+	feDownload(262, (rfData.N_HH2 >> 16) & 0xff);
+	feDownload(263, rfData.N_HH2 & 0xffff);	
+
+
+						//******混频高波段H段参数******//
+	//混频高波段H段次数
+	feDownload(245, rfData.N_HH4_START_INT & 0xffff);
+	feDownload(246, (rfData.N_HH4_START_FRAC >> 16) & 0xffff);
+	feDownload(247, rfData.N_HH4_START_FRAC & 0xffff);
+
+	//混频高波段H段终止频率
+	feDownload(259, rfData.N_HH4_STOP_INT & 0xffff);
+	feDownload(260, (rfData.N_HH4_STOP_FRAC >> 16) & 0xffff);
+	feDownload(261, rfData.N_HH4_STOP_FRAC & 0xffff);
+	
 	//第一本振高波段H段次数
 	feDownload(227, (rfData.N_HH4 >> 16) & 0xff);
 	feDownload(228, rfData.N_HH4 & 0xffff);
-	//混频高波段H段次数
-	feDownload(245, rfData.N_HH4_START_INT);
-	feDownload(246, (rfData.N_HH4_START_FRAC >> 16) & 0xffff);
-	feDownload(247, rfData.N_HH4_START_FRAC & 0xffff);
-	//混频低波段终止频率
-	feDownload(253, rfData.N_HL_STOP_INT);
-	feDownload(254, (rfData.N_HL_STOP_FRAC >> 16) & 0xffff);
-	feDownload(255, rfData.N_HL_STOP_FRAC & 0xffff);
-	//混频高波段L段终止频率
-	feDownload(256, rfData.N_HH_STOP_INT);
-	feDownload(257, (rfData.N_HH_STOP_FRAC >> 16) & 0xffff);
-	feDownload(258, rfData.N_HH_STOP_FRAC & 0xffff);
-	//混频高波段H段终止频率
-	feDownload(259, rfData.N_HH4_STOP_INT);
-	feDownload(260, (rfData.N_HH4_STOP_FRAC >> 16) & 0xffff);
-	feDownload(261, rfData.N_HH4_STOP_FRAC & 0xffff);
-	//第一本振高波段L段第二段
-	feDownload(262, (rfData.N_HH2 >> 16) & 0xff);
-	feDownload(263, rfData.N_HH2 & 0xffff);
 
+#if 0
+	__var(rfData.N_HL_START_INT);usleep(1000);
+	__var(rfData.N_HL_START_FRAC);usleep(1000);
+	__var(rfData.N_HL_STOP_INT);usleep(1000);
+	__var(rfData.N_HL_STOP_FRAC);usleep(1000);
+	__var(rfData.N_HL);usleep(1000);
+	__var(rfData.N_QSTEP);usleep(1000);
+	__var(rfData.N_HH_START_INT);usleep(1000);
+	__var(rfData.N_HH_START_FRAC);usleep(1000);
+	__var(rfData.N_HH_STOP_INT);usleep(1000);
+	__var(rfData.N_HH_STOP_FRAC);usleep(1000);
+	__var(rfData.N_HH);usleep(1000);
+	__var(rfData.N_HH1);usleep(1000);
+	__var(rfData.N_HH2);usleep(1000);
+	__var(rfData.N_HH4_START_INT);usleep(1000);
+	__var(rfData.N_HH4_START_FRAC);usleep(1000);
+	__var(rfData.N_HH4_STOP_INT);usleep(1000);
+	__var(rfData.N_HH4_STOP_FRAC);usleep(1000);
+	__var(rfData.N_HH4);usleep(1000);
+	__var(sysData.fscan.step);usleep(1000);
+	__var(rfData.DBUC_FREQ);usleep(1000);
+#endif
 }
 
 //波段指示下发
@@ -26697,7 +26717,7 @@ void tSysScpi::setFTWOfDDS(void)
 	feDownload(210, (rfData.FTW_Step >> 16) & 0xffff);  // 短波段步进量 高16位
 	feDownload(211, rfData.FTW_Step & 0xffff);			// 短波段步进量 低16位
 	feDownload(220, (rfData.N_L >> 16) & 0xffff);			  // 短波段 步进次数高16位
-	feDownload(233, rfData.N_L & 0xffff);								// 短波段 步进次数低16位
+	feDownload(235, rfData.N_L & 0xffff);								// 短波段 步进次数低16位
 	feDownload(6, 0);
 }
 
@@ -26705,6 +26725,7 @@ void tSysScpi::setFTWOfDDS(void)
 inline void tSysScpi::restartScan(void)
 {
 	feDownload(244, 1);
+	usleep(1);
 	feDownload(244, 0);
 }
 
@@ -26717,9 +26738,6 @@ inline void tSysScpi::setScanEnable(bool value)
 //fft控制
 void tSysScpi::fftControl(void)
 {
-
-//	updateScanParam(sysData.bw.rbw);
-//	updateBandParam();
 
 	sysData.fscan.fftFrame = rfData.N_L + rfData.N_HL + rfData.N_HH + rfData.N_HH4;
 	if(sysData.fscan.mode == fsSweep)
@@ -26755,11 +26773,11 @@ void tSysScpi::fftControl(void)
 	usleep(1);
 	feDownload(14, 0);
 
-	//FFT 帧数
-	feDownload(20, (sysData.fscan.fftFrame >> 16) & 0xff);    //fft帧数 高8位
+	//频谱仪执行完一次扫描的帧数
+	feDownload(20, (sysData.fscan.fftFrame >> 16) & 0xff);    //fft帧数 高16位
 	feDownload(21, sysData.fscan.fftFrame & 0xffff);		  //fft帧数 低16位
 
-	//FFT 实际扫描总频点数
+	//频谱仪执行完一次扫描的实际总频点数
 	feDownload(22, (sysData.fscan.fftRealN >> 16) & 0xffff);  // 高16位
 	feDownload(23, sysData.fscan.fftRealN & 0xffff);		  // 低16位
 

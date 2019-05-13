@@ -20,8 +20,8 @@ typedef unsigned int  uint;
 #define VER_BUILD            180912     //编译版本号(月份+日期)
 #define VER_TAG						   0 					//0 beta   1 release
 
-#define __var(var)			std::cout << "@@" << __func__ << "$$" << #var << "=" << var << std::endl
-#define __pile()            printf("!!%s;@@%s;##%d\n",__FILE__,__func__,__LINE__)
+#define __var(var)			std::cout << __func__ << ":" << #var << "=" << var << std::endl
+#define __pile()            printf("file:%s;func:%s;line:%d\n",__FILE__,__func__,__LINE__)
 extern int valuechanged;
   
 #define __DEBUG           0          //Debug开关

@@ -397,6 +397,7 @@
 #define SCPI_CMD_POWERMETER_FREQ_GET		        0x4201
 #define SCPI_CMD_POWERMETER_AMPT_GET		        0x4202
 #define SCPI_CMD_CALAFREQ							0x4203
+#define SCPI_CMD_CLEAR 								0x4204
   //检索返回值结构定义
 struct resultDef
 {
@@ -441,158 +442,158 @@ struct _SCPI_keyboardCmd
 
 static struct _SCPI_keyboardCmd Mainkey[]=
 {
-  {"*CLS",															  SCPI_CMD_STANDARD_CLS},\
-  {"*CLEAR",														  SCPI_CMD_STANDARD_CLEAR},\
-  {"*IDN?",															  SCPI_CMD_STANDARD_IDN_QUERY},\
-  {"*RST",															  SCPI_CMD_STANDARD_RST},\
-  {"*VER?",															  SCPI_CMD_STANDARD_VER},\
+  {"*CLS",											SCPI_CMD_STANDARD_CLS},\
+  {"*CLEAR",										SCPI_CMD_STANDARD_CLEAR},\
+  {"*IDN?",											SCPI_CMD_STANDARD_IDN_QUERY},\
+  {"*RST",											SCPI_CMD_STANDARD_RST},\
+  {"*VER?",											SCPI_CMD_STANDARD_VER},\
 };
 
 static struct _SCPI_keyboardCmd test[] = {
   //ROOT
-  {"",						    									  0x00000000},\
+  {"",						    					0x00000000},\
   //CAL
-  {":FACTCAL",													 	  SCPI_CMD_STANDARD_CAL},\
-  {":ZCCAL",														  SCPI_CMD_STANDARD_ZCCAL},\
-  {":FACTPRECAL",													  SCPI_CMD_STANDARD_PRECAL},\
+  {":FACTCAL",												SCPI_CMD_STANDARD_CAL},\
+  {":ZCCAL",												SCPI_CMD_STANDARD_ZCCAL},\
+  {":FACTPRECAL",									        SCPI_CMD_STANDARD_PRECAL},\
   //FREQ
-  {":[SENSe]:FREQuency:CENTer",	       								  SCPI_CMD_FREQ_CENTER_SET},\
-  {":[SENSe]:FREQuency:CENTer?",	       							  SCPI_CMD_FREQ_CENTER_GET},\
-  {":[SENSe]:FREQuency:STARt",						    			  SCPI_CMD_FREQ_START_SET},\
-  {":[SENSe]:FREQuency:STARt?",						     			  SCPI_CMD_FREQ_START_GET},\
-  {":[SENSe]:FREQuency:STOP",								 		  SCPI_CMD_FREQ_STOP_SET},\
-  {":[SENSe]:FREQuency:STOP?",							 			  SCPI_CMD_FREQ_STOP_GET},\
-  {":[SENSe]:FREQuency:CENTer:STEP",						 		  SCPI_CMD_FREQ_CFSTEP_SET},\
-  {":[SENSe]:FREQuency:CENTer:STEP:[INCRement]",			 		  SCPI_CMD_FREQ_CFSTEP_SET},\
-  {":[SENSe]:FREQuency:CENTer:STEP?", 					 			  SCPI_CMD_FREQ_CFSTEP_GET},\
-  {":[SENSe]:FREQuency:CENTer:STEP:[INCRement]?", 		 			  SCPI_CMD_FREQ_CFSTEP_GET},\
-  {":[SENSe]:FREQuency:CENTer:STEP:AUTO",						 	  SCPI_CMD_FREQ_CFSTEP_AUTO_SET},\
-  {":[SENSe]:FREQuency:CENTer:STEP:AUTO?",						 	  SCPI_CMD_FREQ_CFSTEP_AUTO_GET},\
-  {":DISPlay:WINdow:TRACe:X:[SCALe]:OFFSet",                          SCPI_CMD_FREQ_OFFSET_SET},\
-  {":DISPlay:WINdow:TRACe:X:[SCALe]:OFFSet?",                         SCPI_CMD_FREQ_OFFSET_GET},\
-  {":[SENSe]:FREQuency:REFerence",                                    SCPI_CMD_FREQ_REFERENCE_SET},\
-  {":[SENSe]:FREQuency:REFerence?",                                   SCPI_CMD_FREQ_REFERENCE_GET},\
-  {":DISPlay:WINdow:TRACe:X:[SCALe]:SPACing",                         SCPI_CMD_FREQ_SCALETYPE_SET},\
-  {":DISPlay:WINdow:TRACe:X:[SCALe]:SPACing?",                  	    SCPI_CMD_FREQ_SCALETYPE_GET},\
+  {":[SENSe]:FREQuency:CENTer",	       						SCPI_CMD_FREQ_CENTER_SET},\
+  {":[SENSe]:FREQuency:CENTer?",	       					SCPI_CMD_FREQ_CENTER_GET},\
+  {":[SENSe]:FREQuency:STARt",						    	SCPI_CMD_FREQ_START_SET},\
+  {":[SENSe]:FREQuency:STARt?",						     	SCPI_CMD_FREQ_START_GET},\
+  {":[SENSe]:FREQuency:STOP",								SCPI_CMD_FREQ_STOP_SET},\
+  {":[SENSe]:FREQuency:STOP?",							 	SCPI_CMD_FREQ_STOP_GET},\
+  {":[SENSe]:FREQuency:CENTer:STEP",						SCPI_CMD_FREQ_CFSTEP_SET},\
+  {":[SENSe]:FREQuency:CENTer:STEP:[INCRement]",			SCPI_CMD_FREQ_CFSTEP_SET},\
+  {":[SENSe]:FREQuency:CENTer:STEP?", 					 	SCPI_CMD_FREQ_CFSTEP_GET},\
+  {":[SENSe]:FREQuency:CENTer:STEP:[INCRement]?", 		 	SCPI_CMD_FREQ_CFSTEP_GET},\
+  {":[SENSe]:FREQuency:CENTer:STEP:AUTO",					SCPI_CMD_FREQ_CFSTEP_AUTO_SET},\
+  {":[SENSe]:FREQuency:CENTer:STEP:AUTO?",					SCPI_CMD_FREQ_CFSTEP_AUTO_GET},\
+  {":DISPlay:WINdow:TRACe:X:[SCALe]:OFFSet",                SCPI_CMD_FREQ_OFFSET_SET},\
+  {":DISPlay:WINdow:TRACe:X:[SCALe]:OFFSet?",               SCPI_CMD_FREQ_OFFSET_GET},\
+  {":[SENSe]:FREQuency:REFerence",                          SCPI_CMD_FREQ_REFERENCE_SET},\
+  {":[SENSe]:FREQuency:REFerence?",                         SCPI_CMD_FREQ_REFERENCE_GET},\
+  {":DISPlay:WINdow:TRACe:X:[SCALe]:SPACing",               SCPI_CMD_FREQ_SCALETYPE_SET},\
+  {":DISPlay:WINdow:TRACe:X:[SCALe]:SPACing?",              SCPI_CMD_FREQ_SCALETYPE_GET},\
 
   //SPAN
-  {":[SENSe]:FREQuency:SPAN",                                         SCPI_CMD_SPAN_SET},\
-  {":[SENSe]:FREQuency:SPAN?",                                        SCPI_CMD_SPAN_GET},\
-  {":[SENSe]:FREQuency:SPAN:FULL",                                    SCPI_CMD_SPAN_FULL},\
-  {":[SENSe]:FREQuency:SPAN:ZERO",                                    SCPI_CMD_SPAN_ZERO},\
-  {":[SENSe]:FREQuency:SPAN:PREVious",                                SCPI_CMD_SPAN_PREVIOUS},\
+  {":[SENSe]:FREQuency:SPAN",                               SCPI_CMD_SPAN_SET},\
+  {":[SENSe]:FREQuency:SPAN?",                              SCPI_CMD_SPAN_GET},\
+  {":[SENSe]:FREQuency:SPAN:FULL",                          SCPI_CMD_SPAN_FULL},\
+  {":[SENSe]:FREQuency:SPAN:ZERO",                          SCPI_CMD_SPAN_ZERO},\
+  {":[SENSe]:FREQuency:SPAN:PREVious",                      SCPI_CMD_SPAN_PREVIOUS},\
 
   //AMPT
-  {":DISPlay:WINdow:TRACe:Y:[SCALe]:RLEVel",                          SCPI_CMD_AMPT_REFLEVEL_SET},\
-  {":DISPlay:WINdow:TRACe:Y:[SCALe]:RLEVel?",                         SCPI_CMD_AMPT_REFLEVEL_GET},\
-  {":[SENSe]:POWer:[RF]:ATTenuation",                                 SCPI_CMD_AMPT_ATT_SET},\
-  {":[SENSe]:POWer:[RF]:ATTenuation?",                                SCPI_CMD_AMPT_ATT_GET},\
-  {":[SENSe]:POWer:[RF]:ATTenuation:AUTO",                            SCPI_CMD_AMPT_ATT_AUTO_SET},\
-  {":[SENSe]:POWer:[RF]:ATTenuation:AUTO?",                           SCPI_CMD_AMPT_ATT_AUTO_GET},\
-  {":DISPlay:WINdow:TRACe:Y:[SCALe]:PDIVision",                       SCPI_CMD_AMPT_SCALEDIV_SET},\
-  {":DISPlay:WINdow:TRACe:Y:[SCALe]:PDIVision?",                      SCPI_CMD_AMPT_SCALEDIV_GET},\
-  {":DISPlay:WINdow:TRACe:Y:[SCALe]:SPACing",                         SCPI_CMD_AMPT_SCALETYPE_SET},\
-  {":DISPlay:WINdow:TRACe:Y:[SCALe]:SPACing?",                        SCPI_CMD_AMPT_SCALETYPE_GET},\
-  {":DISPlay:WINdow:TRACe:Y:[SCALe]:RLEVel:OFFSet",                   SCPI_CMD_AMPT_REFLEVEL_OFFSET_SET},\
-  {":DISPlay:WINdow:TRACe:Y:[SCALe]:RLEVel:OFFSet?",                  SCPI_CMD_AMPT_REFLEVEL_OFFSET_GET},\
-  {":UNIT:POWer",                                                     SCPI_CMD_AMPT_REFUNIT_SET},\
-  {":UNIT:POWer?",                                                    SCPI_CMD_AMPT_REFUNIT_GET},\
+  {":DISPlay:WINdow:TRACe:Y:[SCALe]:RLEVel",                SCPI_CMD_AMPT_REFLEVEL_SET},\
+  {":DISPlay:WINdow:TRACe:Y:[SCALe]:RLEVel?",               SCPI_CMD_AMPT_REFLEVEL_GET},\
+  {":[SENSe]:POWer:[RF]:ATTenuation",                       SCPI_CMD_AMPT_ATT_SET},\
+  {":[SENSe]:POWer:[RF]:ATTenuation?",                      SCPI_CMD_AMPT_ATT_GET},\
+  {":[SENSe]:POWer:[RF]:ATTenuation:AUTO",                  SCPI_CMD_AMPT_ATT_AUTO_SET},\
+  {":[SENSe]:POWer:[RF]:ATTenuation:AUTO?",                 SCPI_CMD_AMPT_ATT_AUTO_GET},\
+  {":DISPlay:WINdow:TRACe:Y:[SCALe]:PDIVision",             SCPI_CMD_AMPT_SCALEDIV_SET},\
+  {":DISPlay:WINdow:TRACe:Y:[SCALe]:PDIVision?",            SCPI_CMD_AMPT_SCALEDIV_GET},\
+  {":DISPlay:WINdow:TRACe:Y:[SCALe]:SPACing",               SCPI_CMD_AMPT_SCALETYPE_SET},\
+  {":DISPlay:WINdow:TRACe:Y:[SCALe]:SPACing?",              SCPI_CMD_AMPT_SCALETYPE_GET},\
+  {":DISPlay:WINdow:TRACe:Y:[SCALe]:RLEVel:OFFSet",         SCPI_CMD_AMPT_REFLEVEL_OFFSET_SET},\
+  {":DISPlay:WINdow:TRACe:Y:[SCALe]:RLEVel:OFFSet?",        SCPI_CMD_AMPT_REFLEVEL_OFFSET_GET},\
+  {":UNIT:POWer",                                           SCPI_CMD_AMPT_REFUNIT_SET},\
+  {":UNIT:POWer?",                                          SCPI_CMD_AMPT_REFUNIT_GET},\
 
-  {":[SENSe]:POWer:[RF]:GAIN:AUTO",                                   SCPI_CMD_AMPT_PREAMPT_SET},\
-  {":[SENSe]:POWer:[RF]:GAIN:AUTO?",                                  SCPI_CMD_AMPT_PREAMPT_GET},\
+  {":[SENSe]:POWer:[RF]:GAIN:AUTO",                         SCPI_CMD_AMPT_PREAMPT_SET},\
+  {":[SENSe]:POWer:[RF]:GAIN:AUTO?",                        SCPI_CMD_AMPT_PREAMPT_GET},\
 
   //TUNE
 //  {":CALCulate:MARKer:TRCKing",                                       SCPI_CMD_TUNE_SET},\
 //  {":CALCulate:MARKer:TRCKing:STATe",                                 SCPI_CMD_TUNE_SET},\
 //  {":CALCulate:MARKer:TRCKing?",                                      SCPI_CMD_TUNE_GET},\
 //  {":CALCulate:MARKer:TRCKing:STATe?",                                SCPI_CMD_TUNE_GET},
-  {":CALCulate:TUNE:AUTO",                                            SCPI_CMD_TUNE_SET},\
-  {":CALCulate:TUNE:AUTO?",                                           SCPI_CMD_TUNE_GET},\
+  {":CALCulate:TUNE:AUTO",                                  SCPI_CMD_TUNE_SET},\
+  {":CALCulate:TUNE:AUTO?",                                 SCPI_CMD_TUNE_GET},\
 
   //BW
-  {":[SENSe]:BANDwidth",                                              SCPI_CMD_BW_RBW_SET},\
-  {":[SENSe]:BWIDth",                                                 SCPI_CMD_BW_RBW_SET},\
-  {":[SENSe]:BANDwidth?",                                             SCPI_CMD_BW_RBW_GET},\
-  {":[SENSe]:BWIDth?",                                                SCPI_CMD_BW_RBW_GET},\
-  {":[SENSe]:BANDwidth:[RESolution]",                                 SCPI_CMD_BW_RBW_SET},\
-  {":[SENSe]:BWIDth:[RESolution]",                                    SCPI_CMD_BW_RBW_SET},\
-  {":[SENSe]:BANDwidth:[RESolution]?",                                SCPI_CMD_BW_RBW_GET},\
-  {":[SENSe]:BWIDth:[RESolution]?",                                   SCPI_CMD_BW_RBW_GET},\
-  {":[SENSe]:BANDwidth:[RESolution]:AUTO",                            SCPI_CMD_BW_RBW_AUTO_SET},\
-  {":[SENSe]:BWIDth:[RESolution]:AUTO",                               SCPI_CMD_BW_RBW_AUTO_SET},\
-  {":[SENSe]:BANDwidth:[RESolution]:AUTO?",                           SCPI_CMD_BW_RBW_AUTO_GET},\
-  {":[SENSe]:BWIDth:[RESolution]:AUTO?",                              SCPI_CMD_BW_RBW_AUTO_GET},\
-  {":[SENSe]:BANDwidth:[RESolution]:STEP:MODE",                       SCPI_CMD_BW_RBW_STEP_MODE_SET},\
-  {":[SENSe]:BWIDth:[RESolution]:STEP:MODE",                          SCPI_CMD_BW_RBW_STEP_MODE_SET},\
-  {":[SENSe]:BANDwidth:[RESolution]:STEP:MODE?",                      SCPI_CMD_BW_RBW_STEP_MODE_GET},\
-  {":[SENSe]:BWIDth:[RESolution]:STEP:MODE?",                         SCPI_CMD_BW_RBW_STEP_MODE_GET},\
-  {":[SENSe]:BANDwidth:VIDeo",                                        SCPI_CMD_BW_VBW_SET},\
-  {":[SENSe]:BWIDth:VIDeo",                                           SCPI_CMD_BW_VBW_SET},\
-  {":[SENSe]:BANDwidth:VIDeo?",                                       SCPI_CMD_BW_VBW_GET},\
-  {":[SENSe]:BWIDth:VIDeo?",                                          SCPI_CMD_BW_VBW_GET},\
-  {":[SENSe]:BANDwidth:VIDeo:AUTO",                                   SCPI_CMD_BW_VBW_AUTO_SET},\
-  {":[SENSe]:BWIDth:VIDeo:AUTO",                                      SCPI_CMD_BW_VBW_AUTO_SET},\
-  {":[SENSe]:BANDwidth:VIDeo:AUTO?",                                  SCPI_CMD_BW_VBW_AUTO_GET},\
-  {":[SENSe]:BWIDth:VIDeo:AUTO?",                                     SCPI_CMD_BW_VBW_AUTO_GET},\
-  {":[SENSe]:AVERage",                                                SCPI_CMD_BW_AVERAGE_STATE_SET},\
-  {":[SENSe]:AVERage:[STATe]",                                        SCPI_CMD_BW_AVERAGE_STATE_SET},\
-  {":[SENSe]:AVERage?",                                               SCPI_CMD_BW_AVERAGE_STATE_GET},\
-  {":[SENSe]:AVERage:[STATe]?",                                       SCPI_CMD_BW_AVERAGE_STATE_GET},\
-  {":[SENSe]:AVERage:COUNt",                                          SCPI_CMD_BW_AVERAGE_COUNT_SET},\
-  {":[SENSe]:AVERage:COUNt?",                                         SCPI_CMD_BW_AVERAGE_COUNT_GET},\
+  {":[SENSe]:BANDwidth",                                    SCPI_CMD_BW_RBW_SET},\
+  {":[SENSe]:BWIDth",                                       SCPI_CMD_BW_RBW_SET},\
+  {":[SENSe]:BANDwidth?",                                   SCPI_CMD_BW_RBW_GET},\
+  {":[SENSe]:BWIDth?",                                      SCPI_CMD_BW_RBW_GET},\
+  {":[SENSe]:BANDwidth:[RESolution]",                       SCPI_CMD_BW_RBW_SET},\
+  {":[SENSe]:BWIDth:[RESolution]",                          SCPI_CMD_BW_RBW_SET},\
+  {":[SENSe]:BANDwidth:[RESolution]?",                      SCPI_CMD_BW_RBW_GET},\
+  {":[SENSe]:BWIDth:[RESolution]?",                         SCPI_CMD_BW_RBW_GET},\
+  {":[SENSe]:BANDwidth:[RESolution]:AUTO",                  SCPI_CMD_BW_RBW_AUTO_SET},\
+  {":[SENSe]:BWIDth:[RESolution]:AUTO",                     SCPI_CMD_BW_RBW_AUTO_SET},\
+  {":[SENSe]:BANDwidth:[RESolution]:AUTO?",                 SCPI_CMD_BW_RBW_AUTO_GET},\
+  {":[SENSe]:BWIDth:[RESolution]:AUTO?",                    SCPI_CMD_BW_RBW_AUTO_GET},\
+  {":[SENSe]:BANDwidth:[RESolution]:STEP:MODE",             SCPI_CMD_BW_RBW_STEP_MODE_SET},\
+  {":[SENSe]:BWIDth:[RESolution]:STEP:MODE",                SCPI_CMD_BW_RBW_STEP_MODE_SET},\
+  {":[SENSe]:BANDwidth:[RESolution]:STEP:MODE?",            SCPI_CMD_BW_RBW_STEP_MODE_GET},\
+  {":[SENSe]:BWIDth:[RESolution]:STEP:MODE?",               SCPI_CMD_BW_RBW_STEP_MODE_GET},\
+  {":[SENSe]:BANDwidth:VIDeo",                              SCPI_CMD_BW_VBW_SET},\
+  {":[SENSe]:BWIDth:VIDeo",                                 SCPI_CMD_BW_VBW_SET},\
+  {":[SENSe]:BANDwidth:VIDeo?",                             SCPI_CMD_BW_VBW_GET},\
+  {":[SENSe]:BWIDth:VIDeo?",                                SCPI_CMD_BW_VBW_GET},\
+  {":[SENSe]:BANDwidth:VIDeo:AUTO",                         SCPI_CMD_BW_VBW_AUTO_SET},\
+  {":[SENSe]:BWIDth:VIDeo:AUTO",                            SCPI_CMD_BW_VBW_AUTO_SET},\
+  {":[SENSe]:BANDwidth:VIDeo:AUTO?",                        SCPI_CMD_BW_VBW_AUTO_GET},\
+  {":[SENSe]:BWIDth:VIDeo:AUTO?",                           SCPI_CMD_BW_VBW_AUTO_GET},\
+  {":[SENSe]:AVERage",                                      SCPI_CMD_BW_AVERAGE_STATE_SET},\
+  {":[SENSe]:AVERage:[STATe]",                              SCPI_CMD_BW_AVERAGE_STATE_SET},\
+  {":[SENSe]:AVERage?",                                     SCPI_CMD_BW_AVERAGE_STATE_GET},\
+  {":[SENSe]:AVERage:[STATe]?",                             SCPI_CMD_BW_AVERAGE_STATE_GET},\
+  {":[SENSe]:AVERage:COUNt",                                SCPI_CMD_BW_AVERAGE_COUNT_SET},\
+  {":[SENSe]:AVERage:COUNt?",                               SCPI_CMD_BW_AVERAGE_COUNT_GET},\
 
   //EMI BW
   {":[SENSe]:BANDwidth:EMC",						 				  										SCPI_CMD_BW_EMC_SET},\
   {":[SENSe]:BWIDth:EMC",						 					  											SCPI_CMD_BW_EMC_SET},\
   {":[SENSe]:BANDwidth:EMC?", 					 			          							SCPI_CMD_BW_EMC_GET},\
   {":[SENSe]:BWIDth:EMC?",   					 			          								SCPI_CMD_BW_EMC_GET},\
-  {":[SENSe]:BANDwidth:EMC:STATe",				 			          						SCPI_CMD_BW_EMC_STATE_SET},\
-  {":[SENSe]:BWIDth:EMC:STATe",				 						  									SCPI_CMD_BW_EMC_STATE_SET},\
-  {":[SENSe]:BANDwidth:EMC:STATe?",				 			          						SCPI_CMD_BW_EMC_STATE_GET},\
-  {":[SENSe]:BWIDth:EMC:STATe?",                                      SCPI_CMD_BW_EMC_STATE_GET},\
+  {":[SENSe]:BANDwidth:EMC:STATe",				 			SCPI_CMD_BW_EMC_STATE_SET},\
+  {":[SENSe]:BWIDth:EMC:STATe",				 				SCPI_CMD_BW_EMC_STATE_SET},\
+  {":[SENSe]:BANDwidth:EMC:STATe?",				 			SCPI_CMD_BW_EMC_STATE_GET},\
+  {":[SENSe]:BWIDth:EMC:STATe?",                            SCPI_CMD_BW_EMC_STATE_GET},\
 
   //SWEEP
-  {":[SENSe]:SWEep:TIME",                                             SCPI_CMD_SWEEP_TIME_SET},\
-  {":[SENSe]:SWEep:TIME?",                                            SCPI_CMD_SWEEP_TIME_GET},\
-  {":[SENSe]:SWEep:TIME:AUTO",                                        SCPI_CMD_SWEEP_TIME_AUTO_SET},\
-  {":[SENSe]:SWEep:TIME:AUTO?",                                       SCPI_CMD_SWEEP_TIME_AUTO_GET},\
-  {":INITiate:CONTinuous",                                            SCPI_CMD_SWEEP_MODE_SET},\
-  {":INITiate:CONTinuous?",                                           SCPI_CMD_SWEEP_MODE_GET},\
-  {":[SENSe]:SWEep:POINts",                                           SCPI_CMD_SWEEP_POINTS_SET},\
-  {":[SENSe]:SWEep:POINts?",                                          SCPI_CMD_SWEEP_POINTS_GET},\
+  {":[SENSe]:SWEep:TIME",                                   SCPI_CMD_SWEEP_TIME_SET},\
+  {":[SENSe]:SWEep:TIME?",                                  SCPI_CMD_SWEEP_TIME_GET},\
+  {":[SENSe]:SWEep:TIME:AUTO",                              SCPI_CMD_SWEEP_TIME_AUTO_SET},\
+  {":[SENSe]:SWEep:TIME:AUTO?",                             SCPI_CMD_SWEEP_TIME_AUTO_GET},\
+  {":INITiate:CONTinuous",                                  SCPI_CMD_SWEEP_MODE_SET},\
+  {":INITiate:CONTinuous?",                                 SCPI_CMD_SWEEP_MODE_GET},\
+  {":[SENSe]:SWEep:POINts",                                 SCPI_CMD_SWEEP_POINTS_SET},\
+  {":[SENSe]:SWEep:POINts?",                                SCPI_CMD_SWEEP_POINTS_GET},\
 
   //TRACE
-  {":TRACe?",                                                         SCPI_CMD_TRACE_DATA_GET},\
-  {":TRACe:[DATA]?",                                                  SCPI_CMD_TRACE_DATA_GET},\
+  {":TRACe?",                                               SCPI_CMD_TRACE_DATA_GET},\
+  {":TRACe:[DATA]?",                                        SCPI_CMD_TRACE_DATA_GET},\
   //socket
   {":TRACe:SOCKdata?",					 							  											SCPI_CMD_SPECIAL_TRACE_754DATA_GET},\
-  {":TRACe:MODE",                                                     SCPI_CMD_TRACE_MODE_SET},\
-  {":TRACe:MODE?",                                                    SCPI_CMD_TRACE_MODE_GET},\
+  {":TRACe:MODE",                                           SCPI_CMD_TRACE_MODE_SET},\
+  {":TRACe:MODE?",                                          SCPI_CMD_TRACE_MODE_GET},\
 
 
   //DETECTOR
-  {":[SENSe]:DETector",                                               SCPI_CMD_DETECTOR_SET},\
-  {":[SENSe]:DETector:[FUNCtion]",                                    SCPI_CMD_DETECTOR_SET},\
-  {":[SENSe]:DETector?",                                              SCPI_CMD_DETECTOR_GET},\
-  {":[SENSe]:DETector:[FUNCtion]?",                                   SCPI_CMD_DETECTOR_GET},\
+  {":[SENSe]:DETector",                                     SCPI_CMD_DETECTOR_SET},\
+  {":[SENSe]:DETector:[FUNCtion]",                          SCPI_CMD_DETECTOR_SET},\
+  {":[SENSe]:DETector?",                                    SCPI_CMD_DETECTOR_GET},\
+  {":[SENSe]:DETector:[FUNCtion]?",                         SCPI_CMD_DETECTOR_GET},\
 
   //DISPLAY
-  {":DISPlay:MENU:STATe",                                             SCPI_CMD_DISPLAY_FULLSCREEN_SET},\
-  {":DISPlay:MENU:STATe?",                                            SCPI_CMD_DISPLAY_FULLSCREEN_GET},\
-  {":DISPlay:FORMat:ZOOM",                                            SCPI_CMD_DISPLAY_FORMAT_ZOOM_SET},\
-  {":DISPlay:FORMat:ZOOM?",                                           SCPI_CMD_DISPLAY_FORMAT_ZOOM_GET},\
-  {":DISPlay:WINdow:TRACe:Y:DLINe",                                   SCPI_CMD_DISPLAY_LINE_Y_SET},\
-  {":DISPlay:WINdow:TRACe:Y:DLINe?",                                  SCPI_CMD_DISPLAY_LINE_Y_GET},\
-  {":DISPlay:WINdow:TRACe:Y:DLINe:STATe",                             SCPI_CMD_DISPLAY_LINE_Y_STATE_SET},\
-  {":DISPlay:WINdow:TRACe:Y:DLINe:STATe?",                            SCPI_CMD_DISPLAY_LINE_Y_STATE_GET},\
-  {":DISPlay:WINdow:TRACe:Y:[SCALe]:GAUge",                           SCPI_CMD_DISPLAY_Y_GAUGE_STATE_SET},\
-  {":DISPlay:WINdow:TRACe:Y:[SCALe]:GAUge?",                          SCPI_CMD_DISPLAY_Y_GAUGE_STATE_GET},\
-  {":DISPlay:WINdow:GRID",                                            SCPI_CMD_DISPLAY_GRID_STATE_SET},\
-  {":DISPlay:WINdow:GRID?",                                           SCPI_CMD_DISPLAY_GRID_STATE_GET},\
-  {":DISPlay:WINdow:LABEl",                                           SCPI_CMD_DISPLAY_LABEL_STATE_SET},\
-  {":DISPlay:WINdow:LABEl?",                                          SCPI_CMD_DISPLAY_LABEL_STATE_GET},\
-  {":DISPlay:SKIN",                                                   SCPI_CMD_DISPLAY_SKIN_SET},\
-  {":DISPlay:SKIN?",                                                  SCPI_CMD_DISPLAY_SKIN_GET},\
+  {":DISPlay:MENU:STATe",                                   SCPI_CMD_DISPLAY_FULLSCREEN_SET},\
+  {":DISPlay:MENU:STATe?",                                  SCPI_CMD_DISPLAY_FULLSCREEN_GET},\
+  {":DISPlay:FORMat:ZOOM",                                  SCPI_CMD_DISPLAY_FORMAT_ZOOM_SET},\
+  {":DISPlay:FORMat:ZOOM?",                                 SCPI_CMD_DISPLAY_FORMAT_ZOOM_GET},\
+  {":DISPlay:WINdow:TRACe:Y:DLINe",                         SCPI_CMD_DISPLAY_LINE_Y_SET},\
+  {":DISPlay:WINdow:TRACe:Y:DLINe?",                        SCPI_CMD_DISPLAY_LINE_Y_GET},\
+  {":DISPlay:WINdow:TRACe:Y:DLINe:STATe",                   SCPI_CMD_DISPLAY_LINE_Y_STATE_SET},\
+  {":DISPlay:WINdow:TRACe:Y:DLINe:STATe?",                  SCPI_CMD_DISPLAY_LINE_Y_STATE_GET},\
+  {":DISPlay:WINdow:TRACe:Y:[SCALe]:GAUge",                 SCPI_CMD_DISPLAY_Y_GAUGE_STATE_SET},\
+  {":DISPlay:WINdow:TRACe:Y:[SCALe]:GAUge?",                SCPI_CMD_DISPLAY_Y_GAUGE_STATE_GET},\
+  {":DISPlay:WINdow:GRID",                                  SCPI_CMD_DISPLAY_GRID_STATE_SET},\
+  {":DISPlay:WINdow:GRID?",                                 SCPI_CMD_DISPLAY_GRID_STATE_GET},\
+  {":DISPlay:WINdow:LABEl",                                 SCPI_CMD_DISPLAY_LABEL_STATE_SET},\
+  {":DISPlay:WINdow:LABEl?",                                SCPI_CMD_DISPLAY_LABEL_STATE_GET},\
+  {":DISPlay:SKIN",                                         SCPI_CMD_DISPLAY_SKIN_SET},\
+  {":DISPlay:SKIN?",                                        SCPI_CMD_DISPLAY_SKIN_GET},\
 
   //MEAS
   {":CONFigure:SATime",                                               SCPI_CMD_MEAS_SET_ST},\
@@ -906,6 +907,7 @@ static struct _SCPI_keyboardCmd test[] = {
   {":USBPOWERmeter:FREQ?",																SCPI_CMD_POWERMETER_FREQ_GET},
   {":USBPOWERmeter:AMPT?",																SCPI_CMD_POWERMETER_AMPT_GET},
   {":CALAFREQ:FREQ",																	SCPI_CMD_CALAFREQ			},
+  {":CLEAR",												SCPI_CMD_CLEAR			},
 };
 
 //解析数组

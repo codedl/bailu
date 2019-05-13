@@ -270,7 +270,7 @@ void dataThread::run()
 	{
 		delay.tv_sec = 0;
 		//delay.tv_usec = 400 * 1000;//120 : start
-		delay.tv_usec = 120 * 1000;
+		delay.tv_usec = 80 * 1000;
 
 		select(0, NULL, NULL, NULL, &delay);
 
@@ -317,6 +317,8 @@ void dataThread::run()
 		getDataFromIF();
 		mutexAmpt.unlock();
 	}
+	else
+		ioctl(ramHandle, 0xfe, true);
 	}
 }
 

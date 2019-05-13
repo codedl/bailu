@@ -217,7 +217,7 @@ void tSysScpi::getDataFromIF(void)
 				if (sysData.ampt.isPreamptOn)
 				{
 					//bc att
-					double attbcValue = getErrorOfAttenuationofPre();
+					//double attbcValue = getErrorOfAttenuationofPre();
 
 					//bc if
 					double ifbcValue = getErrorOfIFofPre();
@@ -234,7 +234,7 @@ void tSysScpi::getDataFromIF(void)
 					//bc temperature
 					double tempbcValue = getErrorOfTemperature();
 
-					bcValue += attbcValue + ifbcValue + rbwbcValue + tempbcValue;
+					bcValue +=  ifbcValue + rbwbcValue + tempbcValue;
 
 					//LMP_C
 					if (sysData.isImpedanceTransformation)
