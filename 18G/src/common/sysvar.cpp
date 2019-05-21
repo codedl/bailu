@@ -94,4 +94,4 @@ int curSocket = 0;
 int intFlag = 0;
 unsigned long ifDataBuf[RAMDATASIZE];
 
-int valuechanged;
+bool valuechanged;

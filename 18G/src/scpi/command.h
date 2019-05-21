@@ -400,6 +400,7 @@
 #define SCPI_CMD_CLEAR								0x4204
 #define SCPI_CMD_TEMP								0x4205
 
+
   //检索返回值结构定义
 struct resultDef
 {
@@ -450,7 +451,7 @@ static struct _SCPI_keyboardCmd Mainkey[]=
   {"*RST",															  SCPI_CMD_STANDARD_RST},\
   {"*VER?",															  SCPI_CMD_STANDARD_VER},\
 };
-
+//:trace? trace1;
 static struct _SCPI_keyboardCmd test[] = {
   //ROOT
   {"",						    									  0x00000000},\
@@ -910,7 +911,7 @@ static struct _SCPI_keyboardCmd test[] = {
   {":USBPOWERmeter:AMPT?",									SCPI_CMD_POWERMETER_AMPT_GET},
   {":CALAFREQ:FREQ",										SCPI_CMD_CALAFREQ			},
   {":CLEAR",												SCPI_CMD_CLEAR			},
-  {":SYSTem:TEMP?",													SCPI_CMD_TEMP},
+  {":SYSTem:TEMP?",											SCPI_CMD_TEMP}, 
 };
 
 //解析数组

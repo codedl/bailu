@@ -22,7 +22,7 @@ typedef unsigned int  uint;
 
 #define __var(var)			std::cout << __func__ << ":" << #var << "=" << var << std::endl
 #define __pile()            printf("file:%s;func:%s;line:%d\n",__FILE__,__func__,__LINE__)
-extern int valuechanged;
+extern bool valuechanged;
   
 #define __DEBUG           0          //Debug开关
 #define _DEBUG            0          //Debug开关

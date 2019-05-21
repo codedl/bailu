@@ -3,19 +3,22 @@
 //获取中频数据
 void tSysScpi::getDataFromIF(void)
 {
+	memset(&sysData.prjValue[0],0,sizeof (sysData.prjValue));
+
 	if (sysData.freq.lineZero)
 	{
 		return;
 	}
 
 	double tempValue = 0;
-	double bcValue = 0;
+	double bcValue = 0, ifbcValue = 0;
 	bool isTrue = false;
 	double tempavgValue = 0;
 	double passFailFreq = 0;
 	double passFailStartFreq = 0;
 	double passFailStopFreq = 0;
-	double step = sysData.span.span / sysData.sweep.sweepPoints;
+	int bytes = 0;
+	double tempbcValue = 0;
 	if (sysData.measure.passFail.winSweepOn)
 	{
 		passFailStartFreq = sysData.measure.passFail.winFreqStart;
@@ -60,7 +63,7 @@ void tSysScpi::getDataFromIF(void)
 			dataBufSize = MAXSWEEPPOINTS;
 		}
 
-		unsigned long dataBuf[dataBufSize];
+		unsigned int dataBuf[dataBufSize];
 
 		if (sysData.fft.fftOn)
 		{
@@ -127,7 +130,7 @@ void tSysScpi::getDataFromIF(void)
 				if (!devControling)
 				{
 				//读取数据
-					read(ramHandle, dataBuf, sizeof dataBuf);					
+					read(ramHandle, dataBuf, sizeof dataBuf);
 				}
 			}
 		}
@@ -144,65 +147,28 @@ void tSysScpi::getDataFromIF(void)
 			isFillData = false;
 		}
 
+		tempbcValue = getErrorOfTemperature();
+		bcValue += tempbcValue;
+		
+		if (sysData.isImpedanceTransformation)
+		{
+			bcValue += sysData.ampt.LMPValue;
+		}
+
 		if (sysData.freq.isLowChannel)
 		{
 			if (!sysData.zcPreamplifierCalData.isCaled && sysData.ampt.isPreamptOn)
 			{
 				sysData.zcPreamplifierCalData.absoluteAmptValue = 150;
 				bcValue = 0;
-			} else if (!sysData.zcCalData.isCaled)
+			} else if (!sysData.zcCalData.isCaled )
 			{
 				sysData.zcCalData.absoluteAmptValue = 150;
 				bcValue = 0;
-			} else
-			{
-				if (sysData.ampt.isPreamptOn)
-				{
-					//bc att
-					double attbcValue = getErrorOfAttenuationofLowfreqofPre();
-
-					//bc if
-					double ifbcValue = getErrorOfIFofLowfreqofPre();
-
-					//bc rbw
-					double rbwbcValue = getErrorOfRbwofLowfreqofPre();
-
-					//bc temperature
-					double tempbcValue = getErrorOfTemperature();
-
-					bcValue += attbcValue + ifbcValue + rbwbcValue + tempbcValue;
-					//LMP_C
-					if (sysData.isImpedanceTransformation)
-					{
-						bcValue += sysData.ampt.LMPValue;
-					}
-
-				} else
-				{
-					//bc att
-					//double attbcValue = getErrorOfAttenuationofLowfreq();
-
-					//bc if
-					//double ifbcValue = getErrorOfIFofLowfreq();
-
-					//bc rbw
-					double rbwbcValue = getErrorOfRbwofLowfreq();
-
-					//bc temperature
-					double tempbcValue = getErrorOfTemperature();
-
-					//bcValue += attbcValue + rbwbcValue + tempbcValue;
-					bcValue += rbwbcValue + tempbcValue;
-
-					//LMP_C
-					if (sysData.isImpedanceTransformation)
-					{
-						bcValue += sysData.ampt.LMPValue;
-					}
-
-				}
-			}
-		} else
+			} 
+			
+		}
+		 else
 		{
 			if (!sysData.preamplifierCalData.isCaled && sysData.ampt.isPreamptOn)
 			{
@@ -213,58 +179,9 @@ void tSysScpi::getDataFromIF(void)
 				sysData.factoryCalData.absoluteAmptValue = 150;
 				bcValue = 0;
 			} else
-			{
-				if (sysData.ampt.isPreamptOn)
-				{
-					//bc att
-					//double attbcValue = getErrorOfAttenuationofPre();
-
-					//bc if
-					double ifbcValue = getErrorOfIFofPre();
-
-					//bc rbw
-					double rbwbcValue = getErrorOfRbwofPre();
-
-					//bc emc rbw
-					if (sysData.emc.emcOn)
-					{
-						bcValue -= getErrorOfEmcRbw();
-					}
-
-					//bc temperature
-					double tempbcValue = getErrorOfTemperature();
-
-					bcValue +=  ifbcValue + rbwbcValue + tempbcValue;
-
-					//LMP_C
-					if (sysData.isImpedanceTransformation)
-					{
-						bcValue += sysData.ampt.LMPValue;
-					}
-					
-				} else
-				{
-					//bc att
-			//		double attbcValue = getErrorOfAttenuation();
-
-					//bc if
-					double ifbcValue = getErrorOfIF();
-
-					//bc rbw
-					double rbwbcValue = getErrorOfRbw();
-
-//					//bc emc rbw
-//					if (sysData.emc.emcOn)
-//					{
-//						bcValue -= getErrorOfEmcRbw();
-//					}
-
-					//bc temperature
-					double tempbcValue = getErrorOfTemperature();
-
-					bcValue += ifbcValue + rbwbcValue + tempbcValue;
-
-				}
+			{	
+				ifbcValue = getErrorOfIF();
+				bcValue += ifbcValue ;
 			}
 		}
 
@@ -296,7 +213,9 @@ void tSysScpi::getDataFromIF(void)
 						 (unsigned long long) sysData.freq.start == (unsigned long long) sysData.source.trackNetworkStandard.startFreq &&
 						 (unsigned long long) sysData.freq.stop	== (unsigned long long) sysData.source.trackNetworkStandard.stopFreq;
 
-		double maxvalue,ifvalue = 0, rfvalue = 0;
+		double maxvalue,ifvalue = 0, rfvalue = 0,initval = 0;
+		double freq  = 0;
+		int index = 0;
 		maxvalue = sysData.initValue[0];
 		for (int i = 0; i < dataBufSize; i++)
 		{
@@ -334,58 +253,32 @@ void tSysScpi::getDataFromIF(void)
 			{
 				if (sysData.ampt.isPreamptOn)
 				{
-					//tempValue = -40.0 + sysData.initValue[i];
-					tempValue = -40.0 + sysData.initValue[i] - sysData.zcPreamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.dsattRf + sysData.ampt.dsattIf + sysData.ampt.refOffset + bcValue;
+					tempValue = -35.0 + sysData.initValue[i] - sysData.zcPreamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.dsattRf + sysData.ampt.dsattIf + sysData.ampt.refOffset + bcValue;
 				} else
 				{
-					//tempValue = -20.0 + sysData.initValue[i];
-					tempValue = -20.0 + sysData.initValue[i] - sysData.zcCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.dsattRf + sysData.ampt.dsattIf + sysData.ampt.refOffset + bcValue;
+					tempValue = -15.0 + sysData.initValue[i] - sysData.zcCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.dsattRf + sysData.ampt.dsattIf + sysData.ampt.refOffset + bcValue;
 
 				}
 			} else
 			{
 				if (sysData.ampt.isPreamptOn)
 				{
-					if(valuechanged)
-						printf("sysData.preamplifierCalData.absoluteAmptValue!\n");
-					valuechanged = 0;
-					//tempValue = -24.0 + sysData.initValue[i]; 
 					tempValue = -24.0 + sysData.initValue[i] - sysData.preamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
 				} else
 				{
-					if(valuechanged)
-						printf("sysData.factoryCalData.absoluteAmptValue!\n");
-					valuechanged = 0;
-					//tempValue = -4.0 + sysData.initValue[i];
-					tempValue = -4.0 + sysData.initValue[i] - sysData.factoryCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
+					tempValue = -4.0 + sysData.initValue[i] - sysData.factoryCalData.absoluteAmptValue+ sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
 				}
 			}
-			if (sysData.initValue[i] > maxvalue)
-			{
-				maxvalue = sysData.initValue[i];
-				ifvalue = bcValue;
-				rfvalue = getErrorOfFreqResp(i);
-			}
-			if (sysData.freq.isLowChannel)//director sample compensation
-			{
-				if (sysData.ampt.isPreamptOn)
-				{
-					tempValue += getErrorOfLowFreqRespofPre(i);
-				} else
-				{
-					tempValue += getErrorOfLowFreqResp(i);
-				}
-//				if(i == 300)
-			} else
-			{
-				if (sysData.ampt.isPreamptOn)
-				{
-					tempValue += getErrorOfFreqRespofPre(i);
-				} else
-				{
-					tempValue += getErrorOfFreqResp(i);
-				}
-			}
+
+			//if (sysData.freq.isLowChannel)//director sample compensation
+			//{
+		
+				//tempValue += getErrorOfLowFreqResp(i);
+
+			//} else
+			//{
+				tempValue += getErrorOfFreqResp(i);//获取频响误差
+			//}
 
 			if (isTrue)
 			{
@@ -429,11 +322,44 @@ void tSysScpi::getDataFromIF(void)
 			{
 				sysData.prjValue[i] = tempValue;
 			}
-			//sysData.prjValue[i] -= 100;
+			if (sysData.initValue[i] > maxvalue)
+			{
+				index = i;
+				maxvalue = sysData.initValue[i];
+				ifvalue = bcValue;
+				rfvalue = getErrorOfFreqResp(i);
+				initval = dataBuf[i];
+				freq = sysData.freq.start + i * sysData.span.span / (sysData.sweep.sweepPoints - 1) - sysData.freq.offset;
+			}
+
 		}
+		
+			
 		if(valuechanged)
 		{
-			valuechanged = 0;
+			static int times = 0;
+			//__var(tempbcValue);
+			//__var(ifbcValue);
+			//__var(rfvalue);
+			//__var(sysData.zcPreamplifierCalData.absoluteAmptValue);
+			//__var(sysData.zcCalData.absoluteAmptValue);
+			//__var(sysData.preamplifierCalData.absoluteAmptValue);
+			////__var(sysData.factoryCalData.absoluteAmptValue);
+			__var(sysData.ampt.attRf);
+			__var(sysData.ampt.attIf);
+			printf("rf error value: %f\n",rfvalue);
+			printf("freq: %f\n",freq);
+			printf("index: %d\n",index);
+			printf("cal max value: %f\n",sysData.prjValue[index]);
+			printf("ori max value: %f\n",sysData.initValue[index]);
+			printf("tempbcValue:%f\n",tempbcValue);
+			printf("ifbcValue:%f\n",ifbcValue);
+			printf("bcValue:%f\n\n\n",bcValue);
+			if(times++ == 1)
+			{
+				valuechanged = false;
+				times = 0;
+			}
 		}
 		for (int i = 0; i < TRACECOUNT; i++)
 		{

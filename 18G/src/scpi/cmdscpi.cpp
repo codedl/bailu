@@ -89,7 +89,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 		returnString = "";
 		exeResult = __SCPI_FAILED;
 		result = GetFunctionCode(command);
-
+		
 		if (__CMDDEBUG)
 		{
 			printf("cmd[%d] = %s , cmdCode = %x\r\n", i, command.toStdString().c_str(), result.cmdCode);
@@ -279,7 +279,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					//freq command
 				case SCPI_CMD_FREQ_CENTER_SET:
 					exeResult = setFrequencyOfCenter(result.value.trimmed());
-					//valuechanged = 1;
+					//valuechanged = true;
 					//reDrawMenuFrame();
 					break;
 				case SCPI_CMD_FREQ_CENTER_GET:
@@ -488,6 +488,9 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 
 					//bw
 				case SCPI_CMD_BW_RBW_SET:
+					
+					//valuechanged = true;
+					
 					exeResult = setBwOfRbw(result.value.toUpper().trimmed());
 					//reDrawMenuFrame();
 					break;
@@ -833,7 +836,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 							returnString += tempChar;
 
 							traceDataString[tempIndex] = returnString;
-							//    traceDataOrganized[tempIndex] = true;
+							traceDataOrganized[tempIndex] = true;
 						} else
 						{
 							returnString = traceDataString[tempIndex];
@@ -851,7 +854,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					 scpiFloatToLen8String(sysData.trace[tempIndex].value[sysData.sweep.sweepPoints - 1], tempChar);
 					 returnString += tempChar;
 					 */
-				}
+					}
 					break;
 
 					//socket
@@ -2286,7 +2289,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					exeResult = __SCPI_RETURN;
 					returnString = "";
 
-					mutexFFT.lock();
+					//mutexFFT.lock();
 
 					for (int i = 0; i < sizeof(sysData.fft.IQTestData) / sizeof(sysData.fft.IQTestData[0]); i++)
 					{
@@ -2294,7 +2297,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 						returnString += tempChar;
 						returnString += ",";
 					}
-					mutexFFT.unlock();
+					//mutexFFT.unlock();
 					break;
 
 				case SCPI_CMD_OPTIONS_FFT_IQDATA_GET:
@@ -2601,24 +2604,27 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					break;
 
 				case SCPI_CMD_POWERMETER_FREQ_SET:
-					if(connectToPowerMeter() == false)
-					{
-					}
-					exeResult = setPowerMeterFreq(result.value.trimmed());
-					getDataFromPowerMeter();
+					exeResult = __SCPI_SUCCESS;
+					if(!tmcHandle)
+						tmcHandle = open("/dev/usbtmc0", O_RDWR | O_NONBLOCK);
+					setPowerMeterFreq(result.value.trimmed());
+					printf("power set freq:%s\n",result.value.toStdString().c_str());
 					break;
 				case SCPI_CMD_POWERMETER_FREQ_GET:
 					break;
 				case SCPI_CMD_POWERMETER_AMPT_GET:
+					//printf("SCPI_CMD_POWERMETER_AMPT_GET\n");
 					if(getDataFromPowerMeter() == __SCPI_SUCCESS)
 					{
 						exeResult = __SCPI_RETURN;
+						//printf("signal ampt: %f\n",sysData.measure.powerMeter.ampt);
 						returnString = QString(floatToStringDot3(sysData.measure.powerMeter.ampt, tempChar)).trimmed();
 					} else
 					{
 						exeResult = __SCPI_FAILED;
 					}
 					break;
+					
 				case SCPI_CMD_CALAFREQ:
 					printf("SCPI_CMD_CALAFREQ:%s\n",result.value.trimmed().toStdString().c_str());
 					break;
@@ -2628,7 +2634,8 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					break;	
 				case SCPI_CMD_TEMP:
 					{
-						char wdData[2] = {0, };
+						//printf("SCPI_CMD_TEMP\n");
+						char wdData[2] = {0 };
 						double temp = 0;
 						exeResult = __SCPI_RETURN;
 						while(temp == 0)
@@ -2643,6 +2650,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 						returnString = QString(floatToStringDot3(temp, tempChar)).trimmed();
 					}
 					break;
+					
 				default:
 					exeResult = __SCPI_UNSUPPORT;
 					break;

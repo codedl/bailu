@@ -266,14 +266,17 @@ void dataThread::run()
 	//delay.tv_usec = 400 * 1000;//120 : start
 	//delay.tv_usec = 120 * 1000;
 
+	unsigned int ut = 100 * 1000;
+	
 	while (true)
 	{
-		delay.tv_sec = 0;
+		//delay.tv_sec = 0;
 		//delay.tv_usec = 400 * 1000;//120 : start
 		//delay.tv_usec = 120 * 1000;
-		delay.tv_usec = 400 * 1000;//120 : start
+		//delay.tv_usec = 100 * 1000;//120 : start
 
-		select(0, NULL, NULL, NULL, &delay);
+		//select(0, NULL, NULL, NULL, &delay);
+		usleep(ut);
 		
 		//if system is calibrating
 		if (sysData.isPreamplifierCalibrating || sysData.isZcPreamplifierCalibrating || sysData.isZcCalibrating || sysData.isFactoryCalibrating || sysLocked)
@@ -312,15 +315,15 @@ void dataThread::run()
 			usleep(1000 * 100);
 			return;
 		}
-	//零扫宽响应中断读数，非零扫宽时主动读数
-	if (!sysData.span.isZeroSpan)
-	{
-		mutexAmpt.lock();
-		getDataFromIF();
-		mutexAmpt.unlock();
-	}
-	else
-		ioctl(ramHandle, 0xfe, true);//零扫宽读数标志
+		//零扫宽响应中断读数，非零扫宽时轮询读数
+		if (!sysData.span.isZeroSpan)
+		{
+			//mutexAmpt.lock();
+			getDataFromIF();
+			//mutexAmpt.unlock();
+		}
+		else
+			ioctl(ramHandle, 0xfe, true);//零扫宽读数标志
 	}
 }
 
@@ -382,6 +385,7 @@ void fftThread::run()
 	{
 		msleep(50);
 
+#if 0
 		//am
 		//if (sysData.options.isDemodOn && demodHandle >= 0 && sysData.options.amOn)
 		if (sysData.options.isDemodOn && iqHandle >= 0 && sysData.options.amOn)
@@ -690,8 +694,9 @@ void fftThread::run()
 		{
 			sysData.fft.isFftOut = false;
 		}
-
+#endif
 		//直采模式
+#if 0
 		if (sysScpi->isDirectGatherMode())
 		{
 			unsigned long lineValue = 0;
@@ -927,6 +932,7 @@ void fftThread::run()
 		{
 			sysData.fft.isFftOut = false;
 		}
+#endif
 /*
 		//FFT小分辨率模式
 		//if (sysData.isFftCalibrating  || (sysScpi->isRequireFFTMeas() && sysData.fft.fftOn && fftHandle >= 0 && ((!sysData.fft.isSweepSingle) || (sysData.fft.isSweepSingle && sysData.fft.sweepCount <= 0))))
@@ -1266,18 +1272,18 @@ void fftThread::run()
 void dataThread::getDataFromIF(void)
 {
 
-	if (sysData.disc.isDiscOn)
-	{
-		sysScpi->getDataFromUsbDisc();
-	} else if (sysData.options.amOn || sysData.options.fmOn)
-	{
+	//if (sysData.disc.isDiscOn)
+	//{
+	//	sysScpi->getDataFromUsbDisc();
+	//} else if (sysData.options.amOn || sysData.options.fmOn)
+	//{
 		//sysScpi->getDataFromDemod();
-		sysScpi->getDataFromIF();
+	//	sysScpi->getDataFromIF();
 		
-	} else
-	{
+	//} else
+	//{
 		sysScpi->getDataFromIF();
-	}
+	//}
 }
 
 //获取鉴频数据

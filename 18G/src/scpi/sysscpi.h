@@ -108,8 +108,9 @@ class tSysScpi : public tBaseScpi
     bool isRcvingLogoFile;
 
     QString traceDataString[TRACECOUNT];
-    bool traceDataOrganized[TRACECOUNT];
-
+    bool traceDataOrganized[TRACECOUNT];//trace data stauts of preparing
+    
+	char*lldtoStringUnit(long long int value, char* result);
     int setFrequencyOfCenter(double value);                              //设置中心频率
     int setFrequencyOfCenter(QString value);                             //设置中心频率
     int setFrequencyOfCenterWithArrow(bool up);                          //方向键设置中心频率
@@ -636,7 +637,8 @@ class tSysScpi : public tBaseScpi
     void calSweepTimeOfAuto(void);
     void sweepTimeDown(void);
     void readData(void);
-    void getDataFromIF(void);                                            //获取中频数据
+	void getcalData(void);                                            //获取中频数据
+	void getDataFromIF(void);                                            //获取中频数据
     void getDataFromUsbDisc(void);                                       //获取鉴频数据
     void getDataFromDemod(void);                                         //获取解调数据
 
@@ -1005,7 +1007,7 @@ class tSysScpi : public tBaseScpi
     void setCalibrateDistributeFrequencyRespond(int freqIndex, double ref, double rfatt, double ifatt);             //设置频率响应参数
     void setZcCalibrateParamOfIF(void);                                  //设置直采通道中频增益校准参数
     void setZcCalibrateDistributeIF(double value);                       //设置直采中频增益参数
-    void setZcCalibrateParamOfFrequencyRespond(void);                    //设置直采通道频率响应校准参数
+    void setZcCalibrateParamOfFrequencyRespond(int freqIndex,  double rfatt, double ifatt);                    //设置直采通道频率响应校准参数
     void setZcCalibrateParamOfRbw(void);                                 //设置直采通道分辨率校准参数
     void setZcCalibrateParamOfAbsoluteAmplitude(void);                   //设置直采通道幅度定标标准参数
     void setZcCalibrateDistributeFrequencyRespond(int freqIndex, double ref, double att); //设置直采通道频率响应参数

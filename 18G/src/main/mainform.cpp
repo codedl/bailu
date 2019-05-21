@@ -4782,6 +4782,20 @@ void mainForm::loadSystemDriver(void)
 			printf("%s\n", "load ram driver failed");
 		}
 	}
+
+	if(!tmcHandle)
+		tmcHandle = open("/dev/usbtmc0", O_RDWR | O_NONBLOCK);		
+
+	if(tmcHandle > 0)
+	{
+		if(__DEBUG)
+			printf("open USB powermeter succeed!\n");
+		write(tmcHandle, "SYST:PRES DEF;CAL:ZERO:TYPE INT;CAL;", 512);
+	} else
+	{
+		if(__DEBUG)
+			printf("open USB powermeter failed!\n");
+	}
 }
 
 void mainForm::getDataFromIF(void)
@@ -6958,10 +6972,10 @@ void sigio(int x)
 
 void mainForm::readIntData(void)
 {
-		mutexAmpt.lock();
-		getDataFromIF();
-		mutexAmpt.unlock();
-		
+	//mutexAmpt.lock();
+	getDataFromIF();
+	//mutexAmpt.unlock();
+
 #if 0
 	static int x = 0;
 	x++;

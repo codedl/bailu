@@ -287,6 +287,7 @@ void mainForm::handleArrowKey(int funcCode, bool up)
 			break;
 
 		case KEY_FUNC_AMPT_REFLEVEL:
+			printf("KEY_FUNC_AMPT_REFLEVEL\n");
 			sysScpi->setAmptOfRefLevelWithArrow(up);
 			break;
 		case KEY_FUNC_AMPT_ATT:
