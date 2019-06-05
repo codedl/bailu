@@ -18,11 +18,18 @@ typedef unsigned int  uint;
 #define VER_MINOR            0          //次版本号(设备型号代码)
 #define VER_REVISION         5          //修订版本号(年份后两位)
 #define VER_BUILD            180912     //编译版本号(月份+日期)
-#define VER_TAG						   0 					//0 beta   1 release
+#define VER_TAG				 0 					//0 beta   1 release
 
 #define __var(var)			std::cout << __func__ << ":" << #var << "=" << var << std::endl
 #define __pile()            printf("file:%s;func:%s;line:%d\n",__FILE__,__func__,__LINE__)
 extern bool valuechanged;
+extern int maxfreq;
+extern int minfreq;
+
+extern int freq_index;
+extern int band;
+
+#define rfchg 1
   
 #define __DEBUG           0          //Debug开关
 #define _DEBUG            0          //Debug开关

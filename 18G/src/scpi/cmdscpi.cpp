@@ -3,6 +3,9 @@
 //处理SCPI指令
 void tSysScpi::handleScpiCommand(QString cmdStr)
 {
+	//if(strncmp(cmdStr.toStdString().c_str(),":trac",5) != 0)
+		//printf("cmdStr=%s\n",cmdStr.toStdString().c_str());
+
 	QString tempStr = cmdStr;
 	QStringList cmdList;
 	QString command = "";
@@ -69,6 +72,9 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 	QString demodFreq = "";
 	QStringList tempDemodFreqValue;
 
+	//if(strncmp(temp.toStdString().c_str(),":trac",5) != 0)
+		//printf("scpiBuffer=%s\n",scpiBuffer.toStdString().c_str());
+
 	//指令解析
 	for (int i = 0; i < cmdList.count(); i++)
 	{
@@ -90,9 +96,9 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 		exeResult = __SCPI_FAILED;
 		result = GetFunctionCode(command);
 		
-		if (__CMDDEBUG)
+		if (result.cmdCode != 0x1902)
 		{
-			printf("cmd[%d] = %s , cmdCode = %x\r\n", i, command.toStdString().c_str(), result.cmdCode);
+			//printf("cmd[%d] = %s , cmdCode = 0x%x\r\n", i, command.toStdString().c_str(), result.cmdCode);
 		}
 
 		//update command
@@ -243,7 +249,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 				case SCPI_CMD_STANDARD_CLEAR:
 					exeResult = __SCPI_RETURN;
 					clearFactoryCalibrateData();
-					presetSystemData();
+					//presetSystemData();
 					break;
 
 				case SCPI_CMD_STANDARD_CAL_9KHZ_SET:
@@ -278,6 +284,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 
 					//freq command
 				case SCPI_CMD_FREQ_CENTER_SET:
+					//printf("set center freq\n");
 					exeResult = setFrequencyOfCenter(result.value.trimmed());
 					//valuechanged = true;
 					//reDrawMenuFrame();
@@ -965,7 +972,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 
 					//detector
 				case SCPI_CMD_DETECTOR_SET:
-					printf("setDetector:%s\n",result.value.toStdString().c_str());
+					//printf("setDetector:%s\n",result.value.toStdString().c_str());
 					exeResult = setDetector(result.value.toUpper().trimmed());
 					//reDrawMenuFrame();
 					break;
@@ -1806,7 +1813,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					break;
 				case SCPI_CMD_USER_CALIBRATION_RESTORE:
 					clearUserCalibrateData();
-					presetSystemData();
+					//presetSystemData();
 					break;
 
 					//设置IP
@@ -2628,10 +2635,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 				case SCPI_CMD_CALAFREQ:
 					printf("SCPI_CMD_CALAFREQ:%s\n",result.value.trimmed().toStdString().c_str());
 					break;
-				case SCPI_CMD_CLEAR:
-					system("mv /home/sky/setting.ini /home/sky/factory.txt /home/sky/file");
-					printf("SCPI_CMD_CLEAR,mv succeed!\n");
-					break;	
+	
 				case SCPI_CMD_TEMP:
 					{
 						//printf("SCPI_CMD_TEMP\n");
@@ -2640,6 +2644,7 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 						exeResult = __SCPI_RETURN;
 						while(temp == 0)
 						{
+							memset(wdData, 0, sizeof(wdData));
 							read(tmptHandle, wdData, sizeof(wdData));
 							usleep(1000);
 							if (wdData[0] & 0x80)
@@ -2648,6 +2653,61 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 								temp = ((wdData[0] << 8) | wdData[1]) * 0.0078125;
 						}
 						returnString = QString(floatToStringDot3(temp, tempChar)).trimmed();
+					
+					break;
+					}
+				case SCPI_CAL_FREQ:
+						bool isOk ;
+						static int cmdtimes=0;
+						if(cmdtimes == 0)
+						{
+							cmdtimes++;
+							minfreq = result.value.trimmed().toInt();
+						}
+						else if(cmdtimes == 1)
+						{
+							maxfreq = result.value.trimmed().toInt();
+							cmdtimes = 0;
+						}
+						printf("max:%d;min:%d\n",maxfreq,minfreq);
+						break;
+				case SCPI_BAND_TEST:
+						band = result.value.trimmed().toInt();
+						printf("band:%d\n",band);
+						controlRf();						
+						break;
+				case SCPI_IF_TEST:
+						sysData.ampt.attIf = result.value.trimmed().toDouble();
+						printf("if:%f\n",sysData.ampt.attIf);
+						controlRf();
+						break;
+				case SCPI_CAL_DATA:
+					{
+					double rferr=0, iferr=0, freq=0, temperr=0;
+					rferr = getErrorOfFreqResp(freq_index);
+					iferr = getErrorOfIF();
+					temperr = getErrorOfTemperature();
+					freq = sysData.freq.start + freq_index* sysData.span.span / (sysData.sweep.sweepPoints - 1) - sysData.freq.offset;		
+
+					printf("attrf:	%f\n",sysData.ampt.attRf);
+					printf("attif:	%f\n",sysData.ampt.attIf);
+					printf("rferr:	%f\n",rferr);
+					printf("temp :	%f\n",temperr);
+					printf("iferr:	%f\n",iferr);			
+					printf("freq :	%f\n",freq);
+					printf("index:	%d\n",freq_index);
+					printf("ampt :	%f\n",sysData.prjValue[freq_index]);
+					printf("max  :	%f\n",sysData.initValue[freq_index]);		
+					if(sysData.ampt.isPreamptOn)
+					{
+					printf("abs  :	%f\n",sysData.preamplifierCalData.absoluteAmptValue);
+					printf("ampt=max-24-abs+att+rferr+iferr+temp\n");
+					}
+					else
+					{
+					printf("abs  :	%f\n",sysData.factoryCalData.absoluteAmptValue);
+					printf("ampt=max-4-abs+att+rferr+iferr+temp\n");
+					}
 					}
 					break;
 					

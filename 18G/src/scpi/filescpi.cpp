@@ -184,9 +184,9 @@ void tSysScpi::saveLCDBacklight(void)
 //获取出厂校准数据
 void tSysScpi::getFactoryCalibrationData(void)
 {
-	FILE * fp = fopen("data.c","w");
 	resetFactoryCalibrationData();
 
+	QString jindex,iindex,freq;
 	char tempChar[32] = { };
 	int index = sizeof FREQRESPHZ / sizeof FREQRESPHZ[0];
 	QString fileName = QCoreApplication::applicationDirPath() + "/setting.ini";
@@ -233,21 +233,18 @@ void tSysScpi::getFactoryCalibrationData(void)
 			}
 			for (int i = 0; i < 4; i++)
 			{
+				iindex = QString(intToString(i,tempChar)).trimmed();
 				for (int j = 0; j < index; j++)
 				{
-					sysData.factoryCalData.freqResp[i][j] = setting.value("fa_" + QString(intToString(i, tempChar)).trimmed() + "_" + QString(lldtoStringUnit(FREQRESPHZ[j], tempChar)).trimmed(), 0).toDouble();
+					freq = QString(lldtoStringUnit(FREQRESPHZ[j], tempChar)).trimmed();
+					jindex = QString(intToString(j,tempChar)).trimmed();				
+					sysData.factoryCalData.freqResp[i][j] = setting.value("fa_" + iindex + "_" + freq+jindex, 0).toDouble();
 			
-					//fprintf(fp,"freqResp_%d_%d=%f\n",i,j,sysData.factoryCalData.freqResp[i][j]);
-					//fprintf(fp,"%f\n",sysData.factoryCalData.freqResp[0][j]);
-					//fprintf(fp,"%f\n",(float)FREQRESPHZ[j]);
 				}
 			}
 			
-			//for(int k=0; k < index; k++)
-				//fprintf(fp,"%f\n",sysData.factoryCalData.freqResp[0][k]);
 		}
 
-		fclose(fp);
 		setting.endGroup();
 	}
 }
@@ -256,10 +253,11 @@ void tSysScpi::getPreamplifierCalibrationData(void)
 {
 	resetPreamplifierCalibrationData();
 
+	QString jindex,iindex,freq;
 	char tempChar[32] = { };
 	int index = sizeof FREQRESPHZ / sizeof FREQRESPHZ[0];
 	QString fileName = QCoreApplication::applicationDirPath() + "/setting.ini";
-
+	FILE *file= fopen("precaldata.csv","w");
 	if (QFile(fileName).exists())
 	{
 		QSettings setting(fileName, QSettings::IniFormat);
@@ -300,15 +298,24 @@ void tSysScpi::getPreamplifierCalibrationData(void)
 			}
 			for (int i = 0; i < 4; i++)
 			{
+				iindex = QString(intToString(i,tempChar));
 				for (int j = 0; j < index; j++)
 				{
-					sysData.preamplifierCalData.freqResp[i][j] = setting.value("prefa_" + QString(intToString(i, tempChar)).trimmed() + "_" + QString(lldtoStringUnit(FREQRESPHZ[j], tempChar)).trimmed(), 0).toDouble();
+					jindex = QString(intToString(j,tempChar)).trimmed();
+					freq = QString(lldtoStringUnit(FREQRESPHZ[j],tempChar)).trimmed();				
+					sysData.preamplifierCalData.freqResp[i][j] = setting.value("prefa_" + iindex + "_" + freq+jindex, 0).toDouble();
 				}
 			}
 
 		}
 
 		setting.endGroup();
+		for(int i=0; i<index; i++)
+		{
+			fprintf(file,"%f\n",sysData.preamplifierCalData.freqResp[0][i]);
+			usleep(1000);
+		}
+		fclose(file);
 	}
 }
 
@@ -461,6 +468,7 @@ void tSysScpi::saveFactoryCalibrationData(void)
 {
 	char tempChar[32] = { };
 	int index = sizeof FREQRESPHZ / sizeof FREQRESPHZ[0]; 
+	QString jindex,iindex,freq;
 	QString fileName = QCoreApplication::applicationDirPath() + "/setting.ini";
 	QSettings setting(fileName, QSettings::IniFormat);
 
@@ -498,9 +506,12 @@ void tSysScpi::saveFactoryCalibrationData(void)
 
 	for (int i = 0; i < 4; i++)
 	{
+		iindex = QString(intToString(i,tempChar)).trimmed();
 		for (int j = 0; j < index; j++)
 		{
-			setting.setValue("fa_" + QString(intToString(i, tempChar)).trimmed() + "_" + QString(lldtoStringUnit(FREQRESPHZ[j], tempChar)).trimmed(), sysData.factoryCalData.freqResp[i][j]);
+			freq = QString(lldtoStringUnit(FREQRESPHZ[j], tempChar)).trimmed();
+			jindex = QString(intToString(j,tempChar)).trimmed();
+			setting.setValue("fa_" + iindex + "_" + freq+jindex, sysData.factoryCalData.freqResp[i][j]);
 		}
 	}
 
@@ -513,13 +524,14 @@ void tSysScpi::savePreamplifierCalibrationData(void)
 {
 	char tempChar[32] = { };
 	int index = sizeof FREQRESPHZ / sizeof FREQRESPHZ[0];
+	QString jindex,iindex,freq;
 	QString fileName = QCoreApplication::applicationDirPath() + "/setting.ini";
 	QSettings setting(fileName, QSettings::IniFormat);
 
 	setting.beginGroup("preamplifierCalData");
 	setting.setValue("prefa_isCaled", sysData.preamplifierCalData.isCaled);
 	setting.setValue("prefa_absoluteAmptValue", sysData.preamplifierCalData.absoluteAmptValue);
-	setting.setValue("prefa_temperature", sysData.factoryCalData.temperature);
+	setting.setValue("prefa_temperature", sysData.preamplifierCalData.temperature);
 	
 #if 0
 	setting.setValue("att9", sysData.preamplifierCalData.att9);
@@ -558,9 +570,12 @@ void tSysScpi::savePreamplifierCalibrationData(void)
 
 	for (int i = 0; i < 4; i++)
 	{
+		iindex = QString(intToString(i,tempChar));
 		for (int j = 0; j < index; j++)
 		{
-			setting.setValue("prefa_" + QString(intToString(i, tempChar)).trimmed() + "_" + QString(lldtoStringUnit(FREQRESPHZ[j], tempChar)).trimmed(), sysData.preamplifierCalData.freqResp[i][j]);
+			jindex = QString(intToString(j,tempChar)).trimmed();
+			freq = QString(lldtoStringUnit(FREQRESPHZ[j],tempChar)).trimmed();
+			setting.setValue("prefa_" + iindex + "_" + freq+jindex, sysData.preamplifierCalData.freqResp[i][j]);
 		}
 	}
 
@@ -625,7 +640,7 @@ void tSysScpi::saveZcPreamplifierFactoryCalibrationData(void)
 	setting.beginGroup("ZcPreamplifierCalData");
 	setting.setValue("prezc_isCaled", sysData.zcPreamplifierCalData.isCaled);
 	setting.setValue("prezc_absoluteAmptValue", sysData.zcPreamplifierCalData.absoluteAmptValue);
-	setting.setValue("prezc_temperature", sysData.zcCalData.temperature);
+	setting.setValue("prezc_temperature", sysData.zcPreamplifierCalData.temperature);
 
 #if 0
 	setting.setValue("att9", sysData.zcPreamplifierCalData.att9);
@@ -772,25 +787,5 @@ QStringList tSysScpi::loadLogOfFactoryCalibrate(void)
 	return strList;
 }
 
-char*  tSysScpi::lldtoStringUnit(long long int value, char* result)
-{
-  char temp[32];
-  long long int unitM = value;
-  double unitG = value;
-  if(1e6 < unitM && unitM < 1e9)
-  {
-	unitM = unitM / 1e6;
-	sprintf(temp, "%dMHz", unitM);
 
-  }
-  else
-  {
-	unitG = unitG / 1e9;
-	sprintf(temp, "%.2fGHz", unitG);
-  }
-  	
-  strcpy(result, temp);
-
-  return result;
-}
 

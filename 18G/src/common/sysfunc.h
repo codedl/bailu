@@ -53,6 +53,7 @@ extern int charToLower(int c);
 extern int hexToI(char s[]);
 extern int BintoBCD(int value);                                            //二进制数转BCD
 extern int BCDtoBin(int value);                                            //BCD转二进制数
+extern char*  lldtoStringUnit(long long int value, char* result);
 
 inline __s32 i2c_smbus_access(int file, char read_write, __u8 command, int size, union i2c_smbus_data *data);
 int eeprom_read_byte(struct eeprom* e, __u16 mem_addr);

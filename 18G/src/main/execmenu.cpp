@@ -4763,6 +4763,7 @@ void mainForm::presetSystem(bool factory)
 
 	if (factory)
 	{
+		sysData.calsetting = false;
 		sysScpi->presetSystemData();
 		sysScpi->controlRf();
 	} else

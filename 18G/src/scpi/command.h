@@ -397,8 +397,11 @@
 #define SCPI_CMD_POWERMETER_FREQ_GET		        0x4201
 #define SCPI_CMD_POWERMETER_AMPT_GET		        0x4202
 #define SCPI_CMD_CALAFREQ							0x4203
-#define SCPI_CMD_CLEAR								0x4204
-#define SCPI_CMD_TEMP								0x4205
+#define SCPI_CMD_TEMP								0x4204
+#define SCPI_CAL_FREQ								0x4205
+#define SCPI_CAL_DATA								0x4206
+#define SCPI_BAND_TEST								0x4207
+#define SCPI_IF_TEST								0x4208
 
 
   //检索返回值结构定义
@@ -910,9 +913,12 @@ static struct _SCPI_keyboardCmd test[] = {
   {":USBPOWERmeter:FREQ?",									SCPI_CMD_POWERMETER_FREQ_GET},
   {":USBPOWERmeter:AMPT?",									SCPI_CMD_POWERMETER_AMPT_GET},
   {":CALAFREQ:FREQ",										SCPI_CMD_CALAFREQ			},
-  {":CLEAR",												SCPI_CMD_CLEAR			},
   {":SYSTem:TEMP?",											SCPI_CMD_TEMP}, 
-};
+  {":CALFREQ",												SCPI_CAL_FREQ},
+  {":CALDATA",												SCPI_CAL_DATA},
+  {":BAND",													SCPI_BAND_TEST},  
+  {":TESTIF",												SCPI_IF_TEST},
+};	
 
 //解析数组
 static struct _SCPI_keyboard parseCmd[MAX_GROUP];

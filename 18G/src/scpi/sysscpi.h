@@ -110,7 +110,6 @@ class tSysScpi : public tBaseScpi
     QString traceDataString[TRACECOUNT];
     bool traceDataOrganized[TRACECOUNT];//trace data stauts of preparing
     
-	char*lldtoStringUnit(long long int value, char* result);
     int setFrequencyOfCenter(double value);                              //设置中心频率
     int setFrequencyOfCenter(QString value);                             //设置中心频率
     int setFrequencyOfCenterWithArrow(bool up);                          //方向键设置中心频率
@@ -996,7 +995,7 @@ class tSysScpi : public tBaseScpi
     int signalOutputAmptIsvalid(bool isCom, double value);               //信号源输出幅度正常
 
     void setCalibrateParamOfAbsoluteAmplitude(void);                     //设置绝对幅度定标校准参数
-    void setCalibrateParamOfIfAttenuation(void);                           //设置衰减器校准参数
+    void setCalibrateParamOfIfAttenuation(double attrf, double attif);                           //设置衰减器校准参数
     void setCalibrateParamOfRfAttenuation(void);
     void setCalibrateDistributeAtt(double ref, double att1, double att2);//设置两级衰减器参数
     void setCalibrateParamOfIF(void);                                    //设置中频增益校准参数

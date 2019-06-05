@@ -31,7 +31,7 @@ void tSysScpi::getDataFromIF(void)
 		{
 			unsigned long buf[1];
 			double freqValue = 0;
-
+			memset(buf, 0, sizeof buf);
 			read(ifHandle, buf, sizeof buf);
 			if (rfData.Start_Band >= 0 && rfData.Start_Band <= 2)
 			{
@@ -130,6 +130,7 @@ void tSysScpi::getDataFromIF(void)
 				if (!devControling)
 				{
 				//¶ÁÈ¡Êý¾Ý
+					memset(dataBuf, 0, sizeof dataBuf);
 					read(ramHandle, dataBuf, sizeof dataBuf);
 				}
 			}
@@ -215,7 +216,7 @@ void tSysScpi::getDataFromIF(void)
 
 		double maxvalue,ifvalue = 0, rfvalue = 0,initval = 0;
 		double freq  = 0;
-		int index = 0;
+		
 		maxvalue = sysData.initValue[0];
 		for (int i = 0; i < dataBufSize; i++)
 		{
@@ -264,10 +265,20 @@ void tSysScpi::getDataFromIF(void)
 				if (sysData.ampt.isPreamptOn)
 				{
 					tempValue = -24.0 + sysData.initValue[i] - sysData.preamplifierCalData.absoluteAmptValue + sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
+                //if (i == 799) 
+                	//{
+                   // printf("P2: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n", sysData.initValue[i], sysData.preamplifierCalData.absoluteAmptValue, sysData.userCalData.absError, sysData.ampt.attRf, sysData.ampt.attIf, bcValue);
+				  //}
 				} else
 				{
 					tempValue = -4.0 + sysData.initValue[i] - sysData.factoryCalData.absoluteAmptValue+ sysData.userCalData.absError + sysData.ampt.attRf + sysData.ampt.attIf + sysData.ampt.refOffset + bcValue;
+					//if (i == 799) 
+						//{
+						//printf("P1: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n", sysData.initValue[i], sysData.factoryCalData.absoluteAmptValue, sysData.userCalData.absError, sysData.ampt.attRf, sysData.ampt.attIf, bcValue);
+					  //}
+
 				}
+				
 			}
 
 			//if (sysData.freq.isLowChannel)//director sample compensation
@@ -324,12 +335,10 @@ void tSysScpi::getDataFromIF(void)
 			}
 			if (sysData.initValue[i] > maxvalue)
 			{
-				index = i;
+				freq_index = i;
 				maxvalue = sysData.initValue[i];
-				ifvalue = bcValue;
-				rfvalue = getErrorOfFreqResp(i);
-				initval = dataBuf[i];
-				freq = sysData.freq.start + i * sysData.span.span / (sysData.sweep.sweepPoints - 1) - sysData.freq.offset;
+				//rfvalue = getErrorOfFreqResp(i);
+				//freq = sysData.freq.start + i * sysData.span.span / (sysData.sweep.sweepPoints - 1) - sysData.freq.offset;
 			}
 
 		}
@@ -337,29 +346,7 @@ void tSysScpi::getDataFromIF(void)
 			
 		if(valuechanged)
 		{
-			static int times = 0;
-			//__var(tempbcValue);
-			//__var(ifbcValue);
-			//__var(rfvalue);
-			//__var(sysData.zcPreamplifierCalData.absoluteAmptValue);
-			//__var(sysData.zcCalData.absoluteAmptValue);
-			//__var(sysData.preamplifierCalData.absoluteAmptValue);
-			////__var(sysData.factoryCalData.absoluteAmptValue);
-			__var(sysData.ampt.attRf);
-			__var(sysData.ampt.attIf);
-			printf("rf error value: %f\n",rfvalue);
-			printf("freq: %f\n",freq);
-			printf("index: %d\n",index);
-			printf("cal max value: %f\n",sysData.prjValue[index]);
-			printf("ori max value: %f\n",sysData.initValue[index]);
-			printf("tempbcValue:%f\n",tempbcValue);
-			printf("ifbcValue:%f\n",ifbcValue);
-			printf("bcValue:%f\n\n\n",bcValue);
-			if(times++ == 1)
-			{
-				valuechanged = false;
-				times = 0;
-			}
+
 		}
 		for (int i = 0; i < TRACECOUNT; i++)
 		{

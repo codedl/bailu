@@ -266,17 +266,17 @@ void dataThread::run()
 	//delay.tv_usec = 400 * 1000;//120 : start
 	//delay.tv_usec = 120 * 1000;
 
-	unsigned int ut = 100 * 1000;
+	//unsigned int ut = 100 * 1000;
 	
 	while (true)
 	{
-		//delay.tv_sec = 0;
+		delay.tv_sec = 0;
 		//delay.tv_usec = 400 * 1000;//120 : start
-		//delay.tv_usec = 120 * 1000;
+		delay.tv_usec = 100 * 1000;
 		//delay.tv_usec = 100 * 1000;//120 : start
 
-		//select(0, NULL, NULL, NULL, &delay);
-		usleep(ut);
+		select(0, NULL, NULL, NULL, &delay);
+		//usleep(ut);
 		
 		//if system is calibrating
 		if (sysData.isPreamplifierCalibrating || sysData.isZcPreamplifierCalibrating || sysData.isZcCalibrating || sysData.isFactoryCalibrating || sysLocked)
@@ -287,6 +287,7 @@ void dataThread::run()
 		//get system temperature
 		if (tmptHandle >= 0)
 		{
+			memset(wdData, 0, sizeof(wdData));
 			read(tmptHandle, wdData, sizeof(wdData));
 
 			if (wdData[0] & 0x80)
@@ -313,14 +314,15 @@ void dataThread::run()
 		if (sysData.isPreseting)
 		{
 			usleep(1000 * 100);
+			printf("system preset\n");
 			return;
 		}
 		//零扫宽响应中断读数，非零扫宽时轮询读数
 		if (!sysData.span.isZeroSpan)
 		{
-			//mutexAmpt.lock();
+			mutexAmpt.lock();//
 			getDataFromIF();
-			//mutexAmpt.unlock();
+			mutexAmpt.unlock();//
 		}
 		else
 			ioctl(ramHandle, 0xfe, true);//零扫宽读数标志

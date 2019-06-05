@@ -95,3 +95,7 @@ int intFlag = 0;
 unsigned long ifDataBuf[RAMDATASIZE];
 
 bool valuechanged;
+int minfreq;
+int maxfreq;
+int freq_index;
+int band;

@@ -1118,3 +1118,26 @@ int write_to_eeprom(struct eeprom *e, int addr, int data)
 
   return (eeprom_write_byte(e, addr, temp));
 }
+
+char*  lldtoStringUnit(long long int value, char* result)
+{
+  char temp[32];
+  long long int unitM = value;
+  double unitG = value;
+  if(1e6 < unitM && unitM < 1e9)
+  {
+	unitM = unitM / 1e6;
+	sprintf(temp, "%dMHz", unitM);
+
+  }
+  else
+  {
+	unitG = unitG / 1e9;
+	sprintf(temp, "%.2fGHz", unitG);
+  }
+  	
+  strcpy(result, temp);
+
+  return result;
+}
+

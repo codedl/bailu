@@ -7,9 +7,7 @@
 
 int main(int argc, char ** argv)
 {
-
-	//printf("freq max : %lld\n",FREQRESPHZ[350]);
-
+	
     printf("\nnow enter main codes(v%d.%d.%d.%d.%d)\n", VER_MAJOR, VER_MINOR, VER_REVISION, \
   	VER_BUILD, VER_TAG);
   

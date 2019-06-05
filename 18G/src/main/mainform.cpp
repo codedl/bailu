@@ -207,6 +207,7 @@ mainForm::mainForm(QWidget* parent) :
 	fftEvent = new QEvent(fftInt);
 
 	//¿ØÖÆ
+	sysData.calsetting = false;	
 	sysScpi->presetSystemData();
 	sysScpi->controlRf();
 	sysScpi->execSelfCheck();
