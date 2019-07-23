@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.myapp;
 
 public class param {
     static String freqval = new String("10.000000");

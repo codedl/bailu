@@ -244,27 +244,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bleAdapter = bm.getAdapter();
     }
 
-    //扫描蓝牙的回调函数
-    public ScanCallback scanCallBack = new ScanCallback() {
-        @Override
-        public void onScanResult(int callbackType, ScanResult result) {
-            super.onScanResult(callbackType, result);
-            BluetoothDevice dev = result.getDevice();
-            String name = dev.getName();
-            String addr = dev.getAddress();
-            StringBuilder scanResult = new StringBuilder();
-            scanResult.append(name);
-            scanResult.append(":");
-            scanResult.append(addr);
-            Log.d("print", scanResult.toString());
-            if (param.bleName.equals(name)) {
-                bleDevice = result.getDevice();
-                bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
-                bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
-                Log.d("print", "discover device");
-            }
-        }
-    };
 
     public void layoutInit() {
         fileSpinner = (Spinner) findViewById(R.id.file_list);
@@ -711,6 +690,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mainHandle.sendMessage(msg);
         }
     }
+    //扫描蓝牙的回调函数
+    public ScanCallback scanCallBack = new ScanCallback() {
+        @Override
+        public void onScanResult(int callbackType, ScanResult result) {
+            super.onScanResult(callbackType, result);
+            BluetoothDevice dev = result.getDevice();
+            String name = dev.getName();
+            String addr = dev.getAddress();
+            StringBuilder scanResult = new StringBuilder();
+            scanResult.append(name);
+            scanResult.append(":");
+            scanResult.append(addr);
+            Log.d("print", scanResult.toString());
+            if (param.bleName.equals(name)) {
+                bleDevice = result.getDevice();
+                bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
+                bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
+                Log.d("print", "discover device");
+            }
+        }
+    };
 
     //蓝牙连接回调函数
     public BluetoothGattCallback gattCallBack = new BluetoothGattCallback() {
