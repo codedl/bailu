@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView msgText;
     private EditText powerEdit;
     private Button freqlistBtn;
+    private Button connectBtn;
     private TextView freqway_intwayText;
     private TextView msg_noiseText;
 
@@ -90,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
     BluetoothGattCharacteristic red;
     BluetoothGattCharacteristic green;
     boolean iscalled;
+    boolean isfreqListSend;
+    boolean ismsgSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void comModeInit() {
+        isfreqListSend = false;
+        ismsgSend = false;
+
         freqway_intwayText.setText("频率方式");
         freqrange_intbandText.setText("跳频范围");
         freqspeedText.setText("跳频速率");
@@ -160,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void layoutInit() {
+        connectBtn = findViewById(R.id.connect_btn);
         msg_noiseText = findViewById(R.id.noise_msg_text);
         freqway_intwayText = findViewById(R.id.intway_freqway_text);
         freqrange_intbandText = findViewById(R.id.intband_freqrange_text);
@@ -296,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
                         .create().show();
                 break;
             case R.id.send_btn:
-                new bleSend().start();
+                new bleThread().start();
                 debug("开始发送", false);
                 break;
 
@@ -318,7 +325,9 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("取消", null)
                         .create().show();
-//                bleAdapt.getBluetoothLeScanner().startScan(scanCallBack);
+                if (bleAdapt != null) {
+                    bleAdapt.getBluetoothLeScanner().startScan(scanCallBack);
+                }
                 break;
         }
     }
@@ -392,6 +401,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
+            connectBtn.setBackgroundResource(R.drawable.connect);
+            connectBtn.setText("已连接");
 //            new ReadCharacteristic(green).start();
         }
 
@@ -466,50 +477,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-    }
-
-    public class bleSend extends Thread {
-
-        @Override
-        public void run() {
-            System.out.println("send");
-            powerfreqSend();
-//            paramSend();
-        }
-    }
-
-    public void powerfreqSend() {
-        int index = 0;
-        byte doubuf[] = new byte[8];
-        byte sendbuf[] = new byte[20];
-        sendbuf[index++] = 0x0D;
-        sendbuf[index++] = 16;
-        sendbuf[index++] = 1;
-        doubuf = ClsUtils.doubleToBytes(param.power*1000000);
-        for (byte tmp : doubuf) {
-            sendbuf[index++] = tmp;
-        }
-        doubuf = ClsUtils.doubleToBytes(param.freq);
-        for (byte tmp : doubuf) {
-            sendbuf[index++] = tmp;
-        }
-        bleWrite(bleGatt, green, sendbuf);
-    }
-
-    public void paramSend() {
-        int index = 0;
-        byte sendbuf[] = new byte[20];
-        sendbuf[index++] = 0x0A;
-        sendbuf[index++] = 7;
-        sendbuf[index++] = 1;
-        sendbuf[index++] = (byte) (comModeSpin.getSelectedItemPosition() + 0xf0);
-        sendbuf[index++] = (byte) (freqway_intwaySpin.getSelectedItemPosition() + 0xf1);
-        sendbuf[index++] = (byte) (demodwaySpin.getSelectedItemPosition() + 0xf1);
-        sendbuf[index++] = (byte) (demodsourceSpin.getSelectedItemPosition() + 0xf1);
-        sendbuf[index++] = (byte) (msg_noiseSpin.getSelectedItemPosition() + 0xf1);
-        sendbuf[index++] = (byte) (freqrange_intbandSpin.getSelectedItemPosition() + 0xf1);
-        sendbuf[index++] = (byte) (freqspeedSpin.getSelectedItemPosition() + 0xf1);
-        bleWrite(bleGatt, green, sendbuf);
     }
 
 
@@ -720,6 +687,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (i) {
                 case 0:
+                    isfreqListSend = false;
                     freqrange_intbandStr.clear();
                     freqrange_intbandStr.add("200KHz");
                     freqrange_intbandSpin.setAdapter(freqrange_intbandAdapt);
@@ -747,6 +715,7 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case 1:
+                    isfreqListSend = true;//跳频需要下发跳频频率
                     freqlistBtn.setVisibility(View.VISIBLE);
                     freqrange_intbandSpin.setEnabled(true);
                     freqrange_intbandText.setTextColor(Color.parseColor("#4CAF50"));
@@ -804,21 +773,24 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                 case 2:
                 case 3:
-                case 6:
+                case 4:
                     msg_noiseSpin.setVisibility(View.VISIBLE);
                     msgEdit.setVisibility(View.INVISIBLE);
                     msgText.setVisibility(View.INVISIBLE);
+                    ismsgSend = false;
                     break;
-                case 4:
+                case 5:
                     msg_noiseSpin.setVisibility(View.INVISIBLE);
                     msgEdit.setVisibility(View.VISIBLE);
                     msgText.setVisibility(View.INVISIBLE);
+                    ismsgSend = true; // 需要下发报文序列
                     break;
-                case 5:
+                case 6:
                 case 7:
                     msg_noiseSpin.setVisibility(View.INVISIBLE);
                     msgEdit.setVisibility(View.INVISIBLE);
                     msgText.setVisibility(View.VISIBLE);
+                    ismsgSend = false;
                     break;
             }
         }
@@ -923,4 +895,62 @@ public class MainActivity extends AppCompatActivity {
             return false;
         return locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER);
     }
+
+    public class bleThread extends Thread {
+
+        @Override
+        public void run() {
+            powerfreqSend();
+            paramSend();
+            if (isfreqListSend) {
+                freqListSend();
+            }
+            if (ismsgSend) {
+                msgSend();
+            }
+        }
+    }
+
+    public void powerfreqSend() {
+        int index = 0;
+        byte doubuf[] = new byte[8];
+        byte sendbuf[] = new byte[20];
+        sendbuf[index++] = 0x0D;
+        sendbuf[index++] = 16;
+        sendbuf[index++] = 1;
+        doubuf = ClsUtils.doubleToBytes(param.power);
+        for (byte tmp : doubuf) {
+            sendbuf[index++] = tmp;
+        }
+        doubuf = ClsUtils.doubleToBytes(param.freq * 1000000);
+        for (byte tmp : doubuf) {
+            sendbuf[index++] = tmp;
+        }
+        bleWrite(bleGatt, green, sendbuf);
+    }
+
+    public void paramSend() {
+        int index = 0;
+        byte sendbuf[] = new byte[20];
+        sendbuf[index++] = 0x0A;
+        sendbuf[index++] = 7;
+        sendbuf[index++] = 1;
+        sendbuf[index++] = (byte) (comModeSpin.getSelectedItemPosition() + 0xf0);
+        sendbuf[index++] = (byte) (freqway_intwaySpin.getSelectedItemPosition() + 0xf1);
+        sendbuf[index++] = (byte) (demodwaySpin.getSelectedItemPosition() + 0xf1);
+        sendbuf[index++] = (byte) (demodsourceSpin.getSelectedItemPosition() + 0xf1);
+        sendbuf[index++] = (byte) (msg_noiseSpin.getSelectedItemPosition() + 0xf1);
+        sendbuf[index++] = (byte) (freqrange_intbandSpin.getSelectedItemPosition() + 0xf1);
+        sendbuf[index++] = (byte) (freqspeedSpin.getSelectedItemPosition() + 0xf1);
+        bleWrite(bleGatt, green, sendbuf);
+    }
+
+    void freqListSend(){
+        System.out.println("freqListSend");
+    }
+
+    void msgSend(){
+        System.out.println("msgSend");
+    }
+
 }

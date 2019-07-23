@@ -11,8 +11,8 @@ public class param {
     static byte sendBuf[] = new byte[20];//蓝牙发送数据缓冲区
     static byte rcvBuf[] = new byte[20];//蓝牙接收数据缓冲区
 
-    static double power = 0;//功率
-    static double freq = 0;//频率
+    static double power = 1;//功率,默认1W
+    static double freq = 10;//频率，默认10MHz
     static byte mode = 0;//工作模式
     static byte freqway = 0;//频率方式
     static byte freqrange = 0;//跳频范围
