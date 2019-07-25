@@ -101,33 +101,80 @@ public class ClsUtils {
     static String toHexString(byte buf[]) {
         String returnStr = "";
         for (int i = 0; i < buf.length; i++) {
-            returnStr += String.format("0x%02x ",buf[i]);
+            returnStr += String.format("0x%02x ", buf[i]);
         }
-        return  returnStr;
+        return returnStr;
     }
 
-    static byte[] toHexBytes(String hexString){
-        String temp = hexString.replace(" ","");
-        temp = temp.replace(",","");
+    static byte[] toHexBytes(String hexString) {
+        String temp = hexString.replace(" ", "");
+        temp = temp.replace(",", "");
         int length = temp.length();
         byte[] buf = new byte[length];
-        for(int i=0; i<length; i+=2){
-            buf[i/2] = (byte)((Character.digit(temp.charAt(i), 16)<<4) + Character.digit(temp.charAt(i+1), 16));
+        for (int i = 0; i < length; i += 2) {
+            buf[i / 2] = (byte) ((Character.digit(temp.charAt(i), 16) << 4) + Character.digit(temp.charAt(i + 1), 16));
         }
         return buf;
     }
 
-    static byte[] doubleToBytes(double value){
+    static byte[] doubleToBytes(double value) {
         long temp = Double.doubleToRawLongBits(value);
         byte buf[] = new byte[8];
-        buf[0] = (byte)(temp & 0xff);
-        buf[1] = (byte)((temp>>8) & 0xff);
-        buf[2] = (byte)((temp>>16) & 0xff);
-        buf[3] = (byte)((temp>>24) & 0xff);
-        buf[4] = (byte)((temp>>32) & 0xff);
-        buf[5] = (byte)((temp>>40) & 0xff);
-        buf[6] = (byte)((temp>>48) & 0xff);
-        buf[7] = (byte)((temp>>56) & 0xff);
+        buf[0] = (byte) (temp & 0xff);
+        buf[1] = (byte) ((temp >> 8) & 0xff);
+        buf[2] = (byte) ((temp >> 16) & 0xff);
+        buf[3] = (byte) ((temp >> 24) & 0xff);
+        buf[4] = (byte) ((temp >> 32) & 0xff);
+        buf[5] = (byte) ((temp >> 40) & 0xff);
+        buf[6] = (byte) ((temp >> 48) & 0xff);
+        buf[7] = (byte) ((temp >> 56) & 0xff);
         return buf;
     }
+
+    static byte[] doubleArrToBytes(double[] value) {
+        byte[] retbuf = new byte[value.length * 8];
+        int index = 0;
+        byte[] doubuf = new byte[8];
+        for (double tmp : value) {
+            doubuf = doubleToBytes(tmp);
+            for (byte byteTmp : doubuf) {
+                retbuf[index++] = byteTmp;
+            }
+        }
+        if (index == value.length)
+            return retbuf;
+        else {
+            System.out.println("doubles to bytes err");
+            return retbuf;
+        }
+    }
+
+    //把value按单位转化成byte
+    static byte[] doubleToBytesUnit(double value) {
+        byte[] valbuf = new byte[12];
+        int index = 0;
+        long longvalue = (long) value;
+
+        int tmp = (int) (longvalue % 1000);
+        valbuf[index++] = (byte) (tmp & 0xff);
+        valbuf[index++] = (byte) ((tmp >> 8) & 0xff);
+        valbuf[index++] = (byte) ((tmp >> 16) & 0xff);
+        valbuf[index++] = (byte) ((tmp >> 24) & 0xff);
+
+        tmp = (int) ((longvalue % 1000000) / 1000);//10^3
+        valbuf[index++] = (byte) (tmp & 0xff);
+        valbuf[index++] = (byte) ((tmp >> 8) & 0xff);
+        valbuf[index++] = (byte) ((tmp >> 16) & 0xff);
+        valbuf[index++] = (byte) ((tmp >> 24) & 0xff);
+
+        tmp = (int) (longvalue / 1000000);//10^6
+        valbuf[index++] = (byte) (tmp & 0xff);
+        valbuf[index++] = (byte) ((tmp >> 8) & 0xff);
+        valbuf[index++] = (byte) ((tmp >> 16) & 0xff);
+        valbuf[index++] = (byte) ((tmp >> 24) & 0xff);
+
+        return valbuf;
+    }
+
+
 }

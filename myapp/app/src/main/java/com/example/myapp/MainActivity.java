@@ -42,10 +42,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ListView;
 
 import com.example.myapp.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -83,16 +86,20 @@ public class MainActivity extends AppCompatActivity {
     private TextView freqway_intwayText;
     private TextView msg_noiseText;
 
-    private double randomArray[];
+    private double freqListDArray[];
+    private int freqListIArray[];
 
     BluetoothAdapter bleAdapt;
     BluetoothGatt bleGatt;
     BluetoothDevice bleDevice;
     BluetoothGattCharacteristic red;
     BluetoothGattCharacteristic green;
-    boolean iscalled;
+    byte[] rcvBuf;
+    boolean isRead;
+    boolean isWrite = false;//判断是否完成发送
     boolean isfreqListSend;
     boolean ismsgSend;
+    byte ledon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         BluetoothManager bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         bleAdapt = bm.getAdapter();
+
     }
 
     void comModeInit() {
@@ -287,11 +295,11 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<String> freqStrList = new ArrayList<>();
                 ArrayAdapter freqListAdapt = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, freqStrList);
                 String str = "";
-                for (int i = 0; i < randomArray.length; i++) {
+                for (int i = 0; i < freqListDArray.length; i++) {
                     str = "         ";
                     str += (String.format("%03d", (i + 1)));
                     str += "              ";
-                    str += (String.format("%4.6f", randomArray[i]));
+                    str += (String.format("%4.6f", freqListDArray[i]));
                     str += "MHz";
                     freqStrList.add(str);
                 }
@@ -303,11 +311,20 @@ public class MainActivity extends AppCompatActivity {
                         .create().show();
                 break;
             case R.id.send_btn:
-                new bleThread().start();
+                if (bleGatt != null && green != null)
+                    new bleThread().start();
                 debug("开始发送", false);
+
+                break;
+            case R.id.led_btn:
+                byte buf[] = new byte[1];
+                ledon ^= 1;
+                buf[0] = ledon;
+                bleWrite(buf);
                 break;
 
             case R.id.connect_btn:
+                connectBtn.setText("连接设备");
                 final EditText edit = new EditText(this);
                 edit.setText(param.bleName);
                 AlertDialog.Builder editBuilder = new AlertDialog.Builder(this);
@@ -348,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
                 bleDevice = result.getDevice();
                 bleAdapt.getBluetoothLeScanner().stopScan(scanCallBack);
                 bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
-                debug("discover service", true);
+                debug("discover device", true);
             }
         }
     };
@@ -360,6 +377,7 @@ public class MainActivity extends AppCompatActivity {
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 if (bleGatt != null) {
                     bleGatt.discoverServices();
+                    connectBtn.setText("已连接");
                 }
             }
         }
@@ -401,21 +419,19 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-            connectBtn.setBackgroundResource(R.drawable.connect);
-            connectBtn.setText("已连接");
 //            new ReadCharacteristic(green).start();
         }
 
         @Override
         public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
             super.onCharacteristicRead(gatt, characteristic, status);
-            byte[] buf = characteristic.getValue();
+            rcvBuf = characteristic.getValue();
             String str = "";
-            for (int i = 0; i < buf.length; i++) {
-                str += String.format("0x%02x;", buf[i]);
+            for (int i = 0; i < rcvBuf.length; i++) {
+                str += String.format("0x%02x;", rcvBuf[i]);
             }
             debug("onCharacteristicRead:" + str, true);
-            iscalled = true;
+            isRead = true;
         }
 
         @Override
@@ -423,8 +439,7 @@ public class MainActivity extends AppCompatActivity {
             super.onCharacteristicWrite(gatt, characteristic, status);
             byte[] writebuf = characteristic.getValue();
             debug("onCharacteristicWrite:" + ClsUtils.toHexString(writebuf), true);
-            iscalled = true;
-//            bleGatt.readCharacteristic(characteristic);
+            isWrite = true;
         }
 
         @Override
@@ -447,12 +462,25 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void bleWrite(BluetoothGatt blegatt, BluetoothGattCharacteristic characteristic, byte val[]) {
-        blegatt.setCharacteristicNotification(characteristic, true);
-        characteristic.setValue(val);
-        characteristic.setWriteType(characteristic.WRITE_TYPE_NO_RESPONSE);
-        blegatt.writeCharacteristic(characteristic);
+    public void bleWrite(byte[] buf) {
+        bleGatt.setCharacteristicNotification(green, true);
+        green.setValue(buf);
+        green.setWriteType(green.WRITE_TYPE_NO_RESPONSE);
+        bleGatt.writeCharacteristic(green);
     }
+
+    public class write extends Thread {
+        @Override
+        public void run() {
+            try {
+                bleGatt.writeCharacteristic(green);
+                sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public class ReadCharacteristic extends Thread {
         BluetoothGattCharacteristic characteristic;
@@ -468,7 +496,7 @@ public class MainActivity extends AppCompatActivity {
             while (bleGatt != null && characteristic != null) {
                 try {
                     bleGatt.readCharacteristic(characteristic);
-                    iscalled = false;
+                    isRead = false;
                     sleep(3000);
 
                 } catch (Exception e) {
@@ -626,7 +654,7 @@ public class MainActivity extends AppCompatActivity {
             int length = 0;
             int index = 0;
             int randnum = 0;
-            double freq = Double.parseDouble(freqEdit.getText().toString().trim());
+            double freq = param.freq;
 
             if (freqrange_intbandStr.get(i).contains("KHz")) {
                 str = freqrange_intbandStr.get(i).replace("KHz", "");
@@ -644,25 +672,24 @@ public class MainActivity extends AppCompatActivity {
             if (randnum > 100) {
                 length = 100;
             }
-            int a[] = new int[length];
+            freqListIArray = new int[length];
             int rand = 0;
             Random random = new Random();
             while (index < length - 1) {
                 rand = random.nextInt(randnum);
-                while (isInArray(rand, a)) {
+                while (isInArray(rand, freqListIArray)) {
                     rand = random.nextInt(randnum);
                 }
-                a[index++] = rand;
+                freqListIArray[index++] = rand;
             }
 
             rand = random.nextInt(length);
-            a[length - 1] = a[rand];
-            a[rand] = 0;
+            freqListIArray[length - 1] = freqListIArray[rand];
+            freqListIArray[rand] = 0;
 
-            randomArray = new double[length];
+            freqListDArray = new double[length];
             for (int randomIndex = 0; randomIndex < length; randomIndex++) {
-                randomArray[randomIndex] = freq + (double) a[randomIndex] * 4 / 1000;
-                System.out.println(randomArray[randomIndex]);
+                freqListDArray[randomIndex] = freq + (double) freqListIArray[randomIndex] * 4 / 1000;
             }
         }
 
@@ -900,56 +927,114 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            powerfreqSend();
-            paramSend();
+            new setDown().start();
+            try {
+                sleep(60);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             if (isfreqListSend) {
-                freqListSend();
+                new freqListSend().start();
             }
             if (ismsgSend) {
                 msgSend();
             }
         }
+
+    }
+    public class setDown extends Thread{
+        @Override
+        public void run(){
+
+            try {
+                powerSend();
+                sleep(10);
+                freqSend();
+                sleep(10);
+                paramSend();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    void powerSend() {
+        int index = 0;
+        byte powerbuf[] = new byte[12];
+        byte[] sendBuf = new byte[20];
+        sendBuf[index++] = 0x0d;
+        sendBuf[index++] = 11;
+        sendBuf[index++] = 1;
+        powerbuf = ClsUtils.doubleToBytesUnit(param.power * 1000);
+        for (byte tmp : powerbuf) {
+            sendBuf[index++] = tmp;
+        }
+        bleWrite(sendBuf);
+
     }
 
-    public void powerfreqSend() {
+    void freqSend() {
+        byte[] sendBuf = new byte[20];
         int index = 0;
-        byte doubuf[] = new byte[8];
-        byte sendbuf[] = new byte[20];
-        sendbuf[index++] = 0x0D;
-        sendbuf[index++] = 16;
-        sendbuf[index++] = 1;
-        doubuf = ClsUtils.doubleToBytes(param.power);
-        for (byte tmp : doubuf) {
-            sendbuf[index++] = tmp;
+        byte freqbuf[] = new byte[12];
+        sendBuf[index++] = 0x0e;
+        sendBuf[index++] = 15;
+        sendBuf[index++] = 1;
+        freqbuf = ClsUtils.doubleToBytesUnit(param.freq * 1000000);
+        for (byte tmp : freqbuf) {
+            sendBuf[index++] = tmp;
         }
-        doubuf = ClsUtils.doubleToBytes(param.freq * 1000000);
-        for (byte tmp : doubuf) {
-            sendbuf[index++] = tmp;
-        }
-        bleWrite(bleGatt, green, sendbuf);
+        bleWrite(sendBuf);
     }
 
     public void paramSend() {
+        byte[] sendBuf = new byte[20];
         int index = 0;
-        byte sendbuf[] = new byte[20];
-        sendbuf[index++] = 0x0A;
-        sendbuf[index++] = 7;
-        sendbuf[index++] = 1;
-        sendbuf[index++] = (byte) (comModeSpin.getSelectedItemPosition() + 0xf0);
-        sendbuf[index++] = (byte) (freqway_intwaySpin.getSelectedItemPosition() + 0xf1);
-        sendbuf[index++] = (byte) (demodwaySpin.getSelectedItemPosition() + 0xf1);
-        sendbuf[index++] = (byte) (demodsourceSpin.getSelectedItemPosition() + 0xf1);
-        sendbuf[index++] = (byte) (msg_noiseSpin.getSelectedItemPosition() + 0xf1);
-        sendbuf[index++] = (byte) (freqrange_intbandSpin.getSelectedItemPosition() + 0xf1);
-        sendbuf[index++] = (byte) (freqspeedSpin.getSelectedItemPosition() + 0xf1);
-        bleWrite(bleGatt, green, sendbuf);
+        sendBuf[index++] = 0x0A;
+        sendBuf[index++] = 7;
+        sendBuf[index++] = 1;
+        sendBuf[index++] = (byte) (comModeSpin.getSelectedItemPosition() + 0xf0);
+        sendBuf[index++] = (byte) (freqway_intwaySpin.getSelectedItemPosition() + 0xf1);
+        sendBuf[index++] = (byte) (demodwaySpin.getSelectedItemPosition() + 0xf1);
+        sendBuf[index++] = (byte) (demodsourceSpin.getSelectedItemPosition() + 0xf1);
+        sendBuf[index++] = (byte) (msg_noiseSpin.getSelectedItemPosition() + 0xf1);
+        sendBuf[index++] = (byte) (freqrange_intbandSpin.getSelectedItemPosition() + 0xf1);
+        sendBuf[index++] = (byte) (freqspeedSpin.getSelectedItemPosition() + 0xf1);
+        bleWrite(sendBuf);
     }
 
-    void freqListSend(){
-        System.out.println("freqListSend");
+    public class freqListSend extends Thread {
+        @Override
+        public void run() {
+            byte sendBuf[] = new byte[20];
+            int sendIndex = 0;
+            byte packageIndex = 1;
+            byte[] buf = new byte[freqListIArray.length * 8];
+
+            sendBuf[sendIndex++] = 0x0c;//包头
+            sendBuf[sendIndex++] = 20;//包的数据长度
+            sendBuf[sendIndex++] = 25;//
+            for (int tmp : freqListIArray) {
+                sendBuf[sendIndex++] = (byte) (tmp & 0xff);
+                sendBuf[sendIndex++] = (byte) ((tmp >> 8) & 0xff);
+                sendBuf[sendIndex++] = (byte) ((tmp >> 16) & 0xff);
+                sendBuf[sendIndex++] = (byte) ((tmp >> 24) & 0xff);
+                if (sendIndex == 19) {
+                    try {
+                        sendBuf[sendIndex] = packageIndex++;
+                        bleWrite(sendBuf);
+                        sleep(15);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    sendIndex = 3;
+                }
+            }
+        }
+
+
     }
 
-    void msgSend(){
+    void msgSend() {
         System.out.println("msgSend");
     }
 

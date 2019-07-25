@@ -264,27 +264,39 @@
     <Button
         android:id="@+id/send_btn"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/noise_msg_text"
+        android:layout_height="25dp"
+        android:layout_below="@+id/connect_btn"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
         android:background="@drawable/sendbtn"
         android:onClick="clickEvent"
         android:text="发送"
         android:textColor="@android:color/white"
-        android:textSize="30dp" />
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/led_btn"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/send_btn"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/sendbtn"
+        android:onClick="clickEvent"
+        android:text="绿灯开关"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
     <Button
         android:id="@+id/connect_btn"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:layout_below="@+id/noise_msg_text"
-        android:layout_marginTop="70dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/sendbtn"
         android:onClick="clickEvent"
         android:text="连接设备"
         android:textColor="@android:color/white"
-        android:textSize="30dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/state_text"
