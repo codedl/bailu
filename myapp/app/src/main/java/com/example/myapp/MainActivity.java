@@ -101,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
     boolean ismsgSend;
     byte ledon;
 
+    setDown setDown;
+    msgSend msgSend;
+    freqListSend freqListSend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
         BluetoothManager bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         bleAdapt = bm.getAdapter();
 
+        setDown = new setDown();
+        msgSend = new msgSend();
+        freqListSend = new freqListSend();
     }
 
     void comModeInit() {
@@ -311,16 +318,24 @@ public class MainActivity extends AppCompatActivity {
                         .create().show();
                 break;
             case R.id.send_btn:
+                if (ismsgSend) {
+                    if (msgEdit.getText().toString().trim().length() != 0) {
+                        param.msgStr = msgEdit.getText().toString().trim();
+                    } else {
+                        debug("输入不能为空", false);
+                    }
+                }
                 if (bleGatt != null && green != null)
                     new bleThread().start();
-                debug("开始发送", false);
+
 
                 break;
             case R.id.led_btn:
                 byte buf[] = new byte[1];
                 ledon ^= 1;
                 buf[0] = ledon;
-                bleWrite(buf);
+                if (bleGatt != null && green != null)
+                    bleWrite(buf);
                 break;
 
             case R.id.connect_btn:
@@ -927,24 +942,25 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            new setDown().start();
+            setDown.start();
             try {
                 sleep(60);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             if (isfreqListSend) {
-                new freqListSend().start();
+                freqListSend.start();
             }
             if (ismsgSend) {
-                msgSend();
+                msgSend.start();
             }
         }
 
     }
-    public class setDown extends Thread{
+
+    public class setDown extends Thread {
         @Override
-        public void run(){
+        public void run() {
 
             try {
                 powerSend();
@@ -957,6 +973,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     void powerSend() {
         int index = 0;
         byte powerbuf[] = new byte[12];
@@ -1023,10 +1040,10 @@ public class MainActivity extends AppCompatActivity {
                         sendBuf[sendIndex] = packageIndex++;
                         bleWrite(sendBuf);
                         sleep(15);
+                        sendIndex = 3;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    sendIndex = 3;
                 }
             }
         }
@@ -1034,8 +1051,47 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void msgSend() {
-        System.out.println("msgSend");
+    public class msgSend extends Thread {
+        @Override
+        public void run() {
+            int index = 0;
+            byte packageIndex = 1;
+            byte[] sendBuf = new byte[20];
+            String msgStr = param.msgStr;
+            String bitsStr = morse.stringToBits(msgStr);
+            byte msgBytes[] = morse.bitsToBytes(bitsStr);
+            sendBuf[index++] = 0x0b;//包头
+            sendBuf[index++] = 0;//包长待定
+            sendBuf[index++] = (byte) (sendBuf.length / 16 + 1);//包数
+            if (msgBytes.length <= 16) {
+                sendBuf[1] = (byte) (msgBytes.length + 3);//只需要发送一个包
+                for (byte tmp : msgBytes) {
+                    sendBuf[index++] = tmp;
+                }
+                bleWrite(sendBuf);
+            } else {
+                for (int i = 0; i < msgBytes.length; i++) {
+                    sendBuf[index++] = msgBytes[i];
+                    if (index == 19) {
+                        try {
+                            sendBuf[1] = 20;//发送一个20字节的包
+                            sendBuf[index] = packageIndex++;//包尾
+                            bleWrite(sendBuf);
+                            sleep(15);
+                            index = 3;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (i + 1 == msgBytes.length && msgBytes.length % 16 != 0) {
+                        sendBuf[1] = (byte) (msgBytes.length % 16);//最后一个包的包长
+                        sendBuf[19] = packageIndex;//最后一个包的包尾
+                        bleWrite(sendBuf);//
+                    }
+                }
+            }
+
+        }
+
     }
 
 }
