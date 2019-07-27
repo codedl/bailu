@@ -22,5 +22,6 @@ public class param {
     static String msgStr;//报文字符串
     static byte msgBytes[];//报文byte
     static String msgBits;//报文比特序列
+    static byte packageIndex;//每个包的序列号
 
 }

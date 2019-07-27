@@ -26,6 +26,7 @@ import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.util.Log;
@@ -54,25 +55,25 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private Spinner freqway_intwaySpin;
-    private ArrayList<String> freqway_intwayStr = new ArrayList<>();
+    protected ArrayList<String> freqway_intwayStr = new ArrayList<>();
     private ArrayAdapter freqway_intwayAdapt;
     private Spinner comModeSpin;
-    private ArrayList<String> comModeStr = new ArrayList<>();
+    protected ArrayList<String> comModeStr = new ArrayList<>();
     private ArrayAdapter comModeAdapt;
     private Spinner freqrange_intbandSpin;
-    private ArrayList<String> freqrange_intbandStr = new ArrayList<>();
+    protected ArrayList<String> freqrange_intbandStr = new ArrayList<>();
     private ArrayAdapter freqrange_intbandAdapt;
     private Spinner freqspeedSpin;
-    private ArrayList<String> freqspeedStr = new ArrayList<>();
+    protected ArrayList<String> freqspeedStr = new ArrayList<>();
     private ArrayAdapter freqspeedAdapt;
     private Spinner demodwaySpin;
-    private ArrayList<String> demodwayStr = new ArrayList<>();
+    protected ArrayList<String> demodwayStr = new ArrayList<>();
     private ArrayAdapter demodwayAdapt;
     private Spinner demodsourceSpin;
-    private ArrayList<String> demodsourceStr = new ArrayList<>();
+    protected ArrayList<String> demodsourceStr = new ArrayList<>();
     private ArrayAdapter demodsourceAdapt;
     private Spinner msg_noiseSpin;
-    private ArrayList<String> msg_noiseStr = new ArrayList<>();
+    protected ArrayList<String> msg_noiseStr = new ArrayList<>();
     private ArrayAdapter msg_noiseAdapt;
 
     private TextView freqrange_intbandText;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private Button connectBtn;
     private TextView freqway_intwayText;
     private TextView msg_noiseText;
-
+    msgHandle handle;
     private double freqListDArray[];
     private int freqListIArray[];
 
@@ -101,10 +102,6 @@ public class MainActivity extends AppCompatActivity {
     boolean ismsgSend;
     byte ledon;
 
-    setDown setDown;
-    msgSend msgSend;
-    freqListSend freqListSend;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,17 +116,17 @@ public class MainActivity extends AppCompatActivity {
         bleInit();
     }
 
+    /**
+     * 打开蓝牙，获取蓝牙适配器
+     */
     void bleInit() {
-        //打开蓝牙
+
         Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         startActivityForResult(intent, 1);
 
         BluetoothManager bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         bleAdapt = bm.getAdapter();
 
-        setDown = new setDown();
-        msgSend = new msgSend();
-        freqListSend = new freqListSend();
     }
 
     void comModeInit() {
@@ -180,7 +177,11 @@ public class MainActivity extends AppCompatActivity {
         demodwaySpin.setOnItemSelectedListener(comDemodWaySpinListener);
     }
 
+    /**
+     * 界面初始化
+     */
     void layoutInit() {
+        handle = new msgHandle();
         connectBtn = findViewById(R.id.connect_btn);
         msg_noiseText = findViewById(R.id.noise_msg_text);
         freqway_intwayText = findViewById(R.id.intway_freqway_text);
@@ -281,14 +282,15 @@ public class MainActivity extends AppCompatActivity {
 
         demodwaySpin.setOnItemSelectedListener(null);
 
+//        调制方式
         demodwayStr.clear();
         demodwayStr.add("AM");
+        demodwayStr.add("FM");
         demodwayStr.add("USB");
         demodwayStr.add("LSB");
         demodwayStr.add("DSB");
         demodwayStr.add("CW");
         demodwayStr.add("FSK");
-        demodwayStr.add("FM");
         demodwayStr.add("多音FSK");
         demodwaySpin.setAdapter(demodwayAdapt);
     }
@@ -320,13 +322,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.send_btn:
                 if (ismsgSend) {
                     if (msgEdit.getText().toString().trim().length() != 0) {
-                        param.msgStr = msgEdit.getText().toString().trim();
+                        param.msgStr = msgEdit.getText().toString().trim().toUpperCase();
+                        param.msgBits = morse.stringToBits(param.msgStr);
+                        param.msgBytes = morse.bitsToBytes(param.msgBits);
                     } else {
                         debug("输入不能为空", false);
                     }
                 }
                 if (bleGatt != null && green != null)
-                    new bleThread().start();
+                    new bleSend().start();
 
 
                 break;
@@ -364,6 +368,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 蓝牙扫描回调函数，获取蓝牙设备名和设备地址
+     */
     public ScanCallback scanCallBack = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
@@ -385,6 +392,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * 蓝牙服务回调函数，执行读写和连接状态的回读
+     */
     public BluetoothGattCallback gattCallBack = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
@@ -392,7 +402,10 @@ public class MainActivity extends AppCompatActivity {
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 if (bleGatt != null) {
                     bleGatt.discoverServices();
-                    connectBtn.setText("已连接");
+                    Message msg = handle.obtainMessage();
+                    msg.what = 1;
+                    handle.sendMessage(msg);
+                    debug("state:connectend", true);
                 }
             }
         }
@@ -400,11 +413,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             super.onServicesDiscovered(gatt, status);
-            debug("onServicesDiscovered", true);
             List<BluetoothGattService> gattServices = gatt.getServices();
             for (BluetoothGattService bgs : gattServices) {
                 String uuid = bgs.getUuid().toString();
-                debug("servers uuid:" + uuid, true);
                 List<BluetoothGattCharacteristic> gattCharacteristics = bgs.getCharacteristics();
                 for (BluetoothGattCharacteristic bgc : gattCharacteristics) {
                     uuid = bgc.getUuid().toString();
@@ -417,9 +428,8 @@ public class MainActivity extends AppCompatActivity {
                   /*  if (uuid.equals("f0001121-0451-4000-b000-000000000000")) {
                         btnbgc = bgc;//按键
                     }*/
-                    debug("character uuid:" + uuid, true);
 
-                    int charaProp = bgc.getProperties();
+                    /*int charaProp = bgc.getProperties();
                     if ((charaProp & BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
                         debug("可读", true);
                     }
@@ -429,11 +439,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if ((charaProp & BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
                         debug("通知", true);
-
-                    }
+                    }*/
 
                 }
             }
+            debug("onServicesDiscovered", true);
 //            new ReadCharacteristic(green).start();
         }
 
@@ -445,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < rcvBuf.length; i++) {
                 str += String.format("0x%02x;", rcvBuf[i]);
             }
-            debug("onCharacteristicRead:" + str, true);
+            debug("Read:" + str, true);
             isRead = true;
         }
 
@@ -453,7 +463,7 @@ public class MainActivity extends AppCompatActivity {
         public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
             super.onCharacteristicWrite(gatt, characteristic, status);
             byte[] writebuf = characteristic.getValue();
-            debug("onCharacteristicWrite:" + ClsUtils.toHexString(writebuf), true);
+            debug("Write:" + ClsUtils.toHexString(writebuf), true);
             isWrite = true;
         }
 
@@ -482,18 +492,6 @@ public class MainActivity extends AppCompatActivity {
         green.setValue(buf);
         green.setWriteType(green.WRITE_TYPE_NO_RESPONSE);
         bleGatt.writeCharacteristic(green);
-    }
-
-    public class write extends Thread {
-        @Override
-        public void run() {
-            try {
-                bleGatt.writeCharacteristic(green);
-                sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 
@@ -938,22 +936,23 @@ public class MainActivity extends AppCompatActivity {
         return locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER);
     }
 
-    public class bleThread extends Thread {
-
+    public class bleSend extends Thread {
         @Override
         public void run() {
-            setDown.start();
             try {
-                sleep(60);
+                new setDown().start();
+                sleep(50);
+                if (isfreqListSend) {
+                    new freqListSend().start();
+                    sleep(50);
+                }
+                if (ismsgSend) {
+                    new msgSend().start();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (isfreqListSend) {
-                freqListSend.start();
-            }
-            if (ismsgSend) {
-                msgSend.start();
-            }
+
         }
 
     }
@@ -963,6 +962,7 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
 
             try {
+                param.packageIndex = 1;//定义包的序列号
                 powerSend();
                 sleep(10);
                 freqSend();
@@ -980,11 +980,18 @@ public class MainActivity extends AppCompatActivity {
         byte[] sendBuf = new byte[20];
         sendBuf[index++] = 0x0d;
         sendBuf[index++] = 11;
-        sendBuf[index++] = 1;
+        sendBuf[index++] = 3;//参数设置一共三个包
+        if (isfreqListSend) {
+            sendBuf[2] += 25;//频率列表25个包
+        }
+        if (ismsgSend) {
+            sendBuf[2] += (byte) Math.ceil(param.msgBytes.length / 16.0);//报文下发的包数
+        }
         powerbuf = ClsUtils.doubleToBytesUnit(param.power * 1000);
         for (byte tmp : powerbuf) {
             sendBuf[index++] = tmp;
         }
+        sendBuf[19] = param.packageIndex++;//包的序列号
         bleWrite(sendBuf);
 
     }
@@ -995,11 +1002,18 @@ public class MainActivity extends AppCompatActivity {
         byte freqbuf[] = new byte[12];
         sendBuf[index++] = 0x0e;
         sendBuf[index++] = 15;
-        sendBuf[index++] = 1;
+        sendBuf[index++] = 3;
+        if (isfreqListSend) {
+            sendBuf[2] += 25;
+        }
+        if (ismsgSend) {
+            sendBuf[2] += (byte) Math.ceil(param.msgBytes.length / 16.0);
+        }
         freqbuf = ClsUtils.doubleToBytesUnit(param.freq * 1000000);
         for (byte tmp : freqbuf) {
             sendBuf[index++] = tmp;
         }
+        sendBuf[19] = param.packageIndex++;
         bleWrite(sendBuf);
     }
 
@@ -1007,8 +1021,14 @@ public class MainActivity extends AppCompatActivity {
         byte[] sendBuf = new byte[20];
         int index = 0;
         sendBuf[index++] = 0x0A;
-        sendBuf[index++] = 7;
-        sendBuf[index++] = 1;
+        sendBuf[index++] = 10;
+        sendBuf[index++] = 3;
+        if (isfreqListSend) {
+            sendBuf[2] += 25;
+        }
+        if (ismsgSend) {
+            sendBuf[2] += (byte) Math.ceil(param.msgBytes.length / 16.0);
+        }
         sendBuf[index++] = (byte) (comModeSpin.getSelectedItemPosition() + 0xf0);
         sendBuf[index++] = (byte) (freqway_intwaySpin.getSelectedItemPosition() + 0xf1);
         sendBuf[index++] = (byte) (demodwaySpin.getSelectedItemPosition() + 0xf1);
@@ -1016,6 +1036,7 @@ public class MainActivity extends AppCompatActivity {
         sendBuf[index++] = (byte) (msg_noiseSpin.getSelectedItemPosition() + 0xf1);
         sendBuf[index++] = (byte) (freqrange_intbandSpin.getSelectedItemPosition() + 0xf1);
         sendBuf[index++] = (byte) (freqspeedSpin.getSelectedItemPosition() + 0xf1);
+        sendBuf[19] = param.packageIndex++;
         bleWrite(sendBuf);
     }
 
@@ -1024,12 +1045,15 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             byte sendBuf[] = new byte[20];
             int sendIndex = 0;
-            byte packageIndex = 1;
             byte[] buf = new byte[freqListIArray.length * 8];
 
             sendBuf[sendIndex++] = 0x0c;//包头
             sendBuf[sendIndex++] = 20;//包的数据长度
-            sendBuf[sendIndex++] = 25;//
+            sendBuf[sendIndex++] = 25 + 3;//
+            if (ismsgSend) {
+                sendBuf[2] += (byte) Math.ceil(param.msgBytes.length / 16.0);
+            }
+
             for (int tmp : freqListIArray) {
                 sendBuf[sendIndex++] = (byte) (tmp & 0xff);
                 sendBuf[sendIndex++] = (byte) ((tmp >> 8) & 0xff);
@@ -1037,10 +1061,12 @@ public class MainActivity extends AppCompatActivity {
                 sendBuf[sendIndex++] = (byte) ((tmp >> 24) & 0xff);
                 if (sendIndex == 19) {
                     try {
-                        sendBuf[sendIndex] = packageIndex++;
+                        sendBuf[sendIndex] = param.packageIndex++;
                         bleWrite(sendBuf);
                         sleep(15);
                         sendIndex = 3;
+                        Arrays.fill(sendBuf, 3, 19, (byte) 0);
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -1054,20 +1080,24 @@ public class MainActivity extends AppCompatActivity {
     public class msgSend extends Thread {
         @Override
         public void run() {
+            if (param.msgStr == null) {
+                return;
+            }
             int index = 0;
-            byte packageIndex = 1;
             byte[] sendBuf = new byte[20];
-            String msgStr = param.msgStr;
-            String bitsStr = morse.stringToBits(msgStr);
-            byte msgBytes[] = morse.bitsToBytes(bitsStr);
+            byte msgBytes[] = param.msgBytes;
             sendBuf[index++] = 0x0b;//包头
             sendBuf[index++] = 0;//包长待定
-            sendBuf[index++] = (byte) (sendBuf.length / 16 + 1);//包数
+            sendBuf[index++] = (byte) Math.ceil(msgBytes.length / 16.0 + 3);//包数
+            if (isfreqListSend) {
+                sendBuf[2] += (byte) 25;
+            }
             if (msgBytes.length <= 16) {
-                sendBuf[1] = (byte) (msgBytes.length + 3);//只需要发送一个包
+                sendBuf[1] = (byte) (msgBytes.length + 4);
                 for (byte tmp : msgBytes) {
                     sendBuf[index++] = tmp;
                 }
+                sendBuf[19] = param.packageIndex++;
                 bleWrite(sendBuf);
             } else {
                 for (int i = 0; i < msgBytes.length; i++) {
@@ -1075,16 +1105,17 @@ public class MainActivity extends AppCompatActivity {
                     if (index == 19) {
                         try {
                             sendBuf[1] = 20;//发送一个20字节的包
-                            sendBuf[index] = packageIndex++;//包尾
+                            sendBuf[index] = param.packageIndex++;//包尾
                             bleWrite(sendBuf);
                             sleep(15);
                             index = 3;
+                            Arrays.fill(sendBuf, 3, 19, (byte) 0);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     } else if (i + 1 == msgBytes.length && msgBytes.length % 16 != 0) {
-                        sendBuf[1] = (byte) (msgBytes.length % 16);//最后一个包的包长
-                        sendBuf[19] = packageIndex;//最后一个包的包尾
+                        sendBuf[1] = (byte) (msgBytes.length % 16 + 4);//最后一个包的包长
+                        sendBuf[19] = param.packageIndex;//最后一个包的包尾
                         bleWrite(sendBuf);//
                     }
                 }
@@ -1094,4 +1125,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public class msgHandle extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+//              蓝牙连接事件
+                case 1:
+                    connectBtn.setText("已连接");
+                    break;
+            }
+        }
+    }
 }
