@@ -7,9 +7,7 @@ public class param {
     static String powerval = new String("1.000");
     static String powerunit = new String("W");
     static String powerstr = null;
-    static String bleName = "ProjectZero";
-    static byte sendBuf[] = new byte[20];//蓝牙发送数据缓冲区
-    static byte rcvBuf[] = new byte[20];//蓝牙接收数据缓冲区
+    static String bleName = "BLE SPS";
 
     static double power = 1;//功率,默认1W
     static double freq = 10;//频率，默认10MHz
@@ -21,7 +19,7 @@ public class param {
     static byte demodsoutce = 0;//调制源
     static String msgStr;//报文字符串
     static byte msgBytes[];//报文byte
-    static String msgBits;//报文比特序列
+    static String msgBits = "";//报文比特序列
     static byte packageIndex;//每个包的序列号
 
 }

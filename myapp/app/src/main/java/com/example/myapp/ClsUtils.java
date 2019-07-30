@@ -176,5 +176,21 @@ public class ClsUtils {
         return valbuf;
     }
 
+    /**
+     * 计算数组的校验和
+     *
+     * @param array      数组名
+     * @param startIndex 数组的起始位置
+     * @param endIndex   数组的结束位置
+     * @return 校验和
+     */
+    static byte arraySum(byte array[], int startIndex, int endIndex) {
+        byte ret = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            ret += array[i];
+        }
+        return ret;
+    }
+
 
 }
