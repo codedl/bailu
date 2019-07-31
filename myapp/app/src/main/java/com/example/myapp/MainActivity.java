@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -50,13 +51,19 @@ import android.widget.ListView;
 
 import com.example.myapp.R;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.lang.reflect.Field;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private Spinner freqway_intwaySpin;
     protected ArrayList<String> freqway_intwayStr = new ArrayList<>();
     private ArrayAdapter freqway_intwayAdapt;
@@ -88,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView msg_noiseText;
     private Switch emitSwitch;
     private ProgressBar bar;
+    private Button genBtn;
+    private Button checkBtn;
     msgHandle handle;
     private double freqListDArray[];
     private int freqListIArray[];
@@ -107,12 +116,26 @@ public class MainActivity extends AppCompatActivity {
     boolean ismsgSend;
     byte ledon;
 
+    private Context context;
+    private file freqFile;
+
+    private Context con;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermissions();
         init();
+        context = getApplicationContext();
+        con = getApplicationContext();
+        freqFile = new file(context);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("exit");
     }
 
     void init() {
@@ -193,6 +216,8 @@ public class MainActivity extends AppCompatActivity {
     void layoutInit() {
         handle = new msgHandle();
         bar = findViewById(R.id.bar);
+        checkBtn = findViewById(R.id.check_btn);
+        genBtn = findViewById(R.id.gen_btn);
         msgcontent_Text = findViewById(R.id.msgcontent_text);
         connectBtn = findViewById(R.id.connect_btn);
         msg_noiseText = findViewById(R.id.noise_msg_text);
@@ -316,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.speed_btn:
                 View freqLayout = getLayoutInflater().inflate(R.layout.freqlist, null);
                 ListView freqList = freqLayout.findViewById(R.id.freq_list);
-                ArrayList<String> freqStrList = new ArrayList<>();
+                final ArrayList<String> freqStrList = new ArrayList<>();
                 ArrayAdapter freqListAdapt = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, freqStrList);
                 String str = "";
                 for (int i = 0; i < freqListDArray.length; i++) {
@@ -330,10 +355,11 @@ public class MainActivity extends AppCompatActivity {
                 freqList.setAdapter(freqListAdapt);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setView(freqLayout)
-                        .setTitle("图案序号         频率列表")
+                        .setTitle("   图案序号         频率列表")
                         .setNegativeButton("退出", null)
                         .create().show();
                 break;
+
             case R.id.send_btn:
                 if (ismsgSend) {
                     if (msgEdit.getText().toString().trim().length() != 0) {
@@ -346,15 +372,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (bleGatt != null && bleCharacteristic != null)
                     bleSend();
-
-
                 break;
 
             case R.id.connect_btn:
                 connectBtn.setText("连接设备");
                 bar.setVisibility(View.VISIBLE);
                 final AutoCompleteTextView edit = new AutoCompleteTextView(this);
-                edit.setThreshold(2);
+                edit.setThreshold(1);
                 final String[] hintStr = {"ProjectZero", "BLE SPS"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, hintStr);
                 edit.setAdapter(adapter);
@@ -381,6 +405,97 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 break;
+
+            case R.id.check_btn:
+//                显示文件名
+                final View fileLayout = getLayoutInflater().inflate(R.layout.filelist, null);
+                ListView fileListView = fileLayout.findViewById(R.id.file_list);
+                ArrayList<String> fileStrList = new ArrayList<>();
+                ArrayAdapter fileListAdapt = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, fileStrList);
+                String filearray[] = fileList();
+                for (int i = 0; i < filearray.length; i++) {
+                    fileStrList.add(filearray[i]);
+                }
+                fileListView.setAdapter(fileListAdapt);
+
+                fileListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //              显示频率列表
+                        ListView freqListView = fileLayout.findViewById(R.id.freq_list);
+                        final ArrayList<String> fileFreqList = new ArrayList<>();
+                        ArrayAdapter fileFreqAdapt = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, fileFreqList);
+                        try {
+                            String filestr[] = fileList();
+                            String freqStr = freqFile.phread(filestr[position]);
+                            String disStr[] = freqStr.split("\n");
+                            for (int i = 0; i < disStr.length; i++)
+                                fileFreqList.add(disStr[i]);
+                            freqListView.setAdapter(fileFreqAdapt);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                AlertDialog.Builder build = new AlertDialog.Builder(this);
+                build.setView(fileLayout)
+                        .setTitle("                      图案序号         频率列表")
+                        .setNegativeButton("退出", null)
+                        .create();
+                build.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ListView listView = fileLayout.findViewById(R.id.file_list);
+                        String[] fileArray = fileList();
+                        String name = "";
+                        if (fileArray.length != 0)
+                            name = fileArray[(int) listView.getSelectedItemId()];
+                        if (name != null)
+                            deleteFile(name);
+
+                    }
+                });
+                build.show();
+
+                break;
+
+            case R.id.gen_btn:
+                final EditText editText = new EditText(this);
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                builder1.setTitle("输入方案名")
+                        .setView(editText)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (editText.getText().toString().length() != 0) {
+                                    String file = editText.getText().toString().trim();
+                                    String string = "";
+                                    try {
+                                        for (int j = 0; j < freqListDArray.length; j++) {
+                                            string = "         ";
+                                            string += (String.format("%03d", (j + 1)));
+                                            string += "              ";
+                                            string += (String.format("%4.6f", freqListDArray[j]));
+                                            string += "MHz\n";
+                                            try {
+                                                freqFile.phwrite(file, string);
+                                            } catch (Exception e) {
+                                                debug("档案生成失败", false);
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    debug("输入不能为空", false);
+                                }
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .create().show();
+                break;
         }
     }
 
@@ -402,7 +517,7 @@ public class MainActivity extends AppCompatActivity {
             if (param.bleName.equals(name)) {
                 bleDevice = result.getDevice();
                 bleAdapt.getBluetoothLeScanner().stopScan(scanCallBack);
-                bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
+                bleGatt = bleDevice.connectGatt(con, true, gattCallBack);
                 debug("discover device", true);
             }
         }
@@ -773,11 +888,14 @@ public class MainActivity extends AppCompatActivity {
                     demodwaySpin.setAdapter(demodwayAdapt);
 
                     freqlistBtn.setVisibility(View.INVISIBLE);
-
+                    genBtn.setVisibility(View.INVISIBLE);
+                    checkBtn.setVisibility(View.INVISIBLE);
                     break;
                 case 1:
                     isfreqListSend = true;//跳频需要下发跳频频率
                     freqlistBtn.setVisibility(View.VISIBLE);
+                    genBtn.setVisibility(View.VISIBLE);
+                    checkBtn.setVisibility(View.VISIBLE);
                     freqrange_intbandSpin.setEnabled(true);
                     freqrange_intbandText.setTextColor(Color.parseColor("#4CAF50"));
                     freqspeedText.setTextColor(Color.parseColor("#4CAF50"));
@@ -839,14 +957,14 @@ public class MainActivity extends AppCompatActivity {
                     msgEdit.setVisibility(View.INVISIBLE);
                     msg_noiseText.setVisibility(View.VISIBLE);
                     ismsgSend = false;
-                    msgcontent_Text.setText("   语音报文");
+                    msgcontent_Text.setText("      语音报文");
                     break;
                 case 5:
                     msg_noiseSpin.setVisibility(View.INVISIBLE);
                     msgEdit.setVisibility(View.VISIBLE);
                     msg_noiseText.setVisibility(View.VISIBLE);
                     ismsgSend = true; // 需要下发报文序列
-                    msgcontent_Text.setText("   等幅报文");
+                    msgcontent_Text.setText("      等幅报文");
                     break;
                 case 6:
                 case 7:
@@ -920,7 +1038,7 @@ public class MainActivity extends AppCompatActivity {
         switch (permission) {
             case Manifest.permission.ACCESS_FINE_LOCATION:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !checkGPSIsOpen()) {
-                    new AlertDialog.Builder(this)
+                    /*new AlertDialog.Builder(this)
                             .setTitle("提示")
                             .setMessage("当前手机扫描蓝牙需要打开定位功能。")
                             .setNegativeButton("取消",
@@ -940,7 +1058,7 @@ public class MainActivity extends AppCompatActivity {
                                     })
 
                             .setCancelable(false)
-                            .show();
+                            .show();*/
                 } else {
                     //GPS已经开启了
                 }
