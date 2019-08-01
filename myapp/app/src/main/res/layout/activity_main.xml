@@ -9,81 +9,81 @@
     <TextView
         android:id="@+id/power_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="50dp"
+        android:layout_height="@dimen/height"
+        android:layout_marginStart="@dimen/start"
+        android:layout_marginTop="@dimen/top"
         android:text="功        率:"
         android:textColor="#4CAF50"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <EditText
         android:id="@+id/power_edit"
         android:layout_width="160dp"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignBottom="@+id/power_text"
         android:layout_toRightOf="@+id/power_text"
         android:background="@null"
         android:cursorVisible="false"
         android:inputType="numberDecimal"
         android:text="     1.000"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <TextView
         android:id="@+id/power_unit"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignBottom="@+id/power_edit"
         android:layout_toRightOf="@+id/power_edit"
         android:text="W"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <TextView
         android:id="@+id/freq_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_below="@+id/power_text"
         android:layout_alignRight="@+id/power_text"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/interval"
         android:text="频        率:"
         android:textColor="#4CAF50"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <EditText
         android:id="@+id/freq_edit"
-        android:layout_width="160dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height"
         android:layout_alignBottom="@+id/freq_text"
         android:layout_toRightOf="@+id/freq_text"
         android:background="@null"
         android:inputType="numberDecimal"
         android:text="   10.000000"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <TextView
         android:id="@+id/freq_unit"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignBottom="@+id/freq_edit"
         android:layout_toRightOf="@+id/freq_edit"
         android:text="MHz"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <TextView
         android:id="@+id/mode_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_below="@+id/freq_text"
         android:layout_alignLeft="@+id/freq_text"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/interval"
         android:gravity="top"
         android:text="工作模式:"
         android:textColor="#4CAF50"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <Spinner
         android:id="@+id/mode_spin"
         android:layout_width="160dp"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignTop="@+id/mode_text"
         android:layout_toRightOf="@+id/mode_text"
         android:spinnerMode="dropdown">
@@ -93,18 +93,18 @@
     <TextView
         android:id="@+id/intway_freqway_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_below="@+id/mode_text"
         android:layout_alignLeft="@id/mode_text"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/interval"
         android:text="频率方式:"
         android:textColor="#4CAF50"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <Spinner
         android:id="@+id/intway_freqway_spin"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/mode_spin"
         android:layout_alignTop="@+id/intway_freqway_text"
         android:layout_alignRight="@+id/mode_spin"
@@ -115,18 +115,18 @@
     <TextView
         android:id="@+id/intband_freqrange_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_below="@+id/intway_freqway_text"
         android:layout_alignLeft="@+id/intway_freqway_text"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/interval"
         android:gravity="center"
         android:text="跳频范围:"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <Spinner
         android:id="@+id/intband_freqrange_spin"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/intway_freqway_spin"
         android:layout_alignTop="@+id/intband_freqrange_text"
         android:layout_alignRight="@+id/intway_freqway_spin"
@@ -138,18 +138,18 @@
     <TextView
         android:id="@+id/freqspeed_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_below="@+id/intband_freqrange_text"
         android:layout_alignLeft="@+id/intband_freqrange_text"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/interval"
         android:gravity="center"
         android:text="跳频速率:"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <Spinner
         android:id="@+id/freqspeed_spin"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/intband_freqrange_spin"
         android:layout_alignTop="@+id/freqspeed_text"
         android:layout_alignRight="@+id/intband_freqrange_spin"
@@ -160,7 +160,7 @@
     <Button
         android:id="@+id/speed_btn"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignBottom="@+id/intway_freqway_spin"
         android:layout_toRightOf="@+id/intway_freqway_spin"
         android:background="@drawable/btn"
@@ -172,7 +172,7 @@
     <Button
         android:id="@+id/gen_btn"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignBottom="@id/intband_freqrange_spin"
         android:layout_toRightOf="@+id/intband_freqrange_spin"
         android:background="@drawable/btn"
@@ -184,7 +184,7 @@
     <Button
         android:id="@+id/check_btn"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignBottom="@id/freqspeed_spin"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/freqspeed_spin"
@@ -192,24 +192,24 @@
         android:onClick="clickEvent"
         android:text="查看方案"
         android:textColor="@android:color/white"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/demodway_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_below="@+id/freqspeed_text"
         android:layout_alignLeft="@+id/freqspeed_text"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/interval"
         android:gravity="center"
         android:text="调制方式:"
         android:textColor="#4CAF50"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <Spinner
         android:id="@+id/demodway_spin"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/freqspeed_spin"
         android:layout_alignBottom="@+id/demodway_text"
         android:spinnerMode="dropdown">
@@ -219,46 +219,46 @@
     <TextView
         android:id="@+id/demodsource_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_below="@+id/demodway_text"
         android:layout_alignLeft="@+id/demodway_text"
         android:layout_alignRight="@+id/demodway_text"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/interval"
         android:gravity="fill_horizontal"
         android:text="调  制  源:"
         android:textColor="#4CAF50"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <TextView
         android:id="@+id/msgcontent_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/demodway_spin"
         android:layout_alignTop="@+id/demodsource_text"
         android:layout_alignRight="@+id/demodway_spin"
         android:spinnerMode="dropdown"
-        android:text="      语音报文"
-        android:textSize="17dp">
+        android:text="   语音报文"
+        android:textSize="@dimen/textsize">
 
     </TextView>
 
     <TextView
         android:id="@+id/noise_msg_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_below="@+id/demodsource_text"
         android:layout_alignLeft="@+id/mode_text"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/interval"
         android:gravity="center"
         android:text="报        文:"
         android:textColor="#4CAF50"
-        android:textSize="20dp"
+        android:textSize="@dimen/textsize"
         android:visibility="gone" />
 
     <Spinner
         android:id="@+id/noise_msgcontent_spin"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/msgcontent_text"
         android:layout_alignTop="@+id/noise_msg_text"
         android:background="@null"
@@ -269,75 +269,95 @@
 
     <EditText
         android:id="@+id/noise_msgcontent_edit"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/msgcontent_text"
         android:layout_alignTop="@+id/noise_msg_text"
         android:layout_alignRight="@+id/msgcontent_text"
         android:layout_marginTop="5dp"
         android:background="@drawable/edit"
         android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-        android:hint="输入报文(字母/数字)"
+        android:hint="输入字母/数字"
         android:inputType="number"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:visibility="gone">
 
     </EditText>
 
-    <Button
-        android:id="@+id/connect_btn"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/connect_text"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height"
         android:layout_below="@+id/noise_msg_text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/connect"
+        android:layout_alignLeft="@+id/mode_text"
+        android:layout_marginTop="@dimen/interval"
+        android:gravity="center|bottom"
+        android:text="设备控制:"
+        android:textColor="#4CAF50"
+        android:textSize="@dimen/textsize" />
+
+    <ToggleButton
+        android:id="@+id/connect_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height"
+        android:layout_alignBottom="@+id/connect_text"
+        android:layout_alignLeft="@+id/freq_edit"
+        android:layout_alignRight="@+id/freq_edit"
         android:onClick="clickEvent"
-        android:text="连接设备"
-        android:textColor="@android:color/white"
-        android:textSize="20dp" />
+        android:showText="true"
+        android:textOff="断开"
+        android:textOn="连接"
+        android:background="@drawable/connect"
+        android:textSize="@dimen/textsize"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/emit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height"
+        android:layout_below="@+id/connect_text"
+        android:layout_alignLeft="@+id/mode_text"
+        android:layout_marginTop="@dimen/interval"
+        android:gravity="center|bottom"
+        android:text="发射控制:"
+        android:textColor="#4CAF50"
+        android:textSize="@dimen/textsize" />
+
+    <ToggleButton
+        android:id="@+id/emit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height"
+        android:layout_alignBottom="@+id/emit_text"
+        android:layout_alignLeft="@+id/connect_btn"
+        android:layout_alignRight="@+id/connect_btn"
+        android:onClick="clickEvent"
+        android:showText="true"
+        android:textOff="断开"
+        android:textOn="发射"
+        android:background="@drawable/connect"
+        android:textSize="@dimen/textsize"
+        android:textColor="@android:color/white"/>
 
     <Button
         android:id="@+id/send_btn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/connect_btn"
+        android:layout_below="@+id/emit_btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/sendbtn"
         android:onClick="clickEvent"
         android:text="参数下发"
         android:textColor="@android:color/white"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textsize" />
 
     <ProgressBar
         android:id="@+id/bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignBottom="@+id/connect_btn"
         android:layout_toRightOf="@+id/connect_btn"
         android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/deviece_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/state_icon"
-        android:layout_marginStart="50dp"
-        android:layout_toRightOf="@+id/state_icon"
-        android:text="设备型号:"
-        android:textColor="#000000"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/model_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/deviece_text"
-        android:layout_toRightOf="@+id/deviece_text"
-        android:text="BLE SPS"
-        android:textColor="#000000"
-        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/state_text"
@@ -356,7 +376,7 @@
         android:layout_alignBottom="@+id/state_text"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/state_text"
-        android:src="@drawable/online" />
+        android:src="@drawable/offline" />
 
     <TextView
         android:id="@+id/statecon_text"
@@ -365,7 +385,7 @@
         android:layout_alignBottom="@+id/state_text"
         android:layout_marginBottom="3dp"
         android:layout_toRightOf="@+id/state_icon"
-        android:text="正常" />
+        android:text="异常" />
 
 
     <TextView
@@ -377,18 +397,44 @@
         android:layout_toRightOf="@+id/statecon_text"
         android:text="发射状态"
         android:textColor="#000000"
-        android:textSize="20dp"
-        android:visibility="gone" />
+        android:textSize="20dp" />
 
-    <Switch
-        android:id="@+id/emitstat_switch"
+    <ImageView
+        android:id="@+id/emit_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/emitstat_text"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/emitstat_text"
-        android:showText="true"
-        android:textOff="OFF"
-        android:textOn="ON"
-        android:visibility="gone" />
+        android:src="@drawable/offline" />
+
+    <TextView
+        android:id="@+id/emitcon_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/emit_icon"
+        android:layout_marginBottom="3dp"
+        android:layout_toRightOf="@+id/emit_icon"
+        android:text="断线" />
+
+    <TextView
+        android:id="@+id/deviece_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/emitcon_text"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/emitcon_text"
+        android:text="设备型号:"
+        android:textColor="#000000"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/model_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/deviece_text"
+        android:layout_toRightOf="@+id/deviece_text"
+        android:text="BLE SPS"
+        android:textColor="#000000"
+        android:textSize="20dp" />
 </RelativeLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <dimen name="textsize">30dp</dimen>
+     <dimen name="width">160dp</dimen>
+     <dimen name="height">40dp</dimen>
+     <dimen name="interval">25dp</dimen>
+     <dimen name="start">150dp</dimen>
+     <dimen name="top">30dp</dimen>
+    <!--<dimen name="textsize">20dp</dimen>
+    <dimen name="width">160dp</dimen>
+    <dimen name="height">30dp</dimen>
+    <dimen name="interval">15dp</dimen>
+    <dimen name="start">30dp</dimen>
+    <dimen name="top">20dp</dimen>-->
+</resources>

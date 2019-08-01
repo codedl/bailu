@@ -5,9 +5,9 @@
 
     <ListView
         android:id="@+id/file_list"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content">
-        
+
     </ListView>
 
     <ListView

@@ -48,6 +48,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ListView;
+import android.widget.ToggleButton;
 
 import com.example.myapp.R;
 
@@ -90,13 +91,15 @@ public class MainActivity extends Activity {
     private EditText msgEdit;
     private EditText powerEdit;
     private Button freqlistBtn;
-    private Button connectBtn;
+    private ToggleButton connectBtn;
+    private ToggleButton emitBtn;
     private TextView freqway_intwayText;
     private TextView msg_noiseText;
-    private Switch emitSwitch;
     private ProgressBar bar;
     private Button genBtn;
     private Button checkBtn;
+    ImageView state_icon;
+    TextView state_text;
     msgHandle handle;
     private double freqListDArray[];
     private int freqListIArray[];
@@ -108,7 +111,7 @@ public class MainActivity extends Activity {
     BluetoothGattCharacteristic green;
     BluetoothGattCharacteristic bleCharacteristic;
     byte[] rcvBuf;
-    byte[] sendBuf;//发送数据，不包括等幅报文
+    byte[] sendBuf;//发送数据
     int sendIndex;
     boolean isRead;
     boolean isWrite = false;//判断是否完成发送
@@ -119,26 +122,35 @@ public class MainActivity extends Activity {
     private Context context;
     private file freqFile;
 
-    private Context con;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermissions();
         init();
-        context = getApplicationContext();
-        con = getApplicationContext();
-        freqFile = new file(context);
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        System.out.println("exit");
+        byte buf[] = new byte[20];
+        Arrays.fill(buf, (byte) 0);
+        int index = 0;
+        buf[index++] = 0;
+        buf[index++] = 20;
+        buf[index++] = 1;
+        buf[index++] = (byte) 0x55;
+        buf[index++] = (byte) 0x55;
+        buf[index++] = (byte) 0x55;
+        buf[19] = ClsUtils.arraySum(buf, 0, 19);
+        if (bleCharacteristic != null && bleGatt != null)
+            bleWrite(buf);
     }
 
     void init() {
+        context = getApplicationContext();
+        freqFile = new file(context);
         layoutInit();
         comModeInit();
         bleInit();
@@ -215,7 +227,10 @@ public class MainActivity extends Activity {
      */
     void layoutInit() {
         handle = new msgHandle();
+        state_icon = findViewById(R.id.state_icon);
+        state_text = findViewById(R.id.statecon_text);
         bar = findViewById(R.id.bar);
+        emitBtn = findViewById(R.id.emit_btn);
         checkBtn = findViewById(R.id.check_btn);
         genBtn = findViewById(R.id.gen_btn);
         msgcontent_Text = findViewById(R.id.msgcontent_text);
@@ -240,7 +255,6 @@ public class MainActivity extends Activity {
         freqrange_intbandSpin = findViewById(R.id.intband_freqrange_spin);
         freqrange_intbandAdapt = new ArrayAdapter(this, android.R.layout.simple_list_item_1, freqrange_intbandStr);
         msgEdit = findViewById(R.id.noise_msgcontent_edit);
-        emitSwitch = findViewById(R.id.emitstat_switch);
         comModeStr.add("通信模式");
         comModeStr.add("干扰模式");
         comModeSpin.setAdapter(comModeAdapt);
@@ -268,10 +282,10 @@ public class MainActivity extends Activity {
         demodwayStr.add("USB");
         demodwayStr.add("LSB");
         demodwayStr.add("DSB");
+        demodwayStr.add("LINK数据链");
         demodwayStr.add("CW");
         demodwayStr.add("FSK");
         demodwayStr.add("多音FSK");
-        demodwayStr.add("LINK数据链");
         demodwaySpin.setAdapter(demodwayAdapt);
         demodwaySpin.setSelection(0, true);
         demodwaySpin.setOnItemSelectedListener(comDemodWaySpinListener);
@@ -325,10 +339,10 @@ public class MainActivity extends Activity {
         demodwayStr.add("USB");
         demodwayStr.add("LSB");
         demodwayStr.add("DSB");
+        demodwayStr.add("LINK数据链");
         demodwayStr.add("CW");
         demodwayStr.add("FSK");
         demodwayStr.add("多音FSK");
-        demodwayStr.add("LINK数据链");
         demodwaySpin.setAdapter(demodwayAdapt);
         demodwaySpin.setSelection(1);
         demodwaySpin.setEnabled(false);
@@ -375,33 +389,59 @@ public class MainActivity extends Activity {
                 break;
 
             case R.id.connect_btn:
-                connectBtn.setText("连接设备");
-                bar.setVisibility(View.VISIBLE);
-                final AutoCompleteTextView edit = new AutoCompleteTextView(this);
-                edit.setThreshold(1);
-                final String[] hintStr = {"ProjectZero", "BLE SPS"};
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, hintStr);
-                edit.setAdapter(adapter);
-                edit.setHint("输入蓝牙设备名");
-                AlertDialog.Builder editBuilder = new AlertDialog.Builder(this);
-                editBuilder.setTitle("输入设备名")
-                        .setView(edit)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (edit.getText().toString().length() != 0) {
-                                    param.bleName = edit.getText().toString().trim();
-                                    TextView model = findViewById(R.id.model_text);
-                                    model.setText(param.bleName);
-                                } else {
-                                    debug("输入不能为空", false);
-                                }
+                if (connectBtn.isChecked()) {
+                    param.bleName = "";//需要重新输入蓝牙名
+                    bar.setVisibility(View.VISIBLE);
+                    final AutoCompleteTextView edit = new AutoCompleteTextView(this);
+                    edit.setThreshold(1);
+                    final String[] hintStr = {"ProjectZero", "BLE SPS"};
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, hintStr);
+                    edit.setAdapter(adapter);
+                    edit.setHint("输入蓝牙设备名");
+                    AlertDialog.Builder editBuilder = new AlertDialog.Builder(this);
+                    editBuilder.setTitle("输入设备名")
+                            .setView(edit)
+                            .setPositiveButton("确定", null)
+                            .setNegativeButton("取消", null);
+                    final AlertDialog alertDialog = editBuilder.create();
+                    alertDialog.setCanceledOnTouchOutside(false);
+                    alertDialog.show();
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (edit.getText().toString().length() != 0) {
+                                param.bleName = edit.getText().toString().trim();
+                                TextView model = findViewById(R.id.model_text);
+                                model.setText(param.bleName);
+                                alertDialog.dismiss();
+                            } else {
+                                debug("输入不能为空", false);
                             }
-                        })
-                        .setNegativeButton("取消", null)
-                        .create().show();
-                if (bleAdapt != null) {
-                    bleAdapt.getBluetoothLeScanner().startScan(scanCallBack);
+                        }
+                    });
+                    if (bleAdapt != null) {
+                        bleAdapt.getBluetoothLeScanner().startScan(scanCallBack);
+                    }
+                } else {
+                    byte buf[] = new byte[20];
+                    Arrays.fill(buf, (byte) 0);
+                    int index = 0;
+                    buf[index++] = 0;
+                    buf[index++] = 20;
+                    buf[index++] = 1;
+                    buf[index++] = (byte) 0x55;
+                    buf[index++] = (byte) 0x55;
+                    buf[index++] = (byte) 0x55;
+                    buf[19] = ClsUtils.arraySum(buf, 0, 19);
+                    if (bleCharacteristic != null && bleGatt != null)
+                        bleWrite(buf);
+                    bleAdapt.getBluetoothLeScanner().stopScan(scanCallBack);
+//                    断开连接释放资源
+                    if (bleGatt != null)
+                        bleGatt.close();
+                    bar.setVisibility(View.INVISIBLE);
+                    state_icon.setImageResource(R.drawable.offline);
+                    state_text.setText("异常");
                 }
 
                 break;
@@ -412,12 +452,11 @@ public class MainActivity extends Activity {
                 ListView fileListView = fileLayout.findViewById(R.id.file_list);
                 ArrayList<String> fileStrList = new ArrayList<>();
                 ArrayAdapter fileListAdapt = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, fileStrList);
-                String filearray[] = fileList();
+                String filearray[] = fileList();//获取所有文件
                 for (int i = 0; i < filearray.length; i++) {
                     fileStrList.add(filearray[i]);
                 }
                 fileListView.setAdapter(fileListAdapt);
-
                 fileListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -441,12 +480,15 @@ public class MainActivity extends Activity {
 
                 AlertDialog.Builder build = new AlertDialog.Builder(this);
                 build.setView(fileLayout)
-                        .setTitle("                      图案序号         频率列表")
-                        .setNegativeButton("退出", null)
-                        .create();
-                build.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                        .setTitle("                               图案序号         频率列表")
+                        .setNegativeButton("删除", null)
+                        .setPositiveButton("退出", null);
+                final AlertDialog dialog = build.create();
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
                         ListView listView = fileLayout.findViewById(R.id.file_list);
                         String[] fileArray = fileList();
                         String name = "";
@@ -454,10 +496,20 @@ public class MainActivity extends Activity {
                             name = fileArray[(int) listView.getSelectedItemId()];
                         if (name != null)
                             deleteFile(name);
-
+                        fileArray = fileList();
+                        ArrayList<String> fileStr = new ArrayList<>();
+                        ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, fileStr);
+                        for (int i = 0; i < fileArray.length; i++)
+                            fileStr.add(fileArray[i]);
+                        listView.setAdapter(adapter);
+//                      显示频率列表
+                        ListView freqListView = fileLayout.findViewById(R.id.freq_list);
+                        final ArrayList<String> fileFreqList = new ArrayList<>();
+                        ArrayAdapter fileFreqAdapt = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, fileFreqList);
+                        fileFreqList.clear();
+                        freqListView.setAdapter(fileFreqAdapt);
                     }
                 });
-                build.show();
 
                 break;
 
@@ -466,35 +518,59 @@ public class MainActivity extends Activity {
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                 builder1.setTitle("输入方案名")
                         .setView(editText)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (editText.getText().toString().length() != 0) {
-                                    String file = editText.getText().toString().trim();
-                                    String string = "";
+                        .setPositiveButton("确定", null)
+                        .setNegativeButton("取消", null);
+                final AlertDialog alertDialog = builder1.create();
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (editText.getText().toString().length() != 0) {
+                            String file = editText.getText().toString().trim();
+                            String string = "";
+                            try {
+                                for (int j = 0; j < freqListDArray.length; j++) {
+                                    string = "         ";
+                                    string += (String.format("%03d", (j + 1)));
+                                    string += "              ";
+                                    string += (String.format("%4.6f", freqListDArray[j]));
+                                    string += "MHz\n";
                                     try {
-                                        for (int j = 0; j < freqListDArray.length; j++) {
-                                            string = "         ";
-                                            string += (String.format("%03d", (j + 1)));
-                                            string += "              ";
-                                            string += (String.format("%4.6f", freqListDArray[j]));
-                                            string += "MHz\n";
-                                            try {
-                                                freqFile.phwrite(file, string);
-                                            } catch (Exception e) {
-                                                debug("档案生成失败", false);
-                                            }
-                                        }
+                                        freqFile.phwrite(file, string);
                                     } catch (Exception e) {
-                                        e.printStackTrace();
+                                        debug("档案生成失败", false);
                                     }
-                                } else {
-                                    debug("输入不能为空", false);
                                 }
+                                alertDialog.dismiss();
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        })
-                        .setNegativeButton("取消", null)
-                        .create().show();
+                        } else {
+                            debug("输入不能为空", false);
+                        }
+                    }
+                });
+                break;
+            case R.id.emit_btn:
+                ImageView icon = findViewById(R.id.emit_icon);
+                TextView text = findViewById(R.id.emitcon_text);
+                bleData();
+                sendBuf[42] = 1;//只下发了一个包
+                if (emitBtn.isChecked()) {
+                    sendBuf[46] = (byte) 0xf1;
+                    icon.setImageResource(R.drawable.online);
+                    text.setText("正常");
+                } else {
+                    sendBuf[46] = (byte) 0xf2;
+                    icon.setImageResource(R.drawable.offline);
+                    text.setText("断线");
+                }
+                byte[] writebuf = new byte[20];
+                for (int i = 40; i < 60; i++)
+                    writebuf[i - 40] = sendBuf[i];
+                bleWrite(writebuf);
+                sendBuf[42] = 3;
                 break;
         }
     }
@@ -516,8 +592,7 @@ public class MainActivity extends Activity {
             debug(scanResult.toString(), true);
             if (param.bleName.equals(name)) {
                 bleDevice = result.getDevice();
-                bleAdapt.getBluetoothLeScanner().stopScan(scanCallBack);
-                bleGatt = bleDevice.connectGatt(con, true, gattCallBack);
+                bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
                 debug("discover device", true);
             }
         }
@@ -575,12 +650,11 @@ public class MainActivity extends Activity {
 
                 }
             }
-            debug("onServicesDiscovered", true);
             Message msg = handle.obtainMessage();
             msg.what = 1;
             handle.sendMessage(msg);
             debug("state:connectend", true);
-//            new ReadCharacteristic(green).start();
+
         }
 
         @Override
@@ -592,7 +666,9 @@ public class MainActivity extends Activity {
                 str += String.format("0x%02x;", rcvBuf[i]);
             }
             debug("Read:" + str, true);
-            isRead = true;
+            Message msg = handle.obtainMessage();
+            msg.what = 2;
+            handle.sendMessage(msg);
         }
 
         @Override
@@ -600,7 +676,6 @@ public class MainActivity extends Activity {
             super.onCharacteristicWrite(gatt, characteristic, status);
             byte[] writebuf = characteristic.getValue();
             debug("Write:" + ClsUtils.toHexString(writebuf), true);
-            isWrite = true;
         }
 
         @Override
@@ -624,10 +699,12 @@ public class MainActivity extends Activity {
     };
 
     public void bleWrite(byte[] buf) {
+        if (bleCharacteristic != null && bleGatt != null) {
 //        bleGatt.setCharacteristicNotification(bleCharacteristic, true);
-        bleCharacteristic.setValue(buf);
+            bleCharacteristic.setValue(buf);
 //        bleCharacteristic.setWriteType(bleCharacteristic.WRITE_TYPE_NO_RESPONSE);
-        bleGatt.writeCharacteristic(bleCharacteristic);
+            bleGatt.writeCharacteristic(bleCharacteristic);
+        }
     }
 
 
@@ -645,8 +722,7 @@ public class MainActivity extends Activity {
             while (bleGatt != null && characteristic != null) {
                 try {
                     bleGatt.readCharacteristic(characteristic);
-                    isRead = false;
-                    sleep(3000);
+                    sleep(100);
 
                 } catch (Exception e) {
 
@@ -882,6 +958,7 @@ public class MainActivity extends Activity {
                     demodwayStr.add("USB");
                     demodwayStr.add("LSB");
                     demodwayStr.add("DSB");
+                    demodwayStr.add("LINK数据链");
                     demodwayStr.add("CW");
                     demodwayStr.add("FSK");
                     demodwayStr.add("多音FSK");
@@ -933,6 +1010,7 @@ public class MainActivity extends Activity {
                     demodwayStr.add("USB");
                     demodwayStr.add("LSB");
                     demodwayStr.add("DSB");
+                    demodwayStr.add("LINK数据链");
                     demodwaySpin.setAdapter(demodwayAdapt);
                     break;
             }
@@ -953,21 +1031,22 @@ public class MainActivity extends Activity {
                 case 2:
                 case 3:
                 case 4:
+                case 5:
                     msg_noiseSpin.setVisibility(View.VISIBLE);
                     msgEdit.setVisibility(View.INVISIBLE);
                     msg_noiseText.setVisibility(View.VISIBLE);
                     ismsgSend = false;
-                    msgcontent_Text.setText("      语音报文");
+                    msgcontent_Text.setText("   语音报文");
                     break;
-                case 5:
+                case 6:
                     msg_noiseSpin.setVisibility(View.INVISIBLE);
                     msgEdit.setVisibility(View.VISIBLE);
                     msg_noiseText.setVisibility(View.VISIBLE);
                     ismsgSend = true; // 需要下发报文序列
-                    msgcontent_Text.setText("      等幅报文");
+                    msgcontent_Text.setText("   等幅报文");
                     break;
-                case 6:
                 case 7:
+                case 8:
                     msg_noiseSpin.setVisibility(View.INVISIBLE);
                     msgEdit.setVisibility(View.INVISIBLE);
                     msg_noiseText.setVisibility(View.INVISIBLE);
@@ -1079,7 +1158,11 @@ public class MainActivity extends Activity {
     }
 
     public void bleSend() {
+        bleData();
+        new bleSendThread().start();
+    }
 
+    void bleData() {
         param.packageIndex = 1;//包的序号
         sendIndex = 0;
         int length = 3;
@@ -1099,7 +1182,6 @@ public class MainActivity extends Activity {
         if (ismsgSend) {
             msgData();
         }
-        new bleSendThread().start();
     }
 
     public class bleSendThread extends Thread {
@@ -1114,9 +1196,13 @@ public class MainActivity extends Activity {
                     bleWrite(writeBuf);
                     writeIndex = 0;
                     sleep(20);
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                Message msg = handle.obtainMessage();
+                msg.what = 3;
+                handle.sendMessage(msg);
             }
         }
     }
@@ -1161,7 +1247,7 @@ public class MainActivity extends Activity {
 //        bleWrite(sendBuf);
     }
 
-    void paramData() {
+    byte[] paramData() {
         sendIndex = 40;//第三个包
         int bitsLength = param.msgBits.length();
         sendBuf[sendIndex++] = param.packageIndex++;
@@ -1176,10 +1262,7 @@ public class MainActivity extends Activity {
         sendBuf[sendIndex++] = (byte) (comModeSpin.getSelectedItemPosition() + 0xf0);
         sendBuf[sendIndex++] = (byte) (freqway_intwaySpin.getSelectedItemPosition() + 0xf1);
         sendBuf[sendIndex++] = (byte) (demodwaySpin.getSelectedItemPosition() + 0xf1);
-        if (emitSwitch.isChecked())
-            sendBuf[sendIndex++] = (byte) 0xf1;//原先调制源现在不需要下发
-        else
-            sendBuf[sendIndex++] = (byte) 0xf2;
+        sendBuf[sendIndex++] = (byte) 0;
         sendBuf[sendIndex++] = (byte) (msg_noiseSpin.getSelectedItemPosition() + 0xf1);
         sendBuf[sendIndex++] = (byte) (freqrange_intbandSpin.getSelectedItemPosition() + 0xf1);
         sendBuf[sendIndex++] = (byte) (freqspeedSpin.getSelectedItemPosition() + 0xf1);
@@ -1188,6 +1271,10 @@ public class MainActivity extends Activity {
 
         sendBuf[59] = ClsUtils.arraySum(sendBuf, 40, 60);//校验和
         sendIndex = 60;
+        byte retbuf[] = new byte[20];
+        for (int i = 40; i < 59; i++)
+            retbuf[i - 40] = sendBuf[i];
+        return retbuf;
 //        bleWrite(sendBuf);
     }
 
@@ -1348,8 +1435,33 @@ public class MainActivity extends Activity {
             switch (msg.what) {
 //              蓝牙连接事件
                 case 1:
-                    connectBtn.setText("已连接");
                     bar.setVisibility(View.INVISIBLE);
+                    state_icon.setImageResource(R.drawable.online);
+                    state_text.setText("正常");
+                    bleAdapt.getBluetoothLeScanner().stopScan(scanCallBack);
+                    byte buf[] = new byte[20];
+                    Arrays.fill(buf, (byte) 0);
+                    int index = 0;
+                    buf[index++] = 0;
+                    buf[index++] = 20;
+                    buf[index++] = 1;
+                    buf[index++] = (byte) 0xaa;
+                    buf[index++] = (byte) 0xaa;
+                    buf[index++] = (byte) 0xaa;
+                    buf[19] = ClsUtils.arraySum(buf, 0, 19);
+//                  连接以后下发连接成功包
+                    if (bleCharacteristic != null && bleGatt != null) {
+                        bleWrite(buf);
+                        new ReadCharacteristic(bleCharacteristic).start();
+                    }
+                    break;
+//              处理蓝牙接收数据
+                case 2:
+                    debug("接收到数据", false);
+                    break;
+//              发送数据提示
+                case 3:
+                    debug("发送成功", false);
                     break;
             }
         }
