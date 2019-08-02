@@ -12,7 +12,8 @@ these are app develop in android studio using java by a learner，and plan for w
 6.androidstudio打开新的工程;×
 
 #20190801
-1.blespp的源码;
-2.按功能分类整理app代码;
-3.AndroidStdio打开新的工程;
-4.调试信号源模块代码/频谱仪架构代码;
+1.blespp的源码;×
+2.按功能分类整理app代码;×
+3.AndroidStdio打开新的工程;×
+4.调试信号源模块代码/频谱仪架构代码;×
++扫描蓝牙列表提示×
