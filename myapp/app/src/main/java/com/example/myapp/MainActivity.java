@@ -100,6 +100,7 @@ public class MainActivity extends Activity {
     private Button checkBtn;
     ImageView state_icon;
     TextView state_text;
+    TextView model;
     msgHandle handle;
     private double freqListDArray[];
     private int freqListIArray[];
@@ -146,6 +147,8 @@ public class MainActivity extends Activity {
         buf[19] = ClsUtils.arraySum(buf, 0, 19);
         if (bleCharacteristic != null && bleGatt != null)
             bleWrite(buf);
+        if (bleGatt != null)
+            bleGatt.close();
     }
 
     void init() {
@@ -227,6 +230,8 @@ public class MainActivity extends Activity {
      */
     void layoutInit() {
         handle = new msgHandle();
+        model = findViewById(R.id.model_text);
+        model.setText(param.bleName);
         state_icon = findViewById(R.id.state_icon);
         state_text = findViewById(R.id.statecon_text);
         bar = findViewById(R.id.bar);
@@ -309,6 +314,9 @@ public class MainActivity extends Activity {
         freqrange_intbandStr.add("5KHz");
         freqrange_intbandStr.add("10KHz");
         freqrange_intbandStr.add("25KHz");
+        freqrange_intbandStr.add("200KHz");
+        freqrange_intbandStr.add("500KHz");
+        freqrange_intbandStr.add("1MHz");
         freqrange_intbandSpin.setAdapter(freqrange_intbandAdapt);
         freqrange_intbandSpin.setEnabled(true);
         freqrange_intbandSpin.setOnItemSelectedListener(null);
@@ -394,7 +402,7 @@ public class MainActivity extends Activity {
                     bar.setVisibility(View.VISIBLE);
                     final AutoCompleteTextView edit = new AutoCompleteTextView(this);
                     edit.setThreshold(1);
-                    final String[] hintStr = {"ProjectZero", "BLE SPS"};
+                    final String[] hintStr = {"XDT-1", "XDT-2", "XDT-3", "XDT-4"};
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, hintStr);
                     edit.setAdapter(adapter);
                     edit.setHint("输入蓝牙设备名");
@@ -411,7 +419,6 @@ public class MainActivity extends Activity {
                         public void onClick(View v) {
                             if (edit.getText().toString().length() != 0) {
                                 param.bleName = edit.getText().toString().trim();
-                                TextView model = findViewById(R.id.model_text);
                                 model.setText(param.bleName);
                                 alertDialog.dismiss();
                             } else {
@@ -590,10 +597,28 @@ public class MainActivity extends Activity {
             scanResult.append(":");
             scanResult.append(addr);
             debug(scanResult.toString(), true);
-            if (param.bleName.equals(name)) {
+            bleDevice = result.getDevice();
+           /* if (param.bleName.equals(name) && param.bleName != null) {
                 bleDevice = result.getDevice();
                 bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
                 debug("discover device", true);
+            }*/
+            if ("XDT-2".equals(param.bleName) && "38:81:D7:0C:B1:F4".equals(bleDevice.getAddress())) {
+                bleDevice = result.getDevice();
+                bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
+                debug("discover:" + param.bleName, true);
+            } else if ("XDT-3".equals(param.bleName) && "38:81:D7:0C:77:1D".equals(bleDevice.getAddress())) {
+                bleDevice = result.getDevice();
+                bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
+                debug("discover:" + param.bleName, true);
+            } else if ("XDT-1".equals(param.bleName) && "38:81:D7:0C:6E:3E".equals(bleDevice.getAddress())) {
+                bleDevice = result.getDevice();
+                bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
+                debug("discover:" + param.bleName, true);
+            } else if ("XDT-4".equals(param.bleName) && "38:81:D7:0C:6E:11".equals(bleDevice.getAddress())) {
+                bleDevice = result.getDevice();
+                bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
+                debug("discover:" + param.bleName, true);
             }
         }
     };
@@ -626,9 +651,9 @@ public class MainActivity extends Activity {
                     if (uuid.equals("f0001111-0451-4000-b000-000000000000")) {
                         red = bgc;//LED红
                     }
-                    if (uuid.equals("f0001112-0451-4000-b000-000000000000")) {
+                   /* if (uuid.equals("f0001112-0451-4000-b000-000000000000")) {
                         bleCharacteristic = bgc;//LED绿
-                    }
+                    }*/
                     if (uuid.equals("0000fee1-0000-1000-8000-00805f9b34fb")) {
                         bleCharacteristic = bgc;
                     }
@@ -781,12 +806,29 @@ public class MainActivity extends Activity {
                     } else {
                         debug("输入不能为空", false);
                     }
-                    if (param.freq < 3) {
-                        param.freq = 3;
-                        debug("频率最小:3MHz", false);
-                    } else if (param.freq > 1000) {
-                        param.freq = 1000;
-                        debug("频率最大:1000MHz", false);
+                    double freqMin = 0, freqMax = 0;
+                    if ("XDT-2".equals(param.bleName)) {
+                        freqMin = 30;
+                        freqMax = 110;
+                    } else if ("XDT-3".equals(param.bleName)) {
+                        freqMin = 100;
+                        freqMax = 550;
+                    } else if ("XDT-1".equals(param.bleName)) {
+                        freqMin = 3;
+                        freqMax = 30;
+                    } else if ("XDT-4".equals(param.bleName)) {
+                        freqMin = 500;
+                        freqMax = 1000;
+                    } else {
+                        freqMin = 3;
+                        freqMax = 1000;
+                    }
+                    if (param.freq < freqMin) {
+                        param.freq = freqMin;
+                        debug(param.bleName + "频率最小:" + freqMin, false);
+                    } else if (param.freq > freqMax) {
+                        param.freq = freqMax;
+                        debug(param.bleName + "频率最大:" + freqMax, false);
                     }
                     freqEdit.setText("   " + String.format("%4.6f", param.freq));
                 }
@@ -800,9 +842,9 @@ public class MainActivity extends Activity {
                     if (param.power < 0.001) {
                         param.power = 0.001;
                         debug("功率最小:1mW", false);
-                    } else if (param.power > 10) {
-                        param.power = 10;
-                        debug("功率最大:10W", false);
+                    } else if (param.power > 5) {
+                        param.power = 5;
+                        debug("功率最大:5W", false);
                     }
                     powerEdit.setText("     " + String.format("%1.3f", param.power));
                 }
@@ -833,6 +875,9 @@ public class MainActivity extends Activity {
                     freqrange_intbandStr.add("5KHz");
                     freqrange_intbandStr.add("10KHz");
                     freqrange_intbandStr.add("25KHz");
+                    freqrange_intbandStr.add("200KHz");
+                    freqrange_intbandStr.add("500KHz");
+                    freqrange_intbandStr.add("1MKHz");
                     freqrange_intbandSpin.setAdapter(freqrange_intbandAdapt);
 
                     freqspeedText.setTextColor(Color.parseColor("#8A000000"));
@@ -840,6 +885,9 @@ public class MainActivity extends Activity {
                     break;
                 case 1:
                     freqrange_intbandStr.clear();
+                    freqrange_intbandStr.add("5KHz");
+                    freqrange_intbandStr.add("10KHz");
+                    freqrange_intbandStr.add("25KHz");
                     freqrange_intbandStr.add("200KHz");
                     freqrange_intbandStr.add("500KHz");
                     freqrange_intbandStr.add("1MHz");
@@ -1165,7 +1213,7 @@ public class MainActivity extends Activity {
     void bleData() {
         param.packageIndex = 1;//包的序号
         sendIndex = 0;
-        int length = 3;
+        int length = 3;//包数
         if (isfreqListSend)
             length += 25;
         if (ismsgSend)
@@ -1195,20 +1243,20 @@ public class MainActivity extends Activity {
                 try {
                     bleWrite(writeBuf);
                     writeIndex = 0;
-                    sleep(20);
+                    sleep(30);
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Message msg = handle.obtainMessage();
+               /* Message msg = handle.obtainMessage();
                 msg.what = 3;
-                handle.sendMessage(msg);
+                handle.sendMessage(msg);*/
             }
         }
     }
 
     void powerData() {
-        byte powerbuf[] = new byte[12];
+        byte[] powerbuf = new byte[12];
         sendBuf[sendIndex++] = param.packageIndex++;
         sendBuf[sendIndex++] = 12;
         sendBuf[sendIndex++] = 3;//参数设置一共三个包
@@ -1228,7 +1276,7 @@ public class MainActivity extends Activity {
     }
 
     void freqData() {
-        byte freqbuf[] = new byte[12];
+        byte[] freqbuf = new byte[12];
         sendBuf[sendIndex++] = param.packageIndex++;
         sendBuf[sendIndex++] = 16;
         sendBuf[sendIndex++] = 3;
@@ -1261,7 +1309,12 @@ public class MainActivity extends Activity {
         }
         sendBuf[sendIndex++] = (byte) (comModeSpin.getSelectedItemPosition() + 0xf0);
         sendBuf[sendIndex++] = (byte) (freqway_intwaySpin.getSelectedItemPosition() + 0xf1);
-        sendBuf[sendIndex++] = (byte) (demodwaySpin.getSelectedItemPosition() + 0xf1);
+        if (demodwaySpin.getSelectedItemPosition() == 5)
+            sendBuf[sendIndex++] = (byte) (0xf9);
+        else if (demodwaySpin.getSelectedItemPosition() > 5)
+            sendBuf[sendIndex++] = (byte) (demodwaySpin.getSelectedItemPosition() + 0xf0);
+        else
+            sendBuf[sendIndex++] = (byte) (demodwaySpin.getSelectedItemPosition() + 0xf1);
         sendBuf[sendIndex++] = (byte) 0;
         sendBuf[sendIndex++] = (byte) (msg_noiseSpin.getSelectedItemPosition() + 0xf1);
         sendBuf[sendIndex++] = (byte) (freqrange_intbandSpin.getSelectedItemPosition() + 0xf1);
@@ -1452,7 +1505,7 @@ public class MainActivity extends Activity {
 //                  连接以后下发连接成功包
                     if (bleCharacteristic != null && bleGatt != null) {
                         bleWrite(buf);
-                        new ReadCharacteristic(bleCharacteristic).start();
+                        // new ReadCharacteristic(bleCharacteristic).start();
                     }
                     break;
 //              处理蓝牙接收数据

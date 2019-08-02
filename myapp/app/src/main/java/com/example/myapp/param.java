@@ -7,7 +7,7 @@ public class param {
     static String powerval = new String("1.000");
     static String powerunit = new String("W");
     static String powerstr = null;
-    static String bleName = "蓝牙名";
+    static String bleName = "XDT-1";
 
     static double power = 1;//功率,默认1W
     static double freq = 10;//频率，默认10MHz

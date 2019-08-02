@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:windowSoftInputMode="adjustPan"
     tools:context=".MainActivity">
 
     <TextView
@@ -300,16 +301,25 @@
         android:id="@+id/connect_btn"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/height"
-        android:layout_alignBottom="@+id/connect_text"
         android:layout_alignLeft="@+id/freq_edit"
         android:layout_alignRight="@+id/freq_edit"
+        android:layout_alignBottom="@+id/connect_text"
+        android:background="@drawable/connect"
         android:onClick="clickEvent"
         android:showText="true"
+        android:textColor="@android:color/white"
         android:textOff="断开"
         android:textOn="连接"
-        android:background="@drawable/connect"
-        android:textSize="@dimen/textsize"
-        android:textColor="@android:color/white"/>
+        android:textSize="@dimen/textsize" />
+
+    <ListView
+        android:id="@+id/blelist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/connect_btn"
+        android:layout_toRightOf="@+id/connect_btn">
+
+    </ListView>
 
     <TextView
         android:id="@+id/emit_text"
@@ -327,23 +337,23 @@
         android:id="@+id/emit_btn"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/height"
-        android:layout_alignBottom="@+id/emit_text"
         android:layout_alignLeft="@+id/connect_btn"
         android:layout_alignRight="@+id/connect_btn"
+        android:layout_alignBottom="@+id/emit_text"
+        android:background="@drawable/connect"
         android:onClick="clickEvent"
         android:showText="true"
+        android:textColor="@android:color/white"
         android:textOff="断开"
         android:textOn="发射"
-        android:background="@drawable/connect"
-        android:textSize="@dimen/textsize"
-        android:textColor="@android:color/white"/>
+        android:textSize="@dimen/textsize" />
 
     <Button
         android:id="@+id/send_btn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/emit_btn"
-        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/emit_btn"
         android:layout_marginTop="30dp"
         android:background="@drawable/sendbtn"
         android:onClick="clickEvent"
@@ -364,7 +374,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="@dimen/start"
         android:text="系统状态"
         android:textColor="#000000"
         android:textSize="20dp" />
