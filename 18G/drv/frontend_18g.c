@@ -724,6 +724,7 @@ static void init_hmc764(void)
 static void input_pe43704(u16 data)
 {
 	int i = 0, d;
+
 	printd("input_pe43704 0x%x\n",data);
 
 	REG_CLR(RF_ALE1_OFFSET);
