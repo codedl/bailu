@@ -17,7 +17,7 @@ public class file {
     public file(Context context) {
         super();
         this.context = context;
-    }
+}
 
     public void sdwrite(String file, String content) throws Exception {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {

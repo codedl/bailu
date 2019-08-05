@@ -83,7 +83,7 @@
 
     <Spinner
         android:id="@+id/mode_spin"
-        android:layout_width="160dp"
+        android:layout_width="@dimen/width"
         android:layout_height="@dimen/height"
         android:layout_alignTop="@+id/mode_text"
         android:layout_toRightOf="@+id/mode_text"
@@ -104,14 +104,12 @@
 
     <Spinner
         android:id="@+id/intway_freqway_spin"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width"
         android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/mode_spin"
         android:layout_alignTop="@+id/intway_freqway_text"
         android:layout_alignRight="@+id/mode_spin"
-        android:spinnerMode="dropdown">
-
-    </Spinner>
+        android:spinnerMode="dropdown"></Spinner>
 
     <TextView
         android:id="@+id/intband_freqrange_text"
@@ -126,15 +124,13 @@
 
     <Spinner
         android:id="@+id/intband_freqrange_spin"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width"
         android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/intway_freqway_spin"
         android:layout_alignTop="@+id/intband_freqrange_text"
         android:layout_alignRight="@+id/intway_freqway_spin"
         android:saveEnabled="false"
-        android:spinnerMode="dropdown">
-
-    </Spinner>
+        android:spinnerMode="dropdown"></Spinner>
 
     <TextView
         android:id="@+id/freqspeed_text"
@@ -149,7 +145,7 @@
 
     <Spinner
         android:id="@+id/freqspeed_spin"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width"
         android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/intband_freqrange_spin"
         android:layout_alignTop="@+id/freqspeed_text"
@@ -209,7 +205,7 @@
 
     <Spinner
         android:id="@+id/demodway_spin"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width"
         android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/freqspeed_spin"
         android:layout_alignBottom="@+id/demodway_text"
@@ -232,7 +228,7 @@
 
     <TextView
         android:id="@+id/msgcontent_text"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width"
         android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/demodway_spin"
         android:layout_alignTop="@+id/demodsource_text"
@@ -262,7 +258,6 @@
         android:layout_height="@dimen/height"
         android:layout_alignLeft="@+id/msgcontent_text"
         android:layout_alignTop="@+id/noise_msg_text"
-        android:background="@null"
         android:spinnerMode="dropdown"
         android:visibility="gone">
 
@@ -279,11 +274,20 @@
         android:background="@drawable/edit"
         android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
         android:hint="输入字母/数字"
-        android:inputType="number"
         android:textSize="20dp"
         android:visibility="gone">
 
     </EditText>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height"
+        android:layout_alignTop="@+id/noise_msg_text"
+        android:layout_toRightOf="@+id/noise_msgcontent_edit"
+        android:text="报文速率"
+        android:id="@+id/msgspeed_btn"
+        android:onClick="clickEvent"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/connect_text"
@@ -312,14 +316,14 @@
         android:textOn="连接"
         android:textSize="@dimen/textsize" />
 
-    <ListView
+    <!--<ListView
         android:id="@+id/blelist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/connect_btn"
         android:layout_toRightOf="@+id/connect_btn">
 
-    </ListView>
+    </ListView>-->
 
     <TextView
         android:id="@+id/emit_text"
@@ -431,9 +435,9 @@
         android:id="@+id/deviece_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/emitcon_text"
-        android:layout_marginStart="10dp"
-        android:layout_toRightOf="@+id/emitcon_text"
+        android:layout_below="@+id/send_btn"
+        android:layout_marginTop="30dp"
+        android:layout_alignLeft="@+id/noise_msg_text"
         android:text="设备型号:"
         android:textColor="#000000"
         android:textSize="20dp" />

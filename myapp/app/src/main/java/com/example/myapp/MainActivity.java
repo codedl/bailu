@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -98,6 +99,7 @@ public class MainActivity extends Activity {
     private ProgressBar bar;
     private Button genBtn;
     private Button checkBtn;
+    private Button msgspeedBtn;
     ImageView state_icon;
     TextView state_text;
     TextView model;
@@ -109,19 +111,16 @@ public class MainActivity extends Activity {
     BluetoothGatt bleGatt;
     BluetoothDevice bleDevice;
     BluetoothGattCharacteristic red;
-    BluetoothGattCharacteristic green;
     BluetoothGattCharacteristic bleCharacteristic;
     byte[] rcvBuf;
     byte[] sendBuf;//发送数据
     int sendIndex;
-    boolean isRead;
-    boolean isWrite = false;//判断是否完成发送
     boolean isfreqListSend;
     boolean ismsgSend;
-    byte ledon;
 
     private Context context;
     private file freqFile;
+    float textsize = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +175,7 @@ public class MainActivity extends Activity {
      * 通信模式初始化
      */
     void comModeInit() {
+        TextView textView;
         isfreqListSend = false;
         ismsgSend = false;
 
@@ -191,6 +191,8 @@ public class MainActivity extends Activity {
         freqrange_intbandStr.add("200KHz");
         freqrange_intbandSpin.setAdapter(freqrange_intbandAdapt);
         freqrange_intbandSpin.setSelection(0, true);
+        textView = (TextView) freqrange_intbandSpin.getSelectedView();
+        textView.setTextSize(textsize);
         freqrange_intbandSpin.setOnItemSelectedListener(comFreqRangeSpinListener);
 
         freqspeedText.setTextColor(Color.parseColor("#8A000000"));
@@ -198,6 +200,9 @@ public class MainActivity extends Activity {
         freqspeedStr.clear();
         freqspeedStr.add("20跳/秒");
         freqspeedSpin.setAdapter(freqspeedAdapt);
+        freqspeedSpin.setSelection(0, true);
+        textView = (TextView) freqspeedSpin.getSelectedView();
+        textView.setTextSize(textsize);
 
         freqway_intwaySpin.setOnItemSelectedListener(null);
         freqway_intwayStr.clear();
@@ -206,6 +211,8 @@ public class MainActivity extends Activity {
         freqway_intwaySpin.setAdapter(freqway_intwayAdapt);
         freqway_intwaySpin.setSelection(0, true);
         freqway_intwaySpin.setOnItemSelectedListener(comFreqwaySpinListener);
+        textView = (TextView) freqway_intwaySpin.getSelectedView();
+        textView.setTextSize(textsize);
 
         msg_noiseStr.clear();
         msg_noiseStr.add("黄山黄山我是泰山");
@@ -215,7 +222,22 @@ public class MainActivity extends Activity {
         msg_noiseStr.add("黄河黄河我是长江");
         msg_noiseSpin.setVisibility(View.VISIBLE);
         msg_noiseSpin.setAdapter(msg_noiseAdapt);
+        msg_noiseSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view;
+                textView.setTextSize(15);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         msgEdit.setVisibility(View.INVISIBLE);
+        msg_noiseSpin.setSelection(0, true);
+        textView = (TextView) msg_noiseSpin.getSelectedView();
+        textView.setTextSize(textsize);
 
         TextView demodway = findViewById(R.id.demodway_text);
         demodway.setTextColor(Color.parseColor("#4CAF50"));
@@ -229,12 +251,14 @@ public class MainActivity extends Activity {
      * 界面初始化
      */
     void layoutInit() {
+        TextView textView;
         handle = new msgHandle();
         model = findViewById(R.id.model_text);
         model.setText(param.bleName);
         state_icon = findViewById(R.id.state_icon);
         state_text = findViewById(R.id.statecon_text);
         bar = findViewById(R.id.bar);
+        msgspeedBtn = findViewById(R.id.msgspeed_btn);
         emitBtn = findViewById(R.id.emit_btn);
         checkBtn = findViewById(R.id.check_btn);
         genBtn = findViewById(R.id.gen_btn);
@@ -256,6 +280,18 @@ public class MainActivity extends Activity {
         comModeSpin = findViewById(R.id.mode_spin);
         comModeAdapt = new ArrayAdapter(this, android.R.layout.simple_list_item_1, comModeStr);
         freqspeedSpin = findViewById(R.id.freqspeed_spin);
+        freqspeedSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view;
+                textView.setTextSize(textsize);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         freqspeedAdapt = new ArrayAdapter(this, android.R.layout.simple_list_item_1, freqspeedStr);
         freqrange_intbandSpin = findViewById(R.id.intband_freqrange_spin);
         freqrange_intbandAdapt = new ArrayAdapter(this, android.R.layout.simple_list_item_1, freqrange_intbandStr);
@@ -264,9 +300,14 @@ public class MainActivity extends Activity {
         comModeStr.add("干扰模式");
         comModeSpin.setAdapter(comModeAdapt);
         comModeSpin.setSelection(0, true);
+        textView = (TextView) comModeSpin.getSelectedView();
+        textView.setTextSize(textsize);
         comModeSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView tv = (TextView) view;
+                tv.setTextSize(textsize);
                 switch (i) {
                     case 0:
                         comModeInit();
@@ -293,12 +334,26 @@ public class MainActivity extends Activity {
         demodwayStr.add("多音FSK");
         demodwaySpin.setAdapter(demodwayAdapt);
         demodwaySpin.setSelection(0, true);
+        textView = (TextView) demodwaySpin.getSelectedView();
+        textView.setTextSize(textsize);
         demodwaySpin.setOnItemSelectedListener(comDemodWaySpinListener);
 
+        if ("XDT-1".equals(param.bleName)) {
+            freqEdit.setText("   10.000000");
+        } else if ("XDT-2".equals(param.bleName)) {
+            freqEdit.setText("   100.000000");
+        } else if ("XDT-3".equals(param.bleName)) {
+            freqEdit.setText("   500.000000");
+        } else if ("XDT-4".equals(param.bleName)) {
+            freqEdit.setText("   1000.000000");
+        } else {
+            freqEdit.setText("   10.000000");
+        }
     }
 
     //干扰模式初始化
     void intModeInit() {
+        TextView textView;
         freqway_intwayText.setText("干扰样式");
         freqway_intwaySpin.setOnItemSelectedListener(null);
         freqway_intwayStr.clear();
@@ -306,6 +361,8 @@ public class MainActivity extends Activity {
         freqway_intwayStr.add("扫频式");
         freqway_intwaySpin.setAdapter(freqway_intwayAdapt);
         freqway_intwaySpin.setSelection(0, true);
+        textView = (TextView) freqway_intwaySpin.getSelectedView();
+        textView.setTextSize(textsize);
         freqway_intwaySpin.setOnItemSelectedListener(intWaySpinListener);
 
         freqrange_intbandText.setText("干扰带宽:");
@@ -317,15 +374,32 @@ public class MainActivity extends Activity {
         freqrange_intbandStr.add("200KHz");
         freqrange_intbandStr.add("500KHz");
         freqrange_intbandStr.add("1MHz");
+        freqrange_intbandSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view;
+                textView.setTextSize(textsize);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         freqrange_intbandSpin.setAdapter(freqrange_intbandAdapt);
+        freqrange_intbandSpin.setSelection(0, true);
+        textView = (TextView) freqrange_intbandSpin.getSelectedView();
+        textView.setTextSize(textsize);
         freqrange_intbandSpin.setEnabled(true);
-        freqrange_intbandSpin.setOnItemSelectedListener(null);
 
         freqspeedText.setText("扫频速率:");
         freqspeedText.setTextColor(Color.parseColor("#8A000000"));
         freqspeedStr.clear();
         freqspeedStr.add("1KHz");
         freqspeedSpin.setAdapter(freqspeedAdapt);
+        freqspeedSpin.setSelection(0, true);
+        textView = (TextView) freqspeedSpin.getSelectedView();
+        textView.setTextSize(textsize);
         freqspeedSpin.setEnabled(false);
 
         msg_noiseText.setVisibility(View.INVISIBLE);
@@ -336,7 +410,6 @@ public class MainActivity extends Activity {
         demodway.setTextColor(Color.parseColor("#8A000000"));
         TextView demodsou = findViewById(R.id.demodsource_text);
         demodsou.setTextColor(Color.parseColor("#8A000000"));
-
 
         demodwaySpin.setOnItemSelectedListener(null);
 
@@ -352,7 +425,9 @@ public class MainActivity extends Activity {
         demodwayStr.add("FSK");
         demodwayStr.add("多音FSK");
         demodwaySpin.setAdapter(demodwayAdapt);
-        demodwaySpin.setSelection(1);
+        demodwaySpin.setSelection(1, true);
+        textView = (TextView) demodwaySpin.getSelectedView();
+        textView.setTextSize(textsize);
         demodwaySpin.setEnabled(false);
         msgcontent_Text.setText("   噪声");
     }
@@ -420,6 +495,17 @@ public class MainActivity extends Activity {
                             if (edit.getText().toString().length() != 0) {
                                 param.bleName = edit.getText().toString().trim();
                                 model.setText(param.bleName);
+                                if ("XDT-1".equals(param.bleName)) {
+                                    freqEdit.setText("   10.000000");
+                                } else if ("XDT-2".equals(param.bleName)) {
+                                    freqEdit.setText("   100.000000");
+                                } else if ("XDT-3".equals(param.bleName)) {
+                                    freqEdit.setText("   500.000000");
+                                } else if ("XDT-4".equals(param.bleName)) {
+                                    freqEdit.setText("   1000.000000");
+                                } else {
+                                    freqEdit.setText("   10.000000");
+                                }
                                 alertDialog.dismiss();
                             } else {
                                 debug("输入不能为空", false);
@@ -517,7 +603,6 @@ public class MainActivity extends Activity {
                         freqListView.setAdapter(fileFreqAdapt);
                     }
                 });
-
                 break;
 
             case R.id.gen_btn:
@@ -578,6 +663,31 @@ public class MainActivity extends Activity {
                     writebuf[i - 40] = sendBuf[i];
                 bleWrite(writebuf);
                 sendBuf[42] = 3;
+                break;
+            case R.id.msgspeed_btn:
+                final EditText msgEdit = new EditText(this);
+                msgEdit.setHint("输入报文速率");
+                msgEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
+                AlertDialog.Builder msgBuilder = new AlertDialog.Builder(this);
+                msgBuilder.setTitle("报文速率编辑")
+                        .setView(msgEdit)
+                        .setPositiveButton("确定", null);
+                final AlertDialog msgdia = msgBuilder.create();
+                msgdia.setCanceledOnTouchOutside(false);
+                msgdia.show();
+                msgdia.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (msgEdit.getText().toString().trim().length() != 0) {
+                            param.msgspeed = Integer.parseInt(msgEdit.getText().toString().trim());
+                            msgspeedBtn.setText("报文速率" + param.msgspeed);
+                            msgdia.dismiss();
+                        } else {
+                            debug("输入不能为空", false);
+                        }
+                    }
+                });
+
                 break;
         }
     }
@@ -782,12 +892,6 @@ public class MainActivity extends Activity {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             View view = getCurrentFocus();
             EditText edit = (EditText) view;
-            if (edit.equals(msgEdit)) {
-                if (getWindow().superDispatchTouchEvent(motionEvent)) {
-                    return true;
-                }
-                return onTouchEvent(motionEvent);
-            }
             if (isEditView(view, motionEvent)) {
                 edit.requestFocus();
                 edit.setCursorVisible(true);
@@ -869,6 +973,8 @@ public class MainActivity extends Activity {
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            TextView textView = (TextView) view;
+            textView.setTextSize(textsize);
             switch (i) {
                 case 0:
                     freqrange_intbandStr.clear();
@@ -923,7 +1029,9 @@ public class MainActivity extends Activity {
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            String str = null;
+            TextView textView = (TextView) view;
+            textView.setTextSize(textsize);
+            String str = "";
             int length = 0;
             int index = 0;
             int randnum = 0;
@@ -931,12 +1039,12 @@ public class MainActivity extends Activity {
 
             if (freqrange_intbandStr.get(i).contains("KHz")) {
                 str = freqrange_intbandStr.get(i).replace("KHz", "");
-                randnum = Integer.parseInt(str) / 4 * 2; // 上下限
-                freq -= Double.parseDouble(str) / 1000;
+                randnum = Integer.parseInt(str) / 4; // 上下限
+                freq -= Double.parseDouble(str) / 1000 / 2;
             } else {
                 str = freqrange_intbandStr.get(i).replace("MHz", "");
-                randnum = Integer.parseInt(str) * 1000 / 4 * 2;
-                freq -= Double.parseDouble(str);
+                randnum = Integer.parseInt(str) * 1000 / 4;
+                freq -= Double.parseDouble(str) / 2;
             }
             if (freq < 0) {
                 freq = 0;
@@ -945,7 +1053,8 @@ public class MainActivity extends Activity {
             if (randnum > 100) {
                 length = 100;
             }
-            freqListIArray = new int[length];
+            freqListIArray = new int[100];
+            Arrays.fill(freqListIArray, 0);
             int rand = 0;
             Random random = new Random();
             while (index < length - 1) {
@@ -984,6 +1093,8 @@ public class MainActivity extends Activity {
     Spinner.OnItemSelectedListener comFreqwaySpinListener = new Spinner.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            TextView textView = (TextView) view;
+            textView.setTextSize(textsize);
 
             switch (i) {
                 case 0:
@@ -1058,7 +1169,6 @@ public class MainActivity extends Activity {
                     demodwayStr.add("USB");
                     demodwayStr.add("LSB");
                     demodwayStr.add("DSB");
-                    demodwayStr.add("LINK数据链");
                     demodwaySpin.setAdapter(demodwayAdapt);
                     break;
             }
@@ -1073,16 +1183,18 @@ public class MainActivity extends Activity {
     Spinner.OnItemSelectedListener comDemodWaySpinListener = new Spinner.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            TextView textView = (TextView) view;
+            textView.setTextSize(textsize);
             switch (i) {
                 case 0:
                 case 1:
                 case 2:
                 case 3:
                 case 4:
-                case 5:
                     msg_noiseSpin.setVisibility(View.VISIBLE);
                     msgEdit.setVisibility(View.INVISIBLE);
                     msg_noiseText.setVisibility(View.VISIBLE);
+                    msgspeedBtn.setVisibility(View.INVISIBLE);
                     ismsgSend = false;
                     msgcontent_Text.setText("   语音报文");
                     break;
@@ -1090,14 +1202,17 @@ public class MainActivity extends Activity {
                     msg_noiseSpin.setVisibility(View.INVISIBLE);
                     msgEdit.setVisibility(View.VISIBLE);
                     msg_noiseText.setVisibility(View.VISIBLE);
+                    msgspeedBtn.setVisibility(View.VISIBLE);
                     ismsgSend = true; // 需要下发报文序列
                     msgcontent_Text.setText("   等幅报文");
                     break;
+                case 5:
                 case 7:
                 case 8:
                     msg_noiseSpin.setVisibility(View.INVISIBLE);
                     msgEdit.setVisibility(View.INVISIBLE);
                     msg_noiseText.setVisibility(View.INVISIBLE);
+                    msgspeedBtn.setVisibility(View.INVISIBLE);
                     ismsgSend = false;
                     msgcontent_Text.setText("   伪随机序列");
                     break;
@@ -1322,6 +1437,12 @@ public class MainActivity extends Activity {
         sendBuf[sendIndex++] = (byte) (bitsLength & 0xff);
         sendBuf[sendIndex++] = (byte) ((bitsLength >> 8) & 0xff);
 
+        if (ismsgSend) {
+            int msgspeed = 0;
+            msgspeed = param.msgBits.length() * param.msgspeed / param.msgStr.length() / 60;
+            sendBuf[sendIndex++] = (byte) (msgspeed & 0xff);
+            sendBuf[sendIndex++] = (byte) ((msgspeed >> 8) & 0xff);
+        }
         sendBuf[59] = ClsUtils.arraySum(sendBuf, 40, 60);//校验和
         sendIndex = 60;
         byte retbuf[] = new byte[20];
@@ -1518,5 +1639,6 @@ public class MainActivity extends Activity {
                     break;
             }
         }
+
     }
 }
