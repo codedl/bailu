@@ -17,3 +17,12 @@ these are app develop in android studio using java by a learner，and plan for w
 3.AndroidStdio打开新的工程;×
 4.调试信号源模块代码/频谱仪架构代码;×
 +扫描蓝牙列表提示×
+
+#20190802
+1.app文档;
+2.整理信号源模块文件，调试代码;
+
+#20190805
+1.搭建信号源环境;
+2.整理、熟悉模块代码资料;
+3.调试信号源代码;
