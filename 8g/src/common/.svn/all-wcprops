@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/common
+END
+sysfunc.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/common/sysfunc.h
+END
+global.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/common/global.h
+END
+sysvar.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/common/sysvar.cpp
+END
+sysstruct.h
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SA/!svn/ver/1073/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/common/sysstruct.h
+END
+sysfunc.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/common/sysfunc.cpp
+END
+messages.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/common/messages.h
+END
+sysvar.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SA/!svn/ver/1059/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/common/sysvar.h
+END
