@@ -5,6 +5,9 @@
 #include <QVBoxLayout>
 #include <QTextEdit>
 #include <QPushButton>
+#include <QUdpSocket>
+#include <QMessageBox>
+#include <QHostAddress>
 
 namespace Ui {
 class client;
@@ -23,6 +26,12 @@ private:
     QTextEdit *rcvEdit;
     QPushButton *closeBtn;
     QVBoxLayout *mainLayout;
+    int port;
+    QUdpSocket *udpSocket;
+
+public slots:
+    void BtnClicked();
+    void dataRcv();
 };
 
 #endif // CLIENT_H

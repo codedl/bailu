@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mainLayout->addWidget(detailBtn,2,0,1,2);
 
     timerLabel = new QLabel(tr("定时器:"),this);
-    timerLineEdit = new QLineEdit;
+    timerLineEdit = new QLineEdit(this);
     StartBtn = new QPushButton(tr("开始"),this);
     mainLayout->addWidget(timerLabel,3,0);
     mainLayout->addWidget(timerLineEdit,3,1);
@@ -29,8 +29,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     port = 5555;
     isStart = false;
-    udpsocket = new QUdpSocket;
+    udpsocket = new QUdpSocket(this);
     timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(timeout()));
+    connect(StartBtn,SIGNAL(clicked(bool)),this,SLOT(BtnClicked()));
 
 
 }
@@ -53,9 +55,25 @@ void MainWindow :: getHostInfo(){
 
 }
 void MainWindow::timeout(){
-
+    QString msg = timerLineEdit->text();
+    int length = 0;
+    if(msg == "")
+        return;
+    if((length = udpsocket->writeDatagram(msg.toLatin1(),msg.length(),
+                                          QHostAddress::Broadcast,port)) != msg.length())
+        return;
 }
 void MainWindow::BtnClicked(){
+    if(!isStart){
+        isStart = true;
+        StartBtn->setText(tr("stop"));
+        timer->start(1000);
+
+    }else{
+        isStart = false;
+        StartBtn->setText(tr("start"));
+        timer->stop();
+    }
 
 }
 void MainWindow::slotsDetil(){
