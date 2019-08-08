@@ -17,13 +17,20 @@ tcpserver::tcpserver(QWidget *parent, Qt::WindowFlags f) :
     mainLayout->addWidget(portEdit,1,1);
     mainLayout->addWidget(createBtn,2,0,1,2);
 
-    port = 5000;
+    port = 8010;
     portEdit->setText(QString::number(port));
     connect(createBtn,SIGNAL(clicked(bool)),this,SLOT(createServer()));
 }
 
 void tcpserver::createServer(){
-    Server = new server();
+    Server = new server(this, port);
+    createBtn->setEnabled(false);
+    //connect(server,SIGNAL(updateServer(QString,int)),this,SLOT(updateServer(QString,int)));
+
+}
+
+void tcpserver::updateServer(QString msg, int length){
+    contentList->addItem(msg.left(length));
 }
 
 tcpserver::~tcpserver()

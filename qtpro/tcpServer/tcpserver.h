@@ -32,6 +32,7 @@ private:
     server *Server;
 public slots:
     void createServer();
+    void updateServer(QString,int);
 };
 
 #endif // TCPSERVER_H

@@ -5,11 +5,11 @@
 #include<QObject>
 #include"tcpclientsocket.h"
 
-class server :public QTcpServer
+class server : public QTcpServer
 {
     Q_OBJECT
 public:
-    server(QWidget *parent, int port);
+    server(QObject *parent=0,int port=0);
     QList<TcpClientSocket*> clients ;
 
 signals:
@@ -19,7 +19,7 @@ public slots:
     void disconectClient(int);
 
 protected:
-    void incomingConnection(int socketDescriptor());
+    void incomingConnection(int socketDescriptor);
 };
 
 #endif // SERVER_H

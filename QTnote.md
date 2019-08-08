@@ -10,7 +10,16 @@ c.配置环境变量path;
 4.git add origin master添加远程仓库
 5.git pull origin master --allow-unrelated-histories合并代码，
 然后 git push origin master提交代码
-[QT:socket]
+[QT:Udpsocket]
 a.获取本地主机信息；
 b.服务通过socket指定端口发送数据
 c.客户端bind端口号，接收服务器数据
+[QT:TcpSocket]
+a.服务器：
+1.创建socket句柄，listen端口号和IP，等待连接
+2.获取客户端socket句柄；
+3.根据信号与槽机制读写数据
+b.客户端
+1.创建socket对象，连接指定地址和端口的服务器；
+2.利用信号与槽机制添加connected，disconned，readyRead的槽函数
+3.通过句柄读写数据

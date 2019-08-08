@@ -5,7 +5,7 @@ TcpServer::TcpServer(QWidget *parent,Qt::WindowFlags f)
 {
     setWindowTitle(tr("TCP Server"));
     ContentListWidget = new QListWidget;
-    PortLabel = new QLabel(tr("端口："));
+    PortLabel = new QLabel(tr("端口号:"));
     PortLineEdit = new QLineEdit;
     CreateBtn = new QPushButton(tr("创建聊天室"));
     mainLayout = new QGridLayout(this);
