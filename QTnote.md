@@ -33,4 +33,21 @@ b.客户端
 1.创建socket对象，连接指定地址和端口的服务器；
 2.利用信号与槽机制添加connected，disconned，readyRead的槽函数
 3.通过句柄读写数据
+[QT:File]
+a.QFile:
+1.创建QFile对象跟文件关联；
+2.调用QFile的接口操作文件，以包含写的权限打开会创建文件；
+b.QTextStream:
+1.创建QTextStream对象关联QFile对象；
+2.使用流操作符和格式化函数输入输出；
+c.QFileinfo:
+创建QFileinfo对象获取文件信息
+d.xml文件解析：
+1.QFile关联xml文件，将文件写入QDomDocument
+2.从第一个主节点firstChildElement开始，获取节点的attributes，读取每个
+attributes.item的nodeName和nodeValue;
+3.获取节点的firstChildElement，获取节点的attributes，读取每个
+attributes.item的nodeName和nodeValue;
+4.获取节点的childNodes子节点列表，读取每个子节点列表的attributes.item的nodeName和nodeValue;
+
 
