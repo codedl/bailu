@@ -1,2 +1,0 @@
-# bailu
-emed\c++\qt
