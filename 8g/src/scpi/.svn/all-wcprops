@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/scpi
+END
+basescpi.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/scpi/basescpi.h
+END
+filescpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/scpi/filescpi.cpp
+END
+cmdscpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/scpi/cmdscpi.cpp
+END
+sysscpi.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/SA/!svn/ver/1059/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/scpi/sysscpi.h
+END
+command.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/scpi/command.h
+END
+libusb.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/scpi/libusb.h
+END
+datascpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/scpi/datascpi.cpp
+END
+basescpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SA/!svn/ver/1045/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/scpi/basescpi.cpp
+END
+sysscpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SA/!svn/ver/1073/ZJ/18G%E9%A2%91%E8%B0%B1%E4%BB%AA/branches/v2/src/scpi/sysscpi.cpp
+END
