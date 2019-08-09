@@ -19,7 +19,7 @@ public slots:
     void disconectClient(int);
 
 protected:
-    void incomingConnection(int socketDescriptor());
+    void incomingConnection(int socketDescriptor);
 };
 
 #endif // SERVER_H
