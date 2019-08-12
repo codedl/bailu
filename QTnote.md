@@ -42,6 +42,9 @@ attributes.item的nodeName和nodeValue;
 3.获取节点的firstChildElement，获取节点的attributes，读取每个
 attributes.item的nodeName和nodeValue;
 4.获取节点的childNodes子节点列表，读取每个子节点列表的attributes.item的nodeName和nodeValue;
-
+[QT:2d绘图]
+1.创建QPainter对象，指定绘图设备；
+2.定义QPen，QFont，QColor等绘图工具；
+3.调用接口绘图
 
 

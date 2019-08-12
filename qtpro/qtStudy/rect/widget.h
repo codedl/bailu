@@ -6,6 +6,7 @@
 #include <QRect>
 #include <QPixmap>
 #include <QColor>
+#include <QDebug>
 
 
 namespace Ui {
