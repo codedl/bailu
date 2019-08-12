@@ -13,16 +13,9 @@ c.配置环境变量path;
 然后 git push origin master提交代码
 +:git rm --cached . -r 删除缓冲区中文件
 
-[QT:socket]
-1.udp编程
-a.获取本地主机信息；
-b.服务通过socket指定端口发送数据
-c.客户端bind端口号，接收服务器数据
-
-=======
 [QT:Udpsocket]
 a.获取本地主机信息；
-b.服务通过socket指定端口发送数据
+b.服务器通过socket指定端口发送数据
 c.客户端bind端口号，接收服务器数据
 [QT:TcpSocket]
 a.服务器：
@@ -49,5 +42,6 @@ attributes.item的nodeName和nodeValue;
 3.获取节点的firstChildElement，获取节点的attributes，读取每个
 attributes.item的nodeName和nodeValue;
 4.获取节点的childNodes子节点列表，读取每个子节点列表的attributes.item的nodeName和nodeValue;
+
 
 
