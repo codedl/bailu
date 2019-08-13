@@ -2,6 +2,7 @@
 code by android studio, java, android os
 myapp is api level 27
 these are app develop in android studio using java by a learner，and plan for work
+Java从入门到精通;从零开始学Android编程;Android开发与应用;菜鸟教程(https://www.runoob.com/)
 
 #20190731
 1.优化界面，每个操作给出提示;√
@@ -26,3 +27,14 @@ these are app develop in android studio using java by a learner，and plan for w
 1.搭建信号源环境;
 2.整理、熟悉模块代码资料;
 3.调试信号源代码;
+
+#20190812
+1.手机连接多个蓝牙;
+2.手机发送文件给服务器;
+3.blespp的源码;
+4.优化蓝牙连接速度;
+5.分类整理代码;
+
+#20190813
+1.手机连接多个蓝牙设备;
+2.手机发送文件给服务器;
