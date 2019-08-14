@@ -33,6 +33,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
@@ -56,9 +57,13 @@ import android.widget.ToggleButton;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -434,22 +439,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
                 break;
 
-            case R.id.m0led_btn:
+            case R.id.module0_btn:
                 byte val[] = new byte[1];
                 ledon ^= 1;
                 val[0] = ledon;
-                BluetoothGatt gatt0 = gattArrayList.get(0);
-                if (xdt != null && gatt0 != null) {
-                    bleWrite(gatt0, xdt, val);
+                if (gattArrayList.size() >= 1) {
+                    BluetoothGatt gatt0 = gattArrayList.get(0);
+                    if (xdt != null && gatt0 != null) {
+                        bleWrite(gatt0, xdt, val);
+                    }
                 }
                 break;
-            case R.id.m1led_btn:
+            case R.id.modle1_btn:
                 byte v[] = new byte[1];
                 ledon ^= 1;
                 v[0] = ledon;
-                BluetoothGatt gatt1 = gattArrayList.get(1);
-                if (green != null && gatt1 != null) {
-                    bleWrite(gatt1, green, v);
+                if (gattArrayList.size() >= 2) {
+                    BluetoothGatt gatt1 = gattArrayList.get(1);
+                    if (green != null && gatt1 != null) {
+                        bleWrite(gatt1, green, v);
+                    }
                 }
                 break;
             case R.id.scan_btn:
@@ -470,14 +479,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 devList.setAdapter(devAdapter);
                 break;
+            case R.id.upfile_btn:
+                try {
+                    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                        File sdPath = Environment.getExternalStorageDirectory();
+                        String path = sdPath.getCanonicalPath() + "/" + "java.txt";
+                        FileOutputStream out = new FileOutputStream(path);
+                        PrintStream ps = new PrintStream(out);
+                        ps.println("wql where are you");
+                        out.close();
+                        FileInputStream inputStream = new FileInputStream(path);
+                        byte[] buf = new byte[1024];
+                        int length = inputStream.read(buf);
+                        System.out.println(new String(buf, 0, length));
+                        inputStream.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                break;
         }
     }
 
     /**
-     * 检查权限
+     * 检查权限,gps定位，sd卡读写文件
      */
     private void checkPermissions() {
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         List<String> permissionDeniedList = new ArrayList<>();
         for (String permission : permissions) {
             int permissionCheck = ContextCompat.checkSelfPermission(this, permission);
@@ -836,11 +865,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 }
             }
-           if(gattArrayList.size() == 2){
-               new ReadCharacteristic(xdt,gattArrayList.get(0)).start();
-               new ReadCharacteristic(green,gattArrayList.get(1)).start();
-               System.out.println("read characteristic");
-           }
+            if (gattArrayList.size() == 2) {
+                new ReadCharacteristic(xdt, gattArrayList.get(0)).start();
+                new ReadCharacteristic(green, gattArrayList.get(1)).start();
+                System.out.println("read characteristic");
+            }
         }
 
         @Override

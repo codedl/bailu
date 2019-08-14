@@ -49,7 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/socketconnect_btn"
         android:layout_toRightOf="@+id/control_text"
-        android:text="上传文件" />
+        android:text="上传文件"
+        android:onClick="clickEvent"/>
 
     <Spinner
         android:id="@+id/file_list"
@@ -84,32 +85,30 @@
         android:text="完成连接"
         android:textSize="20sp" />
 
-
     <Button
-        android:id="@+id/m0led_btn"
+        android:id="@+id/module0_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/over_btn"
-        android:layout_toRightOf="@+id/zhuzhuang_text"
+        android:layout_alignLeft="@+id/over_btn"
         android:onClick="clickEvent"
-        android:text="模块0LED控制" />
+        android:text="模块1" />
 
     <Button
-        android:id="@+id/m1led_btn"
+        android:id="@+id/modle1_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/over_btn"
-        android:layout_toRightOf="@+id/m0led_btn"
-        android:text="模块1LED控制"
+        android:layout_toRightOf="@+id/module0_btn"
+        android:text="模块2"
         android:onClick="clickEvent" />
 
     <ToggleButton
         android:id="@+id/scan_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/m0led_btn"
-        android:layout_alignLeft="@+id/m0led_btn"
-        android:layout_alignRight="@+id/m1led_btn"
+        android:layout_below="@+id/modle1_btn"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/item3"
         android:checked="true"
         android:onClick="clickEvent"
@@ -120,12 +119,11 @@
 
     <Button
         android:id="@+id/connect_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/scan_btn"
         android:layout_marginTop="10dp"
-        android:layout_alignLeft="@+id/m0led_btn"
-        android:layout_alignRight="@+id/m1led_btn"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/item2"
         android:textColor="@android:color/white"
         android:text="已连接设备"
