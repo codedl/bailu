@@ -72,8 +72,8 @@
         android:text="驻装模块"
         android:textColor="#4CAF50" />
 
-    <ToggleButton
-        android:id="@+id/bleconnect_btn"
+    <Button
+        android:id="@+id/over_btn"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/zhuzhuang_text"
@@ -81,60 +81,65 @@
         android:background="@drawable/disconnect"
         android:onClick="clickEvent"
         android:textColor="@android:color/white"
-        android:textOff="连接驻装"
-        android:textOn="断开连接"
+        android:text="完成连接"
         android:textSize="20sp" />
 
 
     <Button
-        android:id="@+id/ON_text"
+        android:id="@+id/m0led_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bleconnect_btn"
+        android:layout_below="@id/over_btn"
         android:layout_toRightOf="@+id/zhuzhuang_text"
         android:onClick="clickEvent"
-        android:text="驻装控制" />
+        android:text="模块0LED控制" />
 
-    <ToggleButton
-        android:id="@+id/ON_btn"
+    <Button
+        android:id="@+id/m1led_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bleconnect_btn"
-        android:layout_alignRight="@+id/file_list"
-        android:layout_toRightOf="@+id/ON_text"
+        android:layout_below="@+id/over_btn"
+        android:layout_toRightOf="@+id/m0led_btn"
+        android:text="模块1LED控制"
         android:onClick="clickEvent" />
 
     <ToggleButton
-        android:id="@+id/disturb_btn"
+        android:id="@+id/scan_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ON_text"
-        android:layout_alignLeft="@+id/ON_text"
-        android:layout_alignRight="@+id/ON_btn"
+        android:layout_below="@+id/m0led_btn"
+        android:layout_alignLeft="@+id/m0led_btn"
+        android:layout_alignRight="@+id/m1led_btn"
         android:background="@drawable/item3"
         android:checked="true"
         android:onClick="clickEvent"
         android:textColor="@android:color/white"
-        android:textOff="取消音频干扰"
-        android:textOn="开始音频干扰"
+        android:textOff="取消扫描"
+        android:textOn="扫描蓝牙"
         android:textSize="23sp" />
 
-    <ToggleButton
-        android:id="@+id/save_btn"
+    <Button
+        android:id="@+id/connect_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/disturb_btn"
+        android:layout_below="@+id/scan_btn"
         android:layout_marginTop="10dp"
-        android:layout_alignLeft="@+id/ON_text"
-        android:layout_alignRight="@+id/ON_btn"
+        android:layout_alignLeft="@+id/m0led_btn"
+        android:layout_alignRight="@+id/m1led_btn"
         android:background="@drawable/item2"
-        android:checked="true"
         android:textColor="@android:color/white"
-        android:textOff="取消数据存储"
-        android:textOn="开始数据存储"
-        android:textSize="23sp" />
+        android:text="已连接设备"
+        android:textSize="23sp"
+        android:onClick="clickEvent"/>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/devices_list"
+        android:layout_below="@+id/connect_btn">
 
-    <ToggleButton
+    </ListView>
+
+    <!--<ToggleButton
         android:id="@+id/gather_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -148,13 +153,13 @@
         android:textColor="@android:color/white"
         android:textOff="停止数据采集"
         android:textOn="开始数据采集"
-        android:textSize="23sp" />
+        android:textSize="23sp" />-->
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/state_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/gather_btn"
+        android:layout_below="@+id/connect_btn"
         android:layout_marginStart="10dp"
         android:text="模块状态"
         android:textColor="#4CAF50" />
@@ -184,7 +189,7 @@
         android:layout_below="@+id/state_text"
         android:layout_centerHorizontal="true"
         android:text="电量:%100"
-        android:textColor="#3F51B5" />
+        android:textColor="#3F51B5" />-->
 
     <TextView
         android:id="@+id/ip_text"
@@ -234,8 +239,8 @@
         android:id="@+id/ble_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bleconnect_btn"
-        android:layout_toRightOf="@+id/bleconnect_btn"
+        android:layout_alignBottom="@+id/over_btn"
+        android:layout_toRightOf="@+id/over_btn"
         android:visibility="gone" />
     <Chronometer
         android:id="@+id/contime_chr"

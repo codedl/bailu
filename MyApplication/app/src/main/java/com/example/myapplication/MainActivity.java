@@ -36,6 +36,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -60,6 +61,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.NavigableSet;
 
@@ -68,6 +70,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<String> fileStr = new ArrayList<>();
     private ArrayAdapter fileAdapter;
     public Spinner fileSpinner;
+
+    private ArrayList<String> devicesStr = new ArrayList<>();
+    private ArrayList<BluetoothDevice> devices = new ArrayList<>();
+    private ArrayList<BluetoothGatt> gattArrayList = new ArrayList<>();
+    private ArrayMap<String, BluetoothGatt> gattArrayMap = new ArrayMap<>();
+    private ArrayList<String> addrStr = new ArrayList<>();
+    private ArrayAdapter devAdapter;
+    public ListView devList;
+
     private Button socketconnectBtn;
     private Button upfileBtn;
     private Button bleconnectBtn;
@@ -77,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView gpsText;
     private TextView userText;
     private ToggleButton onBtn;
-    private ToggleButton bleConnectBtn;
+    private Button bleConnectBtn;
     private ToggleButton socketConnectBtn;
     private Chronometer chronometer;
     private Chronometer bleconnect_time;
@@ -93,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BluetoothGatt bleGatt;
     private BluetoothGattCharacteristic red;
     private BluetoothGattCharacteristic green;
+    private BluetoothGattCharacteristic btnbgc;
+    private BluetoothGattCharacteristic xdt;
+
+    private byte ledon;
     boolean isFirstPressed = true;
     private BluetoothAdapter bleAdapter;
     boolean iscalled = false;
@@ -157,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onClick(DialogInterface dialogInterface, int i) {
                         param.username = usernameEdit.getText().toString().trim();
                         param.password = passwordEdit.getText().toString().trim();
-                        userText.setText("用户编号:" + param.username);
+                        // userText.setText("用户编号:" + param.username);
                     }
                 });
                 builder.setNegativeButton("取消", null);
@@ -242,12 +257,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //获取蓝牙适配器
         BluetoothManager bm = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         bleAdapter = bm.getAdapter();
+
+        devList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
+                BluetoothDevice bluetoothDevice = devices.get(i);
+                addrStr.add(bluetoothDevice.getAddress());
+                BluetoothGatt gatt = bluetoothDevice.connectGatt(MainActivity.this, false, gattCallBack);
+                if (gatt != null)
+                    gattArrayList.add(gatt);
+                devices.remove(i);
+                devicesStr.remove(i);
+                devList.setAdapter(devAdapter);
+            }
+        });
     }
 
 
     public void layoutInit() {
         fileSpinner = (Spinner) findViewById(R.id.file_list);
         fileAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, fileStr);
+        devList = findViewById(R.id.devices_list);
+        devAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, devicesStr);
         fileStr.add("文件列表");
         fileStr.add("FILE1");
         fileStr.add("FILE2");
@@ -264,14 +297,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-        moduleonBtn = (Button) findViewById(R.id.ON_text);
+//        moduleonBtn = (Button) findViewById(R.id.ON_text);
         //moduleonBtn.setEnabled(false);
         ipText = (TextView) findViewById(R.id.ip_text);
         bleText = (TextView) findViewById(R.id.ble_text);
-        gpsText = (TextView) findViewById(R.id.gps_text);
-        userText = (TextView) findViewById(R.id.user_text);
-        bleConnectBtn = (ToggleButton) findViewById(R.id.bleconnect_btn);
-        onBtn = (ToggleButton) findViewById(R.id.ON_btn);
+        /*gpsText = (TextView) findViewById(R.id.gps_text);
+        userText = (TextView) findViewById(R.id.user_text);*/
+//        bleConnectBtn = (ToggleButton) findViewById(R.id.bleconnect_btn);
+        //onBtn = (ToggleButton) findViewById(R.id.ON_btn);
         socketConnectBtn = (ToggleButton) findViewById(R.id.socketconnect_btn);
         socketBar = (ProgressBar) findViewById(R.id.socket_bar);
         bleBar = (ProgressBar) findViewById(R.id.ble_bar);
@@ -337,9 +370,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             sb.append("位置:");
             sb.append("经度" + String.format("%3.9f", location.getLongitude()));
             sb.append(";纬度" + String.format("%3.9f", location.getLatitude()));
-            gpsText.setText(sb.toString());
+            //  gpsText.setText(sb.toString());
         } else {
-            gpsText.setText("位置:经度117.14;纬度31.84");
+            //gpsText.setText("位置:经度117.14;纬度31.84");
         }
     }
 
@@ -374,8 +407,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Toast.makeText(MainActivity.this, "断开连接", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.bleconnect_btn:
-                if (bleConnectBtn.isChecked()) {
+            case R.id.over_btn:
+                /*if (bleConnectBtn.isChecked()) {
                     bleAdapter.getBluetoothLeScanner().startScan(scanCallBack);
                     bleConnectBtn.setBackgroundResource(R.drawable.connecting);
                     bleBar.setVisibility(View.VISIBLE);
@@ -394,22 +427,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     bleConnectBtn.setBackgroundResource(R.drawable.disconnect);
                     bleBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(MainActivity.this, "断开连接", Toast.LENGTH_SHORT).show();
-                }
+                }*/
+                devices.clear();
+                devicesStr.clear();
+                devList.setAdapter(devAdapter);
+                bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
                 break;
-            case R.id.disturb_btn:
 
-                break;
-
-            case R.id.ON_btn:
+            case R.id.m0led_btn:
                 byte val[] = new byte[1];
-                if (onBtn.isChecked()) {
-                    val[0] = 1;
-                } else {
-                    val[0] = 0;
+                ledon ^= 1;
+                val[0] = ledon;
+                BluetoothGatt gatt0 = gattArrayList.get(0);
+                if (xdt != null && gatt0 != null) {
+                    bleWrite(gatt0, xdt, val);
                 }
-                if (green != null && bleGatt != null) {
-                    bleWrite(bleGatt, green, val);
+                break;
+            case R.id.m1led_btn:
+                byte v[] = new byte[1];
+                ledon ^= 1;
+                v[0] = ledon;
+                BluetoothGatt gatt1 = gattArrayList.get(1);
+                if (green != null && gatt1 != null) {
+                    bleWrite(gatt1, green, v);
                 }
+                break;
+            case R.id.scan_btn:
+                Toast.makeText(this, "start scan", Toast.LENGTH_SHORT).show();
+                bleAdapter.getBluetoothLeScanner().startScan(scanCallBack);
+                break;
+            case R.id.connect_btn:
+                devicesStr.clear();
+                BluetoothDevice device;
+                Collection<BluetoothGatt> gatts = gattArrayMap.values();
+                for (BluetoothGatt gatt : gatts) {
+                    device = gatt.getDevice();
+                    if (device != null) {
+                        String name = device.getName();
+                        String addr = device.getAddress();
+                        devicesStr.add(name + addr);
+                    }
+                }
+                devList.setAdapter(devAdapter);
                 break;
         }
     }
@@ -586,7 +645,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    if (msg.arg1 == 1) {
+                    /*if (msg.arg1 == 1) {
                         socketConnectBtn.setText("已连接");
                         socketConnectBtn.setBackgroundResource(R.drawable.radius);
                         socketBar.setVisibility(View.INVISIBLE);
@@ -613,7 +672,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         bleBar.setVisibility(View.INVISIBLE);
                         bleconnect_time.setVisibility(View.INVISIBLE);
                         bleconnect_time.stop();
-                    }
+                    }*/
                     break;
                 case 2:
                     byte buf[] = (byte[]) msg.obj;
@@ -652,10 +711,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //定时读取led状态判断ble是否掉线
     public class ReadCharacteristic extends Thread {
         BluetoothGattCharacteristic characteristic;
+        BluetoothGatt gatt;
         Message msg = null;
 
-        public ReadCharacteristic(BluetoothGattCharacteristic temp) {
+        public ReadCharacteristic(BluetoothGattCharacteristic temp, BluetoothGatt gatt) {
             this.characteristic = temp;
+            this.gatt = gatt;
         }
 
         @Override
@@ -665,9 +726,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             msg.what = 1;
             msg.arg1 = 2;
             mainHandle.sendMessage(msg);
-            while (bleGatt != null && characteristic != null) {
+            while (gatt != null && characteristic != null) {
                 try {
-                    bleGatt.readCharacteristic(characteristic);
+                    gatt.readCharacteristic(characteristic);
                     iscalled = false;
                     sleep(3000);
                     if (iscalled == false) {
@@ -690,6 +751,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mainHandle.sendMessage(msg);
         }
     }
+
     //扫描蓝牙的回调函数
     public ScanCallback scanCallBack = new ScanCallback() {
         @Override
@@ -703,12 +765,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             scanResult.append(":");
             scanResult.append(addr);
             Log.d("print", scanResult.toString());
-            if (param.bleName.equals(name)) {
+
+            if (name == null || devices.contains(dev))
+                return;
+
+            devices.add(dev);
+            devicesStr.add(scanResult.toString());
+            devList.setAdapter(devAdapter);
+
+           /* if (param.bleName.equals(name)) {
                 bleDevice = result.getDevice();
                 bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
                 bleGatt = bleDevice.connectGatt(MainActivity.this, true, gattCallBack);
                 Log.d("print", "discover device");
-            }
+            }*/
         }
     };
 
@@ -718,8 +788,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             super.onConnectionStateChange(gatt, status, newState);
             if (newState == BluetoothProfile.STATE_CONNECTED) {
-                if (bleGatt != null) {
-                    bleGatt.discoverServices();
+                if (gatt != null) {
+                    String addr = gatt.getDevice().getAddress();
+                    System.out.println(addr);
+                    gatt.discoverServices();
+                    gattArrayMap.put(addr, gatt);
                 }
             }
         }
@@ -741,9 +814,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (uuid.equals("f0001112-0451-4000-b000-000000000000")) {
                         green = bgc;//LED绿
                     }
-                  /*  if (uuid.equals("f0001121-0451-4000-b000-000000000000")) {
+                    if (uuid.equals("f0001121-0451-4000-b000-000000000000")) {
                         btnbgc = bgc;//按键
-                    }*/
+                    }
+                    if (uuid.equals("0000fee1-0000-1000-8000-00805f9b34fb")) {
+                        xdt = bgc;
+                    }
                     Log.d("print", "character uuid:" + uuid);
 
                     int charaProp = bgc.getProperties();
@@ -760,7 +836,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 }
             }
-            new ReadCharacteristic(green).start();
+           if(gattArrayList.size() == 2){
+               new ReadCharacteristic(xdt,gattArrayList.get(0)).start();
+               new ReadCharacteristic(green,gattArrayList.get(1)).start();
+               System.out.println("read characteristic");
+           }
         }
 
         @Override
@@ -804,9 +884,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     };
 
     public void bleWrite(BluetoothGatt blegatt, BluetoothGattCharacteristic characteristic, byte val[]) {
-        blegatt.setCharacteristicNotification(characteristic, true);
+//        blegatt.setCharacteristicNotification(characteristic, true);
         characteristic.setValue(val);
-        characteristic.setWriteType(characteristic.WRITE_TYPE_NO_RESPONSE);
+//        characteristic.setWriteType(characteristic.WRITE_TYPE_NO_RESPONSE);
         blegatt.writeCharacteristic(characteristic);
     }
 }
