@@ -20,6 +20,7 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.ParcelUuid;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -92,7 +93,7 @@ public class btActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 BluetoothDevice device = null;
                 device = devices.get(i);
-                Toast.makeText(btActivity.this, devices.get(i).getName() + devices.get(i).getAddress(), Toast.LENGTH_LONG).show();
+                System.out.println(device.getName() + device.getAddress());
                 new ConnectThread(device).start();
             }
         });
@@ -111,12 +112,9 @@ public class btActivity extends AppCompatActivity {
                 case BluetoothDevice.ACTION_FOUND:
                     name = btDevice.getName();
                     addr = btDevice.getAddress();
-
-                    for (int i = 0; i < devices.size(); i++) {
-                        if (devices.get(i).getName().equals(name)) {
-                            return;
-                        }
-                    }
+                    System.out.println(name + addr);
+                    if (devices.contains(btDevice))
+                        return;
                     deviceName.add(name + ":" + addr);
                     devices.add(btDevice);
                     listView.setAdapter(adapter);
@@ -147,17 +145,16 @@ public class btActivity extends AppCompatActivity {
                 case BluetoothDevice.ACTION_BOND_STATE_CHANGED:
                     switch (btDevice.getBondState()) {
                         case BluetoothDevice.BOND_NONE:
-                            System.out.println("bond canceled");
+                            System.out.println("BluetoothDevice.BOND_NONE");
                             Toast.makeText(btActivity.this, "取消配对", Toast.LENGTH_SHORT).show();
 
                             break;
                         case BluetoothDevice.BOND_BONDING:
-                            System.out.println("bond ing...");
+                            System.out.println("BluetoothDevice.BOND_BONDING");
                             Toast.makeText(btActivity.this, "正在配对", Toast.LENGTH_SHORT).show();
-
                             break;
                         case BluetoothDevice.BOND_BONDED:
-                            System.out.println("bond succeed");
+                            System.out.println("BluetoothDevice.BOND_BONDED");
                             Toast.makeText(btActivity.this, "配对成功", Toast.LENGTH_SHORT).show();
 
                             break;
@@ -277,48 +274,95 @@ public class btActivity extends AppCompatActivity {
 
     public class ConnectThread extends Thread {
         BluetoothDevice dev;
+        BluetoothSocket socket;
 
         public ConnectThread(BluetoothDevice tmp) {
             this.dev = tmp;
-            try {
-                System.out.println("try socket link");
-                btSocket = dev.createRfcommSocketToServiceRecord(UUID.fromString("f000ccc1-0451-4000-b000-000000000000"));
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("client socket failed");
-            }
         }
 
         @Override
         public void run() {
             BA.cancelDiscovery();
-            byte[] buf = new byte[10];
-            try {
-                btSocket.connect();
-                System.out.println("client connect succeed");
-                OutputStream os = null;
-                try {
-                    os = btSocket.getOutputStream();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                System.out.println("get output succeed");
-                try {
-                    os.write(new String("hello").getBytes("UTF-8"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("write failed");
-                }
 
-            } catch (Exception e) {
-                System.out.println("client connect failed");
+            if (dev.getBondState() == BluetoothDevice.BOND_NONE) {
+                System.out.println("start bond");
                 try {
-                    btSocket.close();
-                } catch (Exception f) {
-                    f.printStackTrace();
-                    System.out.println("client close failed");
+                    Method method = dev.getClass().getMethod("createBond");
+                    method.setAccessible(true);
+                    method.invoke(dev);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                return;
+            }
+
+            try {
+                ParcelUuid[] uuids = dev.getUuids();
+                UUID uuid = UUID.fromString("00001108-0000-1000-8000-00805f9b34fb");
+                if (uuids != null) {
+                    uuid = uuids[0].getUuid();
+                    socket = dev.createRfcommSocketToServiceRecord(uuid);//使用从设备获取的uuid
+                } else {
+                    UUID myuuid = UUID.fromString("00001108-0000-1000-8000-00805f9b34fb");//使用自定义的uuid
+                    socket = dev.createRfcommSocketToServiceRecord(myuuid);
+                }
+                System.out.println("uuid:" + uuid);
+                if (socket != null)
+                    System.out.println(socket.getRemoteDevice().getName() + " socket succeed");
+                sleep(500);
+//连接蓝牙放在子线程中
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            socket.connect();
+                            System.out.println("connect1 succeed");
+
+                        } catch (IOException e) {
+                            try {
+                                UUID myuuid = UUID.fromString("00001108-0000-1000-8000-00805f9b34fb");//使用自定义的uuid
+                                socket = dev.createRfcommSocketToServiceRecord(myuuid);
+                                socket.connect();
+                                System.out.println("connect2 succeed");
+
+                            } catch (Exception f) {
+                                try {
+                                    socket = (BluetoothSocket) dev.getClass().getMethod("createRfcommSocket", new Class[]{int.class}).invoke(dev, 1);//反射创建socke
+                                    socket.connect();
+                                    System.out.println("connect3 succeed");
+                                } catch (Exception g) {
+                                    g.printStackTrace();
+                                }
+                                f.printStackTrace();
+                            }
+                        }
+                        try {
+                            InputStream inputStream = socket.getInputStream();
+                            int count;
+                            byte[] buf = new byte[1024];
+
+                            try {
+                                while (true) {
+                                    System.out.println("start reading...");
+                                    count = inputStream.read(buf);
+                                    if (count > 0) {
+                                        System.out.println(new String(buf, 0, count));
+                                    }
+                                    sleep(300);
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                System.out.println("get in exception");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }.start();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 

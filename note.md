@@ -20,3 +20,6 @@ a.Runnable
 3.start运行
 b.join等待另一个线程执行完毕，interrupted中断线程执行
 c.synchronized同步资源和方法，同一时间只允许一个线程访问资源
+[传统蓝牙]
+1.扫描：在广播里获取蓝牙设备信息；
+2.连接：蓝牙的连接需要和设备的uuid相同

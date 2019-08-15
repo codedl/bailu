@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     boolean isFirstPressed = true;
     private BluetoothAdapter bleAdapter;
     boolean iscalled = false;
-
     private LocationManager lm;
 
     @Override
@@ -245,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         checkPermissions();
         layoutInit();
         gpsInit();
-        bleInit();
+//        bleInit();
         mainHandle = new handle();
 
     }
@@ -463,10 +462,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.scan_btn:
                 Toast.makeText(this, "start scan", Toast.LENGTH_SHORT).show();
-                bleAdapter.getBluetoothLeScanner().startScan(scanCallBack);
+//                bleAdapter.getBluetoothLeScanner().startScan(scanCallBack);
+//                bleAdapter.startLeScan(mLeScanCallback);
+                new bleScan().start();
                 break;
             case R.id.connect_btn:
                 devicesStr.clear();
+
                 BluetoothDevice device;
                 Collection<BluetoothGatt> gatts = gattArrayMap.values();
                 for (BluetoothGatt gatt : gatts) {
@@ -480,7 +482,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 devList.setAdapter(devAdapter);
                 break;
             case R.id.upfile_btn:
-                try {
+               /* try {
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                         File sdPath = Environment.getExternalStorageDirectory();
                         String path = sdPath.getCanonicalPath() + "/" + "java.txt";
@@ -496,11 +498,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
-
+                }*/
+                Intent intent1 = new Intent(MainActivity.this,btActivity.class);
+                startActivity(intent1);
                 break;
         }
     }
+
+    private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
+        @Override
+        public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.i("CTLockBLE", "device found name:" + device.getName() + " mac:" + device.getAddress() + " type:" + device.getType() + " rssi:" + rssi);
+                }
+            });
+        }
+    };
+
+    public class bleScan extends Thread{
+        public void run(){
+            bleAdapter.getBluetoothLeScanner().startScan(scanCallBack);
+        }
+    };
 
     /**
      * 检查权限,gps定位，sd卡读写文件
