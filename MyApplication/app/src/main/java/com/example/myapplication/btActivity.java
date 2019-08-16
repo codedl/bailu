@@ -7,8 +7,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothProfile;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
@@ -18,8 +20,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.ParcelUuid;
 import android.util.Log;
 import android.widget.AdapterView;
@@ -35,9 +39,11 @@ import android.media.AudioManager;
 import android.provider.Settings;
 import android.bluetooth.BluetoothServerSocket;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -48,6 +54,7 @@ import java.util.UUID;
 
 public class btActivity extends AppCompatActivity {
     public BluetoothAdapter BA;
+    public BluetoothA2dp bluetoothA2dp;
     public BluetoothSocket btSocket;
     public BluetoothDevice btDevice;
     bluetoothReceiver btReceiver;
@@ -63,6 +70,8 @@ public class btActivity extends AppCompatActivity {
     public ArrayList<String> deviceName = new ArrayList<>();
     private String destName = new String("HWP");
     private String destAddr = "";
+    private MediaRecorder mediaRecorder;
+    private AudioManager audioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +81,7 @@ public class btActivity extends AppCompatActivity {
     }
 
     public void btInit() {
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         blOfSwitch = (Switch) findViewById(R.id.btof_switch);
         btSchwitch = (Switch) findViewById(R.id.btSearch_switch);
         destNameEdit = (EditText) findViewById(R.id.btDestName_edit);
@@ -79,24 +89,59 @@ public class btActivity extends AppCompatActivity {
         adapter = new ArrayAdapter(btActivity.this, android.R.layout.simple_expandable_list_item_1, deviceName);
 
         BA = BluetoothAdapter.getDefaultAdapter();
+        BA.getProfileProxy(this, new BluetoothProfile.ServiceListener() {
+            @Override
+            public void onServiceConnected(int i, BluetoothProfile bluetoothProfile) {
+                if (i == BluetoothA2dp.A2DP) {
+                    bluetoothA2dp = (BluetoothA2dp) bluetoothProfile;
+                    System.out.println("a2dp get succeed");
+                }
+            }
 
+            @Override
+            public void onServiceDisconnected(int i) {
+                bluetoothA2dp = null;
+                System.out.println("a2dp put");
+            }
+        }, BluetoothA2dp.A2DP);
         IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);//注册广播接收信号
         intentFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         intentFilter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);
+        intentFilter.addAction(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED);
+        intentFilter.addAction(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED);
+        intentFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         btReceiver = new bluetoothReceiver();
         registerReceiver(btReceiver, intentFilter);//用BroadcastReceiver 来取得结果
 
-        new AcceptThread().start();
+        //new AcceptThread().start();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BluetoothDevice device = null;
-                device = devices.get(i);
-                System.out.println(device.getName() + device.getAddress());
-                new ConnectThread(device).start();
+                btDevice = devices.get(i);
+                System.out.println(btDevice.getName() + btDevice.getAddress());
+                new ConnectThread(btDevice).start();
             }
         });
+    }
+
+    public void connect() {
+        if (btDevice == null) {
+            return;
+        }
+        if (bluetoothA2dp == null) {
+            return;
+        }
+        try {
+            Method method = bluetoothA2dp.getClass().getMethod("connect", BluetoothDevice.class);
+            method.setAccessible(true);
+            method.invoke(bluetoothA2dp, btDevice);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("method exception");
+        }
     }
 
     public class bluetoothReceiver extends BroadcastReceiver {
@@ -146,17 +191,42 @@ public class btActivity extends AppCompatActivity {
                     switch (btDevice.getBondState()) {
                         case BluetoothDevice.BOND_NONE:
                             System.out.println("BluetoothDevice.BOND_NONE");
-                            Toast.makeText(btActivity.this, "取消配对", Toast.LENGTH_SHORT).show();
-
                             break;
                         case BluetoothDevice.BOND_BONDING:
                             System.out.println("BluetoothDevice.BOND_BONDING");
-                            Toast.makeText(btActivity.this, "正在配对", Toast.LENGTH_SHORT).show();
                             break;
                         case BluetoothDevice.BOND_BONDED:
+                            connect();
                             System.out.println("BluetoothDevice.BOND_BONDED");
-                            Toast.makeText(btActivity.this, "配对成功", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                    break;
 
+                case BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED:
+                    switch (intent.getIntExtra(BluetoothA2dp.EXTRA_STATE, -1)) {
+                        case BluetoothA2dp.STATE_CONNECTED:
+                            System.out.println("BluetoothA2dp.STATE_CONNECTED");
+                            break;
+                        case BluetoothA2dp.STATE_CONNECTING:
+                            System.out.println("BluetoothA2dp.STATE_CONNECTING");
+                            break;
+                        case BluetoothA2dp.STATE_DISCONNECTING:
+                            System.out.println("BluetoothA2dp.STATE_DISCONNECTING");
+                            break;
+                        case BluetoothA2dp.STATE_DISCONNECTED:
+                            System.out.println("BluetoothA2dp.STATE_DISCONNECTED");
+                            break;
+
+                    }
+                    break;
+
+                case BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED:
+                    switch (intent.getIntExtra(BluetoothA2dp.EXTRA_STATE, -1)) {
+                        case BluetoothA2dp.STATE_PLAYING:
+                            System.out.println("BluetoothA2dp.STATE_PLAYING");
+                            break;
+                        case BluetoothA2dp.STATE_NOT_PLAYING:
+                            System.out.println("BluetoothA2dp.STATE_NOT_PLAYING");
                             break;
                     }
                     break;
@@ -209,53 +279,61 @@ public class btActivity extends AppCompatActivity {
     }
 
     public void btEvent(View btn) {
+        String file = Environment.getExternalStorageDirectory().getAbsolutePath();
+        file += "/record.3gp";
+        System.out.println(file);
         switch (btn.getId()) {
-            case R.id.btVisible_btn:
-                if (BA.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-                    Intent btdisIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-                    btdisIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-                    startActivity(btdisIntent);
-                }
-                break;
+            case R.id.start_btn:
+                mediaRecorder = new MediaRecorder();
+                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                mediaRecorder.setOutputFile(file);
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
-            case R.id.btConnect_btn:
-
-                if (btDevice != null) {
-                    Toast.makeText(btActivity.this, destName + "\n" + destAddr, Toast.LENGTH_SHORT).show();
-//                    new ConnectThread().start();
-                } else {
+                if (audioManager.isBluetoothScoAvailableOffCall()) {
+                    System.out.println("support sco");
                 }
-                Toast.makeText(btActivity.this, "需要搜索蓝牙", Toast.LENGTH_SHORT).show();
-                if (btSocket != null) {
-                    if (btSocket.isConnected()) {
-                        System.out.println("connect succeed");
-                        Toast.makeText(btActivity.this, "连接成功", Toast.LENGTH_SHORT).show();
-                    } else {
-                        System.out.println("connect failed ");
-                        Toast.makeText(btActivity.this, "连接失败", Toast.LENGTH_SHORT).show();
+                try {
+                    mediaRecorder.prepare();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                audioManager.stopBluetoothSco();
+                audioManager.startBluetoothSco();
+                registerReceiver(new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        int state = intent.getIntExtra(AudioManager.EXTRA_SCO_AUDIO_STATE, -1);
+                        if (AudioManager.SCO_AUDIO_STATE_CONNECTED == state) {
+                            audioManager.setBluetoothScoOn(true);
+                            audioManager.setMode(AudioManager.STREAM_MUSIC);
+                            mediaRecorder.start();
+                            unregisterReceiver(this);
+                            System.out.println("start record");
+                        } else {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            audioManager.startBluetoothSco();
+                            System.out.println("start record again");
+                        }
                     }
-                }
+                }, new IntentFilter(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED));
                 break;
-            case R.id.btPaired_btn:
-                if (BA.isDiscovering()) {
-                    BA.cancelDiscovery();
-                }
-                if (btDevice == null) {
-                    Toast.makeText(this, "设备为空", Toast.LENGTH_SHORT);
-                }
-                if (btDevice.getBondState() == BluetoothDevice.BOND_NONE) {
 
-                    try {
-                        boolean creatbool = ClsUtils.createBond(btDevice.getClass(), btDevice);
-                        System.out.println("createbond  :" + creatbool);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                } else {
-                    Toast.makeText(this, "已经配对", Toast.LENGTH_SHORT);
+            case R.id.stop_btn:
+                mediaRecorder.stop();
+                mediaRecorder.release();
+                mediaRecorder = null;
+                if (audioManager.isBluetoothScoOn()) {
+                    audioManager.setBluetoothScoOn(false);
+                    audioManager.stopBluetoothSco();
                 }
+
                 break;
+
             case R.id.send_btn:
 
                 break;
@@ -338,17 +416,18 @@ public class btActivity extends AppCompatActivity {
                         }
                         try {
                             InputStream inputStream = socket.getInputStream();
+                            DataInputStream in = new DataInputStream(inputStream);
                             int count;
                             byte[] buf = new byte[1024];
 
                             try {
                                 while (true) {
-                                    System.out.println("start reading...");
-                                    count = inputStream.read(buf);
-                                    if (count > 0) {
-                                        System.out.println(new String(buf, 0, count));
+                                    System.out.println("reading");
+                                    System.out.println(in.readInt());
+                                    System.out.println("data read:");
+
+                                    switch (in.readInt()) {
                                     }
-                                    sleep(300);
                                 }
 
                             } catch (Exception e) {

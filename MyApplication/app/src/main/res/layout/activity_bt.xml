@@ -19,24 +19,46 @@
         android:textOff="关"
         android:textOn="开"
         tools:checked="true" />
+    <Switch
+        android:id="@+id/btSearch_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btof_switch"
+        android:layout_toRightOf="@+id/btof_switch"
+        android:checked="false"
+        android:onClick="switchEvent"
+        android:showText="true"
+        android:text="搜索蓝牙"
+        android:textOff="关"
+        android:textOn="开"
+        tools:checked="true" />
 
     <Button
-        android:id="@+id/btConnect_btn"
+        android:id="@+id/start_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btof_switch"
+        android:layout_alignLeft="@+id/btof_switch"
+        android:layout_alignRight="@+id/btof_switch"
+        android:onClick="btEvent"
+        android:text="开始录音" />
+    <Button
+        android:id="@+id/stop_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/btSearch_switch"
         android:layout_alignRight="@+id/btSearch_switch"
-        android:layout_alignBottom="@+id/btVisible_btn"
+        android:layout_alignBottom="@+id/start_btn"
         android:onClick="btEvent"
-        android:text="连接蓝牙" />
+        android:text="停止录音" />
 
     <Button
         android:id="@+id/send_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btVisible_btn"
-        android:layout_alignLeft="@+id/btVisible_btn"
-        android:layout_alignRight="@+id/btVisible_btn"
+        android:layout_below="@+id/start_btn"
+        android:layout_alignLeft="@+id/start_btn"
+        android:layout_alignRight="@+id/start_btn"
         android:onClick="btEvent"
         android:text="发送数据" />
     <EditText
@@ -63,36 +85,9 @@
         android:layout_toRightOf="@+id/rcv_btn"
         android:layout_alignBottom="@+id/rcv_btn"
         android:hint="显示接收数据" />
-    <Button
-        android:id="@+id/btVisible_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btof_switch"
-        android:layout_alignLeft="@+id/btof_switch"
-        android:layout_alignRight="@+id/btof_switch"
-        android:onClick="btEvent"
-        android:text="蓝牙可见" />
-    <Button
-        android:id="@+id/btPaired_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btConnect_btn"
-        android:layout_toRightOf="@+id/btConnect_btn"
-        android:onClick="btEvent"
-        android:text="配对设备" />
-    <Switch
-        android:id="@+id/btSearch_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btof_switch"
-        android:layout_toRightOf="@+id/btof_switch"
-        android:checked="false"
-        android:onClick="switchEvent"
-        android:showText="true"
-        android:text="搜索蓝牙"
-        android:textOff="关"
-        android:textOn="开"
-        tools:checked="true" />
+
+
+
 
     <EditText
         android:id="@+id/btDestName_edit"
