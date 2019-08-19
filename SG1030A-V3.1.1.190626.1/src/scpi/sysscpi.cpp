@@ -7497,7 +7497,7 @@ bool tSysScpi::openServerSocket(void)
 	QString hostName = QHostInfo::localHostName();
 	QHostInfo hostInfo = QHostInfo::fromName(hostName);
 	QList<QHostAddress> listAddress = hostInfo.addresses();
-	qDebug("hostNmae:%s;\n",hostName.toStdString().c_str());
+	//qDebug("hostNmae:%s;\n",hostName.toStdString().c_str());
 	
 	if (serverSocket == NULL)
 	{
@@ -7811,7 +7811,7 @@ void tSysScpi::clientSocketReadyRead(void)
 			}
 		}
 	}
-	 qDebug("%d ms\n",t.elapsed());
+	 //qDebug("%d ms\n",t.elapsed());
 }
 
 //客户端发生错误

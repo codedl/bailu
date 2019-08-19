@@ -127,7 +127,7 @@ void tSysMenu::getMainKeyPointer(int value)
 		{
 			if (nowMainKey->rightNode != NULL)
 			{
-				nowSubKey = nowMainKey->rightNode;
+				nowSubKey = nowMainKey->rightNode;//╤ах║вс╫║
 			}
 			return;
 		}

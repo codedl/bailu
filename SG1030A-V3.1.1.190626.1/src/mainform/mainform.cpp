@@ -784,6 +784,7 @@ void mainForm::drawState(void)
 	if (!sysScpi->eva.isEvaluate || (sysScpi->eva.isEvaluate && !sysScpi->eva.evaluated)) //在试用期且未超过使用时间，或是在正常状态
 	{
 		//---------------------------------------------内存图像绘制---------------------------------------------
+		//QRect(left,top,width,height)
 		QRect rc = QRect(WIN2X + 2 * BORDERWIDTH, WIN2Y, WIN2WIDTH - 2 * BORDERWIDTH, WIN2HEIGHT); //窗口2全部区域
 		QRect rcRemoteState;// = QRect(pix.rect().x() + 5, rc.top(), rc.width()/2, rc.height());
 		QRect rcRfState;// = QRect(rc.right() - 15, rc.top(), 10, rc.height());
@@ -804,8 +805,12 @@ void mainForm::drawState(void)
 			rcALCState = QRect(rcModeState.left() - rcModeState.width() - 8, rcModeState.top(), rcModeState.width(), rcModeState.height());
 			//	printf("%d,%d,%d, %d\n", rcRemoteState.left(), rcRemoteState.top(), rcRemoteState.width(),rcRemoteState.height());
 
-			p.fillRect(pix.rect(), BACKCOLORWIN2); //填充窗口2全部区域的背景色
-
+			//p.fillRect(pix.rect(), BACKCOLORWIN2); //填充窗口2全部区域的背景色
+			static int red = 0;
+			red += 5;
+			if(red == 255)
+				red = 0;
+			p.fillRect(pix.rect(), QColor(red,95,226)); 
 			//远程控制
 			//	printf("stateR = %d\n",sysData.scpiData.stateR);
 			if (sysData.scpiData.stateR)
