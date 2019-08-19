@@ -209,6 +209,7 @@ extern QString UpdateDirName;
 #define fontChinesePara		QFont("ch", 14, 50, false)		//参数区中的字体，包括标题区和参数区
 
 //PG100字体
+//QFont(字体，大小，粗细，斜体)
 #define fontWin1En			QFont("enb", 24, 50, false)			//主参数显示区域字体
 #define fontWin1Ch			QFont("ch", 12, 50, false)
 #define fontWin2En			QFont("enb", 20, 75, false)			//输入栏显示区域字体
@@ -222,7 +223,7 @@ extern QString UpdateDirName;
 #define fontWin5Ch
 
 #define fontParaEnglishBold      QFont("enb", 18, 75, false)  //英文粗字体	主参数英文显示   	输入参数名英文显示
-#define fontParaEnglishBold1      QFont("enb", 26, 75, false)  //英文粗字体	输入参数英文显示
+#define fontParaEnglishBold1     QFont("enb", 26, 75, false)  //英文粗字体	输入参数英文显示
 #define fontParaChinese          QFont("ch", 18, 50, false)   //中文字体		主参数中文显示 	输入参数名中文显示
 
 #define fontListEn			QFont("enl", 14, 50, false)		//一览表英文显示

@@ -71,6 +71,7 @@ void tBaseMenu::getSubKeyList(subKeyDef* key, QDomNode* node)
 
   int tagLen = 0;
 
+//childNodes 该节点的所有子节点列表
   for (int i = 0; i < node->childNodes().count(); i++)
   {
     if (i == 0)
@@ -100,9 +101,9 @@ void tBaseMenu::getSubKeyList(subKeyDef* key, QDomNode* node)
     tagLen = strlen(node->childNodes().item(i).nodeName().trimmed().toStdString().c_str()) * sizeof(char) + 1;
     key->tagName = (char*)malloc(tagLen);
     memcpy(key->tagName, node->childNodes().item(i).nodeName().trimmed().toStdString().c_str(), tagLen);
-
+	
     nodeLevel++;
-
+	//qDebug("subkeyList==>key->tagName:%s\n",node->childNodes().item(i).nodeName().trimmed().toStdString().c_str());
     if (node->childNodes().item(i).childNodes().count() > 0)
     {
       getSubKeyList(key, &node->childNodes().item(i));
@@ -129,7 +130,7 @@ bool tBaseMenu::getSystemMenu()
   int errCol = 0;
   QDomDocument doc;
 
-  if (!doc.setContent(&file, false, &errStr, &errLine, &errCol))
+  if (!doc.setContent(&file, false, &errStr, &errLine, &errCol))//读取xml文件到doc
   {
     file.close();
     return false;
@@ -141,7 +142,7 @@ bool tBaseMenu::getSystemMenu()
   int tagLen = 0;
 
   //检验根节点是否为ROOT
-  root = doc.documentElement();
+  root = doc.documentElement();//获取根节点
   if (root.tagName().trimmed().toUpper() != "ROOT")
   {
     file.close();
@@ -182,7 +183,7 @@ bool tBaseMenu::getSystemMenu()
     tagLen = strlen(mainNode.nodeName().trimmed().toStdString().c_str()) * sizeof(char) + 1;
     mainKey->tagName = (char*)malloc(tagLen);
     memcpy(mainKey->tagName, mainNode.nodeName().trimmed().toStdString().c_str(), tagLen);
-
+	//qDebug("Mainkey==>tagName:%s\n",mainNode.nodeName().trimmed().toStdString().c_str());
     //循环获取子键
     subNode = mainNode.firstChildElement();
 
@@ -216,10 +217,10 @@ bool tBaseMenu::getSystemMenu()
       tagLen = strlen(subNode.nodeName().trimmed().toStdString().c_str()) * sizeof(char) + 1;
       subKey->tagName = (char*)malloc(tagLen);
       memcpy(subKey->tagName, subNode.nodeName().trimmed().toStdString().c_str(), tagLen);
-
+	  //qDebug("Subkey==>tagName:%s\n",subNode.nodeName().trimmed().toStdString().c_str());
       nodeLevel = 1;
       getSubKeyList(subKey, &subNode);
-      subNode = subNode.nextSiblingElement();
+      subNode = subNode.nextSiblingElement();//获取下一个兄弟节点
     }
 
     //下一个主键
@@ -244,6 +245,7 @@ void tBaseMenu::setMainKeyProperty(mainKeyDef* key, QDomNode node)
   QString nameQString = node.nodeName().trimmed().toUpper();
   QString valueQString = node.nodeValue().trimmed().toUpper();
   QString valueQString2 = node.nodeValue().trimmed();
+  //qDebug("Mainkey==>nameQString:%s; valueQString:%s",nameQString.toStdString().c_str(),valueQString.toStdString().c_str());
   charLen = strlen(valueQString.toStdString().c_str()) * sizeof(char) + 1;
   char* proCharString = (char*)malloc(charLen);
   memcpy(proCharString, valueQString.toStdString().c_str(), charLen);
@@ -295,6 +297,8 @@ void tBaseMenu::setSubKeyProperty(subKeyDef* key,  QDomNode node)
   charLen = strlen(valueQString.toStdString().c_str()) * sizeof(char) + 1;
   char* proCharString = (char*)malloc(charLen);
   memcpy(proCharString, valueQString.toStdString().c_str(), charLen);
+
+  //qDebug("subkey==>nameQString:%s,value:%s\n",nameQString.toStdString().c_str(),valueQString.toStdString().c_str());
 
   if (nameQString == "KEYVALUE")
   {
