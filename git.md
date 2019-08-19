@@ -1,31 +1,17 @@
-[按钮监听事件]
-为按钮设置监听事件，重写onClick函数
-[文件]
-内存文件:通过openFileOutput和openFileInput获取FileOutputStream和
-FileInputStream对象，调用接口进行读写关闭。
-SD文件:
-1.添加读写sd卡的权限，动态请求权限;
-2.检查sd卡是否可用
-3.获取sd卡在系统的路径
-4.在路径下创建文件进行读写
-[Tcp/Ip]
-1.服务器创建指定端口号的socket，调用accept等待客户端连接
-2.客户端创建指定ip和端口号的socket连接服务器
-3.使用建立连接后的socket获取输入输出对象,使用对象进行读写操作
-4.bufferdwriter需要flush
-[线程]
-a.Runnable
-1.创建runnable对象
-2.通过以runnable对象为参数的构造函数创建Thread对象
-3.start运行
-b.join等待另一个线程执行完毕，interrupted中断线程执行
-c.synchronized同步资源和方法，同一时间只允许一个线程访问资源
-[传统蓝牙]
-1.扫描：在广播里获取蓝牙设备信息；
-2.连接：蓝牙的连接需要和设备的uuid相同
-[android studio打开项目]
-下载gradle,删除原先项目的配置文件,重新构建项目,添加库
-[蓝牙录音]
-1.连接蓝牙耳机;
-2.创建MediaRecorder对象，设置格式
-3.创建AudioManager对象，设置模式，开始录音
+////dingle19930328
+[git上传代码]
+1.新建Git仓库;
+2.git config --user.name(email),配置用户名和邮箱
+3.ssh-keygen -T rsa生成公匙，添加到GitHub上，ssh -T git@github.com检查
+4.git add origin master添加远程仓库
+5.git pull origin master --allow-unrelated-histories合并代码，
+然后 git push origin master提交代码
++:git rm --cached . -r 删除缓冲区中文件
+[git更新单个文件]
+1.git fetch 主机名  分支(:本地分支)
+2.git checkout 主机名/分支  文件
+[git管理多个远程仓库]
+1.git remote add 主机名 主机地址：
+如:git remote add qtc git@github.com:codedl/bailu;
+就可以通过qtc引用git@github.com:codedl/bailu主机;
+2.git pull/push  主机名 分支(:本地分支)
