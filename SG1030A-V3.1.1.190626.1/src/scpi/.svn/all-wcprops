@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/SG/!svn/ver/222/ZJ/SG1030A/branches/Code/new/src/scpi
+END
+basescpi.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/SG/!svn/ver/37/ZJ/SG1030A/branches/Code/new/src/scpi/basescpi.h
+END
+filescpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/SG/!svn/ver/37/ZJ/SG1030A/branches/Code/new/src/scpi/filescpi.cpp
+END
+cmdscpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/SG/!svn/ver/145/ZJ/SG1030A/branches/Code/new/src/scpi/cmdscpi.cpp
+END
+sysscpi.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/SG/!svn/ver/226/ZJ/SG1030A/branches/Code/new/src/scpi/sysscpi.h
+END
+command.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/SG/!svn/ver/84/ZJ/SG1030A/branches/Code/new/src/scpi/command.h
+END
+libusb.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/SG/!svn/ver/37/ZJ/SG1030A/branches/Code/new/src/scpi/libusb.h
+END
+datascpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/SG/!svn/ver/37/ZJ/SG1030A/branches/Code/new/src/scpi/datascpi.cpp
+END
+basescpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/SG/!svn/ver/84/ZJ/SG1030A/branches/Code/new/src/scpi/basescpi.cpp
+END
+sysscpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/SG/!svn/ver/226/ZJ/SG1030A/branches/Code/new/src/scpi/sysscpi.cpp
+END
