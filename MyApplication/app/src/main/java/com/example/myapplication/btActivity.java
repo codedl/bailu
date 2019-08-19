@@ -20,12 +20,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelUuid;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -80,15 +83,23 @@ public class btActivity extends AppCompatActivity {
         btInit();
     }
 
+    @Override
+    public boolean onKeyDown(int keycode, KeyEvent event) {
+        super.onKeyDown(keycode,event);
+        System.out.println("keycode:" + keycode);
+        return true;
+    }
+
     public void btInit() {
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        blOfSwitch = (Switch) findViewById(R.id.btof_switch);
-        btSchwitch = (Switch) findViewById(R.id.btSearch_switch);
-        destNameEdit = (EditText) findViewById(R.id.btDestName_edit);
         listView = (ListView) findViewById(R.id.list);
         adapter = new ArrayAdapter(btActivity.this, android.R.layout.simple_expandable_list_item_1, deviceName);
 
         BA = BluetoothAdapter.getDefaultAdapter();
+        if (!BA.isEnabled()) {
+            Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(turnOn, 1);
+        }
         BA.getProfileProxy(this, new BluetoothProfile.ServiceListener() {
             @Override
             public void onServiceConnected(int i, BluetoothProfile bluetoothProfile) {
@@ -109,8 +120,8 @@ public class btActivity extends AppCompatActivity {
         intentFilter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);
         intentFilter.addAction(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED);
         intentFilter.addAction(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED);
-        intentFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        intentFilter.addAction(Intent.ACTION_MEDIA_BUTTON);
         btReceiver = new bluetoothReceiver();
         registerReceiver(btReceiver, intentFilter);//用BroadcastReceiver 来取得结果
 
@@ -174,17 +185,11 @@ public class btActivity extends AppCompatActivity {
                     System.out.println("start set pin ");
 
                     /*try {
-                        abortBroadcast();
-                        if (ClsUtils.setPin(device.getClass(), device, pin)) {
-                            System.out.println(" pin true");
-                        }
-                        //ClsUtils.setPairingConfirmation(device.getClass(), device, true);//有问题会进入异常
-
+                        btDevice.setPairingConfirmation(true);
                     } catch (Exception e) {
                         e.printStackTrace();
                         System.out.println(" set fail ");
-                    }
-                    System.out.println(" set over ");*/
+                    }*/
 
                     break;
                 case BluetoothDevice.ACTION_BOND_STATE_CHANGED:
@@ -209,6 +214,29 @@ public class btActivity extends AppCompatActivity {
                             break;
                         case BluetoothA2dp.STATE_CONNECTING:
                             System.out.println("BluetoothA2dp.STATE_CONNECTING");
+//                           建立蓝牙sco连接
+                            audioManager.stopBluetoothSco();
+                            audioManager.startBluetoothSco();
+                            registerReceiver(new BroadcastReceiver() {
+                                @Override
+                                public void onReceive(Context context, Intent intent) {
+                                    int state = intent.getIntExtra(AudioManager.EXTRA_SCO_AUDIO_STATE, -1);
+                                    if (AudioManager.SCO_AUDIO_STATE_CONNECTED == state) {
+                                        audioManager.setBluetoothScoOn(true);
+                                        audioManager.setMode(AudioManager.STREAM_MUSIC);
+                                        unregisterReceiver(this);
+                                        System.out.println("sco connected");
+                                    } else {
+                                        try {
+                                            Thread.sleep(1000);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        audioManager.startBluetoothSco();
+                                        System.out.println("prepare sco connect");
+                                    }
+                                }
+                            }, new IntentFilter(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED));
                             break;
                         case BluetoothA2dp.STATE_DISCONNECTING:
                             System.out.println("BluetoothA2dp.STATE_DISCONNECTING");
@@ -234,59 +262,15 @@ public class btActivity extends AppCompatActivity {
         }
     }
 
-    ;
-
-    public void switchEvent(View btSwitch) {
-        switch (btSwitch.getId()) {
-            case R.id.btof_switch:
-                if (blOfSwitch.isChecked()) {
-                    if (!BA.isEnabled()) {
-                        Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                        startActivityForResult(turnOn, 1);
-                        Toast.makeText(btActivity.this, "蓝牙打开", Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Toast.makeText(btActivity.this, "蓝牙已经打开", Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
-                    BA.disable();
-                    Toast.makeText(btActivity.this, "蓝牙关闭", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.btSearch_switch:
-                if (btSchwitch.isChecked()) {
-                    if (destNameEdit.getText().toString().trim().length() != 0) {
-                        destName = destNameEdit.getText().toString().trim();
-                    }
-                    if (BA.isDiscovering()) {
-                        BA.cancelDiscovery();
-                    }
-                    BA.startDiscovery();
-                    Toast.makeText(btActivity.this, "搜索蓝牙\n" + destName, Toast.LENGTH_SHORT).show();
-
-                } else {
-                    if (BA.isDiscovering()) {
-                        BA.cancelDiscovery();
-                    }
-                    devices.clear();
-                    deviceName.clear();
-                    listView.setAdapter(adapter);
-                    Toast.makeText(btActivity.this, "搜索蓝牙结束", Toast.LENGTH_SHORT).show();
-
-                }
-        }
-    }
-
     public void btEvent(View btn) {
         String file = Environment.getExternalStorageDirectory().getAbsolutePath();
-        file += "/record.3gp";
+        file += "/record.mp3";
         System.out.println(file);
         switch (btn.getId()) {
             case R.id.start_btn:
                 mediaRecorder = new MediaRecorder();
                 mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
                 mediaRecorder.setOutputFile(file);
                 mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
@@ -295,45 +279,62 @@ public class btActivity extends AppCompatActivity {
                 }
                 try {
                     mediaRecorder.prepare();
+                    mediaRecorder.start();
+                    System.out.println("start audio record");
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                audioManager.stopBluetoothSco();
-                audioManager.startBluetoothSco();
-                registerReceiver(new BroadcastReceiver() {
-                    @Override
-                    public void onReceive(Context context, Intent intent) {
-                        int state = intent.getIntExtra(AudioManager.EXTRA_SCO_AUDIO_STATE, -1);
-                        if (AudioManager.SCO_AUDIO_STATE_CONNECTED == state) {
-                            audioManager.setBluetoothScoOn(true);
-                            audioManager.setMode(AudioManager.STREAM_MUSIC);
-                            mediaRecorder.start();
-                            unregisterReceiver(this);
-                            System.out.println("start record");
-                        } else {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            audioManager.startBluetoothSco();
-                            System.out.println("start record again");
-                        }
-                    }
-                }, new IntentFilter(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED));
+
                 break;
 
             case R.id.stop_btn:
-                mediaRecorder.stop();
-                mediaRecorder.release();
-                mediaRecorder = null;
-                if (audioManager.isBluetoothScoOn()) {
+                if (mediaRecorder != null) {
+                    mediaRecorder.stop();
+                    mediaRecorder.release();
+                }
+               /* if (audioManager.isBluetoothScoOn()) {
                     audioManager.setBluetoothScoOn(false);
                     audioManager.stopBluetoothSco();
-                }
+                }*/
 
                 break;
 
+            case R.id.btSearch_btn:
+                if (BA.isDiscovering()) {
+                    BA.cancelDiscovery();
+                }
+                BA.startDiscovery();
+                break;
+            case R.id.play_btn:
+                int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                System.out.println("maxvol:" + maxVol);
+                maxVol *= 0.4;
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVol, 0);
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.reset();
+                try {
+                    mediaPlayer.setDataSource(file);
+                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mediaPlayer) {
+                            mediaPlayer.stop();
+                            mediaPlayer.release();
+                        }
+                    });
+                    mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                        @Override
+                        public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
+                            System.out.println("play error");
+                            return false;
+                        }
+                    });
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
             case R.id.send_btn:
 
                 break;
@@ -414,7 +415,7 @@ public class btActivity extends AppCompatActivity {
                                 f.printStackTrace();
                             }
                         }
-                        try {
+/*                        try {
                             InputStream inputStream = socket.getInputStream();
                             DataInputStream in = new DataInputStream(inputStream);
                             int count;
@@ -434,7 +435,7 @@ public class btActivity extends AppCompatActivity {
                                 e.printStackTrace();
                                 System.out.println("get in exception");
                             }
-                        } catch (Exception e) {
+                        } */ catch (Exception e) {
                             e.printStackTrace();
                         }
 

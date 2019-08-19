@@ -28,4 +28,4 @@ c.synchronized同步资源和方法，同一时间只允许一个线程访问资
 [蓝牙录音]
 1.连接蓝牙耳机;
 2.创建MediaRecorder对象，设置格式
-3.创建AudioManager对象，设置模式，开始录音
+3.创建AudioManager对象，跟蓝牙耳机建立Sco连接，开始录音

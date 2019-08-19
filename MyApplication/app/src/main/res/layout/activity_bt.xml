@@ -5,52 +5,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Switch
-        android:id="@+id/btof_switch"
+    <Button
+        android:id="@+id/btSearch_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:checked="false"
-        android:onClick="switchEvent"
-        android:showText="true"
-        android:text="蓝牙开关"
-        android:textOff="关"
-        android:textOn="开"
-        tools:checked="true" />
-    <Switch
-        android:id="@+id/btSearch_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btof_switch"
-        android:layout_toRightOf="@+id/btof_switch"
-        android:checked="false"
-        android:onClick="switchEvent"
-        android:showText="true"
-        android:text="搜索蓝牙"
-        android:textOff="关"
-        android:textOn="开"
-        tools:checked="true" />
+        android:layout_marginStart="20dp"
+        android:onClick="btEvent"
+        android:text="搜索蓝牙" />
 
     <Button
         android:id="@+id/start_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btof_switch"
-        android:layout_alignLeft="@+id/btof_switch"
-        android:layout_alignRight="@+id/btof_switch"
+        android:layout_toRightOf="@+id/btSearch_btn"
         android:onClick="btEvent"
         android:text="开始录音" />
+
     <Button
         android:id="@+id/stop_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btSearch_switch"
-        android:layout_alignRight="@+id/btSearch_switch"
-        android:layout_alignBottom="@+id/start_btn"
+        android:layout_toRightOf="@+id/start_btn"
         android:onClick="btEvent"
         android:text="停止录音" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btSearch_btn"
+        android:layout_alignLeft="@+id/btSearch_btn"
+        android:onClick="btEvent"
+        android:id="@+id/play_btn"
+        android:text="播放录音"/>
 
     <Button
         android:id="@+id/send_btn"
@@ -61,12 +47,13 @@
         android:layout_alignRight="@+id/start_btn"
         android:onClick="btEvent"
         android:text="发送数据" />
+
     <EditText
         android:id="@+id/send_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/send_btn"
         android:layout_alignBottom="@+id/send_btn"
+        android:layout_toRightOf="@+id/send_btn"
         android:hint="输入发送数据" />
 
     <Button
@@ -78,23 +65,14 @@
         android:layout_alignRight="@+id/send_btn"
         android:onClick="btEvent"
         android:text="接收数据" />
+
     <EditText
         android:id="@+id/rcv_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/rcv_btn"
         android:layout_alignBottom="@+id/rcv_btn"
+        android:layout_toRightOf="@+id/rcv_btn"
         android:hint="显示接收数据" />
-
-
-
-
-    <EditText
-        android:id="@+id/btDestName_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/btSearch_switch"
-        android:hint="设备名字" />
 
     <ListView
         android:id="@+id/list"

@@ -528,7 +528,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * 检查权限,gps定位，sd卡读写文件
      */
     private void checkPermissions() {
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.RECORD_AUDIO};
         List<String> permissionDeniedList = new ArrayList<>();
         for (String permission : permissions) {
             int permissionCheck = ContextCompat.checkSelfPermission(this, permission);
