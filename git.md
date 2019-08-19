@@ -15,3 +15,7 @@
 如:git remote add qtc git@github.com:codedl/bailu;
 就可以通过qtc引用git@github.com:codedl/bailu主机;
 2.git pull/push  主机名 分支(:本地分支)
+[git删除主机和分支]
+git branch -d 本地分支名
+git push origin --delete 远程分支名
+git remote remove 主机名
