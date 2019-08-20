@@ -80,3 +80,7 @@ these are app develop in android studio using java by a learner，and plan for w
 2.传输蓝牙音频;
 3.读取蓝牙耳机的按键;
 +蓝牙连接取消弹出框;
+
+#20190820
+1.读取蓝牙耳机的按键
+2.取消蓝牙连接的提示框

@@ -14,6 +14,7 @@ import android.bluetooth.BluetoothProfile;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,11 +23,13 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelUuid;
+import android.service.media.MediaBrowserService;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.AdapterView;
@@ -75,6 +78,7 @@ public class btActivity extends AppCompatActivity {
     private String destAddr = "";
     private MediaRecorder mediaRecorder;
     private AudioManager audioManager;
+    private MediaSession mediaSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +88,33 @@ public class btActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        mediaSession = new MediaSession(this, "tag");
+        mediaSession.setCallback(new MediaSession.Callback() {
+            @Override
+            public boolean onMediaButtonEvent(Intent mediaButtonIntent) {
+                System.out.println(mediaButtonIntent.getAction());
+                KeyEvent keyEvent = (KeyEvent)mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+                System.out.println(keyEvent);
+                return super.onMediaButtonEvent(mediaButtonIntent);
+            }
+        });
+        mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS|MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
+        mediaSession.setActive(true);
+        super.onResume();
+    }
+
+    @Override
     public boolean onKeyDown(int keycode, KeyEvent event) {
-        super.onKeyDown(keycode,event);
+        super.onKeyDown(keycode, event);
         System.out.println("keycode:" + keycode);
         return true;
     }
+
+    /*@Override
+    public void  onMedonMediaButtonEvent(){
+
+    }*/
 
     public void btInit() {
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -121,7 +147,7 @@ public class btActivity extends AppCompatActivity {
         intentFilter.addAction(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED);
         intentFilter.addAction(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED);
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-        intentFilter.addAction(Intent.ACTION_MEDIA_BUTTON);
+//        intentFilter.addAction(Intent.ACTION_MEDIA_BUTTON);
         btReceiver = new bluetoothReceiver();
         registerReceiver(btReceiver, intentFilter);//用BroadcastReceiver 来取得结果
 
@@ -135,6 +161,8 @@ public class btActivity extends AppCompatActivity {
                 new ConnectThread(btDevice).start();
             }
         });
+//        setSessionToken(mediaSession.getSessionToken());
+
     }
 
     public void connect() {
@@ -292,11 +320,8 @@ public class btActivity extends AppCompatActivity {
                 if (mediaRecorder != null) {
                     mediaRecorder.stop();
                     mediaRecorder.release();
+                    mediaRecorder = null;
                 }
-               /* if (audioManager.isBluetoothScoOn()) {
-                    audioManager.setBluetoothScoOn(false);
-                    audioManager.stopBluetoothSco();
-                }*/
 
                 break;
 
