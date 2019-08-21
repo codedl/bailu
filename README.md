@@ -2,7 +2,7 @@
 code by android studio, java, android os
 myapp is api level 27
 these are app develop in android studio using java by a learner，and plan for work
-Java从入门到精通;从零开始学Android编程;Android开发与应用;菜鸟教程(https://www.runoob.com/)
+<Java从入门到精通>;<从零开始学Android编程>;<Android开发与应用>;菜鸟教程(https://www.runoob.com/)
 
 #20190731
 1.优化界面，每个操作给出提示;√

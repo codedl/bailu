@@ -29,3 +29,12 @@ c.synchronized同步资源和方法，同一时间只允许一个线程访问资
 1.连接蓝牙耳机;
 2.创建MediaRecorder对象，设置格式
 3.创建AudioManager对象，跟蓝牙耳机建立Sco连接，开始录音
+[Java:反射]
+a.访问变量:
+1.获取对象在类中定义的变量field;
+2.通过field取值;判断field的类型,进行赋值
+b.访问方法：
+1.获取对象中定义的方法，根据方法的参数，返回值调用该方法
+[约束布局]
+1.layout_constraintTop_toBottomOf：
+控件的top在某个控件的bottom下方
