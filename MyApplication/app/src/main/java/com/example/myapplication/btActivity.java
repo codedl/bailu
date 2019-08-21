@@ -88,23 +88,6 @@ public class btActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        mediaSession = new MediaSession(this, "tag");
-        mediaSession.setCallback(new MediaSession.Callback() {
-            @Override
-            public boolean onMediaButtonEvent(Intent mediaButtonIntent) {
-                System.out.println(mediaButtonIntent.getAction());
-                KeyEvent keyEvent = (KeyEvent)mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
-                System.out.println(keyEvent);
-                return super.onMediaButtonEvent(mediaButtonIntent);
-            }
-        });
-        mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS|MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
-        mediaSession.setActive(true);
-        super.onResume();
-    }
-
-    @Override
     public boolean onKeyDown(int keycode, KeyEvent event) {
         super.onKeyDown(keycode, event);
         System.out.println("keycode:" + keycode);
@@ -162,6 +145,18 @@ public class btActivity extends AppCompatActivity {
             }
         });
 //        setSessionToken(mediaSession.getSessionToken());
+        mediaSession = new MediaSession(this, "tag");
+        mediaSession.setCallback(new MediaSession.Callback() {
+            @Override
+            public boolean onMediaButtonEvent(Intent mediaButtonIntent) {
+                System.out.println(mediaButtonIntent.getAction());
+                KeyEvent keyEvent = (KeyEvent)mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+                System.out.println(keyEvent);
+                return super.onMediaButtonEvent(mediaButtonIntent);
+            }
+        });
+        mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS|MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
+        mediaSession.setActive(true);
 
     }
 
