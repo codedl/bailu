@@ -470,7 +470,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ;
 
     /**
-     * 检查权限,gps定位，sd卡读写文件
+     * 检查权限,gps定位，sd卡读写文件，录音
      */
     private void checkPermissions() {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -490,13 +490,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    /**
+   /* *//**
      * 权限回调
      *
      * @param requestCode
      * @param permissions
      * @param grantResults
-     */
+     *//*
     @Override
     public final void onRequestPermissionsResult(int requestCode,
                                                  @NonNull String[] permissions,
@@ -513,7 +513,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
         }
-    }
+    }*/
 
     /**
      * 开启GPS
@@ -588,7 +588,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             try {
                 is = param.clientSocket.getInputStream();
                 os = param.clientSocket.getOutputStream();
-                new send("#id:ABABABABABAB|gps:115.8,28.661667|state:opened$").start();
+                new send("#id:ABABABABABAB|gps:115.8,28.661667|state:init$").start();
 
             } catch (Exception e) {
                 e.printStackTrace();

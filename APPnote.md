@@ -44,3 +44,7 @@ b.访问方法：
 [android studio导入jar包]
 1.找到libs目录没有就新建
 2.sync
+[android界面]
+UI线程与非UI线程通信：
+1.handle:在ui线程定义static的Handle子类，接收来自非ui线程的消息
+2.Intent:定义Intent广播机制，在广播接收者处理intent消息

@@ -1,112 +1,65 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import cz.msebera.android.httpclient.Header;
+import it.sauronsoftware.ftp4j.FTPClient;
 
-import android.Manifest;
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothProfile;
-import android.bluetooth.BluetoothServerSocket;
-import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.location.LocationManager;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.media.session.MediaSession;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.ParcelUuid;
-import android.service.media.MediaBrowserService;
-import android.util.Base64;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.view.View;
-import android.media.AudioManager;
-import android.provider.Settings;
-import android.bluetooth.BluetoothServerSocket;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.ResponseHandlerInterface;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
-import cz.msebera.android.httpclient.Header;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class btActivity extends AppCompatActivity {
+    private boolean classic = false;
     public BluetoothAdapter BA;
-    public BluetoothA2dp bluetoothA2dp;
-    public BluetoothSocket btSocket;
     public BluetoothDevice btDevice;
     bluetoothReceiver btReceiver;
-    String pin = "1234";
 
-    private Switch blOfSwitch;
-    private Switch btSchwitch;
-    private ArrayAdapter adapter;
-    private ListView listView;
     private EditText urlEdit;
 
     public ArrayList<BluetoothDevice> devices = new ArrayList<>();
     public ArrayList<String> deviceName = new ArrayList<>();
-    private String destName = new String("HWP");
-    private String destAddr = "";
-    private MediaRecorder mediaRecorder;
-    private AudioManager audioManager;
+    ListView listView;
+    ArrayAdapter adapter;
     private MediaSession mediaSession;
+    private BluetoothLowEnergy blec;
+    private BluetoothClassic bluetoothClassic;
+    byte val[] = new byte[]{0};
+    audio audio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bt);
         btInit();
+
     }
 
     @Override
@@ -116,15 +69,12 @@ public class btActivity extends AppCompatActivity {
         return true;
     }
 
-    /*@Override
-    public void  onMedonMediaButtonEvent(){
-
-    }*/
 
     public void btInit() {
+        blec = new BluetoothLowEnergy(btActivity.this);
+        bluetoothClassic = new BluetoothClassic(btActivity.this);
+        audio = new audio(btActivity.this);
         urlEdit = findViewById(R.id.url_edit);
-        urlEdit.setText("http://192.168.2.206:8080/web");
-        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         listView = (ListView) findViewById(R.id.list);
         adapter = new ArrayAdapter(btActivity.this, android.R.layout.simple_expandable_list_item_1, deviceName);
 
@@ -133,42 +83,38 @@ public class btActivity extends AppCompatActivity {
             Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(turnOn, 1);
         }
-        BA.getProfileProxy(this, new BluetoothProfile.ServiceListener() {
-            @Override
-            public void onServiceConnected(int i, BluetoothProfile bluetoothProfile) {
-                if (i == BluetoothA2dp.A2DP) {
-                    bluetoothA2dp = (BluetoothA2dp) bluetoothProfile;
-                    System.out.println("a2dp get succeed");
-                }
-            }
 
-            @Override
-            public void onServiceDisconnected(int i) {
-                bluetoothA2dp = null;
-                System.out.println("a2dp put");
-            }
-        }, BluetoothA2dp.A2DP);
         IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);//注册广播接收信号
         intentFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         intentFilter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);
         intentFilter.addAction(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED);
         intentFilter.addAction(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED);
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-//        intentFilter.addAction(Intent.ACTION_MEDIA_BUTTON);
+        intentFilter.addAction(Action.BLE_SCAN_FOUND);
         btReceiver = new bluetoothReceiver();
         registerReceiver(btReceiver, intentFilter);//用BroadcastReceiver 来取得结果
-
-        //new AcceptThread().start();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                btDevice = devices.get(i);
-                System.out.println(btDevice.getName() + btDevice.getAddress());
-                new ConnectThread(btDevice).start();
+                if (classic == true) {
+                    btDevice = devices.get(i);
+                    System.out.println(btDevice.getName() + btDevice.getAddress());
+                    devices.clear();
+                    bluetoothClassic.cancelDiscovery();
+                    bluetoothClassic.createBond(btDevice);
+                    bluetoothClassic.connect(btDevice);
+                } else {
+                    BluetoothDevice bluetoothDevice = blec.bleDevices.get(i);
+                    blec.bleConnect(bluetoothDevice);
+                    System.out.println(bluetoothDevice.getName() + bluetoothDevice.getAddress());
+                    blec.stopScan();
+                    blec.bleDevices.clear();
+                }
+                deviceName.clear();
+                listView.setAdapter(adapter);
             }
         });
-//        setSessionToken(mediaSession.getSessionToken());
         mediaSession = new MediaSession(this, "tag");
         mediaSession.setCallback(new MediaSession.Callback() {
             @Override
@@ -181,26 +127,8 @@ public class btActivity extends AppCompatActivity {
         });
         mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS | MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mediaSession.setActive(true);
-
     }
 
-    public void connect() {
-        if (btDevice == null) {
-            return;
-        }
-        if (bluetoothA2dp == null) {
-            return;
-        }
-        try {
-            Method method = bluetoothA2dp.getClass().getMethod("connect", BluetoothDevice.class);
-            method.setAccessible(true);
-            method.invoke(bluetoothA2dp, btDevice);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("method exception");
-        }
-    }
 
     public class bluetoothReceiver extends BroadcastReceiver {
         @Override
@@ -212,6 +140,14 @@ public class btActivity extends AppCompatActivity {
             btDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
             switch (action) {
+                case Action.BLE_SCAN_FOUND:
+
+                    String str = intent.getStringExtra("devicestr");
+                    System.out.println(str);
+                    deviceName.add(str);
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();//更新
+                    break;
                 case BluetoothDevice.ACTION_FOUND:
                     name = btDevice.getName();
                     addr = btDevice.getAddress();
@@ -223,13 +159,9 @@ public class btActivity extends AppCompatActivity {
                     listView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();//更新
 
-                   /* if (destName.equals(name)) {
-                        BA.cancelDiscovery();
-                        destAddr = btDevice.getAddress();//获取设备连接地址
-                    }*/
                     break;
                 case BluetoothDevice.ACTION_PAIRING_REQUEST:
-                    System.out.println("start set pin ");
+                    System.out.println("BluetoothDevice.ACTION_PAIRING_REQUEST");
 
                     /*try {
                         btDevice.setPairingConfirmation(true);
@@ -248,7 +180,8 @@ public class btActivity extends AppCompatActivity {
                             System.out.println("BluetoothDevice.BOND_BONDING");
                             break;
                         case BluetoothDevice.BOND_BONDED:
-                            connect();
+                            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                            audio.connect(device);
                             System.out.println("BluetoothDevice.BOND_BONDED");
                             break;
                     }
@@ -262,28 +195,7 @@ public class btActivity extends AppCompatActivity {
                         case BluetoothA2dp.STATE_CONNECTING:
                             System.out.println("BluetoothA2dp.STATE_CONNECTING");
 //                           建立蓝牙sco连接
-                            audioManager.stopBluetoothSco();
-                            audioManager.startBluetoothSco();
-                            registerReceiver(new BroadcastReceiver() {
-                                @Override
-                                public void onReceive(Context context, Intent intent) {
-                                    int state = intent.getIntExtra(AudioManager.EXTRA_SCO_AUDIO_STATE, -1);
-                                    if (AudioManager.SCO_AUDIO_STATE_CONNECTED == state) {
-                                        audioManager.setBluetoothScoOn(true);
-                                        audioManager.setMode(AudioManager.STREAM_MUSIC);
-                                        unregisterReceiver(this);
-                                        System.out.println("sco connected");
-                                    } else {
-                                        try {
-                                            Thread.sleep(1000);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        audioManager.startBluetoothSco();
-                                        System.out.println("prepare sco connect");
-                                    }
-                                }
-                            }, new IntentFilter(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED));
+                            audio.startBluetoothSco();
                             break;
                         case BluetoothA2dp.STATE_DISCONNECTING:
                             System.out.println("BluetoothA2dp.STATE_DISCONNECTING");
@@ -309,74 +221,26 @@ public class btActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void btEvent(View btn) {
-        String file = Environment.getExternalStorageDirectory().getAbsolutePath() + "/java.txt";
+        String txtfile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/java.txt";
         String jpgfile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/123.jpg";
+        String mp3file = Environment.getExternalStorageDirectory().getAbsolutePath() + "/record.mp3";
         switch (btn.getId()) {
             case R.id.start_btn:
-                mediaRecorder = new MediaRecorder();
-                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
-                mediaRecorder.setOutputFile(file);
-                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-
-                if (audioManager.isBluetoothScoAvailableOffCall()) {
-                    System.out.println("support sco");
-                }
-                try {
-                    mediaRecorder.prepare();
-                    mediaRecorder.start();
-                    System.out.println("start audio record");
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                audio.startRecord(new File(mp3file));
                 break;
 
             case R.id.stop_btn:
-                if (mediaRecorder != null) {
-                    mediaRecorder.stop();
-                    mediaRecorder.release();
-                    mediaRecorder = null;
-                }
-
+                audio.stopRecord();
                 break;
 
             case R.id.btSearch_btn:
-                if (BA.isDiscovering()) {
-                    BA.cancelDiscovery();
-                }
-                BA.startDiscovery();
+                bluetoothClassic.startDiscovery();
+                classic = true;
                 break;
             case R.id.play_btn:
-                int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                System.out.println("maxvol:" + maxVol);
-                maxVol *= 0.4;
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVol, 0);
-                MediaPlayer mediaPlayer = new MediaPlayer();
-                mediaPlayer.reset();
-                try {
-                    mediaPlayer.setDataSource(file);
-                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mediaPlayer) {
-                            mediaPlayer.stop();
-                            mediaPlayer.release();
-                        }
-                    });
-                    mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                        @Override
-                        public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
-                            System.out.println("play error");
-                            return false;
-                        }
-                    });
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                audio.audioPlay(mp3file);
                 break;
             case R.id.send_btn:
 
@@ -386,23 +250,26 @@ public class btActivity extends AppCompatActivity {
                 break;
 
             case R.id.up_btn:
-                try {
+                FTPClient client = new FTPClient();
+
+                /*try {
+
                     AsyncHttpClient client = new AsyncHttpClient();
 //                    client.setURLEncodingEnabled(false);
-                    FileOutputStream output = new FileOutputStream(file);
+                    FileOutputStream output = new FileOutputStream(txtfile);
                     PrintStream print = new PrintStream(output);
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
                     Date date = new Date(System.currentTimeMillis());//获取当前时间
                     print.println(date);
 
-                    File uploadFile = new File(file);
+                    File uploadFile = new File(txtfile);
 //                    String path = "http://192.168.2.172/";
 //                    String path = "ftp://record:record@192.168.2.172/";
                     String path = urlEdit.getText().toString().trim();
                     System.out.println(path);
-                    System.out.println(file);
+                    System.out.println(txtfile);
                     RequestParams params = new RequestParams();
-                    params.put(uploadFile.getName(), file);
+                    params.put(uploadFile.getName(), txtfile);
 //                    client.setProxy("192.168.2.206",8080);
                     client.post(this, path, params, new AsyncHttpResponseHandler() {
 
@@ -420,7 +287,7 @@ public class btActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                }*/
                 /*new Thread(){
                     @Override
                     public void run(){
@@ -448,6 +315,18 @@ public class btActivity extends AppCompatActivity {
                 }.start();*/
 
                 break;
+            case R.id.blescan_btn:
+                blec.startScan();
+                classic = false;
+                break;
+            case R.id.red_btn:
+                val[0] ^= 1;
+                blec.bleWrite(blec.red, val);
+                break;
+            case R.id.green_btn:
+                val[0] ^= 1;
+                blec.bleWrite(blec.green, val);
+                break;
         }
     }
 
@@ -457,188 +336,16 @@ public class btActivity extends AppCompatActivity {
         unregisterReceiver(btReceiver);
     }
 
-
-    public class ConnectThread extends Thread {
-        BluetoothDevice dev;
-        BluetoothSocket socket;
-
-        public ConnectThread(BluetoothDevice tmp) {
-            this.dev = tmp;
-        }
-
+    class handle extends Handler {
         @Override
-        public void run() {
-            BA.cancelDiscovery();
-
-            if (dev.getBondState() == BluetoothDevice.BOND_NONE) {
-                System.out.println("start bond");
-                try {
-                    Method method = dev.getClass().getMethod("createBond");
-                    method.setAccessible(true);
-                    method.invoke(dev);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            try {
-                ParcelUuid[] uuids = dev.getUuids();
-                UUID uuid = UUID.fromString("00001108-0000-1000-8000-00805f9b34fb");
-                if (uuids != null) {
-                    uuid = uuids[0].getUuid();
-                    socket = dev.createRfcommSocketToServiceRecord(uuid);//使用从设备获取的uuid
-                } else {
-                    UUID myuuid = UUID.fromString("00001108-0000-1000-8000-00805f9b34fb");//使用自定义的uuid
-                    socket = dev.createRfcommSocketToServiceRecord(myuuid);
-                }
-                System.out.println("uuid:" + uuid);
-                if (socket != null)
-                    System.out.println(socket.getRemoteDevice().getName() + " socket succeed");
-                sleep(500);
-//连接蓝牙放在子线程中
-                new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            socket.connect();
-                            System.out.println("connect1 succeed");
-
-                        } catch (IOException e) {
-                            try {
-                                UUID myuuid = UUID.fromString("00001108-0000-1000-8000-00805f9b34fb");//使用自定义的uuid
-                                socket = dev.createRfcommSocketToServiceRecord(myuuid);
-                                socket.connect();
-                                System.out.println("connect2 succeed");
-
-                            } catch (Exception f) {
-                                try {
-                                    socket = (BluetoothSocket) dev.getClass().getMethod("createRfcommSocket", new Class[]{int.class}).invoke(dev, 1);//反射创建socke
-                                    socket.connect();
-                                    System.out.println("connect3 succeed");
-                                } catch (Exception g) {
-                                    g.printStackTrace();
-                                }
-                                f.printStackTrace();
-                            }
-                        }
-/*                        try {
-                            InputStream inputStream = socket.getInputStream();
-                            DataInputStream in = new DataInputStream(inputStream);
-                            int count;
-                            byte[] buf = new byte[1024];
-
-                            try {
-                                while (true) {
-                                    System.out.println("reading");
-                                    System.out.println(in.readInt());
-                                    System.out.println("data read:");
-
-                                    switch (in.readInt()) {
-                                    }
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                System.out.println("get in exception");
-                            }
-                        } */ catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void cancel() {
-            try {
-                btSocket.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("client close failed");
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    System.out.println("handle message 1");
+                    break;
             }
         }
     }
 
-    public class AcceptThread extends Thread {
-        private final BluetoothServerSocket mmServerSocket;
 
-        public AcceptThread() {
-            BluetoothServerSocket temp = null;
-            try {
-                temp = BA.listenUsingRfcommWithServiceRecord("bluetooth", UUID.fromString("f000ccc1-0451-4000-b000-000000000000"));
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("server failed");
-            }
-            mmServerSocket = temp;
-        }
-
-        @Override
-        public void run() {
-            BluetoothSocket socket = null;
-            if (mmServerSocket == null) {
-                System.out.println("server socket null");
-            } else {
-                while (true) {
-                    try {
-                        System.out.println("accept start");
-                        socket = mmServerSocket.accept();
-                        if (socket != null) {
-                            try {
-                                mmServerSocket.close();
-                                System.out.println("close called");
-                                InputStream is = null;
-                                try {
-                                    is = socket.getInputStream();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                System.out.println("get input succeed");
-                                byte buf[] = new byte[1024];
-                                int count;
-                                String str;
-                                while (true) {
-                                    try {
-                                        count = is.read(buf);
-                                        if (count > 0) {
-                                            str = new String(buf, 0, count);
-                                            System.out.println(str);
-                                        }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                System.out.println("close failed");
-                                break;
-                            }
-                        } else {
-                            System.out.println("socket null ");
-                            break;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("accept failed");
-                        break;
-                    }
-
-
-                }
-            }
-        }
-
-        public void cancel() {
-            try {
-                mmServerSocket.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("close failed");
-            }
-        }
-    }
 }

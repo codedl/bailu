@@ -98,4 +98,5 @@ these are app develop in android studio using java by a learner，and plan for w
 2.手机传输文件
 3.读取耳机按键
 4.取消蓝牙连接的提示框
++整理代码;
 
