@@ -37,6 +37,21 @@
         android:onClick="btEvent"
         android:id="@+id/play_btn"
         android:text="播放录音"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/play_btn"
+        android:layout_alignLeft="@+id/play_btn"
+        android:onClick="btEvent"
+        android:id="@+id/up_btn"
+        android:text="上传文件"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="输入url链接"
+        android:id="@+id/url_edit"
+        android:layout_below="@id/up_btn"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/send_btn"
@@ -78,7 +93,7 @@
         android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rcv_btn"
+        android:layout_below="@+id/url_edit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="0dp">

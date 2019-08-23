@@ -85,29 +85,12 @@
         android:text="完成连接"
         android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/module0_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/over_btn"
-        android:layout_alignLeft="@+id/over_btn"
-        android:onClick="clickEvent"
-        android:text="模块1" />
-
-    <Button
-        android:id="@+id/modle1_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/over_btn"
-        android:layout_toRightOf="@+id/module0_btn"
-        android:text="模块2"
-        android:onClick="clickEvent" />
-
     <ToggleButton
         android:id="@+id/scan_btn"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/modle1_btn"
+        android:layout_below="@+id/over_btn"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/item3"
         android:checked="true"
@@ -126,7 +109,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/item2"
         android:textColor="@android:color/white"
-        android:text="已连接设备"
+        android:text="采集音频"
         android:textSize="23sp"
         android:onClick="clickEvent"/>
     <ListView
@@ -153,11 +136,12 @@
         android:textOn="开始数据采集"
         android:textSize="23sp" />-->
 
-   <!-- <TextView
+    <TextView
         android:id="@+id/state_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/connect_btn"
+        android:layout_marginTop="200dp"
         android:layout_marginStart="10dp"
         android:text="模块状态"
         android:textColor="#4CAF50" />
@@ -187,7 +171,7 @@
         android:layout_below="@+id/state_text"
         android:layout_centerHorizontal="true"
         android:text="电量:%100"
-        android:textColor="#3F51B5" />-->
+        android:textColor="#3F51B5" />
 
     <TextView
         android:id="@+id/ip_text"

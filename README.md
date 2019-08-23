@@ -89,3 +89,13 @@ these are app develop in android studio using java by a learner，and plan for w
 1.手机发送文件
 2.多个蓝牙通信
 
+#20190822
+1.手机传输文件
+2.读取耳机按键
+
+#20190823
+1.多个蓝牙通信
+2.手机传输文件
+3.读取耳机按键
+4.取消蓝牙连接的提示框
+

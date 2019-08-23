@@ -38,3 +38,9 @@ b.访问方法：
 [约束布局]
 1.layout_constraintTop_toBottomOf：
 控件的top在某个控件的bottom下方
+[tomcat服务器]
+1.startup.bat启动服务器;
+2.在server.xml中配置<Context docBase="D:\web" path="/web"/>
+[android studio导入jar包]
+1.找到libs目录没有就新建
+2.sync

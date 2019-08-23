@@ -32,6 +32,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +66,6 @@ public class bleActivity extends AppCompatActivity {
     private boolean iscalled = true;//回调完成
     boolean led0on;
     boolean led1on;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

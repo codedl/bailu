@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import cz.msebera.android.httpclient.Header;
+
 import android.Manifest;
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
@@ -20,6 +22,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -30,6 +33,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelUuid;
 import android.service.media.MediaBrowserService;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.AdapterView;
@@ -45,18 +49,36 @@ import android.media.AudioManager;
 import android.provider.Settings;
 import android.bluetooth.BluetoothServerSocket;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
+
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import cz.msebera.android.httpclient.Header;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class btActivity extends AppCompatActivity {
     public BluetoothAdapter BA;
@@ -70,7 +92,7 @@ public class btActivity extends AppCompatActivity {
     private Switch btSchwitch;
     private ArrayAdapter adapter;
     private ListView listView;
-    private EditText destNameEdit;
+    private EditText urlEdit;
 
     public ArrayList<BluetoothDevice> devices = new ArrayList<>();
     public ArrayList<String> deviceName = new ArrayList<>();
@@ -100,6 +122,8 @@ public class btActivity extends AppCompatActivity {
     }*/
 
     public void btInit() {
+        urlEdit = findViewById(R.id.url_edit);
+        urlEdit.setText("http://192.168.2.206:8080/web");
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         listView = (ListView) findViewById(R.id.list);
         adapter = new ArrayAdapter(btActivity.this, android.R.layout.simple_expandable_list_item_1, deviceName);
@@ -150,12 +174,12 @@ public class btActivity extends AppCompatActivity {
             @Override
             public boolean onMediaButtonEvent(Intent mediaButtonIntent) {
                 System.out.println(mediaButtonIntent.getAction());
-                KeyEvent keyEvent = (KeyEvent)mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+                KeyEvent keyEvent = (KeyEvent) mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
                 System.out.println(keyEvent);
                 return super.onMediaButtonEvent(mediaButtonIntent);
             }
         });
-        mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS|MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
+        mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS | MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mediaSession.setActive(true);
 
     }
@@ -286,9 +310,8 @@ public class btActivity extends AppCompatActivity {
     }
 
     public void btEvent(View btn) {
-        String file = Environment.getExternalStorageDirectory().getAbsolutePath();
-        file += "/record.mp3";
-        System.out.println(file);
+        String file = Environment.getExternalStorageDirectory().getAbsolutePath() + "/java.txt";
+        String jpgfile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/123.jpg";
         switch (btn.getId()) {
             case R.id.start_btn:
                 mediaRecorder = new MediaRecorder();
@@ -359,6 +382,70 @@ public class btActivity extends AppCompatActivity {
 
                 break;
             case R.id.rcv_btn:
+
+                break;
+
+            case R.id.up_btn:
+                try {
+                    AsyncHttpClient client = new AsyncHttpClient();
+//                    client.setURLEncodingEnabled(false);
+                    FileOutputStream output = new FileOutputStream(file);
+                    PrintStream print = new PrintStream(output);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
+                    Date date = new Date(System.currentTimeMillis());//获取当前时间
+                    print.println(date);
+
+                    File uploadFile = new File(file);
+//                    String path = "http://192.168.2.172/";
+//                    String path = "ftp://record:record@192.168.2.172/";
+                    String path = urlEdit.getText().toString().trim();
+                    System.out.println(path);
+                    System.out.println(file);
+                    RequestParams params = new RequestParams();
+                    params.put(uploadFile.getName(), file);
+//                    client.setProxy("192.168.2.206",8080);
+                    client.post(this, path, params, new AsyncHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            System.out.println("succeed !");
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                            System.out.println("failed !");
+
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                /*new Thread(){
+                    @Override
+                    public void run(){
+                        OkHttpClient client = new OkHttpClient();
+                        File ufile = new File(file);
+                        RequestBody request = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("username","dingle")
+                                .addFormDataPart("mp3",ufile.getName(),RequestBody.create(MediaType.parse("multipart/form-data"),file))
+                                .build();
+                        Request req = new Request.Builder()
+                                .header("Authorization", "Client-ID " + UUID.randomUUID())
+                                .url("http://192.168.2.172")
+                                .post(request)
+                                .build();
+                        try {
+                            Response response = client.newCall(req).execute();
+                            if(response.isSuccessful()){
+                                System.out.println("file succeed");
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();*/
 
                 break;
         }
