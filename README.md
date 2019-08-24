@@ -2,6 +2,7 @@
 code by android studio, java, android os
 myapp is api level 27
 these are app develop in android studio using java by a learner，and plan for work
+
 <Java从入门到精通>;<从零开始学Android编程>;<Android开发与应用>;菜鸟教程(https://www.runoob.com/)
 
 #20190731
@@ -100,3 +101,7 @@ these are app develop in android studio using java by a learner，and plan for w
 4.取消蓝牙连接的提示框
 +整理代码;
 
+#20190824
+1.手机传输文件
+2.读取耳机按键
+3.取消蓝牙连接的提示框
