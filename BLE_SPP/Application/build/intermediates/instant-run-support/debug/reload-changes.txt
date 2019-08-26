@@ -1,4 +1,0 @@
-CHANGED,C:\Users\Administrator\StudioProjects\BLE_SPP\Application\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\smartwebee\android\blespp\DeviceScanActivity$1$override.class
-CHANGED,C:\Users\Administrator\StudioProjects\BLE_SPP\Application\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class
-CHANGED,C:\Users\Administrator\StudioProjects\BLE_SPP\Application\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\smartwebee\android\blespp\DeviceScanActivity$2$override.class
-CHANGED,C:\Users\Administrator\StudioProjects\BLE_SPP\Application\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\smartwebee\android\blespp\DeviceScanActivity$override.class
