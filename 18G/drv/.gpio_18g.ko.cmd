@@ -1,1 +1,0 @@
-cmd_/mnt/hgfs/work/18G/drv/gpio_18g.ko := arm-linux-ld -EL -r  -T /root/newnand/kernel_newnand/scripts/module-common.lds --build-id  -o /mnt/hgfs/work/18G/drv/gpio_18g.ko /mnt/hgfs/work/18G/drv/gpio_18g.o /mnt/hgfs/work/18G/drv/gpio_18g.mod.o
