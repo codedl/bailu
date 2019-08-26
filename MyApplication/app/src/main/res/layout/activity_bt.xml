@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btSearch_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="10dp"
+        android:onClick="btEvent"
+        android:text="搜索蓝牙" />
+
+    <Button
+        android:id="@+id/start_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/btSearch_btn"
+        android:onClick="btEvent"
+        android:text="开始录音" />
+
+    <Button
+        android:id="@+id/stop_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/start_btn"
+        android:onClick="btEvent"
+        android:text="停止录音" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/stop_btn"
+        android:onClick="btEvent"
+        android:id="@+id/play_btn"
+        android:text="播放录音"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rcv_btn"
+        android:layout_alignLeft="@+id/rcv_btn"
+        android:onClick="btEvent"
+        android:id="@+id/up_btn"
+        android:text="上传"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="输入url链接"
+        android:id="@+id/url_edit"
+        android:text="http://192.168.42.144"
+        android:layout_alignBottom="@id/up_btn"
+        android:layout_toRightOf="@id/up_btn" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/blescan_btn"
+        android:layout_below="@+id/url_edit"
+        android:layout_alignLeft="@+id/up_btn"
+        android:text="ble扫描"
+        android:onClick="btEvent"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/red_btn"
+        android:layout_below="@+id/url_edit"
+        android:layout_toRightOf="@+id/blescan_btn"
+        android:text="ble红灯"
+        android:onClick="btEvent"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/green_btn"
+        android:layout_below="@+id/url_edit"
+        android:layout_toRightOf="@+id/red_btn"
+        android:text="ble绿灯"
+        android:onClick="btEvent"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/web_btn"
+        android:layout_below="@+id/url_edit"
+        android:layout_toRightOf="@+id/green_btn"
+        android:text="浏览网页"
+        android:onClick="btEvent"/>
+    <Button
+        android:id="@+id/send_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/start_btn"
+        android:layout_alignLeft="@+id/btSearch_btn"
+        android:onClick="btEvent"
+        android:text="发送" />
+
+    <EditText
+        android:id="@+id/send_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/send_btn"
+        android:layout_toRightOf="@+id/send_btn"
+        android:hint="输入发送数据" />
+
+    <Button
+        android:id="@+id/rcv_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/send_btn"
+        android:layout_alignLeft="@+id/send_btn"
+        android:onClick="btEvent"
+        android:text="接收" />
+
+    <EditText
+        android:id="@+id/rcv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/rcv_btn"
+        android:layout_toRightOf="@+id/rcv_btn"
+        android:hint="显示接收数据" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/blescan_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone">
+    </ListView>
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/blescan_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        android:id="@+id/web">
+    </WebView>
+
+</RelativeLayout>

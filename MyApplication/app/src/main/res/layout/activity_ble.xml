@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textOn="打开"
+        android:textOff="关闭"
+        android:text="蓝牙开关"
+        android:showText="true"
+        android:checked="false"
+        tools:checked = "true"
+        android:onClick="btnEvent"
+        android:id="@+id/bleswitch"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/bleswitch"
+        android:layout_alignBottom="@+id/bleswitch"
+        android:textOn="打开"
+        android:textOff="关闭"
+        android:text="扫描"
+        android:showText="true"
+        android:checked="false"
+        tools:checked = "true"
+        android:onClick="btnEvent"
+        android:id="@+id/scanswitch"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/blesend_btn"
+        android:layout_below="@id/bleswitch"
+        android:layout_alignLeft="@+id/bleswitch"
+        android:text="发送"
+        android:onClick="btnEvent"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/blesend_edit"
+        android:hint="输入数据"
+        android:layout_alignBottom="@+id/blesend_btn"
+        android:layout_alignLeft="@+id/scanswitch"
+        android:layout_alignRight="@+id/led1_btn"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/blercv_btn"
+        android:text="接收"
+        android:layout_below="@id/blesend_btn"
+        android:layout_alignLeft="@+id/blesend_btn"
+        android:onClick="btnEvent"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/blercv_edit"
+        android:layout_below="@+id/blesend_edit"
+        android:layout_alignStart="@+id/blesend_edit"
+        android:layout_alignEnd="@+id/blesend_edit"
+        android:hint="接收数据" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dev_text"
+        android:text="设备名称地址"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/led0_btn"
+        android:text="红灯"
+        android:layout_toRightOf="@+id/scanswitch"
+        android:onClick="btnEvent"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/led1_btn"
+        android:text="绿灯"
+        android:layout_toRightOf="@+id/led0_btn"
+        android:layout_alignBottom="@+id/led0_btn"
+        android:onClick="btnEvent"/>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/blercv_btn"
+        android:id="@+id/dev_list">
+    </ListView>
+
+</RelativeLayout>
