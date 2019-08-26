@@ -3,6 +3,11 @@ code by android studio, java, android os
 myapp is api level 27
 these are app develop in android studio using java by a learner，and plan for work
 
+#遗留问题:
+[1]读取蓝牙耳机按键;
+[2]手机传送文件;
+[3]蓝牙连接提示框;
+
 <Java从入门到精通>;<从零开始学Android编程>;<Android开发与应用>;菜鸟教程(https://www.runoob.com/)
 
 #20190731
@@ -105,3 +110,11 @@ these are app develop in android studio using java by a learner，and plan for w
 1.手机传输文件
 2.读取耳机按键
 3.取消蓝牙连接的提示框
+
+#2019/35
+[1]搭建服务器，用手机发送文件给服务器
+[2]安卓开发的文档和网页教程
+
+#20190826
+1.scpi指令解析;
+2.qt编程;
