@@ -1,0 +1,4 @@
+kernel//mnt/hgfs/work/18G/drv/gpmc_18g.ko
+kernel//mnt/hgfs/work/18G/drv/ram_18g.ko
+kernel//mnt/hgfs/work/18G/drv/gpio_18g.ko
+kernel//mnt/hgfs/work/18G/drv/frontend_18g.ko
