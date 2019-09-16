@@ -27,8 +27,4 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation files('libs/android-async-http-1.4.10.jar')
-    implementation files('libs/httpclient-4.4.1.1.jar')
-    implementation files('libs/ftp4j-1.7.2.jar')
-    implementation files('libs/httpcore-4.2.4.jar')
 }

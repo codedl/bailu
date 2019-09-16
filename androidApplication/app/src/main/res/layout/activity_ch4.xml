@@ -98,7 +98,41 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lover"
-        android:entries="@array/list">
+        android:entries="@array/list"
+        android:id="@+id/list">
     </Spinner>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pro_btn"
+        android:text="down"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list"
+        android:onClick="ch4"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pro_text"
+        android:text="download..."
+        android:textSize="35dp"
+        app:layout_constraintLeft_toRightOf="@+id/pro_btn"
+        app:layout_constraintTop_toBottomOf="@+id/list"/>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyle"
+        android:id="@+id/pb1"
+        app:layout_constraintLeft_toRightOf="@+id/pro_text"
+        app:layout_constraintTop_toBottomOf="@+id/list"
+        android:visibility="gone"/>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pb2"
+        app:layout_constraintTop_toBottomOf="@+id/pro_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

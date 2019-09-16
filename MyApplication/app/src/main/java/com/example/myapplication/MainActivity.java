@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id) {
             case R.id.action_setting1:
-                Toast.makeText(this, "settting1 selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "setting1 selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_setting2:
                 Toast.makeText(this, "setting2 selected", Toast.LENGTH_SHORT).show();

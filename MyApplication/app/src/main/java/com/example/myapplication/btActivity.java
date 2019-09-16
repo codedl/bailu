@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
 import cz.msebera.android.httpclient.Header;
 import it.sauronsoftware.ftp4j.FTPClient;
 
@@ -30,9 +31,16 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.apache.http.protocol.HTTP;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -230,10 +238,16 @@ public class btActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void btEvent(View btn) {
-        String txtfile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/java.txt";
+        String txtfile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/http.txt";
         String jpgfile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/123.jpg";
         String mp3file = Environment.getExternalStorageDirectory().getAbsolutePath() + "/record.mp3";
         switch (btn.getId()) {
+            case R.id.stopscan_btn:
+                bluetoothClassic.cancelDiscovery();
+                blec.stopScan();
+                listView.setVisibility(View.INVISIBLE);
+                break;
+
             case R.id.start_btn:
                 audio.startRecord(new File(mp3file));
                 break;
@@ -257,81 +271,7 @@ public class btActivity extends AppCompatActivity {
                 break;
 
             case R.id.up_btn:
-
-                try {
-
-                    AsyncHttpClient client = new AsyncHttpClient();
-                    client.setMaxRetriesAndTimeout(3,10000);
-                    client.setUserAgent(fileManager.getAgent());
-                    System.out.println(fileManager.getAgent());
-                    FileOutputStream output = new FileOutputStream(txtfile);
-                    PrintStream print = new PrintStream(output);
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
-                    Date date = new Date(System.currentTimeMillis());//获取当前时间
-                    print.println(date);
-
-                    File uploadFile = new File(txtfile);
-//                    String path = "http://192.168.2.172/";
-//                    String path = "ftp://record:record@192.168.2.172/";
-                    String path = urlEdit.getText().toString().trim();
-                    System.out.println(path);
-                    System.out.println(txtfile);
-                    RequestParams params = new RequestParams();
-//                    client.setProxy("192.168.42.62", 80);
-                    params.put(uploadFile.getName(), txtfile);
-                    /*client.get(path, new AsyncHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                            System.out.println(new String(bytes,0,bytes.length));
-                        }
-
-                        @Override
-                        public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-
-                        }
-                    });*/
-                    client.post(path, params, new AsyncHttpResponseHandler() {
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            System.out.println("succeed !");
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                            System.out.println("failed !");
-
-                        }
-                    });
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                /*new Thread(){
-                    @Override
-                    public void run(){
-                        OkHttpClient client = new OkHttpClient();
-                        File ufile = new File(file);
-                        RequestBody request = new MultipartBody.Builder()
-                                .setType(MultipartBody.FORM)
-                                .addFormDataPart("username","dingle")
-                                .addFormDataPart("mp3",ufile.getName(),RequestBody.create(MediaType.parse("multipart/form-data"),file))
-                                .build();
-                        Request req = new Request.Builder()
-                                .header("Authorization", "Client-ID " + UUID.randomUUID())
-                                .url("http://192.168.2.172")
-                                .post(request)
-                                .build();
-                        try {
-                            Response response = client.newCall(req).execute();
-                            if(response.isSuccessful()){
-                                System.out.println("file succeed");
-                            }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                }.start();*/
+                new fileManager().upload(urlEdit.getText().toString().trim(), txtfile);
 
                 break;
             case R.id.web_btn:
@@ -378,6 +318,5 @@ public class btActivity extends AppCompatActivity {
             }
         }
     }
-
 
 }
