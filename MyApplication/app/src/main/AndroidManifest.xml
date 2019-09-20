@@ -32,9 +32,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".MyReceiver"
+            android:name="com.example.myapplication.MyReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.intent.action.MEDIA_BUTTON"></action>
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".MainActivity"

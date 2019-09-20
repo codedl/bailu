@@ -14,10 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MyReceiver extends BroadcastReceiver {
+    public  MyReceiver(){
+
+    }
     Context context;
     ArrayList<BluetoothDevice> devices = new ArrayList<>();
     ArrayList<String> deviceStr = new ArrayList<>();
@@ -26,7 +30,7 @@ public class MyReceiver extends BroadcastReceiver {
     audio Audio;
 
 
-    public MyReceiver(Context context, audio Audio) {
+    /*public MyReceiver(Context context, audio Audio) {
         this.context = context;
         this.Audio = Audio;
         LayoutInflater layout = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -35,7 +39,7 @@ public class MyReceiver extends BroadcastReceiver {
         Button textView = view.findViewById(R.id.play_btn);
         textView.setText("接收广播");
         adapter = new ArrayAdapter(context, android.R.layout.simple_expandable_list_item_1, deviceStr);
-    }
+    }*/
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -44,7 +48,6 @@ public class MyReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         System.out.println(action);
         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-
         switch (action) {
             case Action.BLE_SCAN_FOUND:
                 String str = intent.getStringExtra("devicestr");

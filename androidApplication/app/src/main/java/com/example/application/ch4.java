@@ -2,7 +2,6 @@ package com.example.application;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.KeyEventDispatcher;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;

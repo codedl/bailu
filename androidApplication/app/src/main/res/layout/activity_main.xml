@@ -12,12 +12,5 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="ch4"
         android:id="@+id/ch4_btn"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/ch4_btn"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="网络通信"
-        android:id="@+id/web_btn"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

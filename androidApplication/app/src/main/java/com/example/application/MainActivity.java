@@ -1,12 +1,10 @@
 package com.example.application;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,13 +21,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        final Button web = findViewById(R.id.web_btn);
-        web.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, web.class);
-                startActivity(intent);
-            }
-        });
+
     }
 }

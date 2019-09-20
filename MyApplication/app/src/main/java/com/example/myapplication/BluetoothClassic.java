@@ -5,9 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.content.Intent;
 import android.os.ParcelUuid;
-
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.UUID;

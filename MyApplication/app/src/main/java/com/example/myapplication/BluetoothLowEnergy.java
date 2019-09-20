@@ -65,7 +65,6 @@ public class BluetoothLowEnergy {
             Intent intent = new Intent(Action.BLE_SCAN_FOUND);
             intent.putExtra("devicestr", scanResult.toString());
             context.sendBroadcast(intent);
-
         }
     };
 

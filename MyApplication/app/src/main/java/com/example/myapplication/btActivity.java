@@ -3,16 +3,16 @@ package com.example.myapplication;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import cz.msebera.android.httpclient.Header;
-import it.sauronsoftware.ftp4j.FTPClient;
-
+import android.annotation.TargetApi;
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.media.session.MediaSession;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,24 +27,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.view.View;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.apache.http.protocol.HTTP;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public class btActivity extends AppCompatActivity {
     private boolean classic = false;
@@ -53,12 +39,13 @@ public class btActivity extends AppCompatActivity {
     bluetoothReceiver btReceiver;
 
     private EditText urlEdit;
-
     public ArrayList<BluetoothDevice> devices = new ArrayList<>();
     public ArrayList<String> deviceName = new ArrayList<>();
     ListView listView;
     ArrayAdapter adapter;
     private MediaSession mediaSession;
+    ComponentName componentName;
+    AudioManager audioManager;
     private BluetoothLowEnergy blec;
     private BluetoothClassic bluetoothClassic;
     byte val[] = new byte[]{0};
@@ -83,7 +70,9 @@ public class btActivity extends AppCompatActivity {
     public void btInit() {
         blec = new BluetoothLowEnergy(btActivity.this);
         bluetoothClassic = new BluetoothClassic(btActivity.this);
-        audio = new audio(btActivity.this);
+////        audio = new audio(btActivity.this);
+//        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+//        audioManager.registerMediaButtonEventReceiver(new ComponentName(this,MyReceiver.class));
         urlEdit = findViewById(R.id.url_edit);
         listView = (ListView) findViewById(R.id.list);
         adapter = new ArrayAdapter(btActivity.this, android.R.layout.simple_expandable_list_item_1, deviceName);
@@ -94,15 +83,16 @@ public class btActivity extends AppCompatActivity {
             startActivityForResult(turnOn, 1);
         }
 
-        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);//注册广播接收信号
+      /*  IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);//注册广播接收信号
         intentFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         intentFilter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);
         intentFilter.addAction(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED);
         intentFilter.addAction(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED);
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         intentFilter.addAction(Action.BLE_SCAN_FOUND);
+
         btReceiver = new bluetoothReceiver();
-        registerReceiver(btReceiver, intentFilter);//用BroadcastReceiver 来取得结果
+        registerReceiver(btReceiver, intentFilter);//用BroadcastReceiver 来取得结果*/
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -126,20 +116,59 @@ public class btActivity extends AppCompatActivity {
                 listView.setVisibility(View.INVISIBLE);
             }
         });
-        mediaSession = new MediaSession(this, "tag");
+
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        componentName = new ComponentName(btActivity.this.getPackageName(), MyReceiver.class.getName());
+        int result = audioManager.requestAudioFocus(new audioListener(), AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
+            System.out.println("requst fouce succeed");
+       /* if (Build.VERSION.SDK_INT >= 21) {
+            setMediaButtonEvent();
+        } else {*/
+        audioManager.registerMediaButtonEventReceiver(componentName);
+//        }
+
+
+    }
+
+    class audioListener implements AudioManager.OnAudioFocusChangeListener {
+
+        @Override
+        public void onAudioFocusChange(int i) {
+            System.out.println("onAudioFocusChange:" + i);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setMediaButtonEvent() {
+        mediaSession = new MediaSession(btActivity.this, "tag");
+        //        mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS | MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
+        mediaSession.setActive(true);
         mediaSession.setCallback(new MediaSession.Callback() {
             @Override
             public boolean onMediaButtonEvent(Intent mediaButtonIntent) {
+                System.out.println("onMediaButtonEvent");
                 System.out.println(mediaButtonIntent.getAction());
                 KeyEvent keyEvent = (KeyEvent) mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
                 System.out.println(keyEvent);
                 return super.onMediaButtonEvent(mediaButtonIntent);
             }
-        });
-        mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS | MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
-        mediaSession.setActive(true);
-    }
 
+            @Override
+            public void onPlay() {
+                super.onPlay();
+                System.out.println("onplay");
+            }
+
+            @Override
+            public void onPause() {
+                super.onPause();
+                System.out.println("onPause");
+            }
+        });
+
+
+    }
 
     public class bluetoothReceiver extends BroadcastReceiver {
         @Override
@@ -196,7 +225,7 @@ public class btActivity extends AppCompatActivity {
                             break;
                         case BluetoothDevice.BOND_BONDED:
                             BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                            audio.connect(device);
+                            //audio.connect(device);
                             System.out.println("BluetoothDevice.BOND_BONDED");
                             break;
                     }
@@ -210,7 +239,7 @@ public class btActivity extends AppCompatActivity {
                         case BluetoothA2dp.STATE_CONNECTING:
                             System.out.println("BluetoothA2dp.STATE_CONNECTING");
 //                           建立蓝牙sco连接
-                            audio.startBluetoothSco();
+//                            audio.startBluetoothSco();
                             break;
                         case BluetoothA2dp.STATE_DISCONNECTING:
                             System.out.println("BluetoothA2dp.STATE_DISCONNECTING");
@@ -305,7 +334,7 @@ public class btActivity extends AppCompatActivity {
 
     protected void onDestroy() {
         super.onDestroy();//解除注册
-        unregisterReceiver(btReceiver);
+       // unregisterReceiver(btReceiver);
     }
 
     class handle extends Handler {

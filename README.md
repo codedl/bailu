@@ -118,3 +118,15 @@ these are app develop in android studio using java by a learner，and plan for w
 #20190826
 1.scpi指令解析;
 2.qt编程;
+
+#20190917
+1.信号源总结
+2.读取耳机按键
+
+#20190918
+1.读取按键
+2.整理app工作
+
+#20190919
+1.mediacontroller代码
+2.app功能整理
