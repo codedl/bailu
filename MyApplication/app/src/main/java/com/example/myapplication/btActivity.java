@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.TargetApi;
@@ -12,13 +13,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.media.AudioFormat;
 import android.media.AudioManager;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.media.session.MediaSession;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.widget.AdapterView;
@@ -28,24 +34,32 @@ import android.widget.ListView;
 import android.view.View;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.SimpleTimeZone;
 
 
 public class btActivity extends AppCompatActivity {
     private boolean classic = false;
     public BluetoothAdapter BA;
-    public BluetoothDevice btDevice;
     bluetoothReceiver btReceiver;
 
     private EditText urlEdit;
     public ArrayList<BluetoothDevice> devices = new ArrayList<>();
-    public ArrayList<String> deviceName = new ArrayList<>();
+    public ArrayList<String> itemNames = new ArrayList<>();
+    public ArrayList<File> upFiles = new ArrayList<>();
     ListView listView;
     ArrayAdapter adapter;
     private MediaSession mediaSession;
-    ComponentName componentName;
     AudioManager audioManager;
+
     private BluetoothLowEnergy blec;
     private BluetoothClassic bluetoothClassic;
     byte val[] = new byte[]{0};
@@ -70,12 +84,12 @@ public class btActivity extends AppCompatActivity {
     public void btInit() {
         blec = new BluetoothLowEnergy(btActivity.this);
         bluetoothClassic = new BluetoothClassic(btActivity.this);
-////        audio = new audio(btActivity.this);
-//        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-//        audioManager.registerMediaButtonEventReceiver(new ComponentName(this,MyReceiver.class));
+        audio = new audio(btActivity.this);
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        audioManager.registerMediaButtonEventReceiver(new ComponentName(this, MyReceiver.class));
         urlEdit = findViewById(R.id.url_edit);
         listView = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter(btActivity.this, android.R.layout.simple_expandable_list_item_1, deviceName);
+        adapter = new ArrayAdapter(btActivity.this, android.R.layout.simple_expandable_list_item_1, itemNames);
 
         BA = BluetoothAdapter.getDefaultAdapter();
         if (!BA.isEnabled()) {
@@ -83,7 +97,7 @@ public class btActivity extends AppCompatActivity {
             startActivityForResult(turnOn, 1);
         }
 
-      /*  IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);//注册广播接收信号
+        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);//注册广播接收信号
         intentFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         intentFilter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);
         intentFilter.addAction(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED);
@@ -92,42 +106,56 @@ public class btActivity extends AppCompatActivity {
         intentFilter.addAction(Action.BLE_SCAN_FOUND);
 
         btReceiver = new bluetoothReceiver();
-        registerReceiver(btReceiver, intentFilter);//用BroadcastReceiver 来取得结果*/
+        registerReceiver(btReceiver, intentFilter);//用BroadcastReceiver 来取得结果
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (upFiles.get(i) != null)
+                    new fileManager().upload(urlEdit.getText().toString().trim(), upFiles.get(i).toString());
+
                 if (classic == true) {
-                    btDevice = devices.get(i);
+                    if (devices.size() == 0)
+                        return;
+                    BluetoothDevice btDevice = devices.get(i);
+                    if (btDevice == null)
+                        return;
                     System.out.println(btDevice.getName() + btDevice.getAddress());
                     devices.clear();
                     bluetoothClassic.cancelDiscovery();
                     bluetoothClassic.createBond(btDevice);
                     bluetoothClassic.connect(btDevice);
                 } else {
+                    if (blec.bleDevices.size() == 0)
+                        return;
                     BluetoothDevice bluetoothDevice = blec.bleDevices.get(i);
+                    if (bluetoothDevice == null)
+                        return;
                     blec.bleConnect(bluetoothDevice);
                     System.out.println(bluetoothDevice.getName() + bluetoothDevice.getAddress());
                     blec.stopScan();
                     blec.bleDevices.clear();
                 }
-                deviceName.clear();
+                itemNames.clear();
                 listView.setAdapter(adapter);
                 listView.setVisibility(View.INVISIBLE);
             }
         });
 
-        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        componentName = new ComponentName(btActivity.this.getPackageName(), MyReceiver.class.getName());
-        int result = audioManager.requestAudioFocus(new audioListener(), AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
-        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
-            System.out.println("requst fouce succeed");
-       /* if (Build.VERSION.SDK_INT >= 21) {
-            setMediaButtonEvent();
-        } else {*/
-        audioManager.registerMediaButtonEventReceiver(componentName);
-//        }
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                File file = upFiles.get(i);
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(btActivity.this);
+                builder.setTitle("文件属性");
+                builder.setMessage(fileManager.fileInfo(file));
+                builder.create().show();
+
+                return true;//返回true则不会触发短按事件
+
+            }
+        });
 
     }
 
@@ -177,14 +205,14 @@ public class btActivity extends AppCompatActivity {
 
             String action = intent.getAction();
             System.out.println(action);
-            btDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            BluetoothDevice btDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
             switch (action) {
                 case Action.BLE_SCAN_FOUND:
 
                     String str = intent.getStringExtra("devicestr");
                     System.out.println(str);
-                    deviceName.add(str);
+                    itemNames.add(str);
                     listView.setAdapter(adapter);
                     listView.setVisibility(View.VISIBLE);
                     findViewById(R.id.web).setVisibility(View.INVISIBLE);
@@ -196,7 +224,7 @@ public class btActivity extends AppCompatActivity {
                     System.out.println(name + addr);
                     if (devices.contains(btDevice))
                         return;
-                    deviceName.add(name + ":" + addr);
+                    itemNames.add(name + ":" + addr);
                     devices.add(btDevice);
                     listView.setAdapter(adapter);
                     listView.setVisibility(View.VISIBLE);
@@ -267,9 +295,11 @@ public class btActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void btEvent(View btn) {
-        String txtfile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/http.txt";
-        String jpgfile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/123.jpg";
-        String mp3file = Environment.getExternalStorageDirectory().getAbsolutePath() + "/record.mp3";
+        String sdPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String txtfile = sdPath + "/http.txt";
+        String jpgfile = sdPath + "/123.jpg";
+        final String pcmfile = sdPath + "/ddhgdw.pcm";
+        final String wavfile = sdPath + "/ddhgdw.wav";
         switch (btn.getId()) {
             case R.id.stopscan_btn:
                 bluetoothClassic.cancelDiscovery();
@@ -278,11 +308,12 @@ public class btActivity extends AppCompatActivity {
                 break;
 
             case R.id.start_btn:
-                audio.startRecord(new File(mp3file));
+                audio.startAudioRecord(pcmfile);
                 break;
 
             case R.id.stop_btn:
-                audio.stopRecord();
+                audio.stopAudioRecord();
+                audio.pcmToWav(pcmfile, wavfile);
                 break;
 
             case R.id.btSearch_btn:
@@ -290,7 +321,7 @@ public class btActivity extends AppCompatActivity {
                 classic = true;
                 break;
             case R.id.play_btn:
-                audio.audioPlay(mp3file);
+                audio.mediaPlay(wavfile);
                 break;
             case R.id.send_btn:
 
@@ -300,8 +331,24 @@ public class btActivity extends AppCompatActivity {
                 break;
 
             case R.id.up_btn:
-                new fileManager().upload(urlEdit.getText().toString().trim(), txtfile);
+                itemNames.clear();
+                File file = new File(sdPath);
+                String[] fileList = file.list(new FilenameFilter() {
+                    @Override
+                    public boolean accept(File file, String s) {
+                        File list = new File(file.getAbsolutePath() + "/" + s);
 
+                        if (list.isDirectory())
+                            return false;
+                        else {
+                            itemNames.add(s);
+                            upFiles.add(list);
+                            return true;
+                        }
+                    }
+                });
+                listView.setVisibility(View.VISIBLE);
+                listView.setAdapter(adapter);
                 break;
             case R.id.web_btn:
                 blec.stopScan();
@@ -334,7 +381,7 @@ public class btActivity extends AppCompatActivity {
 
     protected void onDestroy() {
         super.onDestroy();//解除注册
-       // unregisterReceiver(btReceiver);
+        // unregisterReceiver(btReceiver);
     }
 
     class handle extends Handler {
@@ -346,6 +393,95 @@ public class btActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    public void pcmToWav(String inFilename, String outFilename) {
+        System.out.println("pcm to wav");
+        FileInputStream in;
+        FileOutputStream out;
+        long totalAudioLen;
+        long totalDataLen;
+        long longSampleRate = 16000;
+        int channels = 1;
+        long byteRate = 16 * 16000 * channels / 8;
+        int mBufferSize = AudioRecord.getMinBufferSize(16000, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+        byte[] data = new byte[mBufferSize];
+        try {
+            in = new FileInputStream(inFilename);
+            out = new FileOutputStream(outFilename);
+            totalAudioLen = in.getChannel().size();
+            totalDataLen = totalAudioLen + 36;
+
+            writeWaveFileHeader(out, totalAudioLen, totalDataLen,
+                    longSampleRate, channels, byteRate);
+            while (in.read(data) != -1) {
+                out.write(data);
+            }
+            in.close();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void writeWaveFileHeader(FileOutputStream out, long totalAudioLen,
+                                     long totalDataLen, long longSampleRate, int channels, long byteRate)
+            throws IOException {
+        byte[] header = new byte[44];
+        // RIFF/WAVE header
+        header[0] = 'R';
+        header[1] = 'I';
+        header[2] = 'F';
+        header[3] = 'F';
+        header[4] = (byte) (totalDataLen & 0xff);
+        header[5] = (byte) ((totalDataLen >> 8) & 0xff);
+        header[6] = (byte) ((totalDataLen >> 16) & 0xff);
+        header[7] = (byte) ((totalDataLen >> 24) & 0xff);
+        //WAVE
+        header[8] = 'W';
+        header[9] = 'A';
+        header[10] = 'V';
+        header[11] = 'E';
+        // 'fmt ' chunk
+        header[12] = 'f';
+        header[13] = 'm';
+        header[14] = 't';
+        header[15] = ' ';
+        // 4 bytes: size of 'fmt ' chunk
+        header[16] = 16;
+        header[17] = 0;
+        header[18] = 0;
+        header[19] = 0;
+        // format = 1
+        header[20] = 1;
+        header[21] = 0;
+        header[22] = (byte) channels;
+        header[23] = 0;
+        header[24] = (byte) (longSampleRate & 0xff);
+        header[25] = (byte) ((longSampleRate >> 8) & 0xff);
+        header[26] = (byte) ((longSampleRate >> 16) & 0xff);
+        header[27] = (byte) ((longSampleRate >> 24) & 0xff);
+        header[28] = (byte) (byteRate & 0xff);
+        header[29] = (byte) ((byteRate >> 8) & 0xff);
+        header[30] = (byte) ((byteRate >> 16) & 0xff);
+        header[31] = (byte) ((byteRate >> 24) & 0xff);
+        // block align
+        header[32] = (byte) (2 * 16 / 8);
+        header[33] = 0;
+        // bits per sample
+        header[34] = 16;
+        header[35] = 0;
+        //data
+        header[36] = 'd';
+        header[37] = 'a';
+        header[38] = 't';
+        header[39] = 'a';
+        header[40] = (byte) (totalAudioLen & 0xff);
+        header[41] = (byte) ((totalAudioLen >> 8) & 0xff);
+        header[42] = (byte) ((totalAudioLen >> 16) & 0xff);
+        header[43] = (byte) ((totalAudioLen >> 24) & 0xff);
+        out.write(header, 0, 44);
     }
 
 }

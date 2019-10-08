@@ -130,3 +130,6 @@ these are app develop in android studio using java by a learner，and plan for w
 #20190919
 1.mediacontroller代码
 2.app功能整理
+
+#20190927
+音频文件上传

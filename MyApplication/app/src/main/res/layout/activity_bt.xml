@@ -43,13 +43,13 @@
         android:layout_alignLeft="@+id/rcv_btn"
         android:onClick="btEvent"
         android:id="@+id/up_btn"
-        android:text="上传"/>
+        android:text="文件"/>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="输入url链接"
         android:id="@+id/url_edit"
-        android:text="http://192.168.42.22/web"
+        android:text="http://192.168.42.121/web"
         android:layout_alignBottom="@id/up_btn"
         android:layout_toRightOf="@id/up_btn" />
     <Button

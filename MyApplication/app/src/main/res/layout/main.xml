@@ -45,36 +45,32 @@
 
     <Button
         android:id="@+id/upfile_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/socketconnect_btn"
-        android:layout_toRightOf="@+id/control_text"
+        android:layout_alignLeft="@+id/socketconnect_btn"
         android:text="上传文件"
-        android:onClick="clickEvent"/>
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:onClick="clickEvent"
+        android:background="@drawable/item3"
 
-    <Spinner
-        android:id="@+id/file_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/upfile_btn"
-        android:layout_toRightOf="@+id/upfile_btn"
-        android:entries="@array/filelist"
-        android:spinnerMode="dialog"
-        android:dropDownWidth="50dp">
+        />
 
-    </Spinner>
 
     <TextView
         android:id="@+id/zhuzhuang_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/upfile_btn"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:text="驻装模块"
         android:textColor="#4CAF50" />
 
     <Button
-        android:id="@+id/over_btn"
+        android:id="@+id/model_btn"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/zhuzhuang_text"
@@ -82,42 +78,40 @@
         android:background="@drawable/disconnect"
         android:onClick="clickEvent"
         android:textColor="@android:color/white"
-        android:text="完成连接"
+        android:text="连接驻装"
         android:textSize="20sp" />
 
-    <ToggleButton
-        android:id="@+id/scan_btn"
+    <Button
+        android:id="@+id/play_btn"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/over_btn"
+        android:layout_below="@+id/model_btn"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/item3"
-        android:checked="true"
         android:onClick="clickEvent"
         android:textColor="@android:color/white"
-        android:textOff="取消扫描"
-        android:textOn="扫描蓝牙"
-        android:textSize="23sp" />
+        android:textSize="23sp"
+        android:text="施加干扰"/>
 
-    <Button
-        android:id="@+id/connect_btn"
+    <ToggleButton
+        android:id="@+id/audio_btn"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scan_btn"
+        android:layout_below="@+id/play_btn"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/item2"
         android:textColor="@android:color/white"
-        android:text="采集音频"
+        android:textOn="停止采集"
+        android:textOff="采集音频"
         android:textSize="23sp"
         android:onClick="clickEvent"/>
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/devices_list"
-        android:layout_below="@+id/connect_btn">
-
+        android:layout_height="180dp"
+        android:id="@+id/main_list"
+        android:layout_below="@+id/audio_btn">
     </ListView>
 
     <!--<ToggleButton
@@ -140,7 +134,7 @@
         android:id="@+id/state_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/connect_btn"
+        android:layout_below="@+id/audio_btn"
         android:layout_marginTop="200dp"
         android:layout_marginStart="10dp"
         android:text="模块状态"

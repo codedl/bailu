@@ -15,7 +15,7 @@
             android:title="端口" />
         <item
             android:id="@+id/ble"
-            android:title="模块名"
+            android:title="服务器"
             />
 
     </group>

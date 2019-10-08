@@ -23,9 +23,11 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -60,13 +62,16 @@ import com.google.android.material.navigation.NavigationView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.NavigableSet;
 import java.util.Set;
@@ -77,13 +82,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayAdapter fileAdapter;
     public Spinner fileSpinner;
 
-    private ArrayList<String> devicesStr = new ArrayList<>();
+    private ArrayList<String> listStr = new ArrayList<>();
+    private ArrayList<File> files = new ArrayList<>();
     private ArrayList<BluetoothDevice> devices = new ArrayList<>();
     private ArrayList<BluetoothGatt> gattArrayList = new ArrayList<>();
     private ArrayMap<String, BluetoothGatt> gattArrayMap = new ArrayMap<>();
     private ArrayList<String> addrStr = new ArrayList<>();
-    private ArrayAdapter devAdapter;
-    public ListView devList;
+    private ArrayAdapter adapter;
+    public ListView list;//显示蓝牙设备和文件名
 
     private Button socketconnectBtn;
     private Button upfileBtn;
@@ -113,12 +119,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BluetoothGattCharacteristic btnbgc;
     private BluetoothGattCharacteristic xdt;
 
-    private byte ledon;
-    boolean isFirstPressed = true;
     private BluetoothAdapter bleAdapter;
     boolean iscalled = false;
     private LocationManager lm;
 
+    private BluetoothLowEnergy ble;
+    private BluetoothClassic btc;
+    private boolean isBt;
+    private boolean isPlay;
+    private boolean isUp;
+    receiver btReceiver;
+    audio audio;
+    socket socket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         init();
     }
 
+    //创建设置菜单
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -136,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    //创建右上角设置功能
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -143,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    //右上角选项点击事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -159,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    //菜单项目点击事件
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -203,6 +219,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.port:
                 final EditText edit2 = new EditText(this);
+                edit2.setText("8080");
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
                 builder2.setView(edit2);
                 builder2.setTitle("设置主控端口号");
@@ -223,14 +240,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.ble:
                 final EditText edit3 = new EditText(this);
-                edit3.setText(param.bleName);
-                new AlertDialog.Builder(this).setTitle("设置模块名称").setView(edit3).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                edit3.setText(param.httpServer);
+                new AlertDialog.Builder(this).setTitle("设置服务器地址").setView(edit3).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (edit3.getText().toString().trim().length() != 0) {
                             String str = edit3.getText().toString();
-                            bleText.setText("模块名:" + str + ";");
-                            param.bleName = str;
+                            //bleText.setText("模块名:" + str + ";");
+                            param.httpServer = str;
                         } else {
                             Toast.makeText(MainActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
                         }
@@ -251,54 +268,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void bleInit() {
-        //打开蓝牙
-        Intent btEnable = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-        startActivityForResult(btEnable, 1);
-        //判断是否支持蓝牙ble
-        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            Toast.makeText(this, "不支持蓝牙ble", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-        //获取蓝牙适配器
-        BluetoothManager bm = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        bleAdapter = bm.getAdapter();
-
-        devList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        audio = new audio(MainActivity.this);
+        ble = new BluetoothLowEnergy(MainActivity.this);
+        btc = new BluetoothClassic(MainActivity.this);
+        IntentFilter intent = new IntentFilter(Action.BLE_SCAN_FOUND);
+        intent.addAction(BluetoothDevice.ACTION_FOUND);
+        intent.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+        intent.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);
+        btReceiver = new receiver();
+        registerReceiver(btReceiver, intent);
+        //列表上连接蓝牙
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (isBt) {
+                    if (devices.size() == 0)
+                        return;
+                    BluetoothDevice btDevice = devices.get(i);
+                    if (btDevice == null)
+                        return;
+                    System.out.println(btDevice.getName() + btDevice.getAddress());
+                    btc.cancelDiscovery();
+                    btc.createBond(btDevice);
+                    btc.connect(btDevice);
+                    devices.clear();
+                    listStr.clear();
+                    list.setAdapter(adapter);
+                    isBt = false;
+                }
+                if (isPlay) {
+                    System.out.println("path:" + files.get(i));
+                    audio.mediaPlay(files.get(i).toString());
+                }
+                if (files.get(i) != null && isUp)
+                    new fileManager().upload(param.httpServer, files.get(i).toString());
+            }
+        });
 
-                bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
-                BluetoothDevice bluetoothDevice = devices.get(i);
-                BluetoothGatt gatt = bluetoothDevice.connectGatt(MainActivity.this, true, gattCallBack);
-                devices.clear();
-                devicesStr.clear();
-                devList.setAdapter(devAdapter);
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                final File file = files.get(i);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("文件属性");
+                builder.setMessage(fileManager.fileInfo(file));
+                builder.setPositiveButton("退出",null);
+                builder.setNegativeButton("删除",new  DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int index) {
+                        if(file.exists())
+                            file.delete();
+                        files.remove(i);
+                        listStr.remove(i);
+                        list.setAdapter(adapter);
+                    }
+                });
+                builder.create().show();
+
+                return true;//返回true则不会触发短按事件
+
             }
         });
     }
 
 
     public void layoutInit() {
-        fileSpinner = (Spinner) findViewById(R.id.file_list);
-        fileAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, fileStr);
-        devList = findViewById(R.id.devices_list);
-        devAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, devicesStr);
-        fileStr.add("文件列表");
-        fileStr.add("FILE1");
-        fileStr.add("FILE2");
-        fileStr.add("FILE3");
-        fileSpinner.setAdapter(fileAdapter);
-        fileSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i != 0)
-                    Toast.makeText(MainActivity.this, "选择了" + fileStr.get(i).toString(), Toast.LENGTH_SHORT).show();
-            }
+        list = findViewById(R.id.main_list);
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listStr);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
 //        moduleonBtn = (Button) findViewById(R.id.ON_text);
         //moduleonBtn.setEnabled(false);
         ipText = (TextView) findViewById(R.id.ip_text);
@@ -383,7 +421,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void clickEvent(View btn) throws IOException {
-        Intent intent = null;
+        //有按键发生时，列表功能重置
+        isPlay = false;//取消点击列表播放音乐
+        isBt = false;//取消点击列表的蓝牙连接
+        isUp = false;//取消点击列表上传文件
+        btc.cancelDiscovery();//取消搜索
+
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMdd_HHmmss");
+//        System.out.println(simpleDateFormat.format(date));
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio/";
+        if (new File(path).exists() != true) {
+            new File(path).mkdir();
+
+        }
+        final String pcmfile = path + simpleDateFormat.format(date) + ".pcm";
+        final String wavfile = path + simpleDateFormat.format(date) + ".wav";
+
         switch (btn.getId()) {
             case R.id.socketconnect_btn:
 //               socketConnectBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -409,55 +463,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Toast.makeText(MainActivity.this, "断开连接", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.over_btn:
-                /*if (bleConnectBtn.isChecked()) {
-                    bleAdapter.getBluetoothLeScanner().startScan(scanCallBack);
-                    bleConnectBtn.setBackgroundResource(R.drawable.connecting);
-                    bleBar.setVisibility(View.VISIBLE);
-                    bleconnect_time.setVisibility(View.VISIBLE);
-                    bleconnect_time.setBase(SystemClock.elapsedRealtime());
-                    bleconnect_time.start();
-                } else {
-                    if (bleGatt != null) {
-                        bleGatt.close();
-                        bleGatt = null;
-                    }
-                    chronometer.stop();
-                    bleconnect_time.stop();
-                    bleconnect_time.setVisibility(View.INVISIBLE);
-                    bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
-                    bleConnectBtn.setBackgroundResource(R.drawable.disconnect);
-                    bleBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(MainActivity.this, "断开连接", Toast.LENGTH_SHORT).show();
-                }*/
+            case R.id.model_btn:
+                isBt = true;
+                System.out.println("startDiscovery");
+                listStr.clear();
                 devices.clear();
-                devicesStr.clear();
-                devList.setAdapter(devAdapter);
-                bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
+                btc.startDiscovery();
+                list.setVisibility(View.VISIBLE);
                 break;
 
-            case R.id.scan_btn:
-                Toast.makeText(this, "扫描蓝牙设备", Toast.LENGTH_SHORT).show();
-//                bleAdapter.getBluetoothLeScanner().startScan(scanCallBack);
-//                bleAdapter.startLeScan(mLeScanCallback);
-                new bleScan().start();
-                break;
-            case R.id.connect_btn:
-               /* devicesStr.clear();
-                Set<BluetoothDevice> devices = bleAdapter.getBondedDevices();
-                for (BluetoothDevice device : devices) {
-                    if (device != null) {
-                        String name = device.getName();
-                        String addr = device.getAddress();
-                        devicesStr.add(name + addr);
-                    }
-                }
-                devList.setAdapter(devAdapter);*/
-                break;
+            case R.id.play_btn:
             case R.id.upfile_btn:
+                if (btn.getId() == R.id.play_btn)
+                    isPlay = true;
+                if (btn.getId() == R.id.upfile_btn)
+                    isUp = true;
+                files.clear();
+                listStr.clear();
+                File file = new File(path);
+                String[] fileList = file.list(new FilenameFilter() {
+                    @Override
+                    public boolean accept(File file, String s) {
+                        File item = new File(file.getAbsolutePath() + "/" + s);
+                        if (item.isDirectory())
+                            return false;
+                        else {
+                            listStr.add(s);
+                            files.add(item);
+                            return true;
+                        }
+                    }
+                });
+                list.setVisibility(View.VISIBLE);
+                list.setAdapter(adapter);
+                break;
+            case R.id.audio_btn:
+                ToggleButton toggleButton = findViewById(R.id.audio_btn);
+                if (toggleButton.isChecked()) {
+                    audio.startAudioRecord(pcmfile);
+                } else {
+                    audio.stopAudioRecord();
+                    audio.pcmToWav(pcmfile, wavfile);
+                }
+                break;
+            /*case R.id.upfile_btn:
                 Intent intent1 = new Intent(MainActivity.this, btActivity.class);
                 startActivity(intent1);
-                break;
+                break;*/
         }
     }
 
@@ -474,7 +526,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private void checkPermissions() {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO,Manifest.permission.BLUETOOTH_PRIVILEGED};
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO, Manifest.permission.BLUETOOTH_PRIVILEGED};
         List<String> permissionDeniedList = new ArrayList<>();
         for (String permission : permissions) {
             int permissionCheck = ContextCompat.checkSelfPermission(this, permission);
@@ -490,7 +542,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-   /* *//**
+    /* *//**
      * 权限回调
      *
      * @param requestCode
@@ -589,7 +641,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 is = param.clientSocket.getInputStream();
                 os = param.clientSocket.getOutputStream();
                 new send("#id:ABABABABABAB|gps:115.8,28.661667|state:init$").start();
+                new Thread() {
+                    byte buf0[] = new byte[]{(byte) 0x90, (byte) 0x00, (byte) 0x01, (byte) 0x20, (byte) 0x12, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x13, (byte) 0x08, (byte) 0x19, (byte) 0x0a
+                            , (byte) 0x10, (byte) 0x10, (byte) 0x74, (byte) 0x9b, (byte) 0xe7, (byte) 0x42, (byte) 0x80, (byte) 0x4b
+                            , (byte) 0xe5, (byte) 0x41, (byte) 0xcd, (byte) 0xcc, (byte) 0x4c, (byte) 0x3f, (byte) 0xa0};
+                    byte buf1[] = new byte[]{(byte) 0x90, (byte) 0x00, (byte) 0x01, (byte) 0x20, (byte) 0x12, (byte) 0x00, (byte) 0x00
+                            , (byte) 0x00, (byte) 0x13, (byte) 0x08, (byte) 0x19, (byte) 0x0a, (byte) 0x12, (byte) 0x10, (byte) 0x11, (byte) 0x97
+                            , (byte) 0xe7, (byte) 0x42, (byte) 0x31, (byte) 0x52, (byte) 0xe5, (byte) 0x41, (byte) 0xcd, (byte) 0xcc, (byte) 0x4c, (byte) 0x3f, (byte) 0xa0};
+                    byte buf2[] = new byte[]{(byte) 0x90, (byte) 0x00, (byte) 0x01, (byte) 0x71, (byte) 0x17, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x13
+                            , (byte) 0x08, (byte) 0x19, (byte) 0x0a, (byte) 0x05, (byte) 0x10, (byte) 0xf8, (byte) 0x01, (byte) 0x01, (byte) 0x01, (byte) 0x01, (byte) 0x00, (byte) 0x80, (byte) 0x36
+                            , (byte) 0x42, (byte) 0x01, (byte) 0x01, (byte) 0x01, (byte) 0x01, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xa0};
+                    byte buf3[] = new byte[]{(byte) 0x90, (byte) 0x00, (byte) 0x01, (byte) 0x71, (byte) 0x17, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x13, (byte) 0x08, (byte) 0x19, (byte) 0x0a, (byte) 0x18, (byte) 0x10, (byte) 0xf7, (byte) 0x03
+                            , (byte) 0x00, (byte) 0x01, (byte) 0x01, (byte) 0x00, (byte) 0x80, (byte) 0x36, (byte) 0x42, (byte) 0x02, (byte) 0x02, (byte) 0x02, (byte) 0x08, (byte) 0x02
+                            , (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0xa0};
 
+                    @Override
+                    public void run() {
+                        while (os != null) {
+                            try {
+                                sleep(2000);
+                                os.write(buf0);
+                                os.flush();
+                                sleep(2000);
+                                os.write(buf1);
+                                os.flush();
+                                sleep(2000);
+                                os.write(buf2);
+                                os.flush();
+                                sleep(2000);
+                                os.write(buf3);
+                                os.flush();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }.start();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -597,6 +684,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             while (param.clientSocket != null) {
                 try {
                     sleep(100);
+                    System.out.println("read");
                     count = is.read(buf);
                     if (count > 0) {
                         str = new String(buf, 0, count);
@@ -786,8 +874,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return;
 
             devices.add(dev);
-            devicesStr.add(scanResult.toString());
-            devList.setAdapter(devAdapter);
+            listStr.add(scanResult.toString());
+            list.setAdapter(adapter);
 
            /* if (param.bleName.equals(name)) {
                 bleDevice = result.getDevice();
@@ -809,7 +897,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String addr = gatt.getDevice().getAddress();
                     System.out.println(addr);
                     gatt.discoverServices();
-                    Button btn = findViewById(R.id.over_btn);
+                    Button btn = findViewById(R.id.model_btn);
                     btn.setText("已连接");
                     btn.setBackgroundResource(R.drawable.radius);
                 }
@@ -902,5 +990,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         characteristic.setValue(val);
 //        characteristic.setWriteType(characteristic.WRITE_TYPE_NO_RESPONSE);
         blegatt.writeCharacteristic(characteristic);
+    }
+
+    class receiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String name, addr;
+            System.out.println(intent.getAction());
+            BluetoothDevice btDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            switch (intent.getAction()) {
+                case BluetoothDevice.ACTION_FOUND:
+                    name = btDevice.getName();
+                    addr = btDevice.getAddress();
+                    System.out.println(name + addr);
+                    if (devices.contains(btDevice))
+                        return;
+                    listStr.add(name + ":" + addr);
+                    devices.add(btDevice);
+                    list.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();//更新
+
+                    break;
+
+                case BluetoothDevice.ACTION_PAIRING_REQUEST:
+                    System.out.println("BluetoothDevice.ACTION_PAIRING_REQUEST");
+
+                    /*try {
+                        btDevice.setPairingConfirmation(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println(" set fail ");
+                    }*/
+
+                    break;
+                case BluetoothDevice.ACTION_BOND_STATE_CHANGED:
+                    switch (btDevice.getBondState()) {
+                        case BluetoothDevice.BOND_NONE:
+                            System.out.println("BluetoothDevice.BOND_NONE");
+                            break;
+                        case BluetoothDevice.BOND_BONDING:
+                            System.out.println("BluetoothDevice.BOND_BONDING");
+                            break;
+                        case BluetoothDevice.BOND_BONDED:
+                            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                            //audio.connect(device);
+                            System.out.println("BluetoothDevice.BOND_BONDED");
+                            break;
+                    }
+                    break;
+            }
+        }
     }
 }
