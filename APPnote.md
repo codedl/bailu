@@ -62,3 +62,16 @@ UI线程与非UI线程通信：
 1.list(listFiles)添加参数
 2.重写accept方法，根据accept创建文件
 3.判断文件是否符合，符合返回true
+
+[tableLayout]
+1.创建布局
+2.TableRow加入行
+3.在行中定义宽度
+
+[Fragment]
+1.在界面为Fragment定义个布局作容器
+2.创建Fragment的布局
+3.定义操作Fragment的子类
+4.在界面里定义子类的对象
+5.FragmentManager获取beginTransaction返回的FragmentTransaction
+6.hide;show;add等控制Fragment，最后commit
