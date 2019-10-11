@@ -53,11 +53,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -76,6 +78,7 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.NavigableSet;
@@ -86,14 +89,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private LocationManager lm;//定位
     private TextView txt_zhukong;
     private TextView txt_zhuzhuang;
+    private TextView txt_gps;
     private fg_zhuk zhuk;//主控显示界面
     private fg_zhuz zhuz;//驻装显示界面
     FragmentManager fgManager;
 
     ListView list;
-    ArrayList<String> fileNames = new ArrayList<>();
-    ArrayList<File> files = new ArrayList<>();
-    ArrayAdapter adapter;
+    ArrayList<String> listFiles = new ArrayList<>();//列表只显示文件名
+    ArrayList<String> files = new ArrayList<>();//files包含文件完整路径，用来创建文件对象
+    ArrayAdapter adapter;//驻装适配器
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,8 +249,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.hide(zhuz);//隐藏驻装界面
         fragmentTransaction.commit();
 
+        //文件列表显示初始化
         list = findViewById(R.id.list);
-        adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, fileNames);
+        adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, listFiles);
+        listFiles("record");
+        list.setAdapter(adapter);
     }
 
 
@@ -261,9 +268,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Switch sw = navigationView.findViewById(R.id.ble);
+
+      /*  sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                System.out.println(b);
+            }
+        });*/
     }
 
     public void gpsInit() {
+        txt_gps = findViewById(R.id.gps);
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!isGPSable(lm)) {
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -304,12 +321,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void updateShow(Location location) {
         if (location != null) {
             StringBuilder sb = new StringBuilder();
-            sb.append("位置:");
-            sb.append("经度" + String.format("%3.9f", location.getLongitude()));
-            sb.append(";纬度" + String.format("%3.9f", location.getLatitude()));
-            //  gpsText.setText(sb.toString());
+            sb.append("经度:" + String.format("%03.9f", location.getLongitude()) + "\n");
+            sb.append("纬度:" + String.format("%03.9f", location.getLatitude()));
+            txt_gps.setText(sb.toString());
         } else {
-            //gpsText.setText("位置:经度117.14;纬度31.84");
+            txt_gps.setText("经度117.13542156\n纬度031.83975458");
         }
     }
 
@@ -317,6 +333,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ? true : false;
     }
 
+    //复位标题栏选中
     private void resetTitle(FragmentTransaction transaction) {
         txt_zhuzhuang.setSelected(false);
         txt_zhukong.setSelected(false);
@@ -326,6 +343,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transaction.hide(zhuk);
     }
 
+    //标题栏点击事件
     public void titleSelect(View view) {
         FragmentTransaction transaction = fgManager.beginTransaction();
         resetTitle(transaction);
@@ -334,14 +352,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 txt_zhukong.setSelected(true);
                 txt_zhukong.setTextSize(35);
                 transaction.show(zhuk);
+                listFiles("record");
+                Collections.sort(listFiles);//升序进行排序
+                Collections.sort(files);
+                adapter.notifyDataSetChanged();//更新列表
                 break;
             case R.id.txt_zhuzhuang:
                 txt_zhuzhuang.setSelected(true);
                 txt_zhuzhuang.setTextSize(35);
                 transaction.show(zhuz);
+                listFiles("disturb");
+                Collections.sort(files);
+                Collections.sort(listFiles);//升序进行排序
+                adapter.notifyDataSetChanged();//更新列表
                 break;
         }
         transaction.commit();
+
     }
 
 
@@ -441,4 +468,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    //遍历sd卡sdPath目录文件
+    private   void listFiles(String sdPath){
+        listFiles.clear();
+        files.clear();
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/zhuzh/" +sdPath);
+         file.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String s) {
+                File temp = new File(file.toString() + "/" +s);
+
+                if (temp.isDirectory())
+                    return false;
+                else {
+                    listFiles.add(s);
+                    files.add(temp.toString());
+                    return true;
+                }
+            }
+        });
+    }
 }

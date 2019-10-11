@@ -146,3 +146,8 @@ these are app develop in android studio using java by a learner，and plan for w
 #20191010
 用Fragment搭界面框架;
 
+#20191011
+1.界面框架
+2.Android应用与开发第九章
+3.Fragment两个实例
+

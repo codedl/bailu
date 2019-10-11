@@ -2,7 +2,7 @@
     <string name="app_name">驻装</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">功能菜单</string>
+    <string name="nav_header_title">V1.0.0.191011\n应用设置</string>
     <string name="spin_title">文件列表</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <drawable name="normal">#ff6501</drawable>

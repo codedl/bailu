@@ -93,21 +93,21 @@
         android:textColor="@color/green"
         android:textSize="@dimen/txt_status" />
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/connect">
-
-    </ListView>
-
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/list"
         android:layout_below="@+id/title">
 
     </FrameLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/connect"
+        android:layout_below="@+id/frame">
+    </ListView>
+
 
 </RelativeLayout>

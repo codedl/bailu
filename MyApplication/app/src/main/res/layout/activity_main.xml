@@ -18,5 +18,6 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/menu_header"
         app:menu="@menu/activity_main_drawer" />
-
+    <!--app:headerLayout:抽屉的头界面-->
+    <!--app:menu抽屉包含的菜单项目-->
 </androidx.drawerlayout.widget.DrawerLayout>

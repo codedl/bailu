@@ -4,8 +4,10 @@ import android.os.Environment;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -24,9 +26,9 @@ public class fileManager {
     //使用mime协议上传文件，post请求方式
     //@url网址
     //@name文件名
-    public void upload(String url, String name) {
+    public void upload(String url, String path) {
         this.fileUrl = url;
-        this.fileName = name;
+        this.fileName = path;
         new uploadThread().start();
     }
 
@@ -127,6 +129,5 @@ public class fileManager {
         int endIndex = temp.indexOf(end);
         return temp.substring(temp.indexOf(head), endIndex + end.length());
     }
-
 
 }
