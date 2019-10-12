@@ -5,32 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/ch4_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:text="ch4"
-        android:id="@+id/ch4_btn"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/ch5_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/ch4_btn"
-        app:layout_constraintTop_toTopOf="parent"
         android:text="ch5"
-        android:id="@+id/ch5_btn"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ch4_btn" />
+
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/ch6_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/ch5_btn"
-        app:layout_constraintTop_toTopOf="parent"
         android:text="ch6"
-        android:id="@+id/ch6_btn"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ch5_btn" />
+
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/ch7_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/ch6_btn"
-        app:layout_constraintTop_toTopOf="parent"
         android:text="ch7"
-        android:id="@+id/ch7_btn"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ch6_btn" />
+
+    <Button
+        android:id="@+id/ch9_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ch9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ch7_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

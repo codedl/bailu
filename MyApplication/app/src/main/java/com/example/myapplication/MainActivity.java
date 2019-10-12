@@ -36,6 +36,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -45,10 +46,12 @@ import android.os.SystemClock;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.provider.Settings;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -64,6 +67,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.material.internal.NavigationMenu;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
@@ -102,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉系统的标题栏，使用自定的标题栏
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
@@ -142,6 +147,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void init() {
+        layoutInit();
+        barInit();
+        checkPermissions();
+        gpsInit();
+    }
+
+    private void layoutInit() {
+        //标题栏控制fragme切换
+        txt_zhukong = findViewById(R.id.txt_zhukong);
+        txt_zhuzhuang = findViewById(R.id.txt_zhuzhuang);
+
+        //Fragmen相关初始化
+        zhuz = new fg_zhuz();
+        zhuk = new fg_zhuk();
+        fgManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fgManager.beginTransaction();
+        fragmentTransaction.add(R.id.frame, zhuz);
+        fragmentTransaction.add(R.id.frame, zhuk);//添加fragment到frame
+        fragmentTransaction.show(zhuk);//显示主控界面
+        fragmentTransaction.hide(zhuz);//隐藏驻装界面
+        fragmentTransaction.commit();
+
+        //文件列表显示初始化
+        list = findViewById(R.id.list);
+        adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, listFiles);
+        listFiles("record");
+        list.setAdapter(adapter);
+    }
+
+    //菜单栏
+    public void barInit() {
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);//右上角选项支持
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        Menu menu = navigationView.getMenu();
+        Switch sw = (Switch) menu.findItem(R.id.ble).getActionView();
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                System.out.println(b);
+            }
+        });
+
     }
 
     //菜单项目点击事件
@@ -208,76 +266,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 builder2.create().show();
                 break;
             case R.id.ble:
-                final EditText edit3 = new EditText(this);
-                edit3.setText(param.httpServer);
-                new AlertDialog.Builder(this).setTitle("设置服务器地址").setView(edit3).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                /*Switch sw = findViewById(R.id.ble);
+                sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (edit3.getText().toString().trim().length() != 0) {
-                            String str = edit3.getText().toString();
-                            //bleText.setText("模块名:" + str + ";");
-                            param.httpServer = str;
-                        } else {
-                            Toast.makeText(MainActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
-                        }
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        System.out.println(b);
                     }
-                }).setNegativeButton("取消", null).show();
+                });*/
                 break;
         }
         return true;
     }
 
-    public void init() {
-        layoutInit();
-        barInit();
-        checkPermissions();
-        gpsInit();
-    }
-
-    private void layoutInit() {
-        txt_zhukong = findViewById(R.id.txt_zhukong);
-        txt_zhuzhuang = findViewById(R.id.txt_zhuzhuang);
-
-        //Fragmen相关初始化
-        zhuz = new fg_zhuz();
-        zhuk = new fg_zhuk();
-        fgManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fgManager.beginTransaction();
-        fragmentTransaction.add(R.id.frame, zhuz);
-        fragmentTransaction.add(R.id.frame, zhuk);//添加fragment到frame
-        fragmentTransaction.show(zhuk);//显示主控界面
-        fragmentTransaction.hide(zhuz);//隐藏驻装界面
-        fragmentTransaction.commit();
-
-        //文件列表显示初始化
-        list = findViewById(R.id.list);
-        adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, listFiles);
-        listFiles("record");
-        list.setAdapter(adapter);
-    }
-
-
-    public void barInit() {
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);右上角选项支持
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        Switch sw = navigationView.findViewById(R.id.ble);
-
-      /*  sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                System.out.println(b);
-            }
-        });*/
-    }
 
     public void gpsInit() {
         txt_gps = findViewById(R.id.gps);
@@ -469,14 +469,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     //遍历sd卡sdPath目录文件
-    private   void listFiles(String sdPath){
+    private void listFiles(String sdPath) {
         listFiles.clear();
         files.clear();
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/zhuzh/" +sdPath);
-         file.list(new FilenameFilter() {
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/zhuzh/" + sdPath);
+        file.list(new FilenameFilter() {
             @Override
             public boolean accept(File file, String s) {
-                File temp = new File(file.toString() + "/" +s);
+                File temp = new File(file.toString() + "/" + s);
 
                 if (temp.isDirectory())
                     return false;
@@ -488,4 +488,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
 }

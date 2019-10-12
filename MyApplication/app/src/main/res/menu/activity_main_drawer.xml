@@ -4,23 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="all">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/user"
-            android:title="主控连接设置" />
+            android:title="主控连接设置"
+            />
         <item
             android:id="@+id/IP"
-            android:title="驻装模块连接设置" />
+            android:title="驻装模块连接设置"
+           />
         <!--设备绑定-->
         <item
             android:id="@+id/port"
-            android:title="文件存储位置" />
+            android:title="文件存储位置"
+            />
         <item
             android:id="@+id/ble"
-            android:checkable="true"
             android:title="设备绑定"
             app:actionViewClass="android.widget.Switch"
-            app:showAsAction="ifRoom|collapseActionView" />
+
+            />
 
     </group>
     <!-- <item android:title="驻装">

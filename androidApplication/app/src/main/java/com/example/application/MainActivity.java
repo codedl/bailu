@@ -52,5 +52,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button ch9 = findViewById(R.id.ch9_btn);
+        ch9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,ch9.class);
+                startActivity(intent);
+            }
+        });
     }
 }
