@@ -25,7 +25,7 @@ public class fileManager {
 
     //使用mime协议上传文件，post请求方式
     //@url网址
-    //@name文件名
+    //@path文件名
     public void upload(String url, String path) {
         this.fileUrl = url;
         this.fileName = path;

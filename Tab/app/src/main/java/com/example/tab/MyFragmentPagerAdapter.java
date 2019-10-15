@@ -31,6 +31,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup vg, int position) {
+        System.out.println("instantiateItem" + position);
         return super.instantiateItem(vg, position);
     }
 
@@ -42,6 +43,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        System.out.println("getItem:" + position);
         Fragment fragment = null;
         switch (position) {
             case MainActivity.PAGE_ONE:

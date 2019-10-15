@@ -91,3 +91,16 @@ ActionBarDrawerToggle同步状态syncState；
 6.NavigationView中使用getMenu获取菜单项Menu
 7.Menu中使用findItem获取项目MenuItem
 8.MenuItem中使用getActionView获取Item中定义的View
+
+[ViewPager]用来类似与listview
+1.xml文件中定义ViewPager控件作为容器
+2.定义FragMent的xml布局文件
+3.定义FragMent的子类用来操作FragMent
+4.定义FragmentPagerAdapter的子类：
+a.重写getCount:ViewPager中View的个数
+b.destroyItem:移除一个给定位置的页面,调用父类即可
+c.instantiateItem:创建并显示View,调用父类即可
+d.getItem:获取指定位置的FragMent
+5.定义ViewPager的对象，添加4创建的FragmentPagerAdapter
+添加事件,addOnPageChangeListener;
+6.在事件里setCurrentItem显示

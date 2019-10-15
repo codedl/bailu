@@ -161,5 +161,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/rg_tab_bar"
-        android:layout_below="@+id/ly_top_bar" />
+        android:layout_below="@+id/ly_top_bar"
+        />
 </RelativeLayout>

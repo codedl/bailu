@@ -90,15 +90,19 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             switch (vpager.getCurrentItem()) {
                 case PAGE_ONE:
                     rb_channel.setChecked(true);
+//                    ==vpager.setCurrentItem(PAGE_ONE);
                     break;
                 case PAGE_TWO:
                     rb_message.setChecked(true);
+//                    vpager.setCurrentItem(PAGE_TWO);
                     break;
                 case PAGE_THREE:
                     rb_better.setChecked(true);
+//                    vpager.setCurrentItem(PAGE_THREE);
                     break;
                 case PAGE_FOUR:
                     rb_setting.setChecked(true);
+//                    ==vpager.setCurrentItem(PAGE_FOUR);
                     break;
             }
         }

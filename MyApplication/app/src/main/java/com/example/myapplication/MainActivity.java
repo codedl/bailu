@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉系统的标题栏，使用自定的标题栏
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //全屏显示应用
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
@@ -115,12 +116,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //创建设置菜单
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+       /* DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
+        }*/
     }
 
     //创建右上角设置功能
@@ -157,11 +158,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void layoutInit() {
-        //标题栏控制fragme切换
+        //标题栏控制fragment切换
         txt_zhukong = findViewById(R.id.txt_zhukong);
         txt_zhuzhuang = findViewById(R.id.txt_zhuzhuang);
 
-        //Fragmen相关初始化
+        //Fragment相关初始化
         zhuz = new fg_zhuz();
         zhuk = new fg_zhuk();
         fgManager = getSupportFragmentManager();

@@ -1,5 +1,4 @@
 package com.example.myapplication;
-
 import java.net.Socket;
 
 public class param {

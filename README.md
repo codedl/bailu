@@ -155,3 +155,11 @@ these are app develop in android studio using java by a learner，and plan for w
 1.Fragment两个实例
 2.Android应用与开发第九章
 
+#20191014
+1.Fragment实例
+2.菜鸟教程2.4
+
+#20191015
+1.完成界面
+2.菜鸟教程2.5前三节
+
