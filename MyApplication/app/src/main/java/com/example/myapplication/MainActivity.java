@@ -45,6 +45,7 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView txt_gps;
     private fg_zhuk zhuk;//主控显示界面
     private fg_zhuz zhuz;//驻装显示界面
+    private long backTime = 0;//记录按返回键的时间
     FragmentManager fgManager;
 
     ListView list;
@@ -116,12 +118,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //创建设置菜单
     @Override
     public void onBackPressed() {
-       /* DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+            drawer.closeDrawer(GravityCompat.START);//关闭drawer
         } else {
-            super.onBackPressed();
-        }*/
+            //两秒内按两次back键退出应用
+            if (SystemClock.elapsedRealtime() - backTime > 2000) {
+                Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                backTime = SystemClock.elapsedRealtime();
+            } else {
+                super.onBackPressed();
+            }
+        }
+
     }
 
     //创建右上角设置功能
@@ -177,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         list = findViewById(R.id.list);
         adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, listFiles);
         listFiles("record");
+        Collections.sort(listFiles);
         list.setAdapter(adapter);
     }
 
@@ -193,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
-        Switch sw = (Switch) menu.findItem(R.id.ble).getActionView();
+        Switch sw = (Switch) menu.findItem(R.id.set_binding).getActionView();
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -208,72 +218,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        final dialog dialog = new dialog(MainActivity.this);
+        View view = null;
         switch (id) {
-            case R.id.user:
-                View view = this.getLayoutInflater().inflate(R.layout.log, null);
-                final EditText passwordEdit = view.findViewById(R.id.password_edit);
-                final EditText usernameEdit = view.findViewById(R.id.username_edit);
+            case R.id.set_zhuk:
+                view = this.getLayoutInflater().inflate(R.layout.menu_zhuk, null);
+                final EditText ip = view.findViewById(R.id.edit_ip);
+                final EditText port = view.findViewById(R.id.edit_port);
+                final EditText server = view.findViewById(R.id.edit_server);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setView(view);
-                builder.setTitle("用户登录");
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                dialog.create("主控连接设置", view);
+                dialog.setButtonListener(AlertDialog.BUTTON_POSITIVE, new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        param.username = usernameEdit.getText().toString().trim();
-                        param.password = passwordEdit.getText().toString().trim();
-                        // userText.setText("用户编号:" + param.username);
+                    public void onClick(View view) {
+                        param.zhuk_ip = ip.getText().toString().trim();
+                        param.zhuk_port = port.getText().toString().trim();
+                        param.zhuk_server = server.getText().toString().trim();
+                        if (param.zhuk_ip.isEmpty() || param.zhuk_port.isEmpty() || param.zhuk_server.isEmpty())
+                            Toast.makeText(MainActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
+                        else dialog.dismiss();
                     }
                 });
-                builder.setNegativeButton("取消", null);
-                builder.create().show();
                 break;
-            case R.id.IP:
-                final EditText edit1 = new EditText(this);
-//                    edit1.setHint("请输入ip地址");
-                edit1.setText(param.ServerHostIP);
-                new AlertDialog.Builder(this).setTitle("设置主控IP地址").setView(edit1).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (edit1.getText().toString().length() != 0) {
-                            String str = edit1.getText().toString();
-                            param.ServerHostIP = str;
+            case R.id.set_zhuz:
+                set_dialog set = new set_dialog(MainActivity.this);
+                view = set.getView();
+                dialog.create("驻装终端连接设置", view);
+                break;
+            case R.id.set_app:
 
-                        } else {
-                            Toast.makeText(MainActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).setNegativeButton("取消", null).create().show();
                 break;
-            case R.id.port:
-                final EditText edit2 = new EditText(this);
-                edit2.setText("8080");
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-                builder2.setView(edit2);
-                builder2.setTitle("设置主控端口号");
-                builder2.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (edit2.getText().toString().length() != 0) {
-                            String str = edit2.getText().toString();
-                            param.ServerHostPort = Integer.parseInt(str);
-                            Toast.makeText(MainActivity.this, "端口号:" + param.ServerHostPort, Toast.LENGTH_SHORT).show();
+            case R.id.set_binding:
 
-                        } else {
-                            Toast.makeText(MainActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                builder2.create().show();
-                break;
-            case R.id.ble:
-                /*Switch sw = findViewById(R.id.ble);
-                sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        System.out.println(b);
-                    }
-                });*/
                 break;
         }
         return true;
@@ -354,20 +330,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 txt_zhukong.setTextSize(35);
                 transaction.show(zhuk);
                 listFiles("record");
-                Collections.sort(listFiles);//升序进行排序
-                Collections.sort(files);
-                adapter.notifyDataSetChanged();//更新列表
                 break;
             case R.id.txt_zhuzhuang:
                 txt_zhuzhuang.setSelected(true);
                 txt_zhuzhuang.setTextSize(35);
                 transaction.show(zhuz);
                 listFiles("disturb");
-                Collections.sort(files);
-                Collections.sort(listFiles);//升序进行排序
-                adapter.notifyDataSetChanged();//更新列表
                 break;
         }
+        Collections.sort(listFiles);//升序进行排序
+        Collections.sort(files);
+        adapter.notifyDataSetChanged();//更新列表
         transaction.commit();
 
     }

@@ -13,6 +13,7 @@ import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,20 +24,22 @@ public class BluetoothLowEnergy {
     BluetoothGattCharacteristic green;
     BluetoothGattCharacteristic btnbgc;
     BluetoothGattCharacteristic xdt;
-    BluetoothGatt bleGatt;//服务包含多个特征
-    BluetoothAdapter bleAdapter;
-    Context context;
-    public  ArrayList<BluetoothDevice> bleDevices = new ArrayList<>();
-    public  ArrayList<String> bleDeviceStr = new ArrayList<>();
+    private BluetoothGatt bleGatt;//服务包含多个特征
+    private BluetoothAdapter bleAdapter;
+    private Context context;
+    public ArrayList<BluetoothDevice> bleDevices = new ArrayList<>();//扫描的蓝牙设备
+    public ArrayList<String> bleDeviceStr = new ArrayList<>();//显示到列表的字符串
 
     public BluetoothLowEnergy(Context context) {
         this.context = context;
         bleAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
+    //扫描蓝牙设备
     public void startScan() {
         bleDevices.clear();
         bleDeviceStr.clear();
+        disconnect();
         bleAdapter.getBluetoothLeScanner().startScan(this.scanCallBack);
     }
 
@@ -44,6 +47,7 @@ public class BluetoothLowEnergy {
         bleAdapter.getBluetoothLeScanner().stopScan(this.scanCallBack);
     }
 
+    //蓝牙扫描的回调函数，返回蓝牙扫描的结果
     public ScanCallback scanCallBack = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
@@ -55,26 +59,34 @@ public class BluetoothLowEnergy {
             scanResult.append(name);
             scanResult.append(":");
             scanResult.append(addr);
-            Log.d("print", scanResult.toString());
 
-            if (name == null || bleDevices.contains(dev))
+            if (name == null || name.isEmpty() || bleDevices.contains(dev))
                 return;
-
+            System.out.println(scanResult.toString());
             bleDevices.add(dev);
             bleDeviceStr.add(scanResult.toString());
             Intent intent = new Intent(Action.BLE_SCAN_FOUND);
-            intent.putExtra("devicestr", scanResult.toString());
+            intent.putExtra(Action.DEVICE, dev);
             context.sendBroadcast(intent);
         }
     };
 
+    //连接蓝牙
+    //@bluetoothDevice 扫描到的蓝牙设备
     public void bleConnect(BluetoothDevice bluetoothDevice) {
         bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
         bleGatt = bluetoothDevice.connectGatt(context, true, gattCallBack);
-        bleDevices.clear();
-        bleDeviceStr.clear();
+//        bleDevices.clear();
+//        bleDeviceStr.clear();
     }
 
+    private void disconnect() {
+        bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
+        if (bleGatt != null)
+            bleGatt.disconnect();
+    }
+
+    //蓝牙连接的回调函数
     public BluetoothGattCallback gattCallBack = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
@@ -168,6 +180,9 @@ public class BluetoothLowEnergy {
         }
     };
 
+    //蓝牙写操作
+    //@characteristic特征值，连接蓝牙时获取
+    //需要写的数据
     public void bleWrite(BluetoothGattCharacteristic characteristic, byte val[]) {
         if (bleGatt != null && characteristic != null && val != null) {
 //        blegatt.setCharacteristicNotification(characteristic, true);

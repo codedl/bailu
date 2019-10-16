@@ -1,14 +1,13 @@
 package com.example.myapplication;
+
+import android.bluetooth.BluetoothDevice;
+
 import java.net.Socket;
 
 public class param {
-    static String ServerHostIP = new String("192.168.42.129");
-    static int ServerHostPort = 8080;
-    static Socket clientSocket;
-    static String bleName=new String ("ProjectZero");
-    static String httpServer = "http://192.168.42.59/web/";
-    static boolean moduleON;
-    static String instruction = null;
-    static String username = null;
-    static String password = null;
+    static String zhuk_ip = "";//主控ip地址
+    static String zhuk_port = "";//主控端口
+    static String zhuk_server = "";//主控文件上传服务器地址
+    static BluetoothDevice blePhone;
+    static BluetoothDevice btData;
 }

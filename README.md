@@ -163,3 +163,6 @@ these are app develop in android studio using java by a learner，and plan for w
 1.完成界面
 2.菜鸟教程2.5前三节
 
+#20191016
+1.完成界面
+2.菜鸟教程2.5前三节

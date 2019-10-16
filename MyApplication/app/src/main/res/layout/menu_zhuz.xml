@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="耳机设置" />
+
+        <Button
+            android:id="@+id/data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MCU设置" />
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="585px"
+        android:id="@+id/list"
+        android:choiceMode="singleChoice">
+    </ListView>
+    <TextView
+        android:id="@+id/txt_sel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="phone:12:12:12:12:12"
+        android:textColor="@color/colorAccent" />
+    <TextView
+        android:id="@+id/txt_sel2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="data:12:12:12:12:12"
+        android:textColor="@color/colorAccent" />
+    <TextView
+        android:id="@+id/txt_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="耳机:已设置"
+        android:textColor="@color/green" />
+    <TextView
+        android:id="@+id/txt_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="MCU:未设置"
+        android:textColor="@color/green" />
+</LinearLayout>

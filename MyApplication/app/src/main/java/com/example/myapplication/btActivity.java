@@ -123,7 +123,7 @@ public class btActivity extends AppCompatActivity {
                     System.out.println(btDevice.getName() + btDevice.getAddress());
                     devices.clear();
                     bluetoothClassic.cancelDiscovery();
-                    bluetoothClassic.createBond(btDevice);
+//                    bluetoothClassic.createBond(btDevice);
                     bluetoothClassic.connect(btDevice);
                 } else {
                     if (blec.bleDevices.size() == 0)
