@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,9 +20,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MyReceiver extends BroadcastReceiver {
-    public  MyReceiver(){
+    public MyReceiver() {
 
     }
+
     Context context;
     ArrayList<BluetoothDevice> devices = new ArrayList<>();
     ArrayList<String> deviceStr = new ArrayList<>();
@@ -46,12 +48,12 @@ public class MyReceiver extends BroadcastReceiver {
         String name, addr;
 
         String action = intent.getAction();
-        System.out.println(action);
+        Log.d("MyReceiver", action);
         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
         switch (action) {
             case Action.BLE_SCAN_FOUND:
                 String str = intent.getStringExtra("devicestr");
-                System.out.println(str);
+                Log.d("MyReceiver",str);
                 deviceStr.add(str);
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();//更新
@@ -59,10 +61,8 @@ public class MyReceiver extends BroadcastReceiver {
             case BluetoothDevice.ACTION_FOUND:
                 name = device.getName();
                 addr = device.getAddress();
-                System.out.println(name + addr);
-               /* Message msg = new btActivity().bthandle.obtainMessage();
-                msg.what = 1;
-                new btActivity().bthandle.sendMessage(msg);*/
+                Log.d("MyReceiver",name + addr);
+
                 if (devices.contains(device))
                     return;
                 deviceStr.add(name + ":" + addr);
@@ -72,24 +72,24 @@ public class MyReceiver extends BroadcastReceiver {
 
                 break;
             case BluetoothDevice.ACTION_PAIRING_REQUEST:
-                System.out.println("BluetoothDevice.ACTION_PAIRING_REQUEST");
+                Log.d("MyReceiver","BluetoothDevice.ACTION_PAIRING_REQUEST");
                 /*try {
                     btDevice.setPairingConfirmation(true);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println(" set fail ");
+                    Log.d("MyReceiver"," set fail ");
                 }*/
                 break;
             case BluetoothDevice.ACTION_BOND_STATE_CHANGED:
                 switch (device.getBondState()) {
                     case BluetoothDevice.BOND_NONE:
-                        System.out.println("BluetoothDevice.BOND_NONE");
+                        Log.d("MyReceiver","BluetoothDevice.BOND_NONE");
                         break;
                     case BluetoothDevice.BOND_BONDING:
-                        System.out.println("BluetoothDevice.BOND_BONDING");
+                        Log.d("MyReceiver","BluetoothDevice.BOND_BONDING");
                         break;
                     case BluetoothDevice.BOND_BONDED:
-                        System.out.println("BluetoothDevice.BOND_BONDED");
+                        Log.d("MyReceiver","BluetoothDevice.BOND_BONDED");
                         break;
                 }
                 break;
@@ -97,18 +97,18 @@ public class MyReceiver extends BroadcastReceiver {
             case BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED:
                 switch (intent.getIntExtra(BluetoothA2dp.EXTRA_STATE, -1)) {
                     case BluetoothA2dp.STATE_CONNECTED:
-                        System.out.println("BluetoothA2dp.STATE_CONNECTED");
+                        Log.d("MyReceiver","BluetoothA2dp.STATE_CONNECTED");
                         break;
                     case BluetoothA2dp.STATE_CONNECTING:
-                        System.out.println("BluetoothA2dp.STATE_CONNECTING");
+                        Log.d("MyReceiver","BluetoothA2dp.STATE_CONNECTING");
 //                           建立蓝牙sco连接
                         Audio.startBluetoothSco();
                         break;
                     case BluetoothA2dp.STATE_DISCONNECTING:
-                        System.out.println("BluetoothA2dp.STATE_DISCONNECTING");
+                        Log.d("MyReceiver","BluetoothA2dp.STATE_DISCONNECTING");
                         break;
                     case BluetoothA2dp.STATE_DISCONNECTED:
-                        System.out.println("BluetoothA2dp.STATE_DISCONNECTED");
+                        Log.d("MyReceiver","BluetoothA2dp.STATE_DISCONNECTED");
                         break;
 
                 }
@@ -117,10 +117,10 @@ public class MyReceiver extends BroadcastReceiver {
             case BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED:
                 switch (intent.getIntExtra(BluetoothA2dp.EXTRA_STATE, -1)) {
                     case BluetoothA2dp.STATE_PLAYING:
-                        System.out.println("BluetoothA2dp.STATE_PLAYING");
+                        Log.d("MyReceiver","BluetoothA2dp.STATE_PLAYING");
                         break;
                     case BluetoothA2dp.STATE_NOT_PLAYING:
-                        System.out.println("BluetoothA2dp.STATE_NOT_PLAYING");
+                        Log.d("MyReceiver","BluetoothA2dp.STATE_NOT_PLAYING");
                         break;
                 }
                 break;

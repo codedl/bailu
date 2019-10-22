@@ -51,7 +51,7 @@
         android:layout_alignParentBottom="true"
         android:text="模块名:模块1"
         android:textColor="@color/green"
-        android:textSize="@dimen/txt_status" />
+        android:textSize="@dimen/textSize" />
 
     <TextView
         android:id="@+id/number"
@@ -61,7 +61,7 @@
         android:layout_alignParentRight="true"
         android:text="用户编号:007"
         android:textColor="@color/green"
-        android:textSize="@dimen/txt_status" />
+        android:textSize="@dimen/textSize" />
 
     <TextView
         android:id="@+id/gps"
@@ -71,7 +71,7 @@
         android:layout_centerHorizontal="true"
         android:text="经度:112.99;纬度:89.88"
         android:textColor="@color/green"
-        android:textSize="@dimen/txt_status" />
+        android:textSize="@dimen/textSize" />
 
     <TextView
         android:id="@+id/disturb"
@@ -79,19 +79,36 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/gps"
         android:layout_centerHorizontal="true"
-        android:text="干扰状态:手动施加干扰"
+        android:text="干扰状态:没有干扰"
         android:textColor="@color/green"
-        android:textSize="@dimen/txt_status" />
+        android:textSize="@dimen/textSize" />
 
-    <TextView
-        android:id="@+id/connect"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/disturb"
-        android:layout_centerHorizontal="true"
-        android:text="耳机:已连接 MCU:未连接"
-        android:textColor="@color/green"
-        android:textSize="@dimen/txt_status" />
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="耳机:未连接"
+            android:textColor="@color/green"
+            android:textSize="@dimen/textSize" />
+
+        <TextView
+            android:id="@+id/data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/interval"
+            android:text="数据:未连接"
+            android:textColor="@color/green"
+            android:textSize="@dimen/textSize" />
+    </LinearLayout>
+
 
     <FrameLayout
         android:id="@+id/frame"
@@ -101,12 +118,15 @@
 
     </FrameLayout>
 
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/connect"
-        android:layout_below="@+id/frame">
+        android:layout_above="@id/line"
+        android:layout_below="@+id/frame"
+        android:choiceMode="singleChoice">
+
     </ListView>
 
 

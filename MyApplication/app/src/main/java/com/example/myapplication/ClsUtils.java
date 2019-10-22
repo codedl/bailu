@@ -5,6 +5,8 @@ import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ClsUtils {
     /**
@@ -100,19 +102,26 @@ public class ClsUtils {
     static String toHexString(byte buf[]) {
         String returnStr = "";
         for (int i = 0; i < buf.length; i++) {
-            returnStr += String.format("0x%02x ",buf[i]);
+            returnStr += String.format("0x%02x ", buf[i]);
         }
-        return  returnStr;
+        return returnStr;
     }
 
-    static byte[] toHexBytes(String hexString){
-        String temp = hexString.replace(" ","");
-        temp = temp.replace(",","");
+    static byte[] toHexBytes(String hexString) {
+        String temp = hexString.replace(" ", "");
+        temp = temp.replace(",", "");
         int length = temp.length();
         byte[] buf = new byte[length];
-        for(int i=0; i<length; i+=2){
-            buf[i/2] = (byte)((Character.digit(temp.charAt(i), 16)<<4) + Character.digit(temp.charAt(i+1), 16));
+        for (int i = 0; i < length; i += 2) {
+            buf[i / 2] = (byte) ((Character.digit(temp.charAt(i), 16) << 4) + Character.digit(temp.charAt(i + 1), 16));
         }
         return buf;
+    }
+
+    //获取系统时间
+    static String currentTime() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        Date date = new Date(System.currentTimeMillis());
+        return format.format(date);
     }
 }

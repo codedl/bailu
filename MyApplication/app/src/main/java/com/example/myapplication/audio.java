@@ -14,6 +14,7 @@ import android.media.AudioRecord;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -21,17 +22,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class audio {
-    Context context;
-    BluetoothA2dp a2dp;
-    MediaRecorder mediaRecorder;//录音使用的工具
-    AudioRecord audioRecord;//pcm格式的录音工具
-    boolean isRecord;//是否正在录音
-    AudioManager audioManager;
-    String fileName;
+    private String tag = "audio";
+    private Context context;
+    private BluetoothA2dp a2dp;
+    private MediaRecorder mediaRecorder;//录音使用的工具
+    private AudioRecord audioRecord;//pcm格式的录音工具
+    private boolean isRecord;//是否正在录音
+    private AudioManager audioManager;
+    private MediaPlayer mediaPlayer;
 
     public audio(Context context) {
         this.context = context;
@@ -41,17 +46,19 @@ public class audio {
             public void onServiceConnected(int i, BluetoothProfile bluetoothProfile) {
                 if (i == BluetoothA2dp.A2DP) {
                     a2dp = (BluetoothA2dp) bluetoothProfile;
-                    System.out.println("a2dp get succeed");
+                    Log.d("audio", "a2dp get succeed");
                 }
             }
 
             @Override
             public void onServiceDisconnected(int i) {
                 a2dp = null;
-                System.out.println("a2dp put");
+                Log.d("audio", "a2dp put");
             }
         }, BluetoothA2dp.A2DP);
         audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        mediaPlayer = new MediaPlayer();
+
     }
 
     public void connect(BluetoothDevice device) {
@@ -68,7 +75,7 @@ public class audio {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("method exception");
+            Log.d("audio", "method exception");
         }
     }
 
@@ -84,7 +91,7 @@ public class audio {
         try {
             mediaRecorder.prepare();
             mediaRecorder.start();
-            System.out.println("start audio record");
+            Log.d("audio", "start audio record");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,10 +108,9 @@ public class audio {
     public void mediaPlay(String file) {
        /*  //设置系统音量
        int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        System.out.println("maxvol:" + maxVol);
+        Log.d("audio","maxvol:" + maxVol);
         maxVol *= 0.8;
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVol, 0);*/
-        MediaPlayer mediaPlayer = new MediaPlayer();
         mediaPlayer.reset();
         try {
             mediaPlayer.setDataSource(file);
@@ -112,13 +118,12 @@ public class audio {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     mediaPlayer.stop();
-                    mediaPlayer.release();
                 }
             });
             mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 @Override
                 public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
-                    System.out.println("play error");
+                    Log.d("audio", "play error");
                     return false;
                 }
             });
@@ -127,6 +132,10 @@ public class audio {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void mediaStop() {
+        mediaPlayer.stop();
     }
 
     public void startBluetoothSco() {
@@ -140,7 +149,7 @@ public class audio {
                     audioManager.setBluetoothScoOn(true);
                     audioManager.setMode(AudioManager.STREAM_MUSIC);
                     context.unregisterReceiver(this);
-                    System.out.println("sco connected");
+                    Log.d("audio", "sco connected");
                 } else {
                     try {
                         Thread.sleep(1000);
@@ -148,21 +157,21 @@ public class audio {
                         e.printStackTrace();
                     }
                     audioManager.startBluetoothSco();
-                    System.out.println("prepare sco connect");
+                    Log.d("audio", "prepare sco connect");
                 }
             }
         }, new IntentFilter(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED));
     }
 
-    public void startAudioRecord(String pcmfile) {
-        fileName = pcmfile;//保存文件名
+    //录音
+    public void startAudioRecord(final String path) {
         int hz = 16000;//采样率
         int channel = AudioFormat.CHANNEL_IN_MONO;//单声道
         int bits = AudioFormat.ENCODING_PCM_16BIT;//音频格式16bits
         final int minBufferSize = AudioRecord.getMinBufferSize(hz, channel, bits);
         audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, hz, channel, bits, minBufferSize);
         final byte data[] = new byte[minBufferSize];
-        final File file = new File(pcmfile);
+        final File file = new File(path);
         if (file.exists())
             file.delete();
         audioRecord.startRecording();
@@ -184,12 +193,20 @@ public class audio {
                                 }
                             }
                         }
-                        try {
-                            os.close();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        os.close();
+                        //将pcm格式的录音文件保存成wav格式的文件
+                        pcmToWav(path, path + ".wav");
 
+                        File file = new File(param.path + "record.txt");
+                        RandomAccessFile raf = new RandomAccessFile(file, "rw");
+                        raf.seek(file.length());
+                        Date date = new Date(System.currentTimeMillis());
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
+                        //保存文件上传日志
+                        raf.write(("******" + "Time:" + simpleDateFormat.format(date) + "\r\n").getBytes());
+                        raf.write(("File:" + path + ".wav" + "\r\n").getBytes());
+                        raf.write(("Length:" + file.length() + "bytes" + "\r\n").getBytes());
+                        raf.close();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -197,7 +214,8 @@ public class audio {
             }
         }).start();
     }
-    public  void  stopAudioRecord(){
+
+    public void stopAudioRecord() {
         isRecord = false;
         if (audioRecord != null) {
             audioRecord.stop();
@@ -205,9 +223,10 @@ public class audio {
             audioRecord = null;
         }
     }
+
+    //pcm转化成wav文件，写wav文件头
     public void pcmToWav(String inFilename, String outFilename) {
-        inFilename = fileName;
-        System.out.println("pcm to wav");
+        Log.d("audio", "pcm to wav");
         FileInputStream in;
         FileOutputStream out;
         long totalAudioLen;
@@ -230,8 +249,8 @@ public class audio {
             }
             in.close();
             out.close();
-            File pcm  = new File(inFilename);
-            if(pcm.exists()){
+            File pcm = new File(inFilename);
+            if (pcm.exists()) {
                 pcm.delete();
             }
         } catch (IOException e) {
@@ -239,6 +258,7 @@ public class audio {
         }
     }
 
+    //写wav文件头
     private void writeWaveFileHeader(FileOutputStream out, long totalAudioLen,
                                      long totalDataLen, long longSampleRate, int channels, long byteRate)
             throws IOException {

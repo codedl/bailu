@@ -104,3 +104,17 @@ d.getItem:获取指定位置的FragMent
 5.定义ViewPager的对象，添加4创建的FragmentPagerAdapter
 添加事件,addOnPageChangeListener;
 6.在事件里setCurrentItem显示
+
+[Intent]
+1.定义Intent，putExtra添加数据，sendBroadcast发送Intent
+2.定义BroadcastReceiver子类接收Intent，getXX获取Intent数据
+3.定义IntentFilter，addAction接收自定义的广播，registerReceiver即可
+
+[Iterator]
+1.根据集合创建Iterator<Type>
+2.判断Iterator.hasNext,Iterator.Next返回集合中元素
+
+[引用界面里的控件]
+1.LayoutInflater.from(context).inflate(layout, null);
+重新加载布局，控件会在重新加载的布局中显示
+2.Activity.findViewById,找到Activity中的控件

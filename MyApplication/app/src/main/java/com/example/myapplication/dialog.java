@@ -34,11 +34,16 @@ public class dialog {
     //@listener对话框按钮的监听事件
     protected void setButtonListener(int button, View.OnClickListener listener) {
         this.alertDialog.getButton(button).setOnClickListener(listener);
-        
+
     }
 
     //对话框消失
     protected void dismiss() {
+        builder = null;
         this.alertDialog.dismiss();
+        alertDialog = null;
+
+        fileManager.savexml();//对话框消失时保存系统设置
     }
+
 }

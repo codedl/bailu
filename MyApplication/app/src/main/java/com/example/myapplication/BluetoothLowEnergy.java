@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
+import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -14,11 +15,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BluetoothLowEnergy {
-
+    private String tag = "BluetoothLowEnergy";
     //特征值，跟蓝牙设备通信
     BluetoothGattCharacteristic red;
     BluetoothGattCharacteristic green;
@@ -28,7 +30,9 @@ public class BluetoothLowEnergy {
     private BluetoothAdapter bleAdapter;
     private Context context;
     public ArrayList<BluetoothDevice> bleDevices = new ArrayList<>();//扫描的蓝牙设备
+    public BluetoothDevice connectDevice;//已经连接的蓝牙设备
     public ArrayList<String> bleDeviceStr = new ArrayList<>();//显示到列表的字符串
+    static int progress;//连接的进度
 
     public BluetoothLowEnergy(Context context) {
         this.context = context;
@@ -39,12 +43,27 @@ public class BluetoothLowEnergy {
     public void startScan() {
         bleDevices.clear();
         bleDeviceStr.clear();
-        disconnect();
+//        disconnect();
         bleAdapter.getBluetoothLeScanner().startScan(this.scanCallBack);
     }
 
     public void stopScan() {
         bleAdapter.getBluetoothLeScanner().stopScan(this.scanCallBack);
+    }
+
+    private boolean isConnected(BluetoothDevice device) {
+        boolean bool = false;
+        try {
+            Method method = device.getClass().getMethod("isConnected", null);
+            bool = (boolean) method.invoke(device, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bool;
+    }
+
+    public BluetoothDevice getConnectedDevices() {
+        return connectDevice;
     }
 
     //蓝牙扫描的回调函数，返回蓝牙扫描的结果
@@ -62,7 +81,7 @@ public class BluetoothLowEnergy {
 
             if (name == null || name.isEmpty() || bleDevices.contains(dev))
                 return;
-            System.out.println(scanResult.toString());
+            Log.d("BluetoothLowEnergy", scanResult.toString());
             bleDevices.add(dev);
             bleDeviceStr.add(scanResult.toString());
             Intent intent = new Intent(Action.BLE_SCAN_FOUND);
@@ -76,14 +95,16 @@ public class BluetoothLowEnergy {
     public void bleConnect(BluetoothDevice bluetoothDevice) {
         bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
         bleGatt = bluetoothDevice.connectGatt(context, true, gattCallBack);
+        progress = 10;
 //        bleDevices.clear();
 //        bleDeviceStr.clear();
     }
 
-    private void disconnect() {
+    public void disconnect() {
         bleAdapter.getBluetoothLeScanner().stopScan(scanCallBack);
         if (bleGatt != null)
             bleGatt.disconnect();
+        connectDevice = null;//清除已连接设备
     }
 
     //蓝牙连接的回调函数
@@ -95,8 +116,11 @@ public class BluetoothLowEnergy {
                 if (gatt != null) {
                     bleGatt = gatt;
                     String addr = gatt.getDevice().getAddress();
-                    System.out.println(addr);
+                    connectDevice = gatt.getDevice();//保存已连接设备
+                    Log.d(tag, "connectDevice.add:");
+                    Log.d("BluetoothLowEnergy", addr);
                     gatt.discoverServices();
+                    progress = 50;
                 }
             }
         }
@@ -106,9 +130,10 @@ public class BluetoothLowEnergy {
             super.onServicesDiscovered(gatt, status);
             Log.d("print", "onServicesDiscovered");
             List<BluetoothGattService> gattServices = gatt.getServices();
+            progress = 80;
             for (BluetoothGattService bgs : gattServices) {
                 String uuid = bgs.getUuid().toString();
-                Log.d("print", "servers uuid:" + uuid);
+                Log.d(tag, "servers uuid:" + uuid);
                 List<BluetoothGattCharacteristic> gattCharacteristics = bgs.getCharacteristics();
                 for (BluetoothGattCharacteristic bgc : gattCharacteristics) {
                     uuid = bgc.getUuid().toString();
@@ -124,22 +149,23 @@ public class BluetoothLowEnergy {
                     if (uuid.equals("0000fee1-0000-1000-8000-00805f9b34fb")) {
                         xdt = bgc;
                     }
-                    Log.d("print", "character uuid:" + uuid);
+                    Log.d(tag, "character uuid:" + uuid);
 
                     int charaProp = bgc.getProperties();
                     if ((charaProp & BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
-                        Log.d("print", "可读");
+                        Log.d(tag, "可读");
                     }
                     if ((charaProp & BluetoothGattCharacteristic.PROPERTY_WRITE) > 0) {
-                        Log.d("print", "可写");
+                        Log.d(tag, "可写");
 
                     }
                     if ((charaProp & BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
-                        Log.d("print", "通知");
+                        Log.d(tag, "通知");
                     }
 
                 }
             }
+            progress = 100;
         }
 
         @Override

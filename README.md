@@ -166,3 +166,16 @@ these are app develop in android studio using java by a learner，and plan for w
 #20191016
 1.完成界面
 2.菜鸟教程2.5前三节
+
+#20191017
+界面的功能;
+
+#20191018
+界面及功能;
+
+#20191021
+界面及功能;
+
+#20191022
+1.界面及功能
+2.通信协议

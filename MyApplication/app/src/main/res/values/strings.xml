@@ -5,6 +5,4 @@
     <string name="nav_header_title">V1.0.0.191011\n应用设置</string>
     <string name="spin_title">文件列表</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
-    <drawable name="normal">#ff6501</drawable>
-    <drawable name="pressed">#8BC34A</drawable>
 </resources>
