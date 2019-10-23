@@ -197,6 +197,7 @@ public class fileManager {
         }
     }
 
+    //从xml文件中读取
     public static void readxml() {
         try {
             param P = new param();
@@ -213,7 +214,6 @@ public class fileManager {
                     case XmlPullParser.START_TAG:
 
                         if ("param".equals(tagName)) {
-                            Log.d(tag, parser.getAttributeValue(null, "time"));
                             break;
                         }
                         value = parser.nextText();
@@ -225,7 +225,6 @@ public class fileManager {
 
                         break;
                     case XmlPullParser.END_TAG:
-                        Log.d(tag, "end:" + tagName);
                         break;
                 }
                 event = parser.next();
@@ -242,43 +241,43 @@ public class fileManager {
         }
     }
 
-    public static void copyFile(Context context) {
-        File file1 = new File(param.pathDisturb + "testtest1");
-        if (file1.exists())
-            Log.i(tag, "fileexit");
-        else
-            Log.i(tag, "file not exit");
-        Field[] fields = R.raw.class.getDeclaredFields();
-        String rawName;
-        int rawId;
-        for (int i = 0; i < fields.length; i++) {
-            rawName = fields[i].getName();
-            Log.i(tag, rawName);
-            try {
-                rawId = fields[i].getInt(R.raw.class);
-                Log.i(tag, "rawId:" + rawId);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
+    public static void copyFile(final Context context) {
 
-        InputStream is = context.getResources().openRawResource(R.raw.test1);
-        Log.i(tag, "test1:" + R.raw.test1);
-        File file = new File(param.pathDisturb + "test1");
-
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buf = new byte[is.available()];
-            int length = 0;
-            while ((length = is.read(buf)) != -1) {
-                fos.write(buf, 0, length);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Field[] fields = R.raw.class.getDeclaredFields();//获取raw目录下所有文件
+                String rawName;
+                int rawId;
+                InputStream is;
+                FileOutputStream fos;
+                File file;
+                for (int i = 0; i < fields.length; i++) {
+                    rawName = fields[i].getName();
+                    file = new File(param.pathDisturb + rawName);//生成文件
+                    if (file.exists())//已经拷贝过
+                        continue;
+                    Log.i(tag, "rawFile:" + rawName);
+                    try {
+                        rawId = fields[i].getInt(R.raw.class);
+                        Log.i(tag, "rawId:" + rawId);
+                        is = context.getResources().openRawResource(rawId);//打开raw文件
+                        fos = new FileOutputStream(file);
+                        byte[] buf = new byte[is.available()];
+                        int length = 0;
+                        //将raw目录文件写入sd卡
+                        while ((length = is.read(buf)) != -1) {
+                            fos.write(buf, 0, length);
+                        }
+                        fos.flush();
+                        fos.close();
+                        is.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            fos.flush();
-            fos.close();
-            is.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        }).start();
 
     }
 

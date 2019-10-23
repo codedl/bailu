@@ -179,3 +179,7 @@ these are app develop in android studio using java by a learner，and plan for w
 #20191022
 1.界面及功能
 2.通信协议
+
+#20191023
+1.app安装
+2.通信协议
