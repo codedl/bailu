@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.appzhuzhuang;
 
 import android.bluetooth.BluetoothDevice;
 import android.util.Log;
@@ -99,9 +99,19 @@ public class ClsUtils {
         }
     }
 
+    //对整个数组进行处理
     static String toHexString(byte buf[]) {
         String returnStr = "";
         for (int i = 0; i < buf.length; i++) {
+            returnStr += String.format("0x%02x ", buf[i]);
+        }
+        return returnStr;
+    }
+
+    //对数组中从startIndex到endIndex的元素进行处理
+    static String toHexString(byte buf[], int startIndex, int endIndex) {
+        String returnStr = "";
+        for (int i = startIndex; i < endIndex; i++) {
             returnStr += String.format("0x%02x ", buf[i]);
         }
         return returnStr;
@@ -120,8 +130,61 @@ public class ClsUtils {
 
     //获取系统时间
     static String currentTime() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");//20191023180330
         Date date = new Date(System.currentTimeMillis());
         return format.format(date);
     }
+
+    //时间保存到byte数组里，占九个字节
+    static void currentTime(byte bytes[], int index) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");//20191023180330
+        Date date = new Date(System.currentTimeMillis());
+        String time = format.format(date);
+        toBytes(Integer.parseInt(time.substring(0, 4)), bytes, index);//四个字节的年份
+        bytes[index + 4] = Byte.parseByte(time.substring(4, 6));//月份
+        bytes[index + 5] = Byte.parseByte(time.substring(6, 8));//日期
+        bytes[index + 6] = Byte.parseByte(time.substring(8, 10));//时
+        bytes[index + 7] = Byte.parseByte(time.substring(10, 12));//分
+        bytes[index + 8] = Byte.parseByte(time.substring(12));//秒
+
+    }
+
+
+    //将int型数据保存到bytes数组index开始处
+    static void toBytes(int number, byte[] bytes, int index) {
+        bytes[index] = (byte) (number);
+        bytes[index + 1] = (byte) (number >> 8);
+        bytes[index + 2] = (byte) (number >> 16);
+        bytes[index + 3] = (byte) (number >> 24);
+
+    }
+
+    static void toBytes(float number, byte[] bytes, int index) {
+        int temp = Float.floatToIntBits(number);//把数据从float转化成int型
+        bytes[index] = (byte) (temp);
+        bytes[index + 1] = (byte) (temp >> 8);
+        bytes[index + 2] = (byte) (temp >> 16);
+        bytes[index + 3] = (byte) (temp >> 24);
+    }
+
+    //bytes组成float型数据
+    static float floatFromBytes(byte[] bytes, int index) {
+        int temp = 0;
+        temp = bytes[index] & 0xff;
+        temp |= (bytes[index + 1] << 8);
+        temp |= (bytes[index + 2] << 16);
+        temp |= (bytes[index + 3] << 24);
+        return Float.intBitsToFloat(temp);
+    }
+
+    static int intFromBytes(byte[] bytes, int index) {
+        int temp = 0;
+        temp = bytes[index] & 0xff;
+        temp |= (bytes[index + 1] << 8);
+        temp |= (bytes[index + 2] << 16);
+        temp |= (bytes[index + 3] << 24);
+        return temp;
+    }
+
+
 }

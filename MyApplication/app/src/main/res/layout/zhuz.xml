@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fg_zhuz"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -13,8 +14,8 @@
         android:background="@drawable/toggle_btn"
         android:checked="true"
         android:textColor="@color/white"
-        android:textOff="断开"
-        android:textOn="连接"
+        android:textOff="断开连接"
+        android:textOn="连接驻装"
         android:textSize="@dimen/textSize" />
 
     <ToggleButton
@@ -60,7 +61,7 @@
         android:layout_marginTop="@dimen/interval"
         android:gravity="center_horizontal"
         android:textColor="@color/green"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progress"

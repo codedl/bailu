@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.appzhuzhuang;
 
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
@@ -15,8 +15,12 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,7 +62,6 @@ public class audio {
         }, BluetoothA2dp.A2DP);
         audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         mediaPlayer = new MediaPlayer();
-
     }
 
     public void connect(BluetoothDevice device) {
@@ -105,6 +108,46 @@ public class audio {
         }
     }
 
+    //播放音频
+    //@file 音频源路径
+    public void mediaPlay(String file, final ToggleButton toggle) {
+       /*  //设置系统音量
+       int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        Log.d("audio","maxvol:" + maxVol);
+        maxVol *= 0.8;
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVol, 0);*/
+        mediaPlayer.reset();
+        try {
+            mediaPlayer.setDataSource(file);
+            mediaPlayer.setLooping(true);//重复播放
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mediaPlayer.stop();
+                    if (toggle != null) {
+                        toggle.setChecked(false);//Button为false，performClick后变成true，停止播放
+                        toggle.performClick();
+                    }
+                }
+            });
+            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
+                    Log.d("audio", "play error");
+                    fg_zhuk.socket.send(procotol.disturbPrepare(true, false));//开启干扰失败
+                    return false;
+                }
+            });
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (Exception e) {
+            fg_zhuk.socket.send(procotol.disturbPrepare(true, false));//开启干扰失败
+            e.printStackTrace();
+        }
+        fg_zhuk.socket.send(procotol.disturbPrepare(true, true));//成功开启干扰
+
+    }
+
     public void mediaPlay(String file) {
        /*  //设置系统音量
        int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -124,18 +167,24 @@ public class audio {
                 @Override
                 public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
                     Log.d("audio", "play error");
+                    fg_zhuk.socket.send(procotol.disturbPrepare(true, false));//开启干扰失败
                     return false;
                 }
             });
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (Exception e) {
+            fg_zhuk.socket.send(procotol.disturbPrepare(true, false));//开启干扰失败
             e.printStackTrace();
         }
+        fg_zhuk.socket.send(procotol.disturbPrepare(true, true));//成功开启干扰
+
     }
+
 
     public void mediaStop() {
         mediaPlayer.stop();
+
     }
 
     public void startBluetoothSco() {
@@ -178,7 +227,7 @@ public class audio {
         isRecord = true;
         new Thread(new Runnable() {
             @Override
-            public void run() {
+            public synchronized void run() {
                 FileOutputStream os = null;
                 try {
                     os = new FileOutputStream(file);
@@ -198,6 +247,12 @@ public class audio {
                         pcmToWav(path, path + ".wav");
 
                         File file = new File(param.path + "record.txt");
+                        if (file.length() > 1024 * 1024)//文件大于1M自动删除
+                        {
+                            file.delete();
+                            file = new File(param.path + "record.txt");
+                        }
+                        Log.d(tag, "record.txt:" + file.length() / 1024 + "kb");
                         RandomAccessFile raf = new RandomAccessFile(file, "rw");
                         raf.seek(file.length());
                         Date date = new Date(System.currentTimeMillis());

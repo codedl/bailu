@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.appzhuzhuang;
 
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
@@ -9,16 +9,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
 import android.os.ParcelUuid;
 import android.util.Log;
-import android.view.View;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.UUID;
 

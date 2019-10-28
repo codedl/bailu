@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.appzhuzhuang;
 
 public class Action {
     public final static String BLE_SCAN_FOUND =

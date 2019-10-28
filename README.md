@@ -183,3 +183,10 @@ these are app develop in android studio using java by a learner，and plan for w
 #20191023
 1.app安装
 2.通信协议
+
+#20191025
+1.协议调试
+
+#20191028
+1.ListView复选
+2.菜鸟教程2.5节

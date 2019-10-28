@@ -13,7 +13,6 @@
             android:title="驻装连接设置" />
         <item
             android:id="@+id/set_app"
-            android:checkable="false"
             android:title="存储位置:/话机U盘/zhuzh" />
         <item
             android:id="@+id/set_binding"

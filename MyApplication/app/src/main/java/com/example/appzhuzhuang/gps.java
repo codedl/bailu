@@ -1,20 +1,16 @@
-package com.example.myapplication;
+package com.example.appzhuzhuang;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.TextView;
 
 public class gps {
@@ -74,11 +70,15 @@ public class gps {
 
         if (location != null) {
             StringBuilder sb = new StringBuilder();
-            sb.append("经度:" + String.format("%03.9f", location.getLongitude()) + "\n");
-            sb.append("纬度:" + String.format("%03.9f", location.getLatitude()));
+            //保存经纬度
+            param.longitude = (float) location.getLongitude();
+            param.latitude = (float) location.getLatitude();
+            //6位有效数字约精确到0.111322222米
+            sb.append("经度:" + String.format("%03.6f", location.getLongitude()) + "\n");
+            sb.append("纬度:" + String.format("%03.6f", location.getLatitude()));
             txt_gps.setText(sb.toString());
         } else {
-            txt_gps.setText("经度117.13542156\n纬度031.83975458");
+            txt_gps.setText("经度117.134746\n纬度031.839734");
         }
     }
 

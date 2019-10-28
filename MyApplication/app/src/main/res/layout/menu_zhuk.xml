@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="主控IP:" />
+            android:text="主控IP地址:" />
 
         <EditText
             android:id="@+id/edit_ip"
@@ -38,7 +37,9 @@
             android:id="@+id/edit_port"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="输入主控端口号" />
+            android:gravity="center_horizontal"
+            android:hint="输入主控端口号"
+            android:inputType="number" />
 
     </LinearLayout>
 

@@ -1,6 +1,5 @@
-package com.example.myapplication;
+package com.example.appzhuzhuang;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,21 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.fragment.app.Fragment;
 
 import java.io.File;
+import java.util.Iterator;
 
 
 public class fg_zhuk extends Fragment implements View.OnClickListener {
     private String tag = "fg_zhuk";
-    private ToggleButton connect;
-    private Button send;
+    private static ToggleButton connect;
+    private static Button send;
     private ProgressBar progressBar;
-    private static socket socket;
+    public static socket socket;
     private boolean isconnecting;
     private boolean isupload;
+    private TextView zhuk;
+    private TextView txt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle bundle) {
@@ -36,10 +39,13 @@ public class fg_zhuk extends Fragment implements View.OnClickListener {
         send = view.findViewById(R.id.send);
         connect.setOnClickListener(this);
         send.setOnClickListener(this);
+        txt = view.findViewById(R.id.txt);
         progressBar = view.findViewById(R.id.progress);
         socket = new socket();
         isconnecting = false;
         isupload = false;
+
+        zhuk = getActivity().findViewById(R.id.txt_zhukong);
         return view;
     }
 
@@ -50,9 +56,12 @@ public class fg_zhuk extends Fragment implements View.OnClickListener {
                 if (connect.isChecked()) {
                     socket.disconnect();
                     progressBar.setVisibility(View.INVISIBLE);
+                    txt.setVisibility(View.INVISIBLE);
                     isconnecting = false;
                 } else {
                     isconnecting = true;
+                    txt.setVisibility(View.VISIBLE);
+                    txt.setText(param.zhuk_ip + ":" + param.zhuk_port);
                     progressBar.setVisibility(View.VISIBLE);
                     progressBar.setMax(100);
                     progressBar.setProgress(0);
@@ -61,15 +70,23 @@ public class fg_zhuk extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.send:
-                isupload = true;//定时读取上传文件的进度
-                new fileManager().upload(param.zhuk_server, param.file_record);
-                if (!param.file_record.isEmpty()) {
-                    new asyncProgress().execute((String) null);//创建线程轮询发送文件的长度
-                    progressBar.setVisibility(View.VISIBLE);
-                    progressBar.setMax((int) new File(param.file_record).length());
-                    progressBar.setProgress(0);
+                if (param.file_record.size() > 0) {//文件名不为空且文件存在
+                    Iterator<String> files = param.file_record.iterator();//迭代文件列表
+                    while (files.hasNext()) {
+                        String file = files.next();
+                        isupload = true;//定时读取上传文件的进度
+                        new fileManager().upload(param.zhuk_server, file);//上传文件
+                        new asyncProgress().execute((String) null);//异步轮询发送文件的长度
+                        progressBar.setVisibility(View.VISIBLE);
+                        txt.setVisibility(View.VISIBLE);
+                        txt.setText(new File(file).getName());
+                        progressBar.setMax((int) new File(file).length());
+                        progressBar.setProgress(0);
+                        fileManager.copyFile(file, param.pathUped, true);//文件上传后会移动到另外一个目录
+                    }
+                    param.file_record.clear();//清除已经上传选中的文件
+                    zhuk.performClick();
                 }
-
                 break;
         }
     }
@@ -108,14 +125,17 @@ public class fg_zhuk extends Fragment implements View.OnClickListener {
             //显示连接主控的进度
             if (isconnecting) {
                 progressBar.setProgress(values[0]);
+                txt.setText(param.zhuk_ip + ":" + param.zhuk_port + "(" + values[0] + "%)");
                 if (values[0] == 100) {//连接超时
                     socket.disconnect();
                     isconnecting = false;
+                    connect.setText("服务器异常");
                 }
                 if (values[0] == 200) {//完成连接
                     isconnecting = false;
                     progressBar.setProgress(100);
                     progressBar.setVisibility(View.INVISIBLE);
+                    txt.setVisibility(View.INVISIBLE);
                 }
             }
             //显示上传文件的进度
@@ -124,8 +144,25 @@ public class fg_zhuk extends Fragment implements View.OnClickListener {
                 if (fileManager.curLength >= fileManager.maxLength) {
                     isupload = false;
                     progressBar.setVisibility(View.INVISIBLE);
+                    txt.setVisibility(View.INVISIBLE);
                 }
             }
         }
+    }
+
+    static void sendAll() {
+        if (MainActivity.files.size() <= 0)//已经上传文件
+            return;
+        param.file_record.clear();//先清除列表中文件，防止重复发送
+        for (int i = 0; i < MainActivity.files.size(); i++) {
+            param.file_record.add(MainActivity.files.get(i));//将需要发送的文件添加到列表
+        }
+        MainActivity.files.clear();//清除录音文件，发送完录音文件后就不会再次发送
+        send.performClick();//触发send点击事件发送文件
+    }
+
+    static void setConnectClick(boolean isConnected) {
+        connect.setChecked(isConnected);
+        connect.performClick();
     }
 }

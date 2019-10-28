@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication">
+    package="com.example.appzhuzhuang">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -32,7 +32,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <receiver
-            android:name="com.example.myapplication.MyReceiver"
+            android:name="com.example.appzhuzhuang.MyReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="2147483647">
@@ -41,7 +41,7 @@
         </receiver>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.appzhuzhuang.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>

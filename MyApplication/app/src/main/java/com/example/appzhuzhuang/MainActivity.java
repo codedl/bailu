@@ -1,6 +1,5 @@
-package com.example.myapplication;
+package com.example.appzhuzhuang;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,86 +8,46 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCallback;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattDescriptor;
-import android.bluetooth.BluetoothGattService;
-import android.bluetooth.BluetoothManager;
-import android.bluetooth.BluetoothProfile;
-import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanResult;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.os.SystemClock;
-import android.util.ArrayMap;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.provider.Settings;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.google.android.material.internal.NavigationMenu;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.Socket;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
-import java.util.NavigableSet;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         CompoundButton.OnCheckedChangeListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
@@ -103,11 +62,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean isZhuk = true;
     private long backTime = 0;//记录按返回键的时间
     private FragmentManager fgManager;
-
+    private receiver receiver;
     private ListView list;
     private ArrayList<String> listFiles = new ArrayList<>();//列表只显示文件名
-    private ArrayList<String> files = new ArrayList<>();//files包含文件完整路径，用来创建文件对象
-    private ArrayAdapter adapter;//适配器，list显示用
+    static ArrayList<String> files = new ArrayList<>();//files包含文件完整路径，用来创建文件对象
+    static ArrayAdapter adapter;//适配器，list显示用
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +76,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+    }
+
+    //界面注销函数
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(receiver);
+        fileManager.savexml();
+        super.onDestroy();
     }
 
     //接收startActivityForResult的结果
@@ -174,15 +141,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void init() {
-        layoutInit();
-        gps = new gps(MainActivity.this, MainActivity.this);
         checkPermissions();
+        gps = new gps(MainActivity.this, MainActivity.this);
         param.init(MainActivity.this);
+        layoutInit();
         fileManager.readxml();//从xml文件中读取保存的配置参数
         fileManager.savexml();//保存参数
         barInit();
         fileManager.copyFile(MainActivity.this);
 
+        //获取手机电量
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        receiver = new receiver();
+        registerReceiver(receiver, filter);
+    }
+
+    public class receiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(tag, "currentBattery:" + intent.getExtras().getInt("level"));//当前电量
+//            Log.d(tag, "totalBattery:" + intent.getExtras().getInt("scale"));//总电量
+            param.battery = intent.getExtras().getInt("level");
+        }
     }
 
     private void layoutInit() {
@@ -203,13 +183,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //文件列表显示初始化
         list = findViewById(R.id.list);
+        list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
         adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_single_choice, listFiles);
-        listFiles("record");
+        listFiles(param.pathRecord);
         Collections.sort(listFiles);
         Collections.sort(files);
         list.setAdapter(adapter);
+
     }
 
     //菜单栏
@@ -283,7 +265,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
             case R.id.set_app:
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("是否清除缓存")
+                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int l) {
+                                //录音文件需要手动删除
+                                File file = new File(param.pathUped);
+                                if (file.exists() && file.isDirectory())
+                                    file.delete();
+                                file = new File(param.pathXml);
+                                if (file.exists())
+                                    file.delete();
+                                file = new File(param.path + "record.txt");
+                                if (file.exists())
+                                    file.delete();
+                                if (new File(param.path + "upload.txt").exists())
+                                    file.delete();
 
+                            }
+                        })
+                        .setPositiveButton("取消", null)
+                        .create().show();
                 break;
             case R.id.set_binding:
 
@@ -309,17 +312,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (view.getId()) {
             case R.id.txt_zhukong:
                 isZhuk = true;
+                list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                 txt_zhukong.setSelected(true);
                 txt_zhukong.setTextSize(35);
                 transaction.show(zhuk);
-                listFiles("record");
+                listFiles(param.pathRecord);
                 break;
             case R.id.txt_zhuzhuang:
                 isZhuk = false;
+                list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
                 txt_zhuzhuang.setSelected(true);
                 txt_zhuzhuang.setTextSize(35);
                 transaction.show(zhuz);
-                listFiles("disturb");
+                listFiles(param.pathDisturb);
                 break;
         }
         Collections.sort(listFiles);//升序进行排序
@@ -430,11 +435,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void listFiles(String sdPath) {
         listFiles.clear();
         files.clear();
-        File file = new File(param.path + sdPath);
+        File file = new File(sdPath);
         file.list(new FilenameFilter() {
             @Override
             public boolean accept(File file, String s) {
                 File temp = new File(file.toString() + "/" + s);
+                if (s.length() == 21) {//文件重命名，补上文件长度
+                    long length = temp.length() / 32000;
+                    String name = s.replace(".wav", String.format("%02d.wav", length));
+                    fileManager.rename(file.toString() + "/" + s, file.toString() + "/" + name);
+                    listFiles.add(name);
+                    files.add(file.toString() + "/" + name);
+                    return true;
+                }
                 if (temp.isDirectory())
                     return false;
                 else {
@@ -456,28 +469,62 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 Toast.makeText(MainActivity.this, "设置驻装连接", Toast.LENGTH_SHORT).show();
                 bind_Switch.setChecked(false);
+                param.bind = false;
             }
         } else {
             param.bind = false;
         }
 
-        fileManager.savexml();
+        fileManager.savexml();//保存参数
     }
 
     //list点击事件
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         if (isZhuk) {
-            param.file_record = files.get(i);
+            if (param.file_record.contains(files.get(i)))
+                param.file_record.remove(files.get(i));
+            else
+                param.file_record.add(files.get(i));
+            Iterator iterator = param.file_record.iterator();
+            Log.d(tag, "file: ");
+            while (iterator.hasNext())
+                Log.d(tag, (String) iterator.next());
+
         } else {
             param.file_disturb = files.get(i);
         }
+
+        fileManager.savexml();
     }
 
     //list长按事件
     @Override
     public boolean onItemLongClick(final AdapterView<?> adapterView, View view, final int i, long l) {
-        final dialog dialog = new dialog(MainActivity.this);
+        if (!isZhuk)//如果驻装界面直接返回
+            return true;
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("文件详细信息")
+                .setMessage(fileManager.fileInfo(files.get(i)))
+                .setNegativeButton("播放", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int l) {
+                        new audio(MainActivity.this).mediaPlay(files.get(i));
+                    }
+                })
+                .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int l) {
+                        File file = new File(files.get(i));
+                        if (file.exists())
+                            file.delete();
+                        listFiles.remove(i);
+                        files.remove(i);
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .create().show();
+        /*final dialog dialog = new dialog(MainActivity.this);
         TextView txt = new TextView(MainActivity.this);
         txt.setText(fileManager.fileInfo(files.get(i)));
         dialog.create("是否删除此文件", txt);
@@ -492,7 +539,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
-        });
+        });*/
         return true;//true表示事件已经处理，不会触发短按事件了
     }
 }

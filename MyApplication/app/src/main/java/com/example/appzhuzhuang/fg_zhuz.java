@@ -1,29 +1,31 @@
-package com.example.myapplication;
+package com.example.appzhuzhuang;
 
 import android.bluetooth.BluetoothDevice;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+
+import java.io.File;
 
 public class fg_zhuz extends Fragment implements View.OnClickListener {
     private String tag = "fg_zhuz";
     private ToggleButton connect;
     private ToggleButton record;
-    private ToggleButton disturb;
+    private static ToggleButton disturb;
     private ToggleButton sample;
     private TextView txt_progress;
     private TextView txt_data;
@@ -33,6 +35,7 @@ public class fg_zhuz extends Fragment implements View.OnClickListener {
     private boolean isBle;
     private boolean isBt;
     private audio audio;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle bundle) {
@@ -55,6 +58,8 @@ public class fg_zhuz extends Fragment implements View.OnClickListener {
         return view;
     }
 
+
+    //Button的点击事件
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -120,7 +125,8 @@ public class fg_zhuz extends Fragment implements View.OnClickListener {
                     audio.stopAudioRecord();
                 } else {
                     Log.d(tag, "record");
-                    audio.startAudioRecord(param.pathRecord + ClsUtils.currentTime());
+                    String file = param.pathRecord + "S" + String.format("%02d", param.zhuzAddr) + ClsUtils.currentTime();
+                    audio.startAudioRecord(file);
                 }
                 break;
             case R.id.disturb:
@@ -130,9 +136,9 @@ public class fg_zhuz extends Fragment implements View.OnClickListener {
                         txt_disturb.setText("干扰状态:没有干扰");
                     }
                 } else {
-                    if (!param.file_disturb.isEmpty()) {
-                        audio.mediaPlay(param.file_disturb);
-                        txt_disturb.setText("干扰状态:手动施加干扰");
+                    if (!param.file_disturb.isEmpty() && new File(param.file_disturb).exists()) {
+                        audio.mediaPlay(param.file_disturb, disturb);
+                        txt_disturb.setText("干扰状态:施加干扰");
                     }
                 }
                 break;
@@ -140,7 +146,6 @@ public class fg_zhuz extends Fragment implements View.OnClickListener {
                 Log.d(tag, "sample");
                 break;
         }
-
     }
 
     class asyncProgress extends AsyncTask<String, Integer, String> {
@@ -199,5 +204,12 @@ public class fg_zhuz extends Fragment implements View.OnClickListener {
             }
 
         }
+    }
+
+    //主控施加干扰
+    static void setDisturb(boolean isOn) {
+        Log.d("fg_zhuz", "setDisturb");
+        disturb.setChecked(isOn);
+        disturb.performClick();
     }
 }
