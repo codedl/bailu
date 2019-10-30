@@ -25,8 +25,8 @@ public class fg_zhuk extends Fragment implements View.OnClickListener {
     public static socket socket;
     private boolean isconnecting;
     private boolean isupload;
-    private TextView zhuk;
     private TextView txt;
+    private TextView zhuk;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle bundle) {
@@ -44,7 +44,6 @@ public class fg_zhuk extends Fragment implements View.OnClickListener {
         socket = new socket();
         isconnecting = false;
         isupload = false;
-
         zhuk = getActivity().findViewById(R.id.txt_zhukong);
         return view;
     }
@@ -70,22 +69,23 @@ public class fg_zhuk extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.send:
-                if (param.file_record.size() > 0) {//文件名不为空且文件存在
+                if (param.file_record.size() > 0) {//判断是否有需要发送的文件
                     Iterator<String> files = param.file_record.iterator();//迭代文件列表
                     while (files.hasNext()) {
                         String file = files.next();
                         isupload = true;//定时读取上传文件的进度
                         new fileManager().upload(param.zhuk_server, file);//上传文件
-                        new asyncProgress().execute((String) null);//异步轮询发送文件的长度
+                        new asyncProgress().execute((String) null);//异步轮询发送文件的进度
                         progressBar.setVisibility(View.VISIBLE);
                         txt.setVisibility(View.VISIBLE);
                         txt.setText(new File(file).getName());
                         progressBar.setMax((int) new File(file).length());
                         progressBar.setProgress(0);
-                        fileManager.copyFile(file, param.pathUped, true);//文件上传后会移动到另外一个目录
+                        MainActivity.listFiles.remove(new File(file).getName());
+
                     }
                     param.file_record.clear();//清除已经上传选中的文件
-                    zhuk.performClick();
+                    MainActivity.adapter.notifyDataSetChanged();
                 }
                 break;
         }
@@ -151,13 +151,13 @@ public class fg_zhuk extends Fragment implements View.OnClickListener {
     }
 
     static void sendAll() {
-        if (MainActivity.files.size() <= 0)//已经上传文件
-            return;
-        param.file_record.clear();//先清除列表中文件，防止重复发送
-        for (int i = 0; i < MainActivity.files.size(); i++) {
-            param.file_record.add(MainActivity.files.get(i));//将需要发送的文件添加到列表
+        File file = new File(param.pathRecord);
+        String[] files = file.list();//遍历列表，选中所有待发送文件
+        param.file_record.clear();
+        for (int i = 0; i < files.length; i++) {
+            param.file_record.add(param.pathRecord + files[i]);
+            Log.d("fg_zhuk", files[i]);
         }
-        MainActivity.files.clear();//清除录音文件，发送完录音文件后就不会再次发送
         send.performClick();//触发send点击事件发送文件
     }
 

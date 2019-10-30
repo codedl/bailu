@@ -190,3 +190,6 @@ these are app develop in android studio using java by a learner，and plan for w
 #20191028
 1.ListView复选
 2.菜鸟教程2.5节
+
+#20191029
+菜鸟教程第二章

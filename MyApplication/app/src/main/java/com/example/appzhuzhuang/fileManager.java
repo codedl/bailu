@@ -10,7 +10,6 @@ import org.xmlpull.v1.XmlSerializer;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
@@ -38,15 +37,16 @@ public class fileManager {
     //@path文件名
     public void upload(String url, String path) {
         //检查输入合法性
-        if (url == null || url.isEmpty() || path == null || path.isEmpty() || !new File(path).exists())
+        if (url == null || url.isEmpty() || path == null || path.isEmpty() || !new File(path).exists()) {
+            Log.d(tag, "url/file not exist");
             return;
+        }
         this.fileUrl = url;
         this.fileName = path;
         maxLength = 0;
         curLength = 0;
         new uploadThread().start();
     }
-
 
     public class uploadThread extends Thread {
         @Override
@@ -57,7 +57,6 @@ public class fileManager {
                 String twoHyphens = "--";
 
                 try {
-
                     FileInputStream fileInputStream = new FileInputStream(fileName);
                     URL url = new URL(fileUrl);
                     Log.d(tag, fileUrl);
@@ -101,16 +100,16 @@ public class fileManager {
                         b.append((char) ch);
                     }
                     //打印上传结果
-                    String result = getSubString(b.toString(), "<h1>", ".").replace("\n", "");
-                    Log.d("fileManager", result);
+//                    String result = getSubString(b.toString(), "<h1>", ".").replace("\n", "");
+//                    Log.d("fileManager", result);
 
                     //将服务器数据保存到文件
                     //覆盖原来文件
-               /* FileOutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio/log.txt");
-                PrintStream print = new PrintStream(output);
-                Log.d("fileManager",b.toString().indexOf("folder"));
-                print.println(b.toString());
-                dataOutputStream.close();*/
+                    /*FileOutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio/log.txt");
+                    PrintStream print = new PrintStream(output);
+                    Log.d("fileManager", b.toString().indexOf("folder"));
+                    print.println(b.toString());
+                    dataOutputStream.close();*/
                     //以追加方式写入文件
                     File file = new File(param.path + "upload.txt");
                     if (file.length() > 1024 * 1024) {
@@ -126,12 +125,12 @@ public class fileManager {
                     raf.write((boundary + "Time:" + simpleDateFormat.format(date) + end).getBytes());
                     raf.write(("File:" + fileName + end).getBytes());
                     raf.write(("Length:" + maxLength + "bytes" + end).getBytes());
-//                raf.write(b.toString().getBytes());
-                    raf.write(("Result:" + result + end).getBytes());
+//                    raf.write(b.toString().getBytes());
+//                    raf.write(("Result:" + result + end).getBytes());
                     raf.close();
                     inputStream.close();
                     fg_zhuk.socket.send(procotol.uploadPrepare(0x06));//发送成功回复主机
-
+                    fileManager.copyFile(fileName, param.pathUped, true);//文件上传后会移动到另外一个目录
 
                 } catch (Exception e) {
                     fg_zhuk.socket.send(procotol.uploadPrepare(0x15));
@@ -179,8 +178,8 @@ public class fileManager {
             File file = new File(param.pathXml);
             FileOutputStream fos = new FileOutputStream(file);
             XmlSerializer serializer = Xml.newSerializer();
-            serializer.setOutput(fos, "utf-8");
-            serializer.startDocument("utf-8", true);
+            serializer.setOutput(fos, "UTF-8");
+            serializer.startDocument("UTF-8", true);
 
             serializer.startTag(null, "param");//<param >
             serializer.attribute(null, "time", ClsUtils.currentTime());//<param time="">
@@ -329,10 +328,21 @@ public class fileManager {
 
     }
 
+    //创建文件夹
     static void mkdir(String directory) {
         File file = new File(directory);
         if (!file.exists())
             file.mkdir();
+    }
+
+    //移除文件夹下所有文件
+    static void mvdir(String directory) {
+        File file = new File(directory);
+        if (file.isDirectory()) {
+            String name[] = file.list();
+            for (int i = 0; i < name.length; i++)
+                Log.d(tag, name[i] + " delete: " + new File(directory + name[i]).delete());
+        } else file.delete();
     }
 
 }

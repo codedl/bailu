@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -64,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentManager fgManager;
     private receiver receiver;
     private ListView list;
-    private ArrayList<String> listFiles = new ArrayList<>();//列表只显示文件名
-    static ArrayList<String> files = new ArrayList<>();//files包含文件完整路径，用来创建文件对象
+    static ArrayList<String> listFiles = new ArrayList<>();//列表只显示文件名
+    private ArrayList<String> files = new ArrayList<>();//files包含文件完整路径，用来创建文件对象
     static ArrayAdapter adapter;//适配器，list显示用
 
     @Override
@@ -270,19 +271,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int l) {
-                                //录音文件需要手动删除
-                                File file = new File(param.pathUped);
-                                if (file.exists() && file.isDirectory())
-                                    file.delete();
-                                file = new File(param.pathXml);
-                                if (file.exists())
-                                    file.delete();
-                                file = new File(param.path + "record.txt");
-                                if (file.exists())
-                                    file.delete();
-                                if (new File(param.path + "upload.txt").exists())
-                                    file.delete();
-
+                                fileManager.mvdir(param.pathRecord);
+                                fileManager.mvdir(param.pathUped);
+                                fileManager.mvdir(param.pathXml);
+                                fileManager.mvdir(param.path + "record.txt");
+                                fileManager.mvdir(param.path + "upload.txt");
                             }
                         })
                         .setPositiveButton("取消", null)
@@ -312,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (view.getId()) {
             case R.id.txt_zhukong:
                 isZhuk = true;
-                list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);//可以选中多个文件
                 txt_zhukong.setSelected(true);
                 txt_zhukong.setTextSize(35);
                 transaction.show(zhuk);
@@ -325,11 +318,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 txt_zhuzhuang.setTextSize(35);
                 transaction.show(zhuz);
                 listFiles(param.pathDisturb);
+                param.file_record.clear();
                 break;
         }
         Collections.sort(listFiles);//升序进行排序
         Collections.sort(files);
         adapter.notifyDataSetChanged();//更新列表
+        list.setAdapter(adapter);
         transaction.commit();
 
     }
@@ -486,6 +481,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 param.file_record.remove(files.get(i));
             else
                 param.file_record.add(files.get(i));
+            //打印选中的文件
             Iterator iterator = param.file_record.iterator();
             Log.d(tag, "file: ");
             while (iterator.hasNext())

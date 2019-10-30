@@ -111,6 +111,7 @@ public class audio {
     //播放音频
     //@file 音频源路径
     public void mediaPlay(String file, final ToggleButton toggle) {
+        mediaStop();//避免同时播放多个声音
        /*  //设置系统音量
        int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         Log.d("audio","maxvol:" + maxVol);
@@ -149,6 +150,7 @@ public class audio {
     }
 
     public void mediaPlay(String file) {
+        mediaStop();
        /*  //设置系统音量
        int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         Log.d("audio","maxvol:" + maxVol);

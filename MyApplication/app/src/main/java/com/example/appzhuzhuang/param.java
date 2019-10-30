@@ -18,7 +18,7 @@ public class param {
     static String pathDisturb;
     static String pathXml;
     static String pathUped;
-    static HashSet<String> file_record = new HashSet<>();
+    static HashSet<String> file_record = new HashSet<>();//保存需要发送的录音文件
     static String file_disturb = "";
     static BluetoothLowEnergy ble;
     static BluetoothClassic btc;
@@ -44,6 +44,7 @@ public class param {
         ble = new BluetoothLowEnergy(context);
         btc = new BluetoothClassic(context);
         uiHandler = new uiHandler();
+        file_record.clear();
     }
 
 

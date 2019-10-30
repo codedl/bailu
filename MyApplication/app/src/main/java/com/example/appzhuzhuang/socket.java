@@ -40,7 +40,7 @@ public class socket {
                                     try {
                                         while (isOnline) {
                                             sleep(3000);
-                                            output.write(".".getBytes());//定时写数据判断连接是否断开
+                                            output.write("T".getBytes());//定时写数据判断连接是否断开
                                             output.flush();
                                         }
                                     } catch (Exception e) {

@@ -39,7 +39,8 @@ public class gps {
         }
         Location lc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         updateShow(lc);
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, new LocationListener() {
+        //500ms更新一次
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 updateShow(location);
