@@ -32,6 +32,6 @@
         app:layout_constraintLeft_toRightOf="@+id/clock"
         android:text="BaseAdapt"
         android:onClick="click"/>
-
+    
 
 </androidx.constraintlayout.widget.ConstraintLayout>
