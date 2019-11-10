@@ -130,3 +130,5 @@ Button.setCheck(boolean)触发按钮切换开关事件
 [线程同步]
 synchronized同步代码块,格式synchronized(""){代码}
 synchronized同步方法,格式synchronized+方法
+[手机添加背景]
+布局background指定资源即可;
