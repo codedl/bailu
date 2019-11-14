@@ -162,9 +162,10 @@ public class HandWrite extends View implements SensorEventListener {
         System.out.println("倾斜角：" + (float) (Math.round(sensorEvent.values[1] * 100)) / 100);
         System.out.println("滚动角：" + (float) (Math.round(sensorEvent.values[2] * 100)) / 100);
         if(isDone) {
+
             if(scale > 0.5)
                 new1_Bitmap = Bitmap.createScaledBitmap(
-                        new1_Bitmap,(int)(new1_Bitmap.getWidth()*1.01),(int)(new1_Bitmap.getHeight()*1.01),false);
+                        new1_Bitmap,(int)(new1_Bitmap.getWidth()*1.005),(int)(new1_Bitmap.getHeight()*1.005),false);
             else if(scale < -1)
                 new1_Bitmap = Bitmap.createScaledBitmap(
                         new1_Bitmap,(int)(new1_Bitmap.getWidth()*0.99),(int)(new1_Bitmap.getHeight()*0.99),false);
