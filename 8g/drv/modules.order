@@ -1,0 +1,5 @@
+kernel//mnt/hgfs/work/8g/drv/gpmc_8g.ko
+kernel//mnt/hgfs/work/8g/drv/ram_8g.ko
+kernel//mnt/hgfs/work/8g/drv/gpio_8g.ko
+kernel//mnt/hgfs/work/8g/drv/frontend_8g.ko
+kernel//mnt/hgfs/work/8g/drv/dc_8g.ko
