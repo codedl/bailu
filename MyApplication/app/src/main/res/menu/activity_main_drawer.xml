@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/set_zhuk"
+            android:title="主控连接设置" />
+        <item
+            android:id="@+id/set_zhuz"
+            android:title="驻装连接设置" />
+        <item
+            android:id="@+id/set_app"
+            android:title="存储位置:/话机U盘/zhuzh" />
+        <item
+            android:id="@+id/set_binding"
+            android:checkable="false"
+            android:title="设备绑定"
+            app:actionViewClass="android.widget.Switch" />
+
+    </group>
+    <!-- <item android:title="驻装">
+         <menu>
+             <item
+                 android:id="@+id/user"
+                 android:title="用户编号" />
+             <item
+                 android:id="@+id/pass"
+                 android:title="密码" />
+         </menu>
+     </item>
+     <item android:title="主控">
+         <menu>
+             <item
+                 android:id="@+id/ip"
+                 android:title="IP地址" />
+             <item
+                 android:id="@+id/port"
+                 android:title="端口号" />
+         </menu>
+     </item>-->
+
+
+</menu>
