@@ -1,3 +1,6 @@
+# bailu
+work and study in bailu
+
 ////dingle19930328
 [git上传代码]
 1.新建Git仓库;
@@ -26,3 +29,5 @@ git rm -f  path 删除缓冲区和物理文件
 1.创建远程分支: git checkout -b 分支名
 2.同步到远程主机: git push 主机名 远程分支：本地分支
 3.下载某个分支代码: git pull 主机名 远程分支：本地分支
+
+
