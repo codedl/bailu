@@ -183,3 +183,7 @@ template <template <typename T> class Thing> class Crab;
 [嵌套类]
 嵌套类声明的位置决定了类的作用域或可见性,类可见后,嵌套类成员的访问
 权限由(公有,保护,私有)等访问控制规则确定.
+[RTTI]运行阶段类型识别:
+1.只适用于包含虚函数的类;
+2.class *p = dynamic_cast<class *>(q):如果q的类型可以被安全地转换为p,
+运算符将返回对象的地址,否正返回一个空指针.
