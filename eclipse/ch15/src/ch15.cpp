@@ -7,6 +7,10 @@
 //============================================================================
 
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <typeinfo>
+
 #include "queuetp.h"
 using namespace std;
 void queueTest();
@@ -19,27 +23,31 @@ private:
 	int hold;
 public:
 	Grand(int h=0):hold(h){}
-	virtual void Speak()const{cout << "i am a grand class";}
+	virtual void Speak()const{cout << "i am a grand class\n";}
 	virtual int Value()const{return hold;}
 };
 class Superb : public Grand
 {
 public:
 	Superb(int h=0):Grand(h){}
-	void Speak()const{cout << "i am a superb class";}
+	void Speak()const{cout << "i am a superb class \n";}
 	virtual void Say() const
-	{cout << "i hold the superb value of " << Value();	}
+	{cout << "i hold the superb value of " << Value() << "\n";	}
 };
-class Magnificent : private Superb
+class Magnificent : public Superb
 {
 private:
 	char ch;
 public:
 	Magnificent(int h=0, char c='A'):Superb(h),ch(c){}
+	void Speak()const{cout << "i am a magnificent class\n";}
+	void Say()const{cout << "i hold the char " << ch <<
+						"  and the integer " << Value() << " !\n";}
 };
-
+Grand * GetOne();
+void GrandTest();
 int main() {
-	exceptionTest();
+	GrandTest();
 	return 0;
 }
 void queueTest()
@@ -95,5 +103,41 @@ void exceptionTest()
 	{
 		cout << e.what() << endl;
 		exit(EXIT_FAILURE);
+	}
+}
+Grand * GetOne()
+{
+	Grand * p = NULL;
+	switch(rand() % 3)
+	{
+	case 0:
+		p = new Grand(rand() % 100);
+		break;
+	case 1:
+		p = new Superb(rand() % 100);
+		break;
+	case 2:
+		p = new Magnificent(rand()%100,'A' + rand()%26);
+		break;
+
+	}
+	return p;
+}
+
+void GrandTest()
+{
+
+	srand(time(0));
+	Grand *pg;
+	Superb *ps;
+	for(int i=0; i<5; i++)
+	{
+		pg = GetOne();
+		cout << "Now process type: " << typeid(*pg).name() << ".\n";
+		pg->Speak();
+		if(ps =dynamic_cast<Superb*> (pg))
+			ps->Say();
+		if(typeid(Magnificent) == typeid(*pg))
+			cout << "yes, you are Magnificent\n";
 	}
 }

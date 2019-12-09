@@ -151,7 +151,7 @@ ABC:至少包含一个纯虚函数的接口,不能被具体成对象;
 初始化的顺序为被声明的顺序，而不是初始化列表中的顺序;
 [私有继承]
 基类的共有成员和保护成员都将成为派生类的私有成员;
-如果成员时对象,则用对象.方法调用;
+如果成员是对象,则用对象.方法调用;
 如果该类是私有继承,则用类名::方法调用;
 强制类型转换可以访问私有继承的基类对象;
 [保护继承]
@@ -187,3 +187,28 @@ template <template <typename T> class Thing> class Crab;
 1.只适用于包含虚函数的类;
 2.class *p = dynamic_cast<class *>(q):如果q的类型可以被安全地转换为p,
 运算符将返回对象的地址,否正返回一个空指针.
+3.class &p = dynamic_cast<class &>(q):引用在转换失败时会抛出异常;
+4.typeid:对类型进行比较;typeid(class) == typeid(obj);
+name()返回对象所属的类名称;
+[const_cast]const_cast<typename> (express)
+1.去掉变量声明的const;
+2.指向的值不是const的才可以被修改;
+[static_cast]static_cast<typename> (express)
+当typename和express之间可以进行隐式转换是为合法的;
+[reinterpret_cast]reinterpret_cast<typename> (express)
+两个限制:1.不能将指针转换为更小的整形(char,short);
+2.不能将函数指针转换为数据指针;
+除此之外任意转换都能进行;
+<模板类>
+[auto_ptr类]:
+在对象消失时自动调用析构函数释放堆而不是栈的内存;
+赋值:auto_ptr<string> ps = p(auto_ptr<string>对象);ps将会获取对象的使用权,
+p将不能使用原对象。
+[shared_ptr类]
+可以跟踪引用对象的智能指针数
+[unique_ptr类]
+赋值的时候,如果源是个临时右值,编译器允许赋值;否则会报错;
+<输入输出和文件>
+[endl]
+endl刷新缓冲区,并插入一个换行符;“\n”输出换行符到缓冲区;
+flush可以刷新缓冲区;
