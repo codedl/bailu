@@ -1,0 +1,6 @@
+I:\work\study\VS\ArraysSamples\SortingSample\bin\Debug\SortingSample.exe.config
+I:\work\study\VS\ArraysSamples\SortingSample\bin\Debug\SortingSample.exe
+I:\work\study\VS\ArraysSamples\SortingSample\bin\Debug\SortingSample.pdb
+I:\work\study\VS\ArraysSamples\SortingSample\obj\Debug\SortingSample.csprojAssemblyReference.cache
+I:\work\study\VS\ArraysSamples\SortingSample\obj\Debug\SortingSample.exe
+I:\work\study\VS\ArraysSamples\SortingSample\obj\Debug\SortingSample.pdb

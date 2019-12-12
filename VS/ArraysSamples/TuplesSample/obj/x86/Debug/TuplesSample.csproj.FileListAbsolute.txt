@@ -1,0 +1,29 @@
+C:\Books\Pro C# 4.0\code\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.exe
+C:\Books\Pro C# 4.0\code\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.pdb
+C:\Books\Pro C# 4.0\code\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.exe
+C:\Books\Pro C# 4.0\code\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.pdb
+K:\ProC# 4.0\code\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.exe
+K:\ProC# 4.0\code\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.pdb
+K:\ProC# 4.0\code\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.exe
+K:\ProC# 4.0\code\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.exe.config
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.exe.CodeAnalysisLog.xml
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.exe.lastcodeanalysissucceeded
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.exe
+C:\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.exe
+C:\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\bin\Debug\TuplesSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\TuplesSample\obj\x86\Debug\TuplesSample.csprojResolveAssemblyReference.cache

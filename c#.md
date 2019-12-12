@@ -107,3 +107,61 @@ object是System.Object的假名;
 [实现继承]
 override:显示声明重写一个函数;
 new:隐藏同名方法;
+[base]
+base.方法名:可以在派生类中调用基类的方法;
+[abstract]关键字声明抽象类或抽象接口;
+含有抽象方法的类就是抽象类;
+抽象类不能实例化,抽象函数不能直接实现;
+[sealed]
+1.对于类表示不能继承该类;
+2.对于方法表示不能重写该方法,基类中需要使用override修饰;
+[派生的接口]
+继承接口必须实现接口中定义的所有方法;
+<泛型>
+定义:public class someclass<T>{}
+[List/ArrayList]
+ArrayList存储对象,参数类型为引用类型;可以往集合添加整数,字符串,和其他类型的对象;
+List的参数为泛型,不需要进行装箱和拆箱操作;只能保存一种类型的对象;
+[代码的扩展]
+引用类型共享同一个本地类的所有相同的实现代码;
+每个值类型都要实例化一个新类;
+[default]
+将null赋给引用类型,将0赋予值类型;
+[where]
+泛型约束:where T:IFoo,泛型必须实现IFoo接口;
+[继承]
+派生类与基类的泛型类型必须一致,或者指定基类的类型;
+[静态成员]
+只能在类的一个实例中共享;
+[协变和抗变]
+out关键字标注泛型接口为协变的,泛型只能作为返回值,可以向上转型;
+in关键字标注泛型接口为逆变的,泛型只能作为输入参数,可以向下转型;
+<可空类型>
+Nullable<int>x1;int? x2;
+x1和x2都是可空的int类型;
+int y =4; int? x = y;非可空类型转换为可空类型;
+<数组>
+数组的大小固定,集合包含元素的个数是动态的;
+[ArraySegment]
+new ArraySegment<int>(array,0,3)获取array的从0开始的三个元素;
+[yield]
+yield return返回集合的一个元素;
+yield break停止迭代;
+迭代块返回IEnumerator接口;
+[Tuple]
+Tuple.Create<int, int>(1, 2)创建Tuple;
+Tuple.Item1,Tuple.Item2访问Tuple元素;
+<运算符和类型强制转换>
+[checked]
+checked执行溢出检查;
+unchecked取消检查;
+[is]
+intI is object:检查对象为给类型或该类型的派生类;
+[as]
+o1 as string:o1强制转换成string类型;只能用于引用类型;
+[typeof]
+返回一个表示特定类型的System.Type对象;
+[装箱和拆箱]
+装箱:值类型转化成引用类型;
+只能对以前装箱的变量进行拆箱;
+

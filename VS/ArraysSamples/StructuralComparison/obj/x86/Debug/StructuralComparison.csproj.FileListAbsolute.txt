@@ -1,0 +1,29 @@
+C:\Books\Pro C# 4.0\code\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.exe
+C:\Books\Pro C# 4.0\code\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.pdb
+C:\Books\Pro C# 4.0\code\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.exe
+C:\Books\Pro C# 4.0\code\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.pdb
+K:\ProC# 4.0\code\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.exe
+K:\ProC# 4.0\code\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.pdb
+K:\ProC# 4.0\code\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.exe
+K:\ProC# 4.0\code\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.exe.config
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.exe.CodeAnalysisLog.xml
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.exe.lastcodeanalysissucceeded
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Arrays\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.pdb
+I:\work\study\VS\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.exe.config
+I:\work\study\VS\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.exe
+I:\work\study\VS\ArraysSamples\StructuralComparison\bin\Debug\StructuralComparison.pdb
+I:\work\study\VS\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.csprojAssemblyReference.cache
+I:\work\study\VS\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.exe
+I:\work\study\VS\ArraysSamples\StructuralComparison\obj\x86\Debug\StructuralComparison.pdb
