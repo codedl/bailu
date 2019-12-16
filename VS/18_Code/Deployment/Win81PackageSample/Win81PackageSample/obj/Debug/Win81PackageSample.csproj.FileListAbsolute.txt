@@ -1,0 +1,6 @@
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Win81PackageSample\Win81PackageSample\bin\Debug\Win81PackageSample.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Win81PackageSample\Win81PackageSample\bin\Debug\Win81PackageSample.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Win81PackageSample\Win81PackageSample\bin\Debug\Win81PackageSample.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Win81PackageSample\Win81PackageSample\obj\Debug\Win81PackageSample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Win81PackageSample\Win81PackageSample\obj\Debug\Win81PackageSample.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Win81PackageSample\Win81PackageSample\obj\Debug\Win81PackageSample.pdb

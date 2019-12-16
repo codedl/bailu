@@ -1,0 +1,10 @@
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LookupSample\bin\Debug\LookupSample.exe.config
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LookupSample\bin\Debug\LookupSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LookupSample\bin\Debug\LookupSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LookupSample\obj\x86\Debug\LookupSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LookupSample\obj\x86\Debug\LookupSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LookupSample\bin\Debug\LookupSample.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LookupSample\bin\Debug\LookupSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LookupSample\bin\Debug\LookupSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LookupSample\obj\x86\Debug\LookupSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LookupSample\obj\x86\Debug\LookupSample.pdb

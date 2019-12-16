@@ -1,0 +1,6 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\Foundations\bin\Debug\Foundations.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\Foundations\bin\Debug\Foundations.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\Foundations\bin\Debug\Foundations.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\Foundations\obj\Debug\Foundations.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\Foundations\obj\Debug\Foundations.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\Foundations\obj\Debug\Foundations.pdb

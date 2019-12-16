@@ -1,0 +1,38 @@
+C:\Books\Pro C# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\bin\Debug\AnonymousMethods.Contracts.dll
+C:\Books\Pro C# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\bin\Debug\AnonymousMethods.Contracts.pdb
+C:\Books\Pro C# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\bin\Debug\AnonymousMethods.exe
+C:\Books\Pro C# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\bin\Debug\AnonymousMethods.pdb
+C:\Books\Pro C# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\obj\x86\Debug\AnonymousMethods.exe
+C:\Books\Pro C# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\obj\x86\Debug\AnonymousMethods.pdb
+K:\ProC# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\bin\Debug\AnonymousMethods.Contracts.dll
+K:\ProC# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\bin\Debug\AnonymousMethods.Contracts.pdb
+K:\ProC# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\bin\Debug\AnonymousMethods.exe
+K:\ProC# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\bin\Debug\AnonymousMethods.pdb
+K:\ProC# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\obj\x86\Debug\AnonymousMethods.exe
+K:\ProC# 4.0\code\DelegatesAndEvents\DelegatesAndEventsSamples\AnonymousMethods\obj\x86\Debug\AnonymousMethods.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\obj\x86\Debug\AnonymousMethods.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\obj\x86\Debug\AnonymousMethods.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\obj\x86\Debug\AnonymousMethods.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.exe.config
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.exe.CodeAnalysisLog.xml
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.exe.lastcodeanalysissucceeded
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\obj\x86\Debug\AnonymousMethods.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\DelegatesAndEvents\AnonymousMethods\obj\x86\Debug\AnonymousMethods.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\AnonymousMethods\obj\x86\Debug\AnonymousMethods.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\AnonymousMethods\obj\x86\Debug\AnonymousMethods.pdb
+I:\work\study\VS\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.exe.config
+I:\work\study\VS\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.exe
+I:\work\study\VS\DelegatesAndEvents\AnonymousMethods\bin\Debug\AnonymousMethods.pdb
+I:\work\study\VS\DelegatesAndEvents\AnonymousMethods\obj\x86\Debug\AnonymousMethods.csprojAssemblyReference.cache
+I:\work\study\VS\DelegatesAndEvents\AnonymousMethods\obj\x86\Debug\AnonymousMethods.exe
+I:\work\study\VS\DelegatesAndEvents\AnonymousMethods\obj\x86\Debug\AnonymousMethods.pdb

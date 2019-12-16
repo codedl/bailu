@@ -1,0 +1,68 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\MainWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\MainWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\App.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns_MarkupCompile.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\bin\Debug\AsyncLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\bin\Debug\AsyncLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\Wrox.ProCSharp.Async.Properties.Resources.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\Styles.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\App.baml
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.exe
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.pdb
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\bin\Debug\AsyncLib.dll
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\bin\Debug\AsyncLib.pdb
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\MainWindow.baml
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\Styles.baml
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\App.baml
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\MainWindow.g.cs
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\App.g.cs
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns_MarkupCompile.cache
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.g.resources
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\Wrox.ProCSharp.Async.Properties.Resources.resources
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.csproj.GenerateResource.Cache
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.exe
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\bin\Debug\AsyncLib.dll
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\bin\Debug\AsyncLib.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\MainWindow.baml
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\Styles.baml
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\App.baml
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\MainWindow.g.cs
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\App.g.cs
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns_MarkupCompile.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.g.resources
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\Wrox.ProCSharp.Async.Properties.Resources.resources
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.csproj.GenerateResource.Cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\bin\Debug\AsyncPatterns.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\bin\Debug\AsyncLib.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\bin\Debug\AsyncLib.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\MainWindow.baml
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\Styles.baml
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\App.baml
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\MainWindow.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\App.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns_MarkupCompile.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.g.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\Wrox.ProCSharp.Async.Properties.Resources.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.csproj.GenerateResource.Cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\AsyncPatterns\obj\Debug\AsyncPatterns.pdb

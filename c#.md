@@ -149,6 +149,7 @@ yield return返回集合的一个元素;
 yield break停止迭代;
 迭代块返回IEnumerator接口;
 [Tuple]
+Tuple可以用来存储不用类型的元素;
 Tuple.Create<int, int>(1, 2)创建Tuple;
 Tuple.Item1,Tuple.Item2访问Tuple元素;
 <运算符和类型强制转换>
@@ -164,4 +165,40 @@ o1 as string:o1强制转换成string类型;只能用于引用类型;
 [装箱和拆箱]
 装箱:值类型转化成引用类型;
 只能对以前装箱的变量进行拆箱;
-
+[类之间的类型强制转换]
+1.具有继承关系的类不能进行强制转换;
+2.强制转换只能在类的内部进行定义;
+3.两个类之间的强制转换只能在一个类中定义,否则编译器无法识别需要调用哪个;
+[基类到派生类的转换]
+基类到派生类的转换是杜绝的,可以定义一个以基类实例为参数的派生类构造函数;
+<委托,正则表达式和事件>
+[定义]
+private delegate string GetAString();
+GetAString method = x.ToString;
+x.ToString返回函数地址;x.ToString()返回字符串;
+<泛型委托>
+Action<in T>:定义带一个参数的方法;
+Func<in T1, out T2>:定义带一个参数和一个返回值的方法;
+[多播委托]
+Action<double> action = method1;action += method2;
+调用action会依次调用method1,method2;
+[lambda表示式]
+格式:Func<double, double> f= (d) => {};
+=>:左边为参数,右边为参数的操作方法;
+[事件]
+第一步:public event EventHandler<T> EventExam相当于
+public delegate void EventHandler<TEventArgs>(object sender, TEventArgs e):where e:EventArgs;
+第二步:定义事件侦听器,即定义一个可以赋值给EventExam的方法;
+第三步:连接事件发布程序和订阅器,即将方法赋值给委托;
+[弱事件]
+垃圾回收器不会清空侦听器占用的内存;可以使用弱事件来管理事件和侦听器之间的连接;
+创建弱事件的步骤:
+1.定义WeakEventManager的派生类;
+2.重写AddListener()和RemoveListener(),调用基类中的ProtectedAddListener()和
+ProtectedRemoveListener();侦听器使用这些方法连接和断开事件;
+3.重写StartListening()和StopListening(),添加第一个侦听器和删除最后一个监听器时自动调用;
+4.重写DeliverEvent()把事件传递给侦听器;
+5.在侦听器中实现IWeakEventListener.ReceiveWeakEvent方法;
+[泛型弱事件管理器]
+var t1 = new class1();var t2 = new class2();
+WeakEventManager<class1, class2>.AddHandler(t1, "name", t2.method)

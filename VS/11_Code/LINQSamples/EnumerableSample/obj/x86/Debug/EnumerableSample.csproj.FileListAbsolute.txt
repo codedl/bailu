@@ -1,0 +1,16 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\EnumerableSample\bin\Debug\EnumerableSample.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\EnumerableSample\bin\Debug\EnumerableSample.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\EnumerableSample\bin\Debug\EnumerableSample.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\EnumerableSample\bin\Debug\DataLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\EnumerableSample\bin\Debug\DataLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\EnumerableSample\obj\x86\Debug\EnumerableSample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\EnumerableSample\obj\x86\Debug\EnumerableSample.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\EnumerableSample\obj\x86\Debug\EnumerableSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\EnumerableSample\bin\Debug\EnumerableSample.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\EnumerableSample\bin\Debug\EnumerableSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\EnumerableSample\bin\Debug\EnumerableSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\EnumerableSample\bin\Debug\DataLib.dll
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\EnumerableSample\bin\Debug\DataLib.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\EnumerableSample\obj\x86\Debug\EnumerableSample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\EnumerableSample\obj\x86\Debug\EnumerableSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\EnumerableSample\obj\x86\Debug\EnumerableSample.pdb

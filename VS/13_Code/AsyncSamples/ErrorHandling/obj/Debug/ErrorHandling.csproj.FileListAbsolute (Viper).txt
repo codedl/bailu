@@ -1,0 +1,6 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.pdb

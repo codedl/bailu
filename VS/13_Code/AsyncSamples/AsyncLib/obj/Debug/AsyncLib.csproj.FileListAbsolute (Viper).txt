@@ -1,0 +1,5 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncLib\bin\Debug\AsyncLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncLib\bin\Debug\AsyncLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncLib\obj\Debug\AsyncLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncLib\obj\Debug\AsyncLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\AsyncLib\obj\Debug\AsyncLib.csprojResolveAssemblyReference.cache

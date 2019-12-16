@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>SUMMITDAY</Machine>
+    <WindowsUser>Christian</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>413cfa10-138c-4622-8328-b2d24635afd5</PackageIdentityName>
+    <RegisteredManifestChecksum>A497E1B4D3ED2DDCC9E4A5B84219CF9C4B2C980302F447FFFD1E79E4F1ECC564</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>413cfa10-138c-4622-8328-b2d24635afd5_1.0.0.0_neutral__a9gjcazcjyqtc</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>413cfa10-138c-4622-8328-b2d24635afd5_a9gjcazcjyqtc!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>413cfa10-138c-4622-8328-b2d24635afd5</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Christian</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-09-13T20:09:39.269</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\bin\Debug\WinStoreSplitApp.exe">
+      <PackagePath>WinStoreSplitApp.exe</PackagePath>
+      <Modified>2013-09-13T20:09:38.879</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\DataModel\SampleData.json">
+      <PackagePath>DataModel\SampleData.json</PackagePath>
+      <Modified>2013-09-13T20:09:24.265</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\Assets\Logo.scale-100.png">
+      <PackagePath>Assets\Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\Assets\SmallLogo.scale-100.png">
+      <PackagePath>Assets\SmallLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\Assets\SplashScreen.scale-100.png">
+      <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\Assets\StoreLogo.scale-100.png">
+      <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\Assets\LightGray.png">
+      <PackagePath>Assets\LightGray.png</PackagePath>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\Assets\MediumGray.png">
+      <PackagePath>Assets\MediumGray.png</PackagePath>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\Assets\DarkGray.png">
+      <PackagePath>Assets\DarkGray.png</PackagePath>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\bin\Debug\App.xbf">
+      <PackagePath>App.xbf</PackagePath>
+      <Modified>2013-09-13T20:09:38.535</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\bin\Debug\ItemsPage.xbf">
+      <PackagePath>ItemsPage.xbf</PackagePath>
+      <Modified>2013-09-13T20:09:38.535</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\bin\Debug\SplitPage.xbf">
+      <PackagePath>SplitPage.xbf</PackagePath>
+      <Modified>2013-09-13T20:09:38.535</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2013-09-13T20:09:39.066</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

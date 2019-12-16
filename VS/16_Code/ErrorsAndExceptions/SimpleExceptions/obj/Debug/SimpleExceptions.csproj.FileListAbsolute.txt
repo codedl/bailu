@@ -1,0 +1,17 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SimpleExceptions\bin\Debug\SimpleExceptions.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SimpleExceptions\bin\Debug\SimpleExceptions.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SimpleExceptions\bin\Debug\SimpleExceptions.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SimpleExceptions\obj\Debug\SimpleExceptions.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SimpleExceptions\obj\Debug\SimpleExceptions.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SimpleExceptions\obj\Debug\SimpleExceptions.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SimpleExceptions\bin\Debug\SimpleExceptions.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SimpleExceptions\bin\Debug\SimpleExceptions.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SimpleExceptions\bin\Debug\SimpleExceptions.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SimpleExceptions\obj\Debug\SimpleExceptions.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SimpleExceptions\obj\Debug\SimpleExceptions.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SimpleExceptions\obj\Debug\SimpleExceptions.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\SimpleExceptions\bin\Debug\SimpleExceptions.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\SimpleExceptions\bin\Debug\SimpleExceptions.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\SimpleExceptions\bin\Debug\SimpleExceptions.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\SimpleExceptions\obj\Debug\SimpleExceptions.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\SimpleExceptions\obj\Debug\SimpleExceptions.pdb

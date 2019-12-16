@@ -1,0 +1,5 @@
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\AppSupport\bin\Debug\AppSupport.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\AppSupport\bin\Debug\AppSupport.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\AppSupport\obj\Debug\AppSupport.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\AppSupport\obj\Debug\AppSupport.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\AppSupport\obj\Debug\AppSupport.pdb

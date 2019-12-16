@@ -1,0 +1,10 @@
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\SetSample\bin\Debug\SetSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\SetSample\bin\Debug\SetSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SetSample\bin\Debug\SetSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SetSample\bin\Debug\SetSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.pdb

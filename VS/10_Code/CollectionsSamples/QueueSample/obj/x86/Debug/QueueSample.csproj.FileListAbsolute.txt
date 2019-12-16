@@ -1,0 +1,12 @@
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\QueueSample\bin\Debug\QueueSample.exe.config
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\QueueSample\bin\Debug\QueueSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\QueueSample\bin\Debug\QueueSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\QueueSample\bin\Debug\QueueSample.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\QueueSample\bin\Debug\QueueSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\QueueSample\bin\Debug\QueueSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.pdb

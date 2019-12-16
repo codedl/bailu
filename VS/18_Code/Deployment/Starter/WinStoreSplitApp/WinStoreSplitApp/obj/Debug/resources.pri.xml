@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PriInfo>
+	<ResourceMap name="413cfa10-138c-4622-8328-b2d24635afd5" version="1.0" primary="true">
+		<Qualifiers>
+			<Scale>100</Scale>
+		</Qualifiers>
+		<ResourceMapSubtree name="Files">
+			<NamedResource name="App.xbf" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/App.xbf">
+				<Candidate type="Path">
+					<Value>App.xbf</Value>
+				</Candidate>
+			</NamedResource>
+			<NamedResource name="ItemsPage.xbf" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/ItemsPage.xbf">
+				<Candidate type="Path">
+					<Value>ItemsPage.xbf</Value>
+				</Candidate>
+			</NamedResource>
+			<NamedResource name="SplitPage.xbf" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/SplitPage.xbf">
+				<Candidate type="Path">
+					<Value>SplitPage.xbf</Value>
+				</Candidate>
+			</NamedResource>
+			<ResourceMapSubtree name="Assets">
+				<NamedResource name="DarkGray.png" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/Assets/DarkGray.png">
+					<Candidate type="Path">
+						<Value>Assets\DarkGray.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="LightGray.png" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/Assets/LightGray.png">
+					<Candidate type="Path">
+						<Value>Assets\LightGray.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Logo.png" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/Assets/Logo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>Assets\Logo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="MediumGray.png" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/Assets/MediumGray.png">
+					<Candidate type="Path">
+						<Value>Assets\MediumGray.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="SmallLogo.png" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/Assets/SmallLogo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>Assets\SmallLogo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="SplashScreen.png" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/Assets/SplashScreen.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>Assets\SplashScreen.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="StoreLogo.png" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/Assets/StoreLogo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>Assets\StoreLogo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+			</ResourceMapSubtree>
+			<ResourceMapSubtree name="DataModel">
+				<NamedResource name="SampleData.json" uri="ms-resource://413cfa10-138c-4622-8328-b2d24635afd5/Files/DataModel/SampleData.json">
+					<Candidate type="Path">
+						<Value>DataModel\SampleData.json</Value>
+					</Candidate>
+				</NamedResource>
+			</ResourceMapSubtree>
+		</ResourceMapSubtree>
+	</ResourceMap>
+</PriInfo>

@@ -1,0 +1,16 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\ExpressionTreeSample\bin\Debug\ExpressionTreeSample.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\ExpressionTreeSample\bin\Debug\ExpressionTreeSample.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\ExpressionTreeSample\bin\Debug\ExpressionTreeSample.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\ExpressionTreeSample\bin\Debug\DataLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\ExpressionTreeSample\bin\Debug\DataLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\ExpressionTreeSample\obj\x86\Debug\ExpressionTreeSample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\ExpressionTreeSample\obj\x86\Debug\ExpressionTreeSample.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\ExpressionTreeSample\obj\x86\Debug\ExpressionTreeSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\ExpressionTreeSample\bin\Debug\ExpressionTreeSample.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\ExpressionTreeSample\bin\Debug\ExpressionTreeSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\ExpressionTreeSample\bin\Debug\ExpressionTreeSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\ExpressionTreeSample\bin\Debug\DataLib.dll
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\ExpressionTreeSample\bin\Debug\DataLib.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\ExpressionTreeSample\obj\x86\Debug\ExpressionTreeSample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\ExpressionTreeSample\obj\x86\Debug\ExpressionTreeSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\ExpressionTreeSample\obj\x86\Debug\ExpressionTreeSample.pdb

@@ -1,0 +1,12 @@
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\ObservableCollectionSample\bin\Debug\ObservableCollectionSample.exe.config
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\ObservableCollectionSample\bin\Debug\ObservableCollectionSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\ObservableCollectionSample\bin\Debug\ObservableCollectionSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ObservableCollectionSample\bin\Debug\ObservableCollectionSample.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ObservableCollectionSample\bin\Debug\ObservableCollectionSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ObservableCollectionSample\bin\Debug\ObservableCollectionSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.pdb

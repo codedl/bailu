@@ -1,0 +1,16 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\LINQIntro\bin\Debug\LINQIntro.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\LINQIntro\bin\Debug\LINQIntro.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\LINQIntro\bin\Debug\LINQIntro.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\LINQIntro\bin\Debug\DataLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\LINQIntro\bin\Debug\DataLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\bin\Debug\LINQIntro.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\bin\Debug\LINQIntro.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\bin\Debug\LINQIntro.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\bin\Debug\DataLib.dll
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\bin\Debug\DataLib.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.pdb

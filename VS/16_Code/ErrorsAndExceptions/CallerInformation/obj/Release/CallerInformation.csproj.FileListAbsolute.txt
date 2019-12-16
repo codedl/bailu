@@ -1,0 +1,5 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\CallerInformation\bin\Release\CallerInformation.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\CallerInformation\bin\Release\CallerInformation.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\CallerInformation\bin\Release\CallerInformation.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\CallerInformation\obj\Release\CallerInformation.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\CallerInformation\obj\Release\CallerInformation.pdb

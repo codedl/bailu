@@ -1,0 +1,9 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\DataLib\bin\Debug\DataLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\DataLib\bin\Debug\DataLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\DataLib\obj\x86\Debug\DataLib.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\DataLib\obj\x86\Debug\DataLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\LINQ\LINQSamples\DataLib\obj\x86\Debug\DataLib.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\DataLib\bin\Debug\DataLib.dll
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\DataLib\bin\Debug\DataLib.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\DataLib\obj\x86\Debug\DataLib.dll
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\DataLib\obj\x86\Debug\DataLib.pdb

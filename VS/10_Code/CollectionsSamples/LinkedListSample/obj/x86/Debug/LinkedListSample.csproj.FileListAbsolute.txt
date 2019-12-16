@@ -1,0 +1,12 @@
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LinkedListSample\bin\Debug\LinkedListSample.exe.config
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LinkedListSample\bin\Debug\LinkedListSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LinkedListSample\bin\Debug\LinkedListSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LinkedListSample\obj\x86\Debug\LinkedListSample.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LinkedListSample\obj\x86\Debug\LinkedListSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\LinkedListSample\obj\x86\Debug\LinkedListSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LinkedListSample\bin\Debug\LinkedListSample.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LinkedListSample\bin\Debug\LinkedListSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LinkedListSample\bin\Debug\LinkedListSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LinkedListSample\obj\x86\Debug\LinkedListSample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LinkedListSample\obj\x86\Debug\LinkedListSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LinkedListSample\obj\x86\Debug\LinkedListSample.pdb

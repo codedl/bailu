@@ -1,0 +1,1 @@
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\WinStoreSplitApp\WinStoreSplitApp\WinStoreSplitApp.csproj;neutral

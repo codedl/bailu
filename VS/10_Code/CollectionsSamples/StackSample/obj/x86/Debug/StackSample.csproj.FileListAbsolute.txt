@@ -1,0 +1,10 @@
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\StackSample\bin\Debug\StackSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\StackSample\bin\Debug\StackSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\StackSample\obj\x86\Debug\StackSample.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\StackSample\obj\x86\Debug\StackSample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\StackSample\obj\x86\Debug\StackSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\StackSample\bin\Debug\StackSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\StackSample\bin\Debug\StackSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\StackSample\obj\x86\Debug\StackSample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\StackSample\obj\x86\Debug\StackSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\StackSample\obj\x86\Debug\StackSample.pdb

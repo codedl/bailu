@@ -1,0 +1,30 @@
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\bin\Debug\ClientWPF.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\App.g.cs
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF_MarkupCompile.cache
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\bin\Debug\ClientWPF.exe
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\bin\Debug\ClientWPF.pdb
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\bin\Debug\AppSupport.dll
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\bin\Debug\AppSupport.pdb
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\MainWindow.baml
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\MainWindow.g.cs
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.g.resources
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.Properties.Resources.resources
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.csproj.GenerateResource.Cache
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.exe
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\bin\Debug\ClientWPF.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\bin\Debug\ClientWPF.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\bin\Debug\ClientWPF.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\bin\Debug\AppSupport.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\bin\Debug\AppSupport.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\MainWindow.baml
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\MainWindow.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\App.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF_MarkupCompile.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.g.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.Properties.Resources.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Deployment\Starter\ClientWPF\ClientWPF\obj\Debug\ClientWPF.csproj.GenerateResource.Cache

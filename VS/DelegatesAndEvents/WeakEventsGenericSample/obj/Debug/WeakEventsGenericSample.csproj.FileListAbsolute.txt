@@ -1,0 +1,11 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\DelegatesAndEvents\WeakEventsGenericSample\bin\Debug\WeakEventsGenericSample.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\DelegatesAndEvents\WeakEventsGenericSample\bin\Debug\WeakEventsGenericSample.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\DelegatesAndEvents\WeakEventsGenericSample\bin\Debug\WeakEventsGenericSample.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\DelegatesAndEvents\WeakEventsGenericSample\obj\Debug\WeakEventsGenericSample.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\DelegatesAndEvents\WeakEventsGenericSample\obj\Debug\WeakEventsGenericSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\WeakEventsGenericSample\bin\Debug\WeakEventsGenericSample.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\WeakEventsGenericSample\obj\Debug\WeakEventsGenericSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\WeakEventsGenericSample\obj\Debug\WeakEventsGenericSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\WeakEventsGenericSample\bin\Debug\WeakEventsGenericSample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\WeakEventsGenericSample\bin\Debug\WeakEventsGenericSample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\DelegatesAndEvents\WeakEventsGenericSample\obj\Debug\WeakEventsGenericSample.csprojResolveAssemblyReference.cache

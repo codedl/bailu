@@ -1,0 +1,15 @@
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\bin\Release\ClientWPF.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\bin\Release\ClientWPF.exe
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\bin\Release\ClientWPF.pdb
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\bin\Release\AppSupport.dll
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\bin\Release\AppSupport.pdb
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\ClientWPF.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\MainWindow.baml
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\MainWindow.g.cs
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\App.g.cs
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\ClientWPF_MarkupCompile.cache
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\ClientWPF.g.resources
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\ClientWPF.Properties.Resources.resources
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\ClientWPF.csproj.GenerateResource.Cache
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\ClientWPF.exe
+C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\ClientWPF.pdb

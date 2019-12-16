@@ -1,0 +1,12 @@
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\BitArraySample\bin\Debug\BitArraySample.exe.config
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\BitArraySample\bin\Debug\BitArraySample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\BitArraySample\bin\Debug\BitArraySample.pdb
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.exe
+C:\Mesh\Pro C# 5.0\newcode\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\BitArraySample\bin\Debug\BitArraySample.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\BitArraySample\bin\Debug\BitArraySample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\BitArraySample\bin\Debug\BitArraySample.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.pdb

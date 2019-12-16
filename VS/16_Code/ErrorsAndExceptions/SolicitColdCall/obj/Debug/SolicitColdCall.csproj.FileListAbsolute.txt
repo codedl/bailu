@@ -1,0 +1,17 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SolicitColdCall\obj\Debug\SolicitColdCall.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SolicitColdCall\bin\Debug\SolicitColdCall.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SolicitColdCall\bin\Debug\SolicitColdCall.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SolicitColdCall\bin\Debug\SolicitColdCall.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SolicitColdCall\obj\Debug\SolicitColdCall.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\ErrorsAndExceptions\ErrorsAndExceptions\SolicitColdCall\obj\Debug\SolicitColdCall.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SolicitColdCall\bin\Debug\SolicitColdCall.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SolicitColdCall\bin\Debug\SolicitColdCall.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SolicitColdCall\bin\Debug\SolicitColdCall.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SolicitColdCall\obj\Debug\SolicitColdCall.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SolicitColdCall\obj\Debug\SolicitColdCall.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\ErrorsAndExceptions\SolicitColdCall\obj\Debug\SolicitColdCall.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\SolicitColdCall\bin\Debug\SolicitColdCall.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\SolicitColdCall\bin\Debug\SolicitColdCall.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\SolicitColdCall\bin\Debug\SolicitColdCall.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\SolicitColdCall\obj\Debug\SolicitColdCall.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\SolicitColdCall\obj\Debug\SolicitColdCall.pdb

@@ -1,0 +1,22 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.pdb
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.pdb
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.exe
+C:\Mesh\Pro C# 5.0\newcode\Async\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe.config
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.pdb
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.csprojResolveAssemblyReference.cache
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.exe
+C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.pdb
