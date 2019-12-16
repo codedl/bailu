@@ -8,3 +8,9 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\DictionarySa
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\DictionarySample\bin\Debug\DictionarySample.pdb
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\DictionarySample\obj\x86\Debug\DictionarySample.exe
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\DictionarySample\obj\x86\Debug\DictionarySample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\DictionarySample\bin\Debug\DictionarySample.exe.config
+I:\work\study\VS\10_Code\CollectionsSamples\DictionarySample\bin\Debug\DictionarySample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\DictionarySample\bin\Debug\DictionarySample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\DictionarySample\obj\x86\Debug\DictionarySample.csprojAssemblyReference.cache
+I:\work\study\VS\10_Code\CollectionsSamples\DictionarySample\obj\x86\Debug\DictionarySample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\DictionarySample\obj\x86\Debug\DictionarySample.pdb

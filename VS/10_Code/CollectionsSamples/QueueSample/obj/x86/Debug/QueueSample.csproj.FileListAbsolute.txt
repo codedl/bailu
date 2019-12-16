@@ -10,3 +10,9 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\QueueSample\
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.csprojResolveAssemblyReference.cache
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.exe
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\QueueSample\bin\Debug\QueueSample.exe.config
+I:\work\study\VS\10_Code\CollectionsSamples\QueueSample\bin\Debug\QueueSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\QueueSample\bin\Debug\QueueSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.csprojAssemblyReference.cache
+I:\work\study\VS\10_Code\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\QueueSample\obj\x86\Debug\QueueSample.pdb

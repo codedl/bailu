@@ -202,3 +202,28 @@ ProtectedRemoveListener();侦听器使用这些方法连接和断开事件;
 [泛型弱事件管理器]
 var t1 = new class1();var t2 = new class2();
 WeakEventManager<class1, class2>.AddHandler(t1, "name", t2.method)
+<字符串和正则表示式>
+\b:表示字的边界;
+@:\不会被解释为转义序列;
+\S:表示任何不是空白字符的字符;
+*:限定符,前面的字符可以重复任意次
+\S*:任意个不是空白字符的字符;
+[]:请求匹配包含这些字符;
+ma[n|p]:表示man或map;
+[a-z]:表示小写字母;
+[0-9]+:表示数字,+表示至少要有一个可以包含多个;
+<集合>
+[List<T>]
+FindIndex:
+1.定义一个类,在类中实现方法bool func(T t);
+2.将方法作为参数传递给FindIndex;
+Find:
+arrays.Find(r => r.word == "word"),在arrays中查找word单词的对象;
+Sort:
+1.Sort()不带参数需要在类的内部实现IComparable接口;
+2.Sort(ICompare<T>):可以向Sort传递实现了ICompare接口的对象;
+ConvertAll:
+public sealed delegate Toutput ConvertAll<Tinput,Toutput>(Tinput from)
+定义接受Tinput为参数,Toutput为返回值的委托;
+[队列和栈]
+Queue为FIFO的队列,Stack为LIFO的栈;

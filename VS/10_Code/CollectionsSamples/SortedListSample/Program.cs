@@ -40,7 +40,7 @@ namespace Wrox.ProCSharp.Collections
         }
       }
 
-
+            Console.Read();
 
     }
   }

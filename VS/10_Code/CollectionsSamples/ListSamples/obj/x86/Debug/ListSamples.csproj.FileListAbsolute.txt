@@ -10,3 +10,9 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ListSamples\
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ListSamples\bin\Debug\ListSamples.exe
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ListSamples\bin\Debug\ListSamples.pdb
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ListSamples\obj\x86\Debug\ListSamples.csprojResolveAssemblyReference.cache
+I:\work\study\VS\10_Code\CollectionsSamples\ListSamples\bin\Debug\ListSamples.exe.config
+I:\work\study\VS\10_Code\CollectionsSamples\ListSamples\bin\Debug\ListSamples.exe
+I:\work\study\VS\10_Code\CollectionsSamples\ListSamples\bin\Debug\ListSamples.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\ListSamples\obj\x86\Debug\ListSamples.csprojAssemblyReference.cache
+I:\work\study\VS\10_Code\CollectionsSamples\ListSamples\obj\x86\Debug\ListSamples.exe
+I:\work\study\VS\10_Code\CollectionsSamples\ListSamples\obj\x86\Debug\ListSamples.pdb

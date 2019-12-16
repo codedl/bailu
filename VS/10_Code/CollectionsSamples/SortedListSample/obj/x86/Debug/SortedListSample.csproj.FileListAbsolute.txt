@@ -6,3 +6,9 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SortedListSa
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SortedListSample\bin\Debug\SortedListSample.pdb
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SortedListSample\obj\x86\Debug\SortedListSample.exe
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SortedListSample\obj\x86\Debug\SortedListSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\SortedListSample\bin\Debug\SortedListSample.exe.config
+I:\work\study\VS\10_Code\CollectionsSamples\SortedListSample\bin\Debug\SortedListSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\SortedListSample\bin\Debug\SortedListSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\SortedListSample\obj\x86\Debug\SortedListSample.csprojAssemblyReference.cache
+I:\work\study\VS\10_Code\CollectionsSamples\SortedListSample\obj\x86\Debug\SortedListSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\SortedListSample\obj\x86\Debug\SortedListSample.pdb

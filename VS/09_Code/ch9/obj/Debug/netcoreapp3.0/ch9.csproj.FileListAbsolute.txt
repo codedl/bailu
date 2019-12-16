@@ -1,0 +1,11 @@
+I:\work\study\VS\09_Code\ch9\bin\Debug\netcoreapp3.0\ch9.exe
+I:\work\study\VS\09_Code\ch9\bin\Debug\netcoreapp3.0\ch9.deps.json
+I:\work\study\VS\09_Code\ch9\bin\Debug\netcoreapp3.0\ch9.runtimeconfig.json
+I:\work\study\VS\09_Code\ch9\bin\Debug\netcoreapp3.0\ch9.runtimeconfig.dev.json
+I:\work\study\VS\09_Code\ch9\bin\Debug\netcoreapp3.0\ch9.dll
+I:\work\study\VS\09_Code\ch9\bin\Debug\netcoreapp3.0\ch9.pdb
+I:\work\study\VS\09_Code\ch9\obj\Debug\netcoreapp3.0\ch9.csprojAssemblyReference.cache
+I:\work\study\VS\09_Code\ch9\obj\Debug\netcoreapp3.0\ch9.AssemblyInfoInputs.cache
+I:\work\study\VS\09_Code\ch9\obj\Debug\netcoreapp3.0\ch9.AssemblyInfo.cs
+I:\work\study\VS\09_Code\ch9\obj\Debug\netcoreapp3.0\ch9.dll
+I:\work\study\VS\09_Code\ch9\obj\Debug\netcoreapp3.0\ch9.pdb
