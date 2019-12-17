@@ -21,7 +21,7 @@ namespace Wrox.ProCSharp.Collections
       {
         Console.WriteLine(r);
       }
-
+            Console.ReadLine();
     }
   }
 }

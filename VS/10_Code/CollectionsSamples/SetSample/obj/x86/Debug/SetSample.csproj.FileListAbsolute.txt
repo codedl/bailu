@@ -8,3 +8,9 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SetSample\bi
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.csprojResolveAssemblyReference.cache
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.exe
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\SetSample\bin\Debug\SetSample.exe.config
+I:\work\study\VS\10_Code\CollectionsSamples\SetSample\bin\Debug\SetSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\SetSample\bin\Debug\SetSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.csprojAssemblyReference.cache
+I:\work\study\VS\10_Code\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\SetSample\obj\x86\Debug\SetSample.pdb

@@ -7,3 +7,8 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\DataLib\bin\Debug\D
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\DataLib\bin\Debug\DataLib.pdb
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\DataLib\obj\x86\Debug\DataLib.dll
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\DataLib\obj\x86\Debug\DataLib.pdb
+I:\work\study\VS\11_Code\LINQSamples\DataLib\bin\Debug\DataLib.dll
+I:\work\study\VS\11_Code\LINQSamples\DataLib\bin\Debug\DataLib.pdb
+I:\work\study\VS\11_Code\LINQSamples\DataLib\obj\x86\Debug\DataLib.csprojAssemblyReference.cache
+I:\work\study\VS\11_Code\LINQSamples\DataLib\obj\x86\Debug\DataLib.dll
+I:\work\study\VS\11_Code\LINQSamples\DataLib\obj\x86\Debug\DataLib.pdb

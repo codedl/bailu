@@ -1,0 +1,6 @@
+I:\work\study\VS\12_Code\Dynamic\bin\Debug\Dynamic.exe.config
+I:\work\study\VS\12_Code\Dynamic\bin\Debug\Dynamic.exe
+I:\work\study\VS\12_Code\Dynamic\bin\Debug\Dynamic.pdb
+I:\work\study\VS\12_Code\Dynamic\obj\x86\Debug\Dynamic.csprojAssemblyReference.cache
+I:\work\study\VS\12_Code\Dynamic\obj\x86\Debug\Dynamic.exe
+I:\work\study\VS\12_Code\Dynamic\obj\x86\Debug\Dynamic.pdb

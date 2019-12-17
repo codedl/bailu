@@ -14,3 +14,12 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\bin\Debug
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.csprojResolveAssemblyReference.cache
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.exe
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.pdb
+I:\work\study\VS\11_Code\LINQSamples\LINQIntro\bin\Debug\LINQIntro.exe.config
+I:\work\study\VS\11_Code\LINQSamples\LINQIntro\bin\Debug\LINQIntro.exe
+I:\work\study\VS\11_Code\LINQSamples\LINQIntro\bin\Debug\LINQIntro.pdb
+I:\work\study\VS\11_Code\LINQSamples\LINQIntro\bin\Debug\DataLib.dll
+I:\work\study\VS\11_Code\LINQSamples\LINQIntro\bin\Debug\DataLib.pdb
+I:\work\study\VS\11_Code\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.csprojAssemblyReference.cache
+I:\work\study\VS\11_Code\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.csproj.CopyComplete
+I:\work\study\VS\11_Code\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.exe
+I:\work\study\VS\11_Code\LINQSamples\LINQIntro\obj\x86\Debug\LINQIntro.pdb

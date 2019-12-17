@@ -1,0 +1,6 @@
+I:\work\study\VS\12_Code\ErrorExample\bin\Debug\ErrorExample.exe.config
+I:\work\study\VS\12_Code\ErrorExample\bin\Debug\ErrorExample.exe
+I:\work\study\VS\12_Code\ErrorExample\bin\Debug\ErrorExample.pdb
+I:\work\study\VS\12_Code\ErrorExample\obj\x86\Debug\ErrorExample.csprojAssemblyReference.cache
+I:\work\study\VS\12_Code\ErrorExample\obj\x86\Debug\ErrorExample.exe
+I:\work\study\VS\12_Code\ErrorExample\obj\x86\Debug\ErrorExample.pdb

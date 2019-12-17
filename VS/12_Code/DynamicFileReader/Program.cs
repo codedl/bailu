@@ -35,6 +35,7 @@ namespace DynamicFileReader
             var fileStream = OpenFile(fileName);
             if(fileStream != null)
             {
+                //从文件中读取一行内容
                 string[] headerLine = fileStream.ReadLine().Split(',');
                 while (fileStream.Peek() > 0)
                 {
@@ -42,6 +43,7 @@ namespace DynamicFileReader
                     dynamic dynamicEntity = new ExpandoObject();
                     for(int i=0;i<headerLine.Length;i++)
                     {
+                        //将文件第一行对应的键和接下来行对应的值加入字典
                         ((IDictionary<string,object>)dynamicEntity).Add(headerLine[i],dataLine[i]);
                     }
                     retList.Add(dynamicEntity);

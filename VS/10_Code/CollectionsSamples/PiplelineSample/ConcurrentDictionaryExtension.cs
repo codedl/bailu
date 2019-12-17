@@ -10,7 +10,7 @@ namespace Wrox.ProCSharp.Collections
       while (!success)
       {
         int value;
-        if (dict.TryGetValue(key, out value))
+        if (dict.TryGetValue(key, out value))//检查单词在词典中是否存在
         {
           if (dict.TryUpdate(key, value + 1, value))
           {

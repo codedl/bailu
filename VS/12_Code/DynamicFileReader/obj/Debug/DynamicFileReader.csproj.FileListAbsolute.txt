@@ -1,0 +1,7 @@
+I:\work\study\VS\12_Code\DynamicFileReader\bin\Debug\EmployeeList.txt
+I:\work\study\VS\12_Code\DynamicFileReader\bin\Debug\DynamicFileReader.exe.config
+I:\work\study\VS\12_Code\DynamicFileReader\bin\Debug\DynamicFileReader.exe
+I:\work\study\VS\12_Code\DynamicFileReader\bin\Debug\DynamicFileReader.pdb
+I:\work\study\VS\12_Code\DynamicFileReader\obj\Debug\DynamicFileReader.exe
+I:\work\study\VS\12_Code\DynamicFileReader\obj\Debug\DynamicFileReader.pdb
+I:\work\study\VS\12_Code\DynamicFileReader\obj\Debug\DynamicFileReader.csprojAssemblyReference.cache

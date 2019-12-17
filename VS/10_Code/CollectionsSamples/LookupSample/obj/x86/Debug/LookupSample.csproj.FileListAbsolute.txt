@@ -8,3 +8,8 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LookupSample
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LookupSample\bin\Debug\LookupSample.pdb
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LookupSample\obj\x86\Debug\LookupSample.exe
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\LookupSample\obj\x86\Debug\LookupSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\LookupSample\bin\Debug\LookupSample.exe.config
+I:\work\study\VS\10_Code\CollectionsSamples\LookupSample\bin\Debug\LookupSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\LookupSample\bin\Debug\LookupSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\LookupSample\obj\x86\Debug\LookupSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\LookupSample\obj\x86\Debug\LookupSample.pdb

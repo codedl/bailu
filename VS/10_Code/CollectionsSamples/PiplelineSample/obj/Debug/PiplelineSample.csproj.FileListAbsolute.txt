@@ -8,3 +8,9 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\PiplelineSam
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\PiplelineSample\bin\Debug\PiplelineSample.pdb
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\PiplelineSample\obj\Debug\PiplelineSample.exe
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\PiplelineSample\obj\Debug\PiplelineSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\PiplelineSample\bin\Debug\PiplelineSample.exe.config
+I:\work\study\VS\10_Code\CollectionsSamples\PiplelineSample\bin\Debug\PiplelineSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\PiplelineSample\bin\Debug\PiplelineSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\PiplelineSample\obj\Debug\PiplelineSample.csprojAssemblyReference.cache
+I:\work\study\VS\10_Code\CollectionsSamples\PiplelineSample\obj\Debug\PiplelineSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\PiplelineSample\obj\Debug\PiplelineSample.pdb

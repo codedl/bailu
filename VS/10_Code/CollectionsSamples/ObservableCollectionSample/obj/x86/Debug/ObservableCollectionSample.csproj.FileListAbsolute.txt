@@ -10,3 +10,9 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ObservableCo
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.csprojResolveAssemblyReference.cache
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.exe
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\ObservableCollectionSample\bin\Debug\ObservableCollectionSample.exe.config
+I:\work\study\VS\10_Code\CollectionsSamples\ObservableCollectionSample\bin\Debug\ObservableCollectionSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\ObservableCollectionSample\bin\Debug\ObservableCollectionSample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.csprojAssemblyReference.cache
+I:\work\study\VS\10_Code\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\ObservableCollectionSample\obj\x86\Debug\ObservableCollectionSample.pdb

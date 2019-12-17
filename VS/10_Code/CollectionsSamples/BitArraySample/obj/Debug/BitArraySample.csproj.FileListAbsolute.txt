@@ -10,3 +10,9 @@ C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\BitArraySamp
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.csprojResolveAssemblyReference.cache
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.exe
 C:\Users\Christian\SkyDrive\Pro C# 5.0\finalcode\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\BitArraySample\bin\Debug\BitArraySample.exe.config
+I:\work\study\VS\10_Code\CollectionsSamples\BitArraySample\bin\Debug\BitArraySample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\BitArraySample\bin\Debug\BitArraySample.pdb
+I:\work\study\VS\10_Code\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.csprojAssemblyReference.cache
+I:\work\study\VS\10_Code\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.exe
+I:\work\study\VS\10_Code\CollectionsSamples\BitArraySample\obj\Debug\BitArraySample.pdb

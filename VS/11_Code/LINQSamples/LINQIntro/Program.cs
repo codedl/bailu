@@ -8,19 +8,20 @@ namespace Wrox.ProCSharp.LINQ
   {
     static void Main()
     {
-      // LINQQuery();
-      // ExtensionMethods();
-      DeferredQuery();
+            LINQQuery();
+            ExtensionMethods();
+            DeferredQuery();
+            Console.Read();
     }
 
     static void DeferredQuery()
     {
       var names = new List<string> { "Nino", "Alberto", "Juan", "Mike", "Phil" };
 
-      var namesWithJ = from n in names
+      var namesWithJ = (from n in names
                        where n.StartsWith("J")
                        orderby n
-                       select n;
+                       select n).ToList();
 
       Console.WriteLine("First iteration");
       foreach (string name in namesWithJ)
