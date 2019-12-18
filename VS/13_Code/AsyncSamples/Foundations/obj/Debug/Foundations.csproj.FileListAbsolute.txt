@@ -20,3 +20,9 @@ C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\Foundations\
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\Foundations\bin\Debug\Foundations.pdb
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\Foundations\obj\Debug\Foundations.exe
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\Foundations\obj\Debug\Foundations.pdb
+I:\work\study\VS\13_Code\AsyncSamples\Foundations\bin\Debug\Foundations.exe.config
+I:\work\study\VS\13_Code\AsyncSamples\Foundations\bin\Debug\Foundations.exe
+I:\work\study\VS\13_Code\AsyncSamples\Foundations\bin\Debug\Foundations.pdb
+I:\work\study\VS\13_Code\AsyncSamples\Foundations\obj\Debug\Foundations.csprojAssemblyReference.cache
+I:\work\study\VS\13_Code\AsyncSamples\Foundations\obj\Debug\Foundations.exe
+I:\work\study\VS\13_Code\AsyncSamples\Foundations\obj\Debug\Foundations.pdb

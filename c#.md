@@ -252,6 +252,32 @@ OfType:从集合中返回某种数据;
 <动态语言扩展>
 [dynamic]定义动态类型
 <异步编程>
+await:解除线程的阻塞,完成其他任务;
+1.创建任务:定义一个方法,方法名Async后缀,Task.Run返回一个任务;
+2.调用异步方法:await关键字来调用返回任务的异步方法;
+await只能用在async修饰的方法中;
+async只能用于返回Task或void的方法;
+await只能用于返回Task的方法;
+3.任务延续:ContinueWith定义任务完成后调用的代码;
+[使用组合器]
+获取异步任务的返回Task,使用await Task.WhenAll(WhenAny)
+WhenAll所有任务完成了才返回Task;
+WhenAny其中一个任务完成
+[转换异步模式]
+使用异步模式的方法转换为基于任务的异步模式的方法;
+Factory.FromAsync进行转换;
+[错误处理]
+1.在try/catch块中使用await关键字;
+[多个异步方法]
+1.在try/catch块外定义Task,在catch中使用IsFalulted属性检查,
+使用Exception.InnerException访问异常;
+2.定义一个Task获取Task.WhenAll的返回结果,遍历Task的Exception.InnerException属性;
+[取消]
+1.创建CancellationTokenSource cts对象
+2.cts.Cancel发送取消任务的申请
+3.cts.Token当成接口参数检查是否取消任务或
+cts.Token.ThrowIfCancellationRequested主动检查任务是否被取消;
+任务被取消就会抛出异常
 
 
 

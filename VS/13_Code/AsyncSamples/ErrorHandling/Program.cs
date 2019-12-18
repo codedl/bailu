@@ -11,13 +11,13 @@ namespace ErrorHandling
   {
     static void Main(string[] args)
     {
-      // DontHandle();
-      // HandleOneError();
-      //StartTwoTasks();
-      // StartTwoTasksParallel();
-      ShowAggregatedException();
+            // DontHandle();
+            HandleOneError();
+            StartTwoTasks();
+            StartTwoTasksParallel();
+            ShowAggregatedException();
 
-      Console.ReadLine();
+            Console.ReadLine();
     }
 
     private static async void ShowAggregatedException()
@@ -25,8 +25,8 @@ namespace ErrorHandling
       Task taskResult = null;
       try
       {
-        Task t1 = ThrowAfter(2000, "first");
-        Task t2 = ThrowAfter(1000, "second");
+        Task t1 = ThrowAfter(2000, "seven");
+        Task t2 = ThrowAfter(1000, "eight");
         await (taskResult = Task.WhenAll(t1, t2));
       }
       catch (Exception ex)
@@ -45,8 +45,8 @@ namespace ErrorHandling
       Task t1 = null;
       try
       {
-        t1 = ThrowAfter(2000, "first");
-        Task t2 = ThrowAfter(1000, "second");
+        t1 = ThrowAfter(2000, "five");
+        Task t2 = ThrowAfter(1000, "six");
         await Task.WhenAll(t1, t2);
       }
       catch (Exception ex)
@@ -60,8 +60,8 @@ namespace ErrorHandling
     {
       try
       {
-        await ThrowAfter(2000, "first");
-        await ThrowAfter(1000, "second"); // the second call is not invoked because the first method throws an exception
+        await ThrowAfter(2000, "second");
+        await ThrowAfter(1000, "third"); // the second call is not invoked because the first method throws an exception
       }
       catch (Exception ex)
       {

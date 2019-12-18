@@ -14,15 +14,15 @@ namespace Foundations
     {
       var ctx = new DispatcherSynchronizationContext();
 
-      // SynchronizationContext.SetSynchronizationContext(ctx);
-      // CallerWithAsync();
-      // CallerWithContinuationTask();
-      // CallerWithAwaiter();
-      // MultipleAsyncMethods();
-      // MultipleAsyncMethodsWithCombinators1();
-      //   MultipleAsyncMethodsWithCombinators2();
-      ConvertingAsyncPattern();
-      Console.ReadLine();
+            //SynchronizationContext.SetSynchronizationContext(ctx);
+            //CallerWithAsync();
+            //CallerWithContinuationTask();
+            //CallerWithAwaiter();
+            //MultipleAsyncMethods();
+            //MultipleAsyncMethodsWithCombinators1();
+            //MultipleAsyncMethodsWithCombinators2();
+            ConvertingAsyncPattern();
+            Console.ReadLine();
 
 
     }

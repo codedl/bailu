@@ -16,6 +16,7 @@ namespace Wrox.ProCSharp.Async
   {
     private SearchInfo searchInfo;
     private object lockList = new object();
+        //取消异步任务
     private CancellationTokenSource cts = new CancellationTokenSource();
 
     public MainWindow()
@@ -78,6 +79,7 @@ namespace Wrox.ProCSharp.Async
       }
     }
 
+        //基于事件的异步模式
     private void OnAsyncEventPattern(object sender, RoutedEventArgs e)
     {
       foreach (var req in GetSearchRequests())

@@ -20,3 +20,9 @@ C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\ErrorHandlin
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.pdb
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.exe
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.pdb
+I:\work\study\VS\13_Code\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe.config
+I:\work\study\VS\13_Code\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.exe
+I:\work\study\VS\13_Code\AsyncSamples\ErrorHandling\bin\Debug\ErrorHandling.pdb
+I:\work\study\VS\13_Code\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.csprojAssemblyReference.cache
+I:\work\study\VS\13_Code\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.exe
+I:\work\study\VS\13_Code\AsyncSamples\ErrorHandling\obj\Debug\ErrorHandling.pdb
