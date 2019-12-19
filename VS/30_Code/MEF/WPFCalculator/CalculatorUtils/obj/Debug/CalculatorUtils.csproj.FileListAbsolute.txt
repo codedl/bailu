@@ -1,0 +1,24 @@
+K:\ProC# 4.0\code\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorUtils.dll
+K:\ProC# 4.0\code\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorUtils.pdb
+K:\ProC# 4.0\code\MEF\WPFCalculator\CalculatorUtils\obj\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.dll
+K:\ProC# 4.0\code\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorUtils.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorUtils.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorUtils.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorUtils.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorUtils.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorUtils.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\CalculatorUtils\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\CalculatorUtils\obj\Debug\CalculatorUtils.pdb

@@ -1,0 +1,2 @@
+C:\code\Interop\COMServer\DotnetClient\bin\Debug\DotnetClient.exe.config
+C:\code\Interop\COMServer\DotnetClient\obj\Debug\DotnetClient.csproj.ResolveComReference.cache

@@ -1,0 +1,8 @@
+I:\work\study\VS\15_Code\VectorClass\bin\Debug\VectorClass.dll
+I:\work\study\VS\15_Code\VectorClass\bin\Debug\VectorClass.pdb
+I:\work\study\VS\15_Code\VectorClass\bin\Debug\WhatsNewAttributes.dll
+I:\work\study\VS\15_Code\VectorClass\bin\Debug\WhatsNewAttributes.pdb
+I:\work\study\VS\15_Code\VectorClass\obj\Debug\VectorClass.csprojAssemblyReference.cache
+I:\work\study\VS\15_Code\VectorClass\obj\Debug\VectorClass.csproj.CopyComplete
+I:\work\study\VS\15_Code\VectorClass\obj\Debug\VectorClass.dll
+I:\work\study\VS\15_Code\VectorClass\obj\Debug\VectorClass.pdb

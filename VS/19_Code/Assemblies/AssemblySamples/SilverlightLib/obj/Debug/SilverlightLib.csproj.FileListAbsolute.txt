@@ -1,0 +1,5 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\SilverlightLib\Bin\Debug\SilverlightLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\SilverlightLib\Bin\Debug\SilverlightLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\SilverlightLib\obj\Debug\SilverlightLib.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\SilverlightLib\obj\Debug\SilverlightLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\SilverlightLib\obj\Debug\SilverlightLib.pdb

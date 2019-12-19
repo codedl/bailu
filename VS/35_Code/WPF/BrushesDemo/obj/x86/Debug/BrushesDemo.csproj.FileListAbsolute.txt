@@ -1,0 +1,15 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\bin\Debug\BrushesDemo.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\bin\Debug\Stephanie.wmv
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\bin\Debug\BrushesDemo.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\bin\Debug\BrushesDemo.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\BrushesDemo.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\MainWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\App.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\BrushesDemo_Content.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\BrushesDemo_MarkupCompile.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\BrushesDemo.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\BrushesDemo.Properties.Resources.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\BrushesDemo.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\BrushesDemo.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\BrushesDemo\obj\x86\Debug\BrushesDemo.pdb

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio 11.0\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="11.0">
+ <Targets>
+  <Target Name="C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\EventLogDemo\bin\Debug\EventLogDemo.exe">
+   <Modules>
+    <Module Name="eventlogdemo.exe">
+     <Messages>
+      <Message TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210" Status="Active" Created="2012-02-07 13:49:41Z" FixCategory="NonBreaking">
+       <Issue Name="NoStrongName" Certainty="95" Level="CriticalError">Sign 'EventLogDemo.exe' with a strong name key.</Issue>
+      </Message>
+     </Messages>
+     <Namespaces>
+      <Namespace Name="Wrox.ProCSharp.Tracing">
+       <Types>
+        <Type Name="Program" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#CreateEventSource(System.Boolean)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Dispose objects before losing scope" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2012-02-07 13:49:41Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="c:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\EventLogDemo" File="Program.cs" Line="47">In method 'Program.CreateEventSource(bool)', call System.IDisposable.Dispose on object 'evLog' before all references to it are out of scope.</Issue>
+            </Message>
+            <Message Id="System.Console.WriteLine(System.String)" TypeName="Do not pass literals as localized parameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Active" Created="2012-02-07 13:49:41Z" FixCategory="DependsOnFix">
+             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="c:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\EventLogDemo" File="Program.cs" Line="29">Method 'Program.CreateEventSource(bool)' passes a literal string as parameter 'value' of a call to 'Console.WriteLine(string)'. Retrieve the following string(s) from a resource table instead: "Message resource file does not exist".</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+ </Targets>
+ <Rules>
+  <Rule TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210">
+   <Name>Assemblies should have valid strong names</Name>
+   <Description>Either the assembly has no strong name, an invalid one, or the strong name is valid only because of the computer configuration. The assembly should not be deployed in this state. The most common causes of this are: 1) The assembly's contents were modified after it was signed. 2) The signing process failed. 3) The assembly was delay-signed. 4) A registry key existed that allowed the check to pass (where it would not have otherwise).</Description>
+   <Resolution Name="NoStrongName">Sign {0} with a strong name key.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182127(VS.100).aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">CriticalError</MessageLevel>
+   <File Name="designrules.dll" Version="11.0.0.0" />
+  </Rule>
+  <Rule TypeName="Dispose objects before losing scope" Category="Microsoft.Reliability" CheckId="CA2000">
+   <Name>Dispose objects before losing scope</Name>
+   <Description>If a disposable object is not explicitly disposed before all references to it are out of scope, the object will be disposed at some indeterminate time when the garbage collector runs the finalizer of the object. Because an exceptional event might occur that will prevent the finalizer of the object from running, the object should be explicitly disposed instead.</Description>
+   <Resolution Name="NonExceptionEdge">In method {0}, call System.IDisposable.Dispose on object {1} before all references to it are out of scope.</Resolution>
+   <Owner>RuleOwner</Owner>
+   <Url>http://msdn.microsoft.com/library/ms182289(VS.100).aspx</Url>
+   <Email />
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="dataflowrules.dll" Version="11.0.0.0" />
+  </Rule>
+  <Rule TypeName="Do not pass literals as localized parameters" Category="Microsoft.Globalization" CheckId="CA1303">
+   <Name>Do not pass literals as localized parameters</Name>
+   <Description>Literal strings that are embedded in source code are difficult to localize. Avoid passing literal strings as arguments in circumstances where a localized string is generally expected.</Description>
+   <Resolution Name="KnownValue">Method {0} passes a literal string as parameter '{1}' of a call to {2}. Retrieve the following string(s) from a resource table instead: {3}.</Resolution>
+   <Owner>RuleOwner</Owner>
+   <Url>http://msdn.microsoft.com/library/ms182187(VS.100).aspx</Url>
+   <Email />
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="dataflowrules.dll" Version="11.0.0.0" />
+  </Rule>
+ </Rules>
+ <Localized>
+  <String Key="Category">Category</String>
+  <String Key="Certainty">Certainty</String>
+  <String Key="CollapseAll">Collapse All</String>
+  <String Key="CheckId">Check Id</String>
+  <String Key="Error">Error</String>
+  <String Key="Errors">error(s)</String>
+  <String Key="ExpandAll">Expand All</String>
+  <String Key="Help">Help</String>
+  <String Key="Line">Line</String>
+  <String Key="Messages">message(s)</String>
+  <String Key="LocationNotStoredInPdb">[Location not stored in Pdb]</String>
+  <String Key="Project">Project</String>
+  <String Key="Resolution">Resolution</String>
+  <String Key="Rule">Rule</String>
+  <String Key="RuleFile">Rule File</String>
+  <String Key="RuleDescription">Rule Description</String>
+  <String Key="Source">Source</String>
+  <String Key="Status">Status</String>
+  <String Key="Target">Target</String>
+  <String Key="Warning">Warning</String>
+  <String Key="Warnings">warning(s)</String>
+  <String Key="ReportTitle">Code Analysis Report</String>
+ </Localized>
+</FxCopReport>

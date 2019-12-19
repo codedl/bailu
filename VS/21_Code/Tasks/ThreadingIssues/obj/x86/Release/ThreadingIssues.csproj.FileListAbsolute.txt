@@ -1,0 +1,20 @@
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\bin\Release\ThreadingIssues.exe
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\bin\Release\ThreadingIssues.pdb
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\obj\x86\Release\ThreadingIssues.exe
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\obj\x86\Release\ThreadingIssues.pdb
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\bin\Release\ThreadingIssues.exe
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\bin\Release\ThreadingIssues.pdb
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\obj\x86\Release\ResolveAssemblyReference.cache
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\obj\x86\Release\ThreadingIssues.exe
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\obj\x86\Release\ThreadingIssues.pdb
+K:\ProC# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\bin\Release\ThreadingIssues.exe
+K:\ProC# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\bin\Release\ThreadingIssues.pdb
+K:\ProC# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\obj\x86\Release\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\obj\x86\Release\ThreadingIssues.exe
+K:\ProC# 4.0\code\Threading\ThreadingSamples\ThreadingIssues\obj\x86\Release\ThreadingIssues.pdb
+C:\Mesh\Pro C# 5.0\newcode\Tasks\ThreadingIssues\bin\Release\ThreadingIssues.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Tasks\ThreadingIssues\obj\x86\Release\ThreadingIssues.exe
+C:\Mesh\Pro C# 5.0\newcode\Tasks\ThreadingIssues\obj\x86\Release\ThreadingIssues.pdb
+C:\Mesh\Pro C# 5.0\newcode\Tasks\ThreadingIssues\bin\Release\ThreadingIssues.exe
+C:\Mesh\Pro C# 5.0\newcode\Tasks\ThreadingIssues\bin\Release\ThreadingIssues.pdb

@@ -1,0 +1,38 @@
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\TransactionSamples.exe
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\TransactionSamples.pdb
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\TransactionSamples.exe
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\TransactionSamples.pdb
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\DataLib.dll
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\Utilities.dll
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\DataLib.pdb
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\Utilities.pdb
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\TransactionSamples.exe
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\TransactionSamples.pdb
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\DataLib.dll
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\Utilities.dll
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\DataLib.pdb
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\Utilities.pdb
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\TransactionSamples.exe
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\TransactionSamples.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\TransactionSamples.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\TransactionSamples.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\DataLib.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\Utilities.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\DataLib.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\Utilities.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\TransactionSamples.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\TransactionSamples.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\TransactionSamples.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\TransactionSamples.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\TransactionSamples.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\TransactionSamples.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\TransactionSamples.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\DataLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\Utilities.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\DataLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\bin\Debug\Utilities.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\TransactionSamples.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\TransactionSamples.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\TransactionSamples\obj\x86\Debug\TransactionSamples.pdb

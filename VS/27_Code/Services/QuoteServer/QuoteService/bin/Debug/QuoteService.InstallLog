@@ -1,0 +1,69 @@
+﻿Installing assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe'.
+Affected parameters are:
+   i = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe
+   logtoconsole = 
+Installing service QuoteService...
+Service QuoteService has been successfully installed.
+Creating EventLog source QuoteService in log Application...
+Committing assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe'.
+Affected parameters are:
+   i = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe
+   logtoconsole = 
+Uninstalling assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe
+Removing EventLog source QuoteService.
+Service QuoteService is being removed from the system...
+Service QuoteService was successfully removed from the system.
+Installing assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe'.
+Affected parameters are:
+   i = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe
+   logtoconsole = 
+Installing service QuoteService...
+Service QuoteService has been successfully installed.
+Creating EventLog source QuoteService in log Application...
+Committing assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe'.
+Affected parameters are:
+   i = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe
+   logtoconsole = 
+Uninstalling assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe
+Removing EventLog source QuoteService.
+Service QuoteService is being removed from the system...
+Service QuoteService was successfully removed from the system.
+Installing assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe
+Rolling back assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe
+Installing assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe
+Installing service QuoteService...
+Creating EventLog source QuoteService in log Application...
+Rolling back assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteService\bin\Debug\QuoteService.exe
+Restoring event log to previous state for source QuoteService.

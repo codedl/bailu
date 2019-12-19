@@ -1,0 +1,20 @@
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\EventSample\bin\Debug\EventSample.exe
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\EventSample\bin\Debug\EventSample.pdb
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\EventSample\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\EventSample\obj\x86\Debug\EventSample.exe
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\EventSample\obj\x86\Debug\EventSample.pdb
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\EventSample\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\EventSample\obj\x86\Debug\EventSample.exe
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\EventSample\bin\Debug\EventSample.exe
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\EventSample\bin\Debug\EventSample.pdb
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\EventSample\obj\x86\Debug\EventSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\Tasks\EventSample\bin\Debug\EventSample.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Tasks\EventSample\bin\Debug\EventSample.exe
+C:\Mesh\Pro C# 5.0\newcode\Tasks\EventSample\bin\Debug\EventSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\Tasks\EventSample\obj\x86\Debug\EventSample.exe
+C:\Mesh\Pro C# 5.0\newcode\Tasks\EventSample\obj\x86\Debug\EventSample.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\EventSample\bin\Debug\EventSample.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\EventSample\bin\Debug\EventSample.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\EventSample\bin\Debug\EventSample.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\EventSample\obj\x86\Debug\EventSample.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\EventSample\obj\x86\Debug\EventSample.pdb

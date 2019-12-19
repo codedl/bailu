@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PriInfo>
+  <PriHeader>
+    <WindowsEnvironment checksum="0" version="1.0" />
+    <AutoMerge>false</AutoMerge>
+  </PriHeader>
+  <QualifierInfo>
+    <Qualifiers>
+      <Qualifier index="1" scoreAsDefault="0.0" priority="900" value="QPS-PLOC" name="Language" />
+      <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+      <Qualifier index="3" scoreAsDefault="0.0" priority="900" value="FR" name="Language" />
+      <Qualifier index="4" scoreAsDefault="0.0" priority="900" value="ES" name="Language" />
+    </Qualifiers>
+    <QualifierSets>
+      <QualifierSet index="1">
+        <Qualifier index="1" scoreAsDefault="0.0" priority="900" value="QPS-PLOC" name="Language" />
+      </QualifierSet>
+      <QualifierSet index="2">
+        <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+      </QualifierSet>
+      <QualifierSet index="3">
+        <Qualifier index="3" scoreAsDefault="0.0" priority="900" value="FR" name="Language" />
+      </QualifierSet>
+      <QualifierSet index="4">
+        <Qualifier index="4" scoreAsDefault="0.0" priority="900" value="ES" name="Language" />
+      </QualifierSet>
+    </QualifierSets>
+    <Decisions>
+      <Decision index="1">
+        <QualifierSet index="2">
+          <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+        </QualifierSet>
+      </Decision>
+    </Decisions>
+  </QualifierInfo>
+  <ResourceMap name="WinStoreApp" primary="true">
+    <VersionInfo version="1.0" />
+    <ResourceMapSubtree index="1" name="Resources">
+      <NamedResource index="1" name="Text3\Width" uri="ms-resource://WinStoreApp/Resources/Text3\Width">
+        <Decision index="1">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+        </Decision>
+        <Candidate type="String">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+          <Value>300</Value>
+        </Candidate>
+      </NamedResource>
+      <NamedResource index="1" name="Text3\Text" uri="ms-resource://WinStoreApp/Resources/Text3\Text">
+        <Decision index="1">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+        </Decision>
+        <Candidate type="String">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+          <Value>Dies ist eine Muster-Mail für Text4</Value>
+        </Candidate>
+      </NamedResource>
+    </ResourceMapSubtree>
+    <ResourceMapSubtree index="1" name="Messages">
+      <NamedResource index="1" name="Hello" uri="ms-resource://WinStoreApp/Messages/Hello">
+        <Decision index="1">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+        </Decision>
+        <Candidate type="String">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+          <Value>Hallo Welt</Value>
+        </Candidate>
+      </NamedResource>
+      <NamedResource index="1" name="GoodMorning" uri="ms-resource://WinStoreApp/Messages/GoodMorning">
+        <Decision index="1">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+        </Decision>
+        <Candidate type="String">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+          <Value>Guten Morgen</Value>
+        </Candidate>
+      </NamedResource>
+      <NamedResource index="1" name="GoodEvening" uri="ms-resource://WinStoreApp/Messages/GoodEvening">
+        <Decision index="1">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+        </Decision>
+        <Candidate type="String">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+          <Value>Guten Abend</Value>
+        </Candidate>
+      </NamedResource>
+      <NamedResource index="1" name="GoodDay" uri="ms-resource://WinStoreApp/Messages/GoodDay">
+        <Decision index="1">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+        </Decision>
+        <Candidate type="String">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+          <Value>Guten Tag</Value>
+        </Candidate>
+      </NamedResource>
+    </ResourceMapSubtree>
+    <ResourceMapSubtree index="1" name="Errors">
+      <NamedResource index="1" name="UnepxecedException" uri="ms-resource://WinStoreApp/Errors/UnepxecedException">
+        <Decision index="1">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+        </Decision>
+        <Candidate type="String">
+          <QualifierSet index="2">
+            <Qualifier index="2" scoreAsDefault="0.0" priority="900" value="DE" name="Language" />
+          </QualifierSet>
+          <Value>Ein unerwarteter Fehler aufgetreten</Value>
+        </Candidate>
+      </NamedResource>
+    </ResourceMapSubtree>
+  </ResourceMap>
+</PriInfo>

@@ -1,0 +1,5 @@
+I:\work\study\VS\15_Code\WhatsNewAttributes\bin\Debug\WhatsNewAttributes.dll
+I:\work\study\VS\15_Code\WhatsNewAttributes\bin\Debug\WhatsNewAttributes.pdb
+I:\work\study\VS\15_Code\WhatsNewAttributes\obj\Debug\WhatsNewAttributes.csprojAssemblyReference.cache
+I:\work\study\VS\15_Code\WhatsNewAttributes\obj\Debug\WhatsNewAttributes.dll
+I:\work\study\VS\15_Code\WhatsNewAttributes\obj\Debug\WhatsNewAttributes.pdb

@@ -278,6 +278,50 @@ Factory.FromAsync进行转换;
 3.cts.Token当成接口参数检查是否取消任务或
 cts.Token.ThrowIfCancellationRequested主动检查任务是否被取消;
 任务被取消就会抛出异常
+<内存管理和指针>
+fixed:类似于const;
+stackalloc:在栈上分配一定量的内存,不会初始化内存;数据类型必须为值类型;
+定义一个数组对象,如果访问越界会抛出异常;定义一个数组指针就不会抛出异常;
+<反射>
+[System.Type]
+1.使用typeof运算符;
+2.使用GetType方法;
+3.Type.GetType静态方法;
+使用bool属性判断类型;
+GetMethod返回System.Reflection.MethodInfo对象的引用;
+[自定义特性]即添加可以通过反射获取的元数据;
+1.[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method,
+  AllowMultiple = true, Inherited = false)]public class LastModifiedAttribute : Attribute{};
+  用AttributeUsage关键字声明自定义特性;
+  AttributeTargets枚举列出特性应用的元素为类和方法;
+  AllowMultiple表示特性可以被复用;
+  Inherited表示特性可以被继承,在派生类中也具有特性;
+2.定义Attribute的派生类,通过在派生类中的字段说明特性的用途;
+3.[assembly: SupportsWhatsNew]用特性标记程序集;
+[派生类对象(通过实现Attribute的派生类对象应用特性,可以手动为派生类对象的字段赋值)]class ClassName{}
+将自定义特性应用到ClassName类;
+如果自定义特性支持方法,在方法前[派生类对象(通过实现Attribute的派生类对象应用特性,可以手动为派生类对象的字段赋值)];
+4.获取自定义特性:
+a.Assembly.Load加载程序集;
+b.Attribute.GetCustomAttribute(Assembly e, Type a)从程序集中获取自定义特性;
+c.Assembly.GetTypes从程序集中获取定义的类型;
+d.Type.IsClass类似的接口判断特性应用的元素;
+e.Attribute.GetCustomAttributes(Type)从元素中获取自定义特性集合;
+f.Attribute as LastModifiedAttribute得到自定义特性;
+g.访问自定义特性的字段;
+==>由c#的基本语法到实现功能的框架
+==>c#的框架在章节和内容上比较紧凑,学习新的框架要前后结合
+<错误和异常>
+.Net运行库有个默认的try/catch块;
+定义Exception的派生类可以自定义异常;
+[调用者信息]
+public void Log(
+[CallerLineNumber] int line = -1,
+[CallerFilePath] string path = null,
+[CallerMemberName] string name = null){}
+可以使用这些特性获取文件的行号,文件路径,调用者
+
+
 
 
 

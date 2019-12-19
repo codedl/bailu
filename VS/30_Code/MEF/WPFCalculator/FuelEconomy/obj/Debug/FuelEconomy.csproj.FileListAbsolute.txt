@@ -1,0 +1,57 @@
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\bin\Debug\FuelEconomy.dll
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\bin\Debug\FuelEconomy.pdb
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorContract.dll
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorContract.pdb
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\obj\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomyUC.baml
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomyUC.g.cs
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy_MarkupCompile.cache
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.g.resources
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.ProCSharp.MEF.Properties.Resources.resources
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\obj\Debug\GenerateResource.read.1.tlog
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\obj\Debug\GenerateResource.write.1.tlog
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.dll
+K:\ProC# 4.0\code\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomyUC.baml
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomyUC.g.cs
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy_MarkupCompile.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.g.resources
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\bin\Debug\FuelEconomy.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\bin\Debug\FuelEconomy.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorContract.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorContract.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.ProCSharp.MEF.Properties.Resources.resources
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomyUC.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomyUC.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.ProCSharp.MEF.Properties.Resources.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorUtils.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorUtils.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\bin\Debug\Wrox.FuelEconomy.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\bin\Debug\Wrox.FuelEconomy.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.FuelEconomy_MarkupCompile.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.FuelEconomy.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.FuelEconomy.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.FuelEconomy.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\bin\Debug\Wrox.FuelEconomy.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\bin\Debug\Wrox.FuelEconomy.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorUtils.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\bin\Debug\CalculatorUtils.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomyUC.baml
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomyUC.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.FuelEconomy_MarkupCompile.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.FuelEconomy.g.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.ProCSharp.MEF.Properties.Resources.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\obj\Debug\FuelEconomy.csproj.GenerateResource.Cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.FuelEconomy.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\FuelEconomy\obj\Debug\Wrox.FuelEconomy.pdb

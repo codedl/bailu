@@ -1,0 +1,11 @@
+I:\work\study\VS\15_Code\LookUpWhatsNew\bin\Debug\LookUpWhatsNew.exe.config
+I:\work\study\VS\15_Code\LookUpWhatsNew\bin\Debug\LookUpWhatsNew.exe
+I:\work\study\VS\15_Code\LookUpWhatsNew\bin\Debug\LookUpWhatsNew.pdb
+I:\work\study\VS\15_Code\LookUpWhatsNew\bin\Debug\VectorClass.dll
+I:\work\study\VS\15_Code\LookUpWhatsNew\bin\Debug\WhatsNewAttributes.dll
+I:\work\study\VS\15_Code\LookUpWhatsNew\bin\Debug\VectorClass.pdb
+I:\work\study\VS\15_Code\LookUpWhatsNew\bin\Debug\WhatsNewAttributes.pdb
+I:\work\study\VS\15_Code\LookUpWhatsNew\obj\Debug\LookUpWhatsNew.csprojAssemblyReference.cache
+I:\work\study\VS\15_Code\LookUpWhatsNew\obj\Debug\LookUpWhatsNew.csproj.CopyComplete
+I:\work\study\VS\15_Code\LookUpWhatsNew\obj\Debug\LookUpWhatsNew.exe
+I:\work\study\VS\15_Code\LookUpWhatsNew\obj\Debug\LookUpWhatsNew.pdb

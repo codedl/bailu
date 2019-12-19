@@ -1,0 +1,15 @@
+﻿Installing assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteServer\bin\Debug\QuoteServer.dll'.
+Affected parameters are:
+   i = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteServer\bin\Debug\QuoteServer.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteServer\bin\Debug\QuoteServer.dll
+   logtoconsole = 
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteServer\bin\Debug\QuoteServer.dll assembly.
+Committing assembly 'C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteServer\bin\Debug\QuoteServer.dll'.
+Affected parameters are:
+   i = 
+   logfile = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteServer\bin\Debug\QuoteServer.InstallLog
+   assemblypath = C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteServer\bin\Debug\QuoteServer.dll
+   logtoconsole = 
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteServer\bin\Debug\QuoteServer.dll assembly.
+Remove InstallState file because there are no installers.

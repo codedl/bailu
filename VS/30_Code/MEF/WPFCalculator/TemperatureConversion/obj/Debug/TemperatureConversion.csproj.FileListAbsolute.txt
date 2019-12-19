@@ -1,0 +1,57 @@
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\bin\Debug\TemperatureConversion.dll
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\bin\Debug\TemperatureConversion.pdb
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorContract.dll
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorContract.pdb
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\obj\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.baml
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.g.cs
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion_MarkupCompile.cache
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.g.resources
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\obj\Debug\Wrox.ProCSharp.MEF.Properties.Resources.resources
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\obj\Debug\GenerateResource.read.1.tlog
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\obj\Debug\GenerateResource.write.1.tlog
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.dll
+K:\ProC# 4.0\code\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\bin\Debug\TemperatureConversion.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\bin\Debug\TemperatureConversion.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorContract.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorContract.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.baml
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.g.cs
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion_MarkupCompile.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.g.resources
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\Wrox.ProCSharp.MEF.Properties.Resources.resources
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.csproj.GenerateResource.Cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\bin\Debug\TemperatureConversion.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\bin\Debug\TemperatureConversion.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion_MarkupCompile.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\Wrox.ProCSharp.MEF.Properties.Resources.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorUtils.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorUtils.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\bin\Debug\TemperatureConversion.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\bin\Debug\TemperatureConversion.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorUtils.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\bin\Debug\CalculatorUtils.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.baml
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion_MarkupCompile.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.g.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\obj\Debug\Wrox.ProCSharp.MEF.Properties.Resources.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.csproj.GenerateResource.Cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\TemperatureConversion\obj\Debug\TemperatureConversion.pdb

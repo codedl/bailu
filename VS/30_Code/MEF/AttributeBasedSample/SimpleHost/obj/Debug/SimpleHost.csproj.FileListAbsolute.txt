@@ -1,0 +1,24 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\bin\Debug\SimpleHost.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\bin\Debug\SimpleHost.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\bin\Debug\SimpleHost.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\obj\Debug\SimpleHost.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\obj\Debug\SimpleHost.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\obj\Debug\SimpleHost.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\SimpleHost\bin\Debug\SimpleHost.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\SimpleHost\obj\Debug\SimpleHost.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\SimpleHost\obj\Debug\SimpleHost.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\SimpleHost\bin\Debug\SimpleHost.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\SimpleHost\bin\Debug\SimpleHost.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\SimpleHost\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\SimpleHost\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\SimpleHost\obj\Debug\SimpleHost.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\SimpleHost\bin\Debug\SimpleHost.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\SimpleHost\bin\Debug\SimpleHost.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\SimpleHost\bin\Debug\SimpleHost.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\SimpleHost\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\SimpleHost\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\SimpleHost\obj\Debug\SimpleHost.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\SimpleHost\obj\Debug\SimpleHost.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\SimpleHost\obj\Debug\SimpleHost.pdb

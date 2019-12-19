@@ -1,0 +1,29 @@
+K:\ProC# 4.0\code\MEF\WPFCalculator\CalculatorContract\obj\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\MEF\WPFCalculator\CalculatorContract\bin\Debug\CalculatorContract.dll
+K:\ProC# 4.0\code\MEF\WPFCalculator\CalculatorContract\bin\Debug\CalculatorContract.pdb
+K:\ProC# 4.0\code\MEF\WPFCalculator\CalculatorContract\obj\Debug\CalculatorContract.dll
+K:\ProC# 4.0\code\MEF\WPFCalculator\CalculatorContract\obj\Debug\CalculatorContract.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\bin\Debug\CalculatorContract.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\bin\Debug\CalculatorContract.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\obj\Debug\CalculatorContract.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\obj\Debug\CalculatorContract.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\obj\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\obj\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\obj\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\bin\Debug\CalculatorContract.dll.CodeAnalysisLog.xml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\CalculatorContract\bin\Debug\CalculatorContract.dll.lastcodeanalysissucceeded
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\CalculatorContract\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\CalculatorContract\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\CalculatorContract\obj\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\CalculatorContract\obj\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\CalculatorContract\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\CalculatorContract\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\CalculatorContract\obj\Debug\CalculatorContract.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\CalculatorContract\obj\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\AttributeBasedSample\CalculatorContract\obj\Debug\CalculatorContract.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\CalculatorContract\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\CalculatorContract\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\CalculatorContract\obj\Debug\CalculatorContract.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\AttributeBasedSample\CalculatorContract\obj\Debug\CalculatorContract.pdb

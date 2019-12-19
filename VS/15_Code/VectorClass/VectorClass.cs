@@ -3,12 +3,12 @@ using System.Collections;
 using System.Text;
 using WhatsNewAttributes;
 
-[assembly: SupportsWhatsNew]
+[assembly: SupportsWhatsNew]//用特性标记程序集
 
 namespace VectorClass
 {
     [LastModified("14 Feb 2010", "IEnumerable interface implemented " +
-                                 "So Vector can now be treated as a collection")]
+                                 "So Vector can now be treated as a collection",Issues ="myIssues")]
     [LastModified("10 Feb 2010", "IFormattable interface implemented " +
                                  "So Vector now responds to format specifiers N and VE")]
     class Vector : IFormattable, IEnumerable

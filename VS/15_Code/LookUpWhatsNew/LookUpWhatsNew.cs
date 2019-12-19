@@ -31,7 +31,7 @@ namespace LookUpWhatsNew
                 AddToMessage("Defined Types:");
             }
 
-            Type[] types = theAssembly.GetTypes();
+            Type[] types = theAssembly.GetTypes();//获取程序集中定义的类型
             foreach (Type definedType in types)
                 DisplayTypeInfo(definedType);
 
@@ -42,7 +42,7 @@ namespace LookUpWhatsNew
 
         private static void DisplayTypeInfo(Type type)
         {
-            // make sure we only pick out classes
+            // 检查特性是否应用于类
             if (!(type.IsClass))
                 return;
             AddToMessage("\nclass " + type.Name);

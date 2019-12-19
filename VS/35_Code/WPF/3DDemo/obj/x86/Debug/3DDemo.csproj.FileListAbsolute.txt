@@ -1,0 +1,14 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\bin\Debug\3DDemo.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\bin\Debug\3DDemo.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\bin\Debug\3DDemo.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\ConfigurationWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\MainWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\ConfigurationWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\App.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\3DDemo_MarkupCompile.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\3DDemo.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\_3DDemo.Properties.Resources.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\3DDemo.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\3DDemo.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\3DDemo\obj\x86\Debug\3DDemo.pdb

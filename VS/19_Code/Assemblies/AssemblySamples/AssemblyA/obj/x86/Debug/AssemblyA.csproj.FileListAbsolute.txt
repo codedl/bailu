@@ -1,0 +1,22 @@
+C:\Books\Pro C# 4.0\code\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.exe
+C:\Books\Pro C# 4.0\code\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.pdb
+C:\Books\Pro C# 4.0\code\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.exe
+C:\Books\Pro C# 4.0\code\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.pdb
+K:\ProC# 4.0\code\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.exe
+K:\ProC# 4.0\code\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.pdb
+K:\ProC# 4.0\code\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.exe
+K:\ProC# 4.0\code\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.pdb

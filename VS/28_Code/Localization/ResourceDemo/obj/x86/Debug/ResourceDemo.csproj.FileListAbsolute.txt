@@ -1,0 +1,34 @@
+K:\ProC# 4.0\code\Localization\LocalizationDemos\ResourceDemo\bin\Debug\ResourceDemo.exe.config
+K:\ProC# 4.0\code\Localization\LocalizationDemos\ResourceDemo\bin\Debug\ResourceDemo.exe
+K:\ProC# 4.0\code\Localization\LocalizationDemos\ResourceDemo\bin\Debug\ResourceDemo.pdb
+K:\ProC# 4.0\code\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\GenerateResource.read.1.tlog
+K:\ProC# 4.0\code\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\GenerateResource.write.1.tlog
+K:\ProC# 4.0\code\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\ResourceDemo.exe
+K:\ProC# 4.0\code\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\ResourceDemo.pdb
+K:\ProC# 4.0\code\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\Wrox.ProCSharp.Localization.Demo.resources
+C:\ProC#\Localization\LocalizationDemos\ResourceDemo\bin\Debug\ResourceDemo.exe.config
+C:\ProC#\Localization\LocalizationDemos\ResourceDemo\bin\Debug\ResourceDemo.exe
+C:\ProC#\Localization\LocalizationDemos\ResourceDemo\bin\Debug\ResourceDemo.pdb
+C:\ProC#\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\ProC#\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\Wrox.ProCSharp.Localization.Demo.resources
+C:\ProC#\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\ProC#\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\ProC#\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\ResourceDemo.exe
+C:\ProC#\Localization\LocalizationDemos\ResourceDemo\obj\x86\Debug\ResourceDemo.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\ResourceDemo\bin\Debug\ResourceDemo.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Localization\ResourceDemo\bin\Debug\ResourceDemo.exe
+C:\Mesh\Pro C# 5.0\newcode\Localization\ResourceDemo\bin\Debug\ResourceDemo.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\ResourceDemo\obj\x86\Debug\Wrox.ProCSharp.Localization.Demo.resources
+C:\Mesh\Pro C# 5.0\newcode\Localization\ResourceDemo\obj\x86\Debug\ResourceDemo.csproj.GenerateResource.Cache
+C:\Mesh\Pro C# 5.0\newcode\Localization\ResourceDemo\obj\x86\Debug\ResourceDemo.exe
+C:\Mesh\Pro C# 5.0\newcode\Localization\ResourceDemo\obj\x86\Debug\ResourceDemo.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\ResourceDemo\obj\x86\Debug\ResourceDemo.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\ResourceDemo\bin\Debug\ResourceDemo.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\ResourceDemo\bin\Debug\ResourceDemo.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\ResourceDemo\bin\Debug\ResourceDemo.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\ResourceDemo\obj\x86\Debug\ResourceDemo.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\ResourceDemo\obj\x86\Debug\Wrox.ProCSharp.Localization.Demo.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\ResourceDemo\obj\x86\Debug\ResourceDemo.csproj.GenerateResource.Cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\ResourceDemo\obj\x86\Debug\ResourceDemo.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\ResourceDemo\obj\x86\Debug\ResourceDemo.pdb

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>SUMMITDAY</Machine>
+    <WindowsUser>Christian</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>e4f83c66-ef45-4d88-a620-f0a2d149c689</PackageIdentityName>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\LivecycleSample.exe">
+      <PackagePath>LivecycleSample.exe</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\Assets\Logo.scale-100.png">
+      <PackagePath>Assets\Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\Assets\SmallLogo.scale-100.png">
+      <PackagePath>Assets\SmallLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\Assets\SplashScreen.scale-100.png">
+      <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\Assets\StoreLogo.scale-100.png">
+      <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\Common\ReadMe.txt">
+      <PackagePath>Common\ReadMe.txt</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\App.xbf">
+      <PackagePath>App.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\MainPage.xbf">
+      <PackagePath>MainPage.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\Page1.xbf">
+      <PackagePath>Page1.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\Page2.xbf">
+      <PackagePath>Page2.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\Page3.xbf">
+      <PackagePath>Page3.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

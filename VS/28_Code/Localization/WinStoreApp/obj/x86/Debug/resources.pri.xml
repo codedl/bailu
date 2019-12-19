@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PriInfo>
+	<ResourceMap name="37d9c9ff-3356-4270-bba1-952e243b8693" version="1.0" primary="true">
+		<Qualifiers>
+			<Language>EN-US</Language>
+			<Scale>100</Scale>
+		</Qualifiers>
+		<ResourceMapSubtree name="Errors">
+			<NamedResource name="UnepxecedException" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Errors/UnepxecedException">
+				<Candidate qualifiers="Language-EN-US" isDefault="true" type="String">
+					<Value>An unexpected error occurred</Value>
+				</Candidate>
+			</NamedResource>
+		</ResourceMapSubtree>
+		<ResourceMapSubtree name="Files">
+			<NamedResource name="App.xbf" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Files/App.xbf">
+				<Candidate type="Path">
+					<Value>App.xbf</Value>
+				</Candidate>
+			</NamedResource>
+			<NamedResource name="MainPage.xbf" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Files/MainPage.xbf">
+				<Candidate type="Path">
+					<Value>MainPage.xbf</Value>
+				</Candidate>
+			</NamedResource>
+			<ResourceMapSubtree name="Assets">
+				<NamedResource name="Logo.png" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Files/Assets/Logo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>Assets\Logo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="SmallLogo.png" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Files/Assets/SmallLogo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>Assets\SmallLogo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="SplashScreen.png" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Files/Assets/SplashScreen.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>Assets\SplashScreen.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="StoreLogo.png" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Files/Assets/StoreLogo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>Assets\StoreLogo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+			</ResourceMapSubtree>
+			<ResourceMapSubtree name="Common">
+				<NamedResource name="ReadMe.txt" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Files/Common/ReadMe.txt">
+					<Candidate type="Path">
+						<Value>Common\ReadMe.txt</Value>
+					</Candidate>
+				</NamedResource>
+			</ResourceMapSubtree>
+		</ResourceMapSubtree>
+		<ResourceMapSubtree name="Messages">
+			<NamedResource name="GoodDay" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Messages/GoodDay">
+				<Candidate qualifiers="Language-EN-US" isDefault="true" type="String">
+					<Value>Good Day</Value>
+				</Candidate>
+			</NamedResource>
+			<NamedResource name="GoodEvening" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Messages/GoodEvening">
+				<Candidate qualifiers="Language-EN-US" isDefault="true" type="String">
+					<Value>Good Evening</Value>
+				</Candidate>
+			</NamedResource>
+			<NamedResource name="GoodMorning" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Messages/GoodMorning">
+				<Candidate qualifiers="Language-EN-US" isDefault="true" type="String">
+					<Value>Good Morning</Value>
+				</Candidate>
+			</NamedResource>
+			<NamedResource name="Hello" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Messages/Hello">
+				<Candidate qualifiers="Language-EN-US" isDefault="true" type="String">
+					<Value>Hello World</Value>
+				</Candidate>
+			</NamedResource>
+		</ResourceMapSubtree>
+		<ResourceMapSubtree name="Resources">
+			<ResourceMapSubtree name="Text3">
+				<NamedResource name="Text" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Resources/Text3/Text">
+					<Candidate qualifiers="Language-EN-US" isDefault="true" type="String">
+						<Value>This is a sample message for Text4</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Width" uri="ms-resource://37d9c9ff-3356-4270-bba1-952e243b8693/Resources/Text3/Width">
+					<Candidate qualifiers="Language-EN-US" isDefault="true" type="String">
+						<Value>300</Value>
+					</Candidate>
+				</NamedResource>
+			</ResourceMapSubtree>
+		</ResourceMapSubtree>
+	</ResourceMap>
+</PriInfo>

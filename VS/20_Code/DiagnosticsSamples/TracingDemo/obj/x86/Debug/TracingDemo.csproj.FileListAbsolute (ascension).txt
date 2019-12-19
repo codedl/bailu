@@ -1,0 +1,16 @@
+K:\ProC# 4.0\code\Instrumentation\InstrumentationSamples\TracingDemo\bin\Debug\TracingDemo.exe.config
+K:\ProC# 4.0\code\Instrumentation\InstrumentationSamples\TracingDemo\bin\Debug\TracingDemo.exe
+K:\ProC# 4.0\code\Instrumentation\InstrumentationSamples\TracingDemo\bin\Debug\TracingDemo.pdb
+K:\ProC# 4.0\code\Instrumentation\InstrumentationSamples\TracingDemo\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Instrumentation\InstrumentationSamples\TracingDemo\obj\x86\Debug\TracingDemo.exe
+K:\ProC# 4.0\code\Instrumentation\InstrumentationSamples\TracingDemo\obj\x86\Debug\TracingDemo.pdb
+K:\ProC# 4.0\code\Instrumentation\InstrumentationSamples\TracingDemo\bin\Debug\TracingDemo.Contracts.dll
+K:\ProC# 4.0\code\Instrumentation\InstrumentationSamples\TracingDemo\bin\Debug\TracingDemo.Contracts.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\TracingDemo\bin\Debug\TracingDemo.exe.config
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\TracingDemo\bin\Debug\TracingDemo.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\TracingDemo\bin\Debug\TracingDemo.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\TracingDemo\obj\x86\Debug\TracingDemo.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\TracingDemo\obj\x86\Debug\TracingDemo.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\TracingDemo\obj\x86\Debug\TracingDemo.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\TracingDemo\bin\Debug\TracingDemo.exe.CodeAnalysisLog.xml
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\DiagnosticsSamples\TracingDemo\bin\Debug\TracingDemo.exe.lastcodeanalysissucceeded

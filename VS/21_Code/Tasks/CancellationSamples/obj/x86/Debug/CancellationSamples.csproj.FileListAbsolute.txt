@@ -1,0 +1,20 @@
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\CancellationSamples\bin\Debug\CancellationSamples.exe
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\CancellationSamples\bin\Debug\CancellationSamples.pdb
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\CancellationSamples\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\CancellationSamples\obj\x86\Debug\CancellationSamples.exe
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\CancellationSamples\obj\x86\Debug\CancellationSamples.pdb
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\CancellationSamples\obj\x86\Debug\CancellationSamples.exe
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\CancellationSamples\obj\x86\Debug\CancellationSamples.pdb
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\CancellationSamples\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\CancellationSamples\bin\Debug\CancellationSamples.exe
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\CancellationSamples\bin\Debug\CancellationSamples.pdb
+C:\Mesh\Pro C# 5.0\newcode\Tasks\CancellationSamples\bin\Debug\CancellationSamples.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Tasks\CancellationSamples\bin\Debug\CancellationSamples.exe
+C:\Mesh\Pro C# 5.0\newcode\Tasks\CancellationSamples\bin\Debug\CancellationSamples.pdb
+C:\Mesh\Pro C# 5.0\newcode\Tasks\CancellationSamples\obj\x86\Debug\CancellationSamples.exe
+C:\Mesh\Pro C# 5.0\newcode\Tasks\CancellationSamples\obj\x86\Debug\CancellationSamples.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\CancellationSamples\bin\Debug\CancellationSamples.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\CancellationSamples\bin\Debug\CancellationSamples.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\CancellationSamples\bin\Debug\CancellationSamples.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\CancellationSamples\obj\x86\Debug\CancellationSamples.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\CancellationSamples\obj\x86\Debug\CancellationSamples.pdb

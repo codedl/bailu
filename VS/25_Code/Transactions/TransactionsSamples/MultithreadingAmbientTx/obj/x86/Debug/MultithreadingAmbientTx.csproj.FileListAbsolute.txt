@@ -1,0 +1,30 @@
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\MultithreadingAmbientTx.exe
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\MultithreadingAmbientTx.pdb
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\Utilities.dll
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\Utilities.pdb
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\MultithreadingAmbientTx.exe
+C:\Books\Pro C# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\MultithreadingAmbientTx.pdb
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\MultithreadingAmbientTx.exe
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\MultithreadingAmbientTx.pdb
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\MultithreadingAmbientTx.exe
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\MultithreadingAmbientTx.pdb
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\Utilities.dll
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\Utilities.pdb
+K:\ProC# 4.0\code\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\MultithreadingAmbientTx.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\MultithreadingAmbientTx.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\Utilities.dll
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\Utilities.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\MultithreadingAmbientTx.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\MultithreadingAmbientTx.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\MultithreadingAmbientTx.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\MultithreadingAmbientTx.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\MultithreadingAmbientTx.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\MultithreadingAmbientTx.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\MultithreadingAmbientTx.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\Utilities.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\bin\Debug\Utilities.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\MultithreadingAmbientTx.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\MultithreadingAmbientTx.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Transactions\TransactionsSamples\MultithreadingAmbientTx\obj\x86\Debug\MultithreadingAmbientTx.pdb

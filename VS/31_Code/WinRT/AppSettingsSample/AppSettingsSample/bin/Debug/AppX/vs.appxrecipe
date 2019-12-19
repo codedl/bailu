@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>SUMMITDAY</Machine>
+    <WindowsUser>Christian</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>b9f9e34b-947f-450b-91e4-9274ba59e705</PackageIdentityName>
+    <RegisteredManifestChecksum>117E428E2712A8C3F007F5E5B23C3E172E4A49D94BCB8ADE1A9524A11A9956FF</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>b9f9e34b-947f-450b-91e4-9274ba59e705_1.0.0.0_neutral__a9gjcazcjyqtc</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>b9f9e34b-947f-450b-91e4-9274ba59e705_a9gjcazcjyqtc!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>b9f9e34b-947f-450b-91e4-9274ba59e705</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Christian</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-11-10T23:07:17.345</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\AppSettingsSample.exe">
+      <PackagePath>AppSettingsSample.exe</PackagePath>
+      <Modified>2013-11-11T06:21:00.922</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\Assets\Logo.scale-100.png">
+      <PackagePath>Assets\Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-07-23T04:01:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\Assets\SmallLogo.scale-100.png">
+      <PackagePath>Assets\SmallLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-07-23T04:01:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\Assets\SplashScreen.scale-100.png">
+      <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-07-23T04:01:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\Assets\StoreLogo.scale-100.png">
+      <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-07-23T04:01:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\App.xbf">
+      <PackagePath>App.xbf</PackagePath>
+      <Modified>2013-11-10T10:40:51.850</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\MainPage.xbf">
+      <PackagePath>MainPage.xbf</PackagePath>
+      <Modified>2013-11-10T10:40:51.850</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\SettingsFlyout1.xbf">
+      <PackagePath>SettingsFlyout1.xbf</PackagePath>
+      <Modified>2013-11-10T23:08:50.017</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2013-11-10T23:07:17.065</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,20 @@
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\SynchronizationSamples\bin\Debug\SynchronizationSamples.exe
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\SynchronizationSamples\bin\Debug\SynchronizationSamples.pdb
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\SynchronizationSamples\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\SynchronizationSamples\obj\x86\Debug\SynchronizationSamples.exe
+C:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\SynchronizationSamples\obj\x86\Debug\SynchronizationSamples.pdb
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\SynchronizationSamples\bin\Debug\SynchronizationSamples.exe
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\SynchronizationSamples\bin\Debug\SynchronizationSamples.pdb
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\SynchronizationSamples\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\SynchronizationSamples\obj\x86\Debug\SynchronizationSamples.exe
+D:\Books\Pro C# 4.0\code\Threading\ThreadingSamples\SynchronizationSamples\obj\x86\Debug\SynchronizationSamples.pdb
+C:\Mesh\Pro C# 5.0\newcode\Tasks\SynchronizationSamples\bin\Debug\SynchronizationSamples.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Tasks\SynchronizationSamples\bin\Debug\SynchronizationSamples.exe
+C:\Mesh\Pro C# 5.0\newcode\Tasks\SynchronizationSamples\bin\Debug\SynchronizationSamples.pdb
+C:\Mesh\Pro C# 5.0\newcode\Tasks\SynchronizationSamples\obj\x86\Debug\SynchronizationSamples.exe
+C:\Mesh\Pro C# 5.0\newcode\Tasks\SynchronizationSamples\obj\x86\Debug\SynchronizationSamples.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\SynchronizationSamples\bin\Debug\SynchronizationSamples.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\SynchronizationSamples\bin\Debug\SynchronizationSamples.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\SynchronizationSamples\bin\Debug\SynchronizationSamples.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\SynchronizationSamples\obj\x86\Debug\SynchronizationSamples.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\SynchronizationSamples\obj\x86\Debug\SynchronizationSamples.pdb

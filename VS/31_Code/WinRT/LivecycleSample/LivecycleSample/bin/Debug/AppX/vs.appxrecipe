@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>SUMMITDAY</Machine>
+    <WindowsUser>Christian</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>e4f83c66-ef45-4d88-a620-f0a2d149c689</PackageIdentityName>
+    <RegisteredManifestChecksum>1D595F3EA853E7F25B616DE8BC7A656CABB406C35660812B95EE588360E0BEEA</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>e4f83c66-ef45-4d88-a620-f0a2d149c689_1.0.0.0_neutral__a9gjcazcjyqtc</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>e4f83c66-ef45-4d88-a620-f0a2d149c689_a9gjcazcjyqtc!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>e4f83c66-ef45-4d88-a620-f0a2d149c689</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Christian</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-11-10T09:30:09.894</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\LivecycleSample.exe">
+      <PackagePath>LivecycleSample.exe</PackagePath>
+      <Modified>2013-11-10T10:22:35.769</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\Assets\Logo.scale-100.png">
+      <PackagePath>Assets\Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\Assets\SmallLogo.scale-100.png">
+      <PackagePath>Assets\SmallLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\Assets\SplashScreen.scale-100.png">
+      <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\Assets\StoreLogo.scale-100.png">
+      <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-19T02:13:24.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\Common\ReadMe.txt">
+      <PackagePath>Common\ReadMe.txt</PackagePath>
+      <Modified>2013-09-10T14:59:51.725</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\App.xbf">
+      <PackagePath>App.xbf</PackagePath>
+      <Modified>2013-09-10T15:06:02.139</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\MainPage.xbf">
+      <PackagePath>MainPage.xbf</PackagePath>
+      <Modified>2013-09-10T15:06:02.141</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\Page1.xbf">
+      <PackagePath>Page1.xbf</PackagePath>
+      <Modified>2013-09-10T15:06:02.144</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\Page2.xbf">
+      <PackagePath>Page2.xbf</PackagePath>
+      <Modified>2013-11-10T09:30:09.130</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\Page3.xbf">
+      <PackagePath>Page3.xbf</PackagePath>
+      <Modified>2013-11-10T09:30:09.133</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\LivecycleSample\LivecycleSample\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2013-11-10T09:30:09.681</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

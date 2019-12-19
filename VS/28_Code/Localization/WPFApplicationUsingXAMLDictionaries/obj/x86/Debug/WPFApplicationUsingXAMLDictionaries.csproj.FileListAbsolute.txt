@@ -1,0 +1,66 @@
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.exe.config
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.exe
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.pdb
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\MainWindow.baml
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\MainWindow.g.cs
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\App.g.cs
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries_MarkupCompile.cache
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\GenerateResource.read.1.tlog
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\GenerateResource.write.1.tlog
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.exe
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.pdb
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\bin\Debug\en-US\WPFApplicationUsingXAMLDictionaries.resources.dll
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\Wrox.ProCSharp.Localization.Properties.Resources.resources
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.g.en-US.resources
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\en-US\WPFApplicationUsingXAMLDictionaries.resources.dll
+K:\ProC# 4.0\code\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\LocalizationStrings.baml
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.exe.config
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.exe
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.pdb
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.exe
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.pdb
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\bin\Debug\en-US\WPFApplicationUsingXAMLDictionaries.resources.dll
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\LocalizationStrings.baml
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\MainWindow.baml
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\MainWindow.g.i.cs
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\App.g.i.cs
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries_MarkupCompile.cache
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\Wrox.ProCSharp.Localization.Properties.Resources.resources
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.g.en-US.resources
+C:\ProC#\Localization\LocalizationDemos\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\en-US\WPFApplicationUsingXAMLDictionaries.resources.dll
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.exe
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\bin\Debug\en-US\WPFApplicationUsingXAMLDictionaries.resources.dll
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\LocalizationStrings.baml
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\MainWindow.baml
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\MainWindow.g.cs
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\App.g.cs
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries_MarkupCompile.cache
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\Wrox.ProCSharp.Localization.Properties.Resources.resources
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.csproj.GenerateResource.Cache
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.g.en-US.resources
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\en-US\WPFApplicationUsingXAMLDictionaries.resources.dll
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.exe
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\bin\Debug\WPFApplicationUsingXAMLDictionaries.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\bin\Debug\en-US\WPFApplicationUsingXAMLDictionaries.resources.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\LocalizationStrings.baml
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\MainWindow.baml
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\App.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries_MarkupCompile.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\Wrox.ProCSharp.Localization.Properties.Resources.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.csproj.GenerateResource.Cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.g.en-US.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\en-US\WPFApplicationUsingXAMLDictionaries.resources.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\WPFApplicationUsingXAMLDictionaries\obj\x86\Debug\WPFApplicationUsingXAMLDictionaries.pdb

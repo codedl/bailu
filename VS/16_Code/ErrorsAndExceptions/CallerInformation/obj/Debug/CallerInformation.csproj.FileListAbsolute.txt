@@ -15,3 +15,9 @@ C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\Calle
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\CallerInformation\obj\Debug\CallerInformation.pdb
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\CallerInformation\bin\Debug\CallerInformation.exe
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\ErrorsAndExceptions\CallerInformation\bin\Debug\CallerInformation.pdb
+I:\work\study\VS\16_Code\ErrorsAndExceptions\CallerInformation\bin\Debug\CallerInformation.exe.config
+I:\work\study\VS\16_Code\ErrorsAndExceptions\CallerInformation\bin\Debug\CallerInformation.exe
+I:\work\study\VS\16_Code\ErrorsAndExceptions\CallerInformation\bin\Debug\CallerInformation.pdb
+I:\work\study\VS\16_Code\ErrorsAndExceptions\CallerInformation\obj\Debug\CallerInformation.csprojAssemblyReference.cache
+I:\work\study\VS\16_Code\ErrorsAndExceptions\CallerInformation\obj\Debug\CallerInformation.exe
+I:\work\study\VS\16_Code\ErrorsAndExceptions\CallerInformation\obj\Debug\CallerInformation.pdb

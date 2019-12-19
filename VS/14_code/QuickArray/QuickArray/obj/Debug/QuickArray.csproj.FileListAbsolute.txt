@@ -1,0 +1,6 @@
+I:\work\study\VS\14_code\QuickArray\QuickArray\bin\Debug\QuickArray.exe.config
+I:\work\study\VS\14_code\QuickArray\QuickArray\bin\Debug\QuickArray.exe
+I:\work\study\VS\14_code\QuickArray\QuickArray\bin\Debug\QuickArray.pdb
+I:\work\study\VS\14_code\QuickArray\QuickArray\obj\Debug\QuickArray.csprojAssemblyReference.cache
+I:\work\study\VS\14_code\QuickArray\QuickArray\obj\Debug\QuickArray.exe
+I:\work\study\VS\14_code\QuickArray\QuickArray\obj\Debug\QuickArray.pdb

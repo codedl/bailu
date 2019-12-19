@@ -1,0 +1,5 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\SharingCode\bin\Debug\SharingCode.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\SharingCode\bin\Debug\SharingCode.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\SharingCode\obj\Debug\SharingCode.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\SharingCode\obj\Debug\SharingCode.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\SharingCode\obj\Debug\SharingCode.pdb

@@ -1,0 +1,32 @@
+K:\ProC# 4.0\code\Localization\LocalizationDemos\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.exe.config
+K:\ProC# 4.0\code\Localization\LocalizationDemos\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.exe
+K:\ProC# 4.0\code\Localization\LocalizationDemos\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.pdb
+K:\ProC# 4.0\code\Localization\LocalizationDemos\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReader.dll
+K:\ProC# 4.0\code\Localization\LocalizationDemos\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReader.pdb
+K:\ProC# 4.0\code\Localization\LocalizationDemos\DatabaseResourceReaderClient\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Localization\LocalizationDemos\DatabaseResourceReaderClient\obj\x86\Debug\DatabaseResourceReaderClient.exe
+K:\ProC# 4.0\code\Localization\LocalizationDemos\DatabaseResourceReaderClient\obj\x86\Debug\DatabaseResourceReaderClient.pdb
+C:\ProC#\Localization\LocalizationDemos\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.exe.config
+C:\ProC#\Localization\LocalizationDemos\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.exe
+C:\ProC#\Localization\LocalizationDemos\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.pdb
+C:\ProC#\Localization\LocalizationDemos\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReader.dll
+C:\ProC#\Localization\LocalizationDemos\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReader.pdb
+C:\ProC#\Localization\LocalizationDemos\DatabaseResourceReaderClient\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\ProC#\Localization\LocalizationDemos\DatabaseResourceReaderClient\obj\x86\Debug\DatabaseResourceReaderClient.exe
+C:\ProC#\Localization\LocalizationDemos\DatabaseResourceReaderClient\obj\x86\Debug\DatabaseResourceReaderClient.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Localization\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.exe
+C:\Mesh\Pro C# 5.0\newcode\Localization\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReader.dll
+C:\Mesh\Pro C# 5.0\newcode\Localization\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReader.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\DatabaseResourceReaderClient\obj\x86\Debug\DatabaseResourceReaderClient.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\Localization\DatabaseResourceReaderClient\obj\x86\Debug\DatabaseResourceReaderClient.exe
+C:\Mesh\Pro C# 5.0\newcode\Localization\DatabaseResourceReaderClient\obj\x86\Debug\DatabaseResourceReaderClient.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReaderClient.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReader.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\DatabaseResourceReaderClient\bin\Debug\DatabaseResourceReader.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\DatabaseResourceReaderClient\obj\x86\Debug\DatabaseResourceReaderClient.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\DatabaseResourceReaderClient\obj\x86\Debug\DatabaseResourceReaderClient.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\DatabaseResourceReaderClient\obj\x86\Debug\DatabaseResourceReaderClient.pdb

@@ -1,0 +1,30 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\bin\Debug\SimpleHost.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\bin\Debug\SimpleHost.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\bin\Debug\SimpleHost.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\obj\Debug\SimpleHost.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\obj\Debug\SimpleHost.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\SimpleSample\SimpleHost\obj\Debug\SimpleHost.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleHost.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\obj\Debug\SimpleHost.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\obj\Debug\SimpleHost.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\obj\Debug\SimpleHost.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleHost.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleHost.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleCalculator.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleCalculator.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleHost.exe.CodeAnalysisLog.xml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleHost.exe.lastcodeanalysissucceeded
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleHost.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleHost.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleHost.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\ConventionBasedSample\SimpleHost\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleCalculator.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\ConventionBasedSample\SimpleHost\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\ConventionBasedSample\SimpleHost\bin\Debug\SimpleCalculator.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\ConventionBasedSample\SimpleHost\obj\Debug\SimpleHost.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\ConventionBasedSample\SimpleHost\obj\Debug\SimpleHost.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\ConventionBasedSample\SimpleHost\obj\Debug\SimpleHost.pdb

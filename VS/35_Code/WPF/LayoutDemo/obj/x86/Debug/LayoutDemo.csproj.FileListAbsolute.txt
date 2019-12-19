@@ -1,0 +1,70 @@
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\bin\Debug\LayoutDemo.exe.config
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\bin\Debug\LayoutDemo.exe
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\bin\Debug\LayoutDemo.pdb
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\CanvasWindow.baml
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\DockPanelWindow.baml
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\GridWindow.baml
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\MainWindow.baml
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\StackPanelWindow.baml
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\WrapPanelWindow.baml
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\CanvasWindow.g.cs
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\DockPanelWindow.g.cs
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\GridWindow.g.cs
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\MainWindow.g.cs
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\StackPanelWindow.g.cs
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\WrapPanelWindow.g.cs
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\App.g.cs
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\LayoutDemo_MarkupCompile.cache
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\LayoutDemo.g.resources
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\LayoutDemo.Properties.Resources.resources
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\LayoutDemo.exe
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\LayoutDemo.pdb
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\bin\Debug\LayoutDemo.exe.config
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\bin\Debug\LayoutDemo.exe
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\bin\Debug\LayoutDemo.pdb
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\CanvasWindow.baml
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\DockPanelWindow.baml
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\GridWindow.baml
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\MainWindow.baml
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\StackPanelWindow.baml
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\WrapPanelWindow.baml
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\CanvasWindow.g.cs
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\DockPanelWindow.g.cs
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\GridWindow.g.cs
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\MainWindow.g.cs
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\StackPanelWindow.g.cs
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\WrapPanelWindow.g.cs
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\App.g.cs
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\LayoutDemo_MarkupCompile.cache
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\LayoutDemo.g.resources
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\LayoutDemo.Properties.Resources.resources
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\GenerateResource.read.1.tlog
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\GenerateResource.write.1.tlog
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\LayoutDemo.exe
+K:\ProC# 4.0\code\WPF\WPFSamples\LayoutDemo\obj\x86\Debug\LayoutDemo.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\bin\Debug\LayoutDemo.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\bin\Debug\LayoutDemo.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\bin\Debug\LayoutDemo.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\CanvasWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\DockPanelWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\GridWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\MainWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\StackPanelWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\WrapPanelWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\CanvasWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\DockPanelWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\GridWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\StackPanelWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\WrapPanelWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\App.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\LayoutDemo_MarkupCompile.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\LayoutDemo.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\LayoutDemo.Properties.Resources.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\LayoutDemo.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\LayoutDemo.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\LayoutDemo\obj\x86\Debug\LayoutDemo.pdb

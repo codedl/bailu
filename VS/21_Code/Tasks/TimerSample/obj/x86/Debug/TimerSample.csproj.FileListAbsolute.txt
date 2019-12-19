@@ -1,0 +1,10 @@
+C:\Mesh\Pro C# 5.0\newcode\Tasks\TimerSample\bin\Debug\TimerSample.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Tasks\TimerSample\bin\Debug\TimerSample.exe
+C:\Mesh\Pro C# 5.0\newcode\Tasks\TimerSample\bin\Debug\TimerSample.pdb
+C:\Mesh\Pro C# 5.0\newcode\Tasks\TimerSample\obj\x86\Debug\TimerSample.exe
+C:\Mesh\Pro C# 5.0\newcode\Tasks\TimerSample\obj\x86\Debug\TimerSample.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TimerSample\bin\Debug\TimerSample.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TimerSample\bin\Debug\TimerSample.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TimerSample\bin\Debug\TimerSample.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TimerSample\obj\x86\Debug\TimerSample.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TimerSample\obj\x86\Debug\TimerSample.pdb

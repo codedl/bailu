@@ -1,0 +1,45 @@
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\bin\Debug\AttachedPropertyDemo.exe
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\bin\Debug\AttachedPropertyDemo.pdb
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\MainWindow.baml
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\MainWindow.g.cs
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\App.g.cs
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo_MarkupCompile.cache
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.g.resources
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\GenerateResource.read.1.tlog
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\GenerateResource.write.1.tlog
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.exe
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.pdb
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo_MarkupCompile.lref
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\Wrox.ProCSharp.XAML.Properties.Resources.resources
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\bin\Debug\AttachedPropertyDemo.exe
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\bin\Debug\AttachedPropertyDemo.pdb
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\MainWindow.g.i.cs
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\App.g.i.cs
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo_MarkupCompile.cache
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo_MarkupCompile.lref
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\MainWindow.baml
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.g.resources
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\Wrox.ProCSharp.XAML.Properties.Resources.resources
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.exe
+C:\ProC#\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\bin\Debug\AttachedPropertyDemo.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\bin\Debug\AttachedPropertyDemo.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\App.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo_MarkupCompile.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo_MarkupCompile.lref
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\MainWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\Wrox.ProCSharp.XAML.Properties.Resources.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\bin\Debug\AttachedPropertyDemo.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\AttachedPropertyDemo\obj\x86\Debug\AttachedPropertyDemo.csprojResolveAssemblyReference.cache

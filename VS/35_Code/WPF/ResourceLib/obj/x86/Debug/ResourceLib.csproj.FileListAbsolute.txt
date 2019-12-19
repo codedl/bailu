@@ -1,0 +1,18 @@
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\ResourceLib\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\ResourceLib\bin\Debug\ResourceLib.dll
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\ResourceLib\bin\Debug\ResourceLib.pdb
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\ResourceLib\obj\x86\Debug\ResourceLib.dll
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\ResourceLib\obj\x86\Debug\ResourceLib.pdb
+D:\Books\Pro C# 4.0\code\WPF\WPFSamples\ResourceLib\obj\x86\Debug\ResourceLib.g.resources
+K:\ProC# 4.0\code\WPF\WPFSamples\ResourceLib\bin\Debug\ResourceLib.dll
+K:\ProC# 4.0\code\WPF\WPFSamples\ResourceLib\bin\Debug\ResourceLib.pdb
+K:\ProC# 4.0\code\WPF\WPFSamples\ResourceLib\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\WPF\WPFSamples\ResourceLib\obj\x86\Debug\ResourceLib.g.resources
+K:\ProC# 4.0\code\WPF\WPFSamples\ResourceLib\obj\x86\Debug\ResourceLib.dll
+K:\ProC# 4.0\code\WPF\WPFSamples\ResourceLib\obj\x86\Debug\ResourceLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\ResourceLib\bin\Debug\ResourceLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\ResourceLib\bin\Debug\ResourceLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\ResourceLib\obj\x86\Debug\ResourceLib.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\ResourceLib\obj\x86\Debug\ResourceLib.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\ResourceLib\obj\x86\Debug\ResourceLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\WPF\ResourceLib\obj\x86\Debug\ResourceLib.pdb

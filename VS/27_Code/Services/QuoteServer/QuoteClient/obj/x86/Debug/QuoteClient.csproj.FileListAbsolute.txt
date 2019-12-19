@@ -1,0 +1,66 @@
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.exe
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.pdb
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\obj\x86\Debug\App.g.cs
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient_MarkupCompile.cache
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.g.resources
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\obj\x86\Debug\Wrox.ProCSharp.WinServices.Properties.Resources.resources
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.csproj.GenerateResource.Cache
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.exe
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.pdb
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClientWindow.baml
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClientWindow.g.cs
+C:\Books\Pro C# 4.0\code\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.exe.config
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.exe.config
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.exe
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.pdb
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\MainWindow.baml
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\MainWindow.g.cs
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\App.g.cs
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient_MarkupCompile.cache
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.g.resources
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\Wrox.ProCSharp.WinServices.Properties.Resources.resources
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\GenerateResource.read.1.tlog
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\obj\x86\Debug\GenerateResource.write.1.tlog
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.exe
+K:\ProC# 4.0\code\Services\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.exe.config
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.pdb
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.csprojResolveAssemblyReference.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\MainWindow.baml
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\MainWindow.g.cs
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\App.g.cs
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient_MarkupCompile.cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.g.resources
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\Wrox.ProCSharp.WinServices.Properties.Resources.resources
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.csproj.GenerateResource.Cache
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.exe
+C:\Users\christiannagel\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\MainWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\App.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient_MarkupCompile.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\Wrox.ProCSharp.WinServices.Properties.Resources.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.pdb
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.exe
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\bin\Debug\QuoteClient.pdb
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.csprojResolveAssemblyReference.cache
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\MainWindow.baml
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\MainWindow.g.cs
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\App.g.cs
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient_MarkupCompile.cache
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.g.resources
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\Wrox.ProCSharp.WinServices.Properties.Resources.resources
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.csproj.GenerateResource.Cache
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.exe
+C:\Mesh\Pro C# 5.0\newcode\Services\QuoteServer\QuoteClient\obj\x86\Debug\QuoteClient.pdb

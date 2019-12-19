@@ -1,0 +1,24 @@
+K:\ProC# 4.0\code\Localization\LocalizationDemos\SortingDemo\bin\Debug\SortingDemo.exe.config
+K:\ProC# 4.0\code\Localization\LocalizationDemos\SortingDemo\bin\Debug\SortingDemo.exe
+K:\ProC# 4.0\code\Localization\LocalizationDemos\SortingDemo\bin\Debug\SortingDemo.pdb
+K:\ProC# 4.0\code\Localization\LocalizationDemos\SortingDemo\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\Localization\LocalizationDemos\SortingDemo\obj\x86\Debug\SortingDemo.exe
+K:\ProC# 4.0\code\Localization\LocalizationDemos\SortingDemo\obj\x86\Debug\SortingDemo.pdb
+C:\ProC#\Localization\LocalizationDemos\SortingDemo\bin\Debug\SortingDemo.exe.config
+C:\ProC#\Localization\LocalizationDemos\SortingDemo\bin\Debug\SortingDemo.exe
+C:\ProC#\Localization\LocalizationDemos\SortingDemo\bin\Debug\SortingDemo.pdb
+C:\ProC#\Localization\LocalizationDemos\SortingDemo\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\ProC#\Localization\LocalizationDemos\SortingDemo\obj\x86\Debug\SortingDemo.exe
+C:\ProC#\Localization\LocalizationDemos\SortingDemo\obj\x86\Debug\SortingDemo.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\SortingDemo\bin\Debug\SortingDemo.exe.config
+C:\Mesh\Pro C# 5.0\newcode\Localization\SortingDemo\bin\Debug\SortingDemo.exe
+C:\Mesh\Pro C# 5.0\newcode\Localization\SortingDemo\bin\Debug\SortingDemo.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\SortingDemo\obj\x86\Debug\SortingDemo.exe
+C:\Mesh\Pro C# 5.0\newcode\Localization\SortingDemo\obj\x86\Debug\SortingDemo.pdb
+C:\Mesh\Pro C# 5.0\newcode\Localization\SortingDemo\obj\x86\Debug\SortingDemo.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\SortingDemo\bin\Debug\SortingDemo.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\SortingDemo\bin\Debug\SortingDemo.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\SortingDemo\bin\Debug\SortingDemo.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\SortingDemo\obj\x86\Debug\SortingDemo.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\SortingDemo\obj\x86\Debug\SortingDemo.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Localization\SortingDemo\obj\x86\Debug\SortingDemo.pdb

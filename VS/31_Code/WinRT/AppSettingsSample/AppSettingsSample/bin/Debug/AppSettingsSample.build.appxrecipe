@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>SUMMITDAY</Machine>
+    <WindowsUser>Christian</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>b9f9e34b-947f-450b-91e4-9274ba59e705</PackageIdentityName>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\AppSettingsSample.exe">
+      <PackagePath>AppSettingsSample.exe</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\Assets\Logo.scale-100.png">
+      <PackagePath>Assets\Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\Assets\SmallLogo.scale-100.png">
+      <PackagePath>Assets\SmallLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\Assets\SplashScreen.scale-100.png">
+      <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\Assets\StoreLogo.scale-100.png">
+      <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\App.xbf">
+      <PackagePath>App.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\MainPage.xbf">
+      <PackagePath>MainPage.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\SettingsFlyout1.xbf">
+      <PackagePath>SettingsFlyout1.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\WinRT\AppSettingsSample\AppSettingsSample\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

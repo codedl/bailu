@@ -1,0 +1,15 @@
+C:\mesh\Pro C# 5.0\newcode\Tasks\DataFlowSample\bin\Debug\DataFlowSample.exe.config
+C:\mesh\Pro C# 5.0\newcode\Tasks\DataFlowSample\bin\Debug\DataFlowSample.exe
+C:\mesh\Pro C# 5.0\newcode\Tasks\DataFlowSample\bin\Debug\DataFlowSample.pdb
+C:\mesh\Pro C# 5.0\newcode\Tasks\DataFlowSample\bin\Debug\System.Threading.Tasks.Dataflow.dll
+C:\mesh\Pro C# 5.0\newcode\Tasks\DataFlowSample\bin\Debug\System.Threading.Tasks.Dataflow.xml
+C:\mesh\Pro C# 5.0\newcode\Tasks\DataFlowSample\obj\Debug\DataFlowSample.exe
+C:\mesh\Pro C# 5.0\newcode\Tasks\DataFlowSample\obj\Debug\DataFlowSample.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\DataFlowSample\bin\Debug\DataFlowSample.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\DataFlowSample\bin\Debug\DataFlowSample.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\DataFlowSample\bin\Debug\DataFlowSample.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\DataFlowSample\bin\Debug\System.Threading.Tasks.Dataflow.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\DataFlowSample\bin\Debug\System.Threading.Tasks.Dataflow.xml
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\DataFlowSample\obj\Debug\DataFlowSample.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\DataFlowSample\obj\Debug\DataFlowSample.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\DataFlowSample\obj\Debug\DataFlowSample.csprojResolveAssemblyReference.cache

@@ -13,6 +13,8 @@ namespace Wrox.ProCSharp.ErrorsAndExceptions
 
       Action a1 = () => p.Log();
       a1();
+
+            Console.Read();
     }
 
     private int someProperty;

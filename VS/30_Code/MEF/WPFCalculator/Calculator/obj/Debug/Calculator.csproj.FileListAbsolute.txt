@@ -1,0 +1,38 @@
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\bin\Debug\Calculator.exe.config
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\bin\Debug\Calculator.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\bin\Debug\Calculator.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\MainWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\MainWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\App.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\Calculator_MarkupCompile.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\Calculator.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\Calculator.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\Calculator.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\Calculator.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\Calculator.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\Calculator_MarkupCompile.lref
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\Wrox.ProCSharp.MEF.Properties.Resources.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\bin\Debug\CalculatorUtils.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\bin\Debug\CalculatorUtils.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\MEF\WPFCalculator\Calculator\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\bin\Debug\Calculator.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\bin\Debug\CalculatorContract.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\bin\Debug\CalculatorUtils.dll
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\bin\Debug\CalculatorContract.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\bin\Debug\CalculatorUtils.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\Calculator.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\MainWindow.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\App.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\Calculator_MarkupCompile.cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\Calculator_MarkupCompile.lref
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\MainWindow.baml
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\Calculator.g.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\Wrox.ProCSharp.MEF.Properties.Resources.resources
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\Calculator.csproj.GenerateResource.Cache
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\Calculator.exe
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\obj\Debug\Calculator.pdb
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\bin\Debug\Calculator.exe.config
+C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\MEF\WPFCalculator\Calculator\bin\Debug\Calculator.pdb

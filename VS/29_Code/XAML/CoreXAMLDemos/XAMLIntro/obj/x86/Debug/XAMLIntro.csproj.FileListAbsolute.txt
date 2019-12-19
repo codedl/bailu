@@ -1,0 +1,45 @@
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\bin\Debug\XAMLIntro.exe
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\bin\Debug\XAMLIntro.pdb
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\ResolveAssemblyReference.cache
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\MainWindow.baml
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\MainWindow.g.cs
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\App.g.cs
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro_MarkupCompile.cache
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.g.resources
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\GenerateResource.read.1.tlog
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\GenerateResource.write.1.tlog
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.exe
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.pdb
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\Wrox.ProCSharp.XAML.Properties.Resources.resources
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\bin\Debug\DemoLib.dll
+K:\ProC# 4.0\code\XAML\CoreXAMLDemos\XAMLIntro\bin\Debug\DemoLib.pdb
+C:\ProC#\CoreXAMLDemos\XAMLIntro\bin\Debug\XAMLIntro.exe
+C:\ProC#\CoreXAMLDemos\XAMLIntro\bin\Debug\XAMLIntro.pdb
+C:\ProC#\CoreXAMLDemos\XAMLIntro\bin\Debug\DemoLib.dll
+C:\ProC#\CoreXAMLDemos\XAMLIntro\bin\Debug\DemoLib.pdb
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\MainWindow.baml
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\MainWindow.g.i.cs
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\App.g.i.cs
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro_MarkupCompile.cache
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.g.resources
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\Wrox.ProCSharp.XAML.Properties.Resources.resources
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.exe
+C:\ProC#\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\bin\Debug\XAMLIntro.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\bin\Debug\XAMLIntro.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\bin\Debug\DemoLib.dll
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\bin\Debug\DemoLib.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.csprojResolveAssemblyReference.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\MainWindow.baml
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\App.g.cs
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro_MarkupCompile.cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.g.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\Wrox.ProCSharp.XAML.Properties.Resources.resources
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.csproj.GenerateResource.Cache
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.exe
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\obj\x86\Debug\XAMLIntro.pdb
+C:\Users\Christian\mesh\Pro C# 5.0\newcode\XAML\CoreXAMLDemos\XAMLIntro\bin\Debug\XAMLIntro.exe.config
