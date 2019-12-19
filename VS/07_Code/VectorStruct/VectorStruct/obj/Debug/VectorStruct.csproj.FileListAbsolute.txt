@@ -1,0 +1,6 @@
+D:\study\VS\07_Code\VectorStruct\VectorStruct\bin\Debug\VectorStruct.exe.config
+D:\study\VS\07_Code\VectorStruct\VectorStruct\bin\Debug\VectorStruct.exe
+D:\study\VS\07_Code\VectorStruct\VectorStruct\bin\Debug\VectorStruct.pdb
+D:\study\VS\07_Code\VectorStruct\VectorStruct\obj\Debug\VectorStruct.csprojAssemblyReference.cache
+D:\study\VS\07_Code\VectorStruct\VectorStruct\obj\Debug\VectorStruct.exe
+D:\study\VS\07_Code\VectorStruct\VectorStruct\obj\Debug\VectorStruct.pdb

@@ -1,0 +1,6 @@
+D:\study\VS\14_code\PointerPlayground\PointerPlayground\bin\Debug\PointerPlayground.exe.config
+D:\study\VS\14_code\PointerPlayground\PointerPlayground\bin\Debug\PointerPlayground.exe
+D:\study\VS\14_code\PointerPlayground\PointerPlayground\bin\Debug\PointerPlayground.pdb
+D:\study\VS\14_code\PointerPlayground\PointerPlayground\obj\Debug\PointerPlayground.csprojAssemblyReference.cache
+D:\study\VS\14_code\PointerPlayground\PointerPlayground\obj\Debug\PointerPlayground.exe
+D:\study\VS\14_code\PointerPlayground\PointerPlayground\obj\Debug\PointerPlayground.pdb
