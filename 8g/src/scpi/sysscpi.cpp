@@ -11690,8 +11690,7 @@ char tSysScpi::getZcAttVal(void)
 
 }
 void tSysScpi::controlDc(void){
-	//预定义控制衰减器B的送数
-	int dx[] = {0x00, 0x01, 0x03, 0x05, 0x07, 0x09, 0x0c, 0x0f, 0x16, 0x1b, 0x29}; 
+
 
 	int fd = open(DEVICE_NAME_DC, O_RDWR | O_NONBLOCK);
 	if(fd < 0){
@@ -11699,15 +11698,6 @@ void tSysScpi::controlDc(void){
 		return;
 	}
 	ioctl(fd , ADDR_CONA, 0);//选择DC通道
-
-	if(sysData.ampt.att > 30)
-			sysData.ampt.att = 30;//dc板衰减器最大为30			
-	int attb = (int)sysData.ampt.att % 10;//衰减器B按1db步进
-	int data = 0;
-	data = dx[attb];
-	if(sysData.ampt.att == 20 || sysData.ampt.att == 30)
-		data = 0x29;
-	qDebug() << "attb: " << attb << "; data: " << data;
 #if 0
 	double x = (10.0 + 20.0 * log10(2100.0 / 1100.0) - attb) / 20.0;
 	double rw = 1000.0 / (pow(10.0, x) -1.0) - 51.0;
@@ -11715,8 +11705,57 @@ void tSysScpi::controlDc(void){
 #endif
 
 	ioctl(fd,0xdc02, getDcPremptData());//控制DC通道衰减,通道,前置放大
-	ioctl(fd,0xdc01, data);//控制衰减器B
+	ioctl(fd,0xdc01, (int)sysData.ampt.att);//控制衰减器B
 
+//DDR3控制地址:352~361
+	ioctl(fd, 350, 0);
+	ioctl(fd, 350, 1);
+
+	ioctl(fd, 351, 1);
+	ioctl(fd, 351, 0);
+
+	ioctl(fd, 359, fft_det&0x03);
+
+	ioctl(fd,352,fft_alllength&0xFFFF);
+	ioctl(fd,353,(fft_alllength >> 16)&0xFFFF);
+
+	unsigned int fftn = 0;
+	if(fft_length == 128)
+		fftn = 0x07;
+	else if(fft_length == 256)
+		fftn = 0x08;
+	else if(fft_length == 512)
+		fftn = 0x09;
+	else if(fft_length == 1024)
+		fftn = 0x0a;
+	else if(fft_length == 2048)
+		fftn = 0x0b;
+	else
+		fftn = 0x07;
+
+	ioctl(fd,354,fftn & 0x0f);
+	
+	ioctl(fd,355,fft_length);
+	
+	unsigned int fft_cnt = floor((fft_alllength-fft_length)/fft_length + 1);
+	ioctl(fd,356,fft_cnt&0xFFFF);
+	ioctl(fd,357,(fft_cnt >> 16)&0xFFFF);
+	
+	ioctl(fd,358,0);
+	
+	unsigned int qua_aver = (pow2_32 - 1) / fft_cnt;
+	ioctl(fd,360,qua_aver&0xffff);
+	ioctl(fd,361,(qua_aver>>16) & 0xffff);	
+//CIC控制
+	ioctl(fd, 7, 0);
+	ioctl(fd, 10, 1);
+	ioctl(fd, 10, 0);
+	ioctl(fd, 8, cic_config_data);
+	int cic_shift_value = 5 * log10(8) / log(2);
+	ioctl(fd, 11, cic_shift_value );
+	ioctl(fd, 9, 1);
+	ioctl(fd, 9, 0);
+	
 	close(fd);
 }
 //射频控制

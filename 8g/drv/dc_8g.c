@@ -320,14 +320,25 @@ static ssize_t bl_fe_write(struct file *filp, const char __user *buff, size_t co
 //@arg数据值
 static long bl_fe_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
+	//预定义控制衰减器B的送数
+	int dx[] = {0x00, 0x01, 0x03, 0x05, 0x07, 0x09, 0x0c, 0x0f, 0x16, 0x1b, 0x29}; 
 	printd("ioctl cmd = %x, arg = 0x%08x\r\n", cmd, arg);
 
 	switch (cmd)
 	{
-		case 0xdc01:
-			dc_amp(arg);
+		case 0xdc01://控制衰减器B送数
+		{
+			int att = arg;
+			int data = 0;
+			if(att > 30)
+				att = 30;//dc板衰减器最大为30			
+			data = dx[(int)att % 10];
+			if(att == 20 || att == 30)
+				data = 0x29;
+			dc_amp(data);
 			break;
-		case 0xdc02:
+		}
+		case 0xdc02:////控制DC通道衰减,通道,前置放大
 			dc_att_chan(arg);
 			break;
 		default:

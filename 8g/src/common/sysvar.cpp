@@ -95,4 +95,7 @@ int intFlag = 0;
 unsigned long ifDataBuf[RAMDATASIZE];
 
 int valuechanged;
-
+int fft_alllength = 2048;
+int fft_length = 128;
+int fft_det = 3;
+int cic_config_data = 8;

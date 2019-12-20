@@ -107,7 +107,6 @@ resultDef tBaseScpi::GetFunctionCode(QString str)
   result.auxValue = AUX_data;
   result.auxValue2 = AUX_data2;
   result.auxValue3 = AUX_data3;
-
   return result;
 }
 
@@ -145,6 +144,10 @@ void tBaseScpi::UpdataTree(pCSTree &tree, int num)
 	insert_data->isellipsis = parseCmd[i].isellipsis;
 
     insert_data->funcode = parseCmd[i].funcode;
+
+  	if(parseCmd[i].funcode == 0x420A)
+		printf("parseCmd[i].data:%s;parseCmd[i].funcode:%04x\n",\
+		parseCmd[i].data,parseCmd[i].funcode);
 
     //判断当前节点应插入的位置
     pTemp = InsertChild(node, insert_data);
@@ -677,9 +680,14 @@ void tBaseScpi::initCommandList(void)
 
   for(unsigned long i = 0; i < sizeof test / sizeof test[0]; i++)
   {
+  	
     initParseCmd();
     int t = parseStringCmd(test[i]);
 	CreatTree(root, t);
+	if(strcmp(test[i].data,":FFTDet") == 0){
+		printf("test[i].data:%s;\ntest[i].funcode:%04x\n",\
+			test[i].data,test[i].funcode);
+  	}
   }
 
   root_tree = root;

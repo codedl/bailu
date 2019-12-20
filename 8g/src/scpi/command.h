@@ -400,6 +400,14 @@
 #define SCPI_CMD_CLEAR 								0x4204
 #define SCPI_CMD_RF 								0x4205
 
+#define SCPI_CMD_RESET                              0x4206
+#define SCPI_CMD_START                              0x4207
+#define SCPI_CMD_ALLLENGTH                          0x4208
+#define SCPI_CMD_FFTLENGTH                          0x4209
+#define SCPI_CMD_FFTDET								0x420A
+#define SCPI_CMD_CICCFG								0x420B
+#define SCPI_CMD_CTLDC								0x420C
+
   //检索返回值结构定义
 struct resultDef
 {
@@ -911,6 +919,13 @@ static struct _SCPI_keyboardCmd test[] = {
   {":CALAFREQ:FREQ",																	SCPI_CMD_CALAFREQ			},
   {":CLEAR",												SCPI_CMD_CLEAR			},
   {":RFSET",                                                SCPI_CMD_RF             },
+  {":RESETDDR",												SCPI_CMD_RESET			},
+  {":STARTDDR",												SCPI_CMD_START			},
+  {":DDRAlllength", 										SCPI_CMD_ALLLENGTH		},
+  {":DDRFftlength", 										SCPI_CMD_FFTLENGTH		},
+  {":CICConfig",											SCPI_CMD_CICCFG 		},
+  {":CTLDC",												SCPI_CMD_CTLDC 			},
+  {":FFTDet", 												SCPI_CMD_FFTDET			},
 };
 
 //解析数组

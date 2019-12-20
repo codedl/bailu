@@ -175,6 +175,11 @@ extern QFont fontSmall;                 //小字体
 extern selfCheckDef selfCheck;          //系统自检
 extern dataDef sysData;                 //系统检波数据
 
+extern int fft_alllength;
+extern int fft_length;
+extern int fft_det;
+extern int cic_config_data;
+
 extern int SCREENWIDTH;                 //屏幕宽度
 extern int SCREENHEIGHT;                //屏幕高度
 extern unsigned char FIRMWARE_VER_MAJOR;//固件主版本号

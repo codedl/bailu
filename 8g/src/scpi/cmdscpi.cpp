@@ -96,8 +96,6 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 		}
 
 		//update command
-		//if(result.cmdCode != 0x1902)
-			//printf("%s:0x%04x\n",cmdStr.toStdString().c_str(),result.cmdCode);
 		switch (result.cmdCode)
 		{
 			case SCPI_CMD_UPDATE_BEGIN:
@@ -2643,6 +2641,59 @@ void tSysScpi::handleScpiCommand(QString cmdStr)
 					close(fd);
 				}
 					#endif
+					break;
+				case SCPI_CMD_RESET:
+				{
+					int fd = open(DEVICE_NAME_DC, O_RDWR | O_NONBLOCK);
+					if(fd < 0){
+						printf("open DEVICE_NAME_DC failed\n");
+						return;
+					}
+					printf("open DEVICE_NAME_DC succeed\n");
+					ioctl(fd,350,0);
+					ioctl(fd,350,1);
+					qDebug() << "SCPI_CMD_RESET";
+					close(fd);
+				}
+					break;
+				case SCPI_CMD_START:
+				{
+					int fd = open(DEVICE_NAME_DC, O_RDWR | O_NONBLOCK);
+					if(fd < 0){
+						printf("open DEVICE_NAME_DC failed\n");
+						return;
+					}
+					printf("open DEVICE_NAME_DC succeed\n");
+					ioctl(fd,351,1);
+					ioctl(fd,351,0);
+					qDebug() << "SCPI_CMD_START";
+					close(fd);
+				}
+					break;
+				case SCPI_CMD_ALLLENGTH:
+					fft_alllength = result.value.trimmed().toUInt();
+					qDebug() << "SCPI_CMD_ALLLENGTH: " << fft_alllength;
+					controlDc();
+					break;
+				case SCPI_CMD_FFTLENGTH:
+					fft_length = result.value.trimmed().toUInt();	
+					qDebug() << "SCPI_CMD_FFTLENGTH: " << fft_length;
+					controlDc();		
+					break;
+				case SCPI_CMD_FFTDET:					
+					fft_det = result.value.trimmed().toUInt() & 0x03;
+					qDebug() << "SCPI_CMD_FFTDET: " << fft_det;
+					controlDc();
+					break;
+				case SCPI_CMD_CICCFG:
+					cic_config_data = result.value.trimmed().toUInt();
+					qDebug() << "SCPI_CMD_CICCFG: " << cic_config_data;
+					controlDc();
+					break;
+				case SCPI_CMD_CTLDC:
+					controlDc();					
+					qDebug() << "SCPI_CMD_CTLDC " ;
+					
 					break;
 				default:
 					exeResult = __SCPI_UNSUPPORT;
