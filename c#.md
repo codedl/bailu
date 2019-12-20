@@ -320,6 +320,10 @@ public void Log(
 [CallerFilePath] string path = null,
 [CallerMemberName] string name = null){}
 可以使用这些特性获取文件的行号,文件路径,调用者
+<部署>
+xcopy/Web部署/Windows Store
+<程序集>
+扩展名为exe或dll的.net可执行程序为程序集;
 
 
 

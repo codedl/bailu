@@ -30,17 +30,18 @@ namespace Wrox.ProCSharp.Assemblies
       CompilerResults results = null;
       using (var provider = new CSharpCodeProvider())
       {
-        var options = new CompilerParameters();
+        var options = new CompilerParameters();//定义编译参数
         options.GenerateInMemory = true;
 
+                //将输入的代码作为public static void Run()的定义
         var sb = new StringBuilder();
         sb.Append(prefix);
         sb.Append(input);
         sb.Append(postfix);
 
-        results = provider.CompileAssemblyFromSource(options, sb.ToString());
+        results = provider.CompileAssemblyFromSource(options, sb.ToString());//编译输入的代码
       }
-
+      //是否有错误
       if (results.Errors.HasErrors)
       {
         hasError = true;
@@ -56,8 +57,8 @@ namespace Wrox.ProCSharp.Assemblies
         TextWriter temp = Console.Out;
         var writer = new StringWriter();
         Console.SetOut(writer);
+//用反射的方式调用Run方法
         Type driverType = results.CompiledAssembly.GetType("Driver");
-
         driverType.InvokeMember("Run", BindingFlags.InvokeMethod |
               BindingFlags.Static | BindingFlags.Public,
               null, null, null);

@@ -13,3 +13,23 @@ C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\Cl
 C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\ClientWPF.csproj.GenerateResource.Cache
 C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\ClientWPF.exe
 C:\Mesh\Pro C# 5.0\newcode\Deployment\Starter\ClientWPF\ClientWPF\obj\Release\ClientWPF.pdb
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\bin\Release\ClientWPF.exe.config
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\bin\Release\ClientWPF.exe.manifest
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\bin\Release\ClientWPF.application
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\bin\Release\ClientWPF.exe
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\bin\Release\ClientWPF.pdb
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\bin\Release\AppSupport.dll
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\bin\Release\AppSupport.pdb
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\ClientWPF.csprojAssemblyReference.cache
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\MainWindow.baml
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\MainWindow.g.cs
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\App.g.cs
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\ClientWPF_MarkupCompile.cache
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\ClientWPF.g.resources
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\ClientWPF.Properties.Resources.resources
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\ClientWPF.csproj.GenerateResource.cache
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\ClientWPF.exe.manifest
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\ClientWPF.application
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\ClientWPF.csproj.CopyComplete
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\ClientWPF.exe
+I:\work\study\VS\18_Code\Deployment\ClientWPF\ClientWPF\obj\Release\ClientWPF.pdb

@@ -1,0 +1,4 @@
+I:\work\study\VS\18_Code\Deployment\ClientWPF\AppSupport\bin\Release\AppSupport.dll
+I:\work\study\VS\18_Code\Deployment\ClientWPF\AppSupport\bin\Release\AppSupport.pdb
+I:\work\study\VS\18_Code\Deployment\ClientWPF\AppSupport\obj\Release\AppSupport.dll
+I:\work\study\VS\18_Code\Deployment\ClientWPF\AppSupport\obj\Release\AppSupport.pdb

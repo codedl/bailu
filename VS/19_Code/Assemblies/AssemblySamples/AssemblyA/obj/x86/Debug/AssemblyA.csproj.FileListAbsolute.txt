@@ -20,3 +20,9 @@ C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\
 C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.csprojResolveAssemblyReference.cache
 C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.exe
 C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.pdb
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.exe.config
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.exe
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\AssemblyA\bin\Debug\AssemblyA.pdb
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.csprojAssemblyReference.cache
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.exe
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\AssemblyA\obj\x86\Debug\AssemblyA.pdb

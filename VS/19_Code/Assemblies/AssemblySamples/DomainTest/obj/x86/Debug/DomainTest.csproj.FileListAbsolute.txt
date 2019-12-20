@@ -28,3 +28,13 @@ C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\DomainTest
 C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\DomainTest\obj\x86\Debug\DomainTest.csprojResolveAssemblyReference.cache
 C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\DomainTest\obj\x86\Debug\DomainTest.exe
 C:\Users\Christian\mesh\Pro C# 5.0\newcode\Assemblies\AssemblySamples\DomainTest\obj\x86\Debug\DomainTest.pdb
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DomainTest\bin\Debug\DomainTest.exe.config
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DomainTest\bin\Debug\DomainTest.exe
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DomainTest\bin\Debug\DomainTest.pdb
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DomainTest\bin\Debug\AssemblyA.exe
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DomainTest\bin\Debug\AssemblyA.pdb
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DomainTest\bin\Debug\AssemblyA.exe.config
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DomainTest\obj\x86\Debug\DomainTest.csprojAssemblyReference.cache
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DomainTest\obj\x86\Debug\DomainTest.csproj.CopyComplete
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DomainTest\obj\x86\Debug\DomainTest.exe
+I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DomainTest\obj\x86\Debug\DomainTest.pdb
