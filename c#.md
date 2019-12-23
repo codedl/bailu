@@ -324,8 +324,38 @@ public void Log(
 xcopy/Web部署/Windows Store
 <程序集>
 扩展名为exe或dll的.net可执行程序为程序集;
-
-
+卸载程序集只能通过终止应用程序域来进行;
+[加载程序集]
+1.AppDomain.CurrentDomain.FriendlyName查看应用程序域名称;
+2.AppDomain.CreateDomain创建应用程序域;
+3.AppDomain.ExecuteAssembly加载程序集;
+AppDomain.CreateInstance加载类生成的程序集;
+运行自定义代码:
+4.AppDomain.CreateInstanceAndUnwrap创建实例;
+5. new CompilerParameters().GenerateInMemory定义编译选项;
+new CSharpCodeProvider()CompileAssemblyFromSource编译代码;
+CompilerResults results获取编译结果;
+results.Errors.HasErrors判断是否出错;
+[强名]程序集唯一的名称;
+<任务/线程和同步>
+[数据和任务并行性]
+Parallel.For(Foreach)使用多个线程完成循环,实现数据的并行;
+Parallel.Invoke实现任务的并行性;
+[使用线程池的任务]
+new TaskFactory().StartNew;
+Task.Factory.StartNew;
+new Task().Run;
+Task.Run(lambda表示式);
+使用的是线程池中的线程;
+[同步任务]
+new Task().RunSynchronously在主线程中创建任务;
+使用主线程;
+new Task(t, "s", TaskCreationOptions.LongRunning).Start
+可以创建一个新线程;
+[任务的结果]
+Task的Result属性表示任务的结果;
+[连续的任务]
+ContinueWith(Task)创建一个在参数Task完成后才执行的任务;
 
 
 

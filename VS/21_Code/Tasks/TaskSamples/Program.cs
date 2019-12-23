@@ -12,20 +12,20 @@ namespace TaskSamples
   {
     static void Main()
     {
-      // ParallelDemo();
+            // ParallelDemo();
 
-      // TasksUsingThreadPool();
-      // RunSynchronousTask();
-      // LongRunningTask();
+            //TasksUsingThreadPool();
+            //RunSynchronousTask();
+            //LongRunningTask();
 
-      // ResultsFromTasks();
-      // ContinuationTask();
-      ParentAndChild();
+            //ResultsFromTasks();
+            //ContinuationTask();
+            ParentAndChild();
 
-      // HierarchyTasks("c:\\");
+            // HierarchyTasks("c:\\");
 
-    
-      Console.ReadLine();
+
+            Console.ReadLine();
     }
 
     private static void RunSynchronousTask()
@@ -45,7 +45,7 @@ namespace TaskSamples
     {
       var t1 = new Task<Tuple<int, int>>(TaskWithResult, Tuple.Create<int, int>(8, 3));
       t1.Start();
-      Console.WriteLine(t1.Result);
+      Console.WriteLine("t1.Result:" + t1.Result);
       t1.Wait();
       Console.WriteLine("result from task: {0} {1}", t1.Result.Item1, t1.Result.Item2);
     }
@@ -92,6 +92,10 @@ namespace TaskSamples
     static void DoOnFirst()
     {
       Console.WriteLine("doing some task {0}", Task.CurrentId);
+            try { throw new Exception("exception first"); }
+            
+            catch(Exception e) { Console.WriteLine(e.Message); }
+      
       Thread.Sleep(3000);
     }
 
