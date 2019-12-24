@@ -356,6 +356,67 @@ new Task(t, "s", TaskCreationOptions.LongRunning).Start
 Task的Result属性表示任务的结果;
 [连续的任务]
 ContinueWith(Task)创建一个在参数Task完成后才执行的任务;
-
-
-
+[取消架构]
+1.Parallel.For的取消:
+a.创建发出取消请求的实例,new CancellationTokenSource();
+b.注册取消时的操作,Token.Register;
+c.发出取消请求,CancelAfter/Cancel;
+d.定义接收请求的参数,Parallel.For重载方法的第三个参数传递new ParallelOptions()
+{CancellationToken = cts.Token}
+2.任务的取消:
+a.创建发出取消请求的实例,new CancellationTokenSource();
+b.注册取消时的操作,Token.Register;
+c.发出取消请求,CancelAfter/Cancel;
+d.在任务创建取消标记,CancellationToken.Token,使用标记的IsCancellationRequested
+属性检查是否发出取消申请;
+[线程池]
+ThreadPool.QueueUserWorkItem(WaitCallback):
+向线程池请求线程调度,执行WaitCallback方法;
+[thread类]
+new Thread(ThreadStart).Start启动一个线程;
+new Thread(ParameterizedThreadStart).Start;
+定义一个类,在类中定义传递给Thread构造函数的参数的方法;
+IsBackground指定线程是否为前台;
+Priority定义线程优先级;
+[线程同步]
+1.lock:
+应用于引用对象;
+i++:
+a.从内存中获取一个值;
+b.该值递增1;
+c.存储回内存;
+2.Interlocked.Increment:以原子方式读写变量;
+3.Monitor.TryEnter(obj, 500, ref lockTaken):
+等待500ms根据lockTaken的状态判断是否获得锁;
+Monitor.Exit释放锁;
+4.Mutex:
+new Mutex(false, "name", bool isNew);
+isNew判断名称为name的互斥是否存在;
+进程根据name判断互斥是否存在;
+Mutex.OpenExisting()打开已经存在的Mutex;
+Mutex.Watione获得互斥;
+Mutex.ReleaseMutex释放互斥;
+5.SemaphoreSlim:
+a.创建new SemaphoreSlim(init, max)实例,
+init指定初始化信号量请求数,max指定最大信号量请求数;
+b.semaphore.Wait(t)等待t时间后获取信号量;
+c.Release释放信号量;
+6.ManualResetEventSlim:
+a.创建ManualResetEventSlim、WaitHandle实例,
+b.类中定义ManualResetEventSlim对象,使用创建ManualResetEventSlim的WaitHandle
+属性给WaitHandle实例赋值;
+c.任务中使用ManualResetEventSlim的set发送信号;
+d.WaitHandle.WaitAny()等待ManualResetEventSlim的set发送的信号;
+e.ManualResetEventSlim的Reset复位到不发送信号的状态;
+7.ReaderWriterLockSlim:
+a.创建ReaderWriterLockSlim实例;
+b.EnterReadLock获取读锁,ExitReadLock释放读锁;
+c.TryEnterWriteLock(t)在t的时间里尝试获取锁;
+ExitWriteLock释放锁;
+[Timer类]
+System.Threading.Timer定义一个定时任务;
+System.Timers.Timer:
+a.创建定时器;
+b.AutoReset属性定义是否重复;
+c.Elapsed定义方法;
+e.Start/Stop开始/停止;
