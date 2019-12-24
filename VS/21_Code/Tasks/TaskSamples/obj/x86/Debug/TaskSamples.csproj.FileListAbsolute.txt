@@ -19,3 +19,9 @@ C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TaskSamples\bin\Deb
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TaskSamples\bin\Debug\TaskSamples.pdb
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TaskSamples\obj\x86\Debug\TaskSamples.exe
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TaskSamples\obj\x86\Debug\TaskSamples.pdb
+D:\study\VS\21_Code\Tasks\TaskSamples\bin\Debug\TaskSamples.exe.config
+D:\study\VS\21_Code\Tasks\TaskSamples\bin\Debug\TaskSamples.exe
+D:\study\VS\21_Code\Tasks\TaskSamples\bin\Debug\TaskSamples.pdb
+D:\study\VS\21_Code\Tasks\TaskSamples\obj\x86\Debug\TaskSamples.csprojAssemblyReference.cache
+D:\study\VS\21_Code\Tasks\TaskSamples\obj\x86\Debug\TaskSamples.exe
+D:\study\VS\21_Code\Tasks\TaskSamples\obj\x86\Debug\TaskSamples.pdb

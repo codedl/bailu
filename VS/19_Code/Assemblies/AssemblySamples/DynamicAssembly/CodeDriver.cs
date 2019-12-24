@@ -8,7 +8,8 @@ using Microsoft.CSharp;
 
 namespace Wrox.ProCSharp.Assemblies
 {
-  public class CodeDriver : MarshalByRefObject
+    //派生MarshalByRefObject才能让另一个程序域访问
+    public class CodeDriver : MarshalByRefObject
   {
     private string prefix =
        "using System;" +

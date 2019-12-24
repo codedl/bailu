@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSamples", "TaskSamples\TaskSamples.csproj", "{CEE0A0A8-60EE-4CA4-9073-AEFC3E2FF99A}"
 EndProject
@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E4DBE4
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "semaphore", "semaphore\semaphore.csproj", "{BB93DB7A-1E37-4CBC-B930-6593F0424750}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,8 +179,23 @@ Global
 		{32A62E7E-8699-432C-8A6D-E2211E6B2F7C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{32A62E7E-8699-432C-8A6D-E2211E6B2F7C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{32A62E7E-8699-432C-8A6D-E2211E6B2F7C}.Release|x86.ActiveCfg = Release|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Debug|x86.Build.0 = Debug|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Release|x86.ActiveCfg = Release|Any CPU
+		{BB93DB7A-1E37-4CBC-B930-6593F0424750}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49EE1BEB-BC40-472E-80E4-432EBBD87E6F}
 	EndGlobalSection
 EndGlobal

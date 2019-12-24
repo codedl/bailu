@@ -33,37 +33,38 @@ namespace Wrox.ProCSharp.Threading
     {
         static void Main()
         {
-            FirstThread();
+            //FirstThread();
 
-            //var t1 = new Thread(Prio);
-            //t1.Name = "First";
+            var t1 = new Thread(Prio);
+            t1.Name = "First";
 
-            //var t2 = new Thread(Prio);
-            //t2.Name = "Second";
-            //t1.Priority = ThreadPriority.Highest;
-            //t2.Priority = ThreadPriority.Lowest;
+            var t2 = new Thread(Prio);
+            t2.Name = "Second";
+            t1.Priority = ThreadPriority.Highest;
+            t2.Priority = ThreadPriority.Lowest;
 
-            //t1.Start();
-            //t2.Start();
+            t1.Start();
+            t2.Start();
 
-            //var t1 = new Thread(ThreadMain);
-            //t1.Name = "MyNewThread1";
-            //t1.IsBackground = true;
-            //t1.Start();
-            //Console.WriteLine("Main thread ending now...");
+            /* var t1 = new Thread(ThreadMain);
+             t1.Name = "MyNewThread1";
+             t1.IsBackground = false ;
+             t1.Start();
+             Console.WriteLine("Main thread ending now...");*/
 
-            //var d = new Data { Message = "Info" };
-            //var t2 = new Thread(ThreadMainWithParameters);
-            //t2.Start(d);
+            /* var d = new Data { Message = "Info" };
+             var t2 = new Thread(ThreadMainWithParameters);
+             t2.Start(d);
 
-            //var obj = new MyThread("info");
-            //var t3 = new Thread(obj.ThreadMain);
-            //t3.Start();
+             var obj = new MyThread("info");
+             var t3 = new Thread(obj.ThreadMain);
+             t3.Start();*/
+            Console.Read();
         }
 
         static void Prio()
         {
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 50; i++)
             {
                 Console.WriteLine("{0}, {1}", Thread.CurrentThread.Name, i);
             }

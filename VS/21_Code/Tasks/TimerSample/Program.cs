@@ -45,8 +45,8 @@ namespace Wrox.ProCSharp.Threading
 
         static void Main(string[] args)
         {
-            // ThreadingTimer();
-            TimersTimer();
+            ThreadingTimer();
+            //TimersTimer();
         }
     }
 }

@@ -64,3 +64,16 @@ I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debu
 I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssembly.csproj.GenerateResource.cache
 I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssembly.exe
 I:\work\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssembly.pdb
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\bin\Debug\DynamicAssembly.exe.config
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\bin\Debug\DynamicAssembly.exe
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\bin\Debug\DynamicAssembly.pdb
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssembly.csprojAssemblyReference.cache
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssemblyWindow.baml
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssemblyWindow.g.cs
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\App.g.cs
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssembly_MarkupCompile.cache
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssembly.g.resources
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\Wrox.ProCSharp.Assemblies.Properties.Resources.resources
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssembly.csproj.GenerateResource.cache
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssembly.exe
+D:\study\VS\19_Code\Assemblies\AssemblySamples\DynamicAssembly\obj\x86\Debug\DynamicAssembly.pdb

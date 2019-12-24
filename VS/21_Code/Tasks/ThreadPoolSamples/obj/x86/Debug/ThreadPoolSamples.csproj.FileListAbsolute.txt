@@ -19,3 +19,9 @@ C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\ThreadPoolSamples\b
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\ThreadPoolSamples\bin\Debug\ThreadPoolSamples.pdb
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\ThreadPoolSamples\obj\x86\Debug\ThreadPoolSamples.exe
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\ThreadPoolSamples\obj\x86\Debug\ThreadPoolSamples.pdb
+I:\work\study\VS\21_Code\Tasks\ThreadPoolSamples\bin\Debug\ThreadPoolSamples.exe.config
+I:\work\study\VS\21_Code\Tasks\ThreadPoolSamples\bin\Debug\ThreadPoolSamples.exe
+I:\work\study\VS\21_Code\Tasks\ThreadPoolSamples\bin\Debug\ThreadPoolSamples.pdb
+I:\work\study\VS\21_Code\Tasks\ThreadPoolSamples\obj\x86\Debug\ThreadPoolSamples.csprojAssemblyReference.cache
+I:\work\study\VS\21_Code\Tasks\ThreadPoolSamples\obj\x86\Debug\ThreadPoolSamples.exe
+I:\work\study\VS\21_Code\Tasks\ThreadPoolSamples\obj\x86\Debug\ThreadPoolSamples.pdb
