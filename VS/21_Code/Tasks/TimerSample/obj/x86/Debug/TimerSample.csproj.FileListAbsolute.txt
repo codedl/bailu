@@ -8,9 +8,3 @@ C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TimerSample\bin\Deb
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TimerSample\bin\Debug\TimerSample.pdb
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TimerSample\obj\x86\Debug\TimerSample.exe
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\TimerSample\obj\x86\Debug\TimerSample.pdb
-I:\work\study\VS\21_Code\Tasks\TimerSample\bin\Debug\TimerSample.exe.config
-I:\work\study\VS\21_Code\Tasks\TimerSample\bin\Debug\TimerSample.exe
-I:\work\study\VS\21_Code\Tasks\TimerSample\bin\Debug\TimerSample.pdb
-I:\work\study\VS\21_Code\Tasks\TimerSample\obj\x86\Debug\TimerSample.csprojAssemblyReference.cache
-I:\work\study\VS\21_Code\Tasks\TimerSample\obj\x86\Debug\TimerSample.exe
-I:\work\study\VS\21_Code\Tasks\TimerSample\obj\x86\Debug\TimerSample.pdb

@@ -18,9 +18,3 @@ C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\ThreadingIssues\bin
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\ThreadingIssues\bin\Debug\ThreadingIssues.pdb
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\ThreadingIssues\obj\x86\Debug\ThreadingIssues.exe
 C:\Users\Christian\Source\Repos\ProfessionalCSharp2013\Tasks\ThreadingIssues\obj\x86\Debug\ThreadingIssues.pdb
-I:\work\study\VS\21_Code\Tasks\ThreadingIssues\bin\Debug\ThreadingIssues.exe.config
-I:\work\study\VS\21_Code\Tasks\ThreadingIssues\bin\Debug\ThreadingIssues.exe
-I:\work\study\VS\21_Code\Tasks\ThreadingIssues\bin\Debug\ThreadingIssues.pdb
-I:\work\study\VS\21_Code\Tasks\ThreadingIssues\obj\x86\Debug\ThreadingIssues.csprojAssemblyReference.cache
-I:\work\study\VS\21_Code\Tasks\ThreadingIssues\obj\x86\Debug\ThreadingIssues.exe
-I:\work\study\VS\21_Code\Tasks\ThreadingIssues\obj\x86\Debug\ThreadingIssues.pdb
