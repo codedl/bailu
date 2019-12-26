@@ -1,0 +1,9 @@
+D:\study\VS\24_Code\FileProperties\FileProperties\bin\Debug\FileProperties.exe.config
+D:\study\VS\24_Code\FileProperties\FileProperties\bin\Debug\FileProperties.exe
+D:\study\VS\24_Code\FileProperties\FileProperties\bin\Debug\FileProperties.pdb
+D:\study\VS\24_Code\FileProperties\FileProperties\obj\Debug\FileProperties.csprojAssemblyReference.cache
+D:\study\VS\24_Code\FileProperties\FileProperties\obj\Debug\FileProperties.Form1.resources
+D:\study\VS\24_Code\FileProperties\FileProperties\obj\Debug\FileProperties.Properties.Resources.resources
+D:\study\VS\24_Code\FileProperties\FileProperties\obj\Debug\FileProperties.csproj.GenerateResource.cache
+D:\study\VS\24_Code\FileProperties\FileProperties\obj\Debug\FileProperties.exe
+D:\study\VS\24_Code\FileProperties\FileProperties\obj\Debug\FileProperties.pdb

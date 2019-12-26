@@ -1,0 +1,9 @@
+D:\study\VS\24_Code\FilePropertiesAndMovement\FilePropertiesAndMovement\bin\Debug\FilePropertiesAndMovement.exe.config
+D:\study\VS\24_Code\FilePropertiesAndMovement\FilePropertiesAndMovement\bin\Debug\FilePropertiesAndMovement.exe
+D:\study\VS\24_Code\FilePropertiesAndMovement\FilePropertiesAndMovement\bin\Debug\FilePropertiesAndMovement.pdb
+D:\study\VS\24_Code\FilePropertiesAndMovement\FilePropertiesAndMovement\obj\Debug\FilePropertiesAndMovement.csprojAssemblyReference.cache
+D:\study\VS\24_Code\FilePropertiesAndMovement\FilePropertiesAndMovement\obj\Debug\FilePropertiesAndMovement.Form1.resources
+D:\study\VS\24_Code\FilePropertiesAndMovement\FilePropertiesAndMovement\obj\Debug\FilePropertiesAndMovement.Properties.Resources.resources
+D:\study\VS\24_Code\FilePropertiesAndMovement\FilePropertiesAndMovement\obj\Debug\FilePropertiesAndMovement.csproj.GenerateResource.cache
+D:\study\VS\24_Code\FilePropertiesAndMovement\FilePropertiesAndMovement\obj\Debug\FilePropertiesAndMovement.exe
+D:\study\VS\24_Code\FilePropertiesAndMovement\FilePropertiesAndMovement\obj\Debug\FilePropertiesAndMovement.pdb

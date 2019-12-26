@@ -1,0 +1,9 @@
+D:\study\VS\24_Code\ReadingFiles\ReadingFiles\bin\Debug\ReadingFiles.exe.config
+D:\study\VS\24_Code\ReadingFiles\ReadingFiles\bin\Debug\ReadingFiles.exe
+D:\study\VS\24_Code\ReadingFiles\ReadingFiles\bin\Debug\ReadingFiles.pdb
+D:\study\VS\24_Code\ReadingFiles\ReadingFiles\obj\Debug\ReadingFiles.csprojAssemblyReference.cache
+D:\study\VS\24_Code\ReadingFiles\ReadingFiles\obj\Debug\ReadingFiles.Form1.resources
+D:\study\VS\24_Code\ReadingFiles\ReadingFiles\obj\Debug\ReadingFiles.Properties.Resources.resources
+D:\study\VS\24_Code\ReadingFiles\ReadingFiles\obj\Debug\ReadingFiles.csproj.GenerateResource.cache
+D:\study\VS\24_Code\ReadingFiles\ReadingFiles\obj\Debug\ReadingFiles.exe
+D:\study\VS\24_Code\ReadingFiles\ReadingFiles\obj\Debug\ReadingFiles.pdb

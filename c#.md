@@ -420,3 +420,11 @@ a.创建定时器;
 b.AutoReset属性定义是否重复;
 c.Elapsed定义方法;
 e.Start/Stop开始/停止;
+<文件和注册表操作>
+[读写文件]
+File.ReadAllText(),ReadAllLines(),ReadAllBytes()
+读取文件内容;
+File.WriteAllText()....
+写文件;
+[ReadByte]
+从文件中读取一个字节,把结果转化成0-255之间的整数;

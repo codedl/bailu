@@ -49,7 +49,7 @@
             this.textBoxContents.Multiline = true;
             this.textBoxContents.Name = "textBoxContents";
             this.textBoxContents.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxContents.Size = new System.Drawing.Size(284, 265);
+            this.textBoxContents.Size = new System.Drawing.Size(284, 245);
             this.textBoxContents.TabIndex = 1;
             // 
             // menuItem1
@@ -72,9 +72,9 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 265);
+            this.ClientSize = new System.Drawing.Size(284, 245);
             this.Controls.Add(this.textBoxContents);
             this.Menu = this.mainMenu1;
             this.Name = "Form1";

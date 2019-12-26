@@ -1,0 +1,9 @@
+D:\study\VS\24_Code\BinaryFileReader\BinaryFileReader\bin\Debug\BinaryFileReader.exe.config
+D:\study\VS\24_Code\BinaryFileReader\BinaryFileReader\bin\Debug\BinaryFileReader.exe
+D:\study\VS\24_Code\BinaryFileReader\BinaryFileReader\bin\Debug\BinaryFileReader.pdb
+D:\study\VS\24_Code\BinaryFileReader\BinaryFileReader\obj\Debug\BinaryFileReader.csprojAssemblyReference.cache
+D:\study\VS\24_Code\BinaryFileReader\BinaryFileReader\obj\Debug\BinaryFileReader.Form1.resources
+D:\study\VS\24_Code\BinaryFileReader\BinaryFileReader\obj\Debug\BinaryFileReader.Properties.Resources.resources
+D:\study\VS\24_Code\BinaryFileReader\BinaryFileReader\obj\Debug\BinaryFileReader.csproj.GenerateResource.cache
+D:\study\VS\24_Code\BinaryFileReader\BinaryFileReader\obj\Debug\BinaryFileReader.exe
+D:\study\VS\24_Code\BinaryFileReader\BinaryFileReader\obj\Debug\BinaryFileReader.pdb

@@ -1,0 +1,10 @@
+D:\study\VS\24_Code\ReadWriteText\ReadWriteText\bin\Debug\TextFile1.txt
+D:\study\VS\24_Code\ReadWriteText\ReadWriteText\bin\Debug\ReadWriteText.exe.config
+D:\study\VS\24_Code\ReadWriteText\ReadWriteText\bin\Debug\ReadWriteText.exe
+D:\study\VS\24_Code\ReadWriteText\ReadWriteText\bin\Debug\ReadWriteText.pdb
+D:\study\VS\24_Code\ReadWriteText\ReadWriteText\obj\Debug\ReadWriteText.csprojAssemblyReference.cache
+D:\study\VS\24_Code\ReadWriteText\ReadWriteText\obj\Debug\ReadWriteText.Form1.resources
+D:\study\VS\24_Code\ReadWriteText\ReadWriteText\obj\Debug\ReadWriteText.Properties.Resources.resources
+D:\study\VS\24_Code\ReadWriteText\ReadWriteText\obj\Debug\ReadWriteText.csproj.GenerateResource.cache
+D:\study\VS\24_Code\ReadWriteText\ReadWriteText\obj\Debug\ReadWriteText.exe
+D:\study\VS\24_Code\ReadWriteText\ReadWriteText\obj\Debug\ReadWriteText.pdb

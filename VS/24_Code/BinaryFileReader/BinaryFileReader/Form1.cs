@@ -48,6 +48,7 @@ namespace BinaryFileReader
                 nextLine.Capacity = 4*nCols;
                 for (int j = 0; j < nCols; j++)
                 {
+                    
                     int nextByte = inStream.ReadByte();
                     nBytesRead++;
                     if (nextByte < 0 || nBytesRead > 65536)
