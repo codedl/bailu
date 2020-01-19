@@ -428,3 +428,8 @@ File.WriteAllText()....
 写文件;
 [ReadByte]
 从文件中读取一个字节,把结果转化成0-255之间的整数;
+<网络>
+<ADO.NET Entity Framework>
+<核心WPF>
+<用WPF编写业务应用程序>
+<WCF>
